@@ -4,22 +4,86 @@
   <meta charset="UTF-8">
   <title>{{ page.title }}</title>
   <style>
-    body { font-family: Arial; margin: 0; background: #f9f9f9; }
-    header { background: #762b53; color: white; padding: 20px; font-size: 24px; text-align: center; }
-    nav { background: #550f39; padding: 10px; text-align: center; }
-    nav a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; }
-    .container { display: flex; }
-    aside { width: 200px; background: #eee; padding: 15px; }
-    main { flex: 1; padding: 20px; background: white; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+    }
+    header {
+      background: #4A90E2;
+      color: white;
+      padding: 20px;
+      font-size: 24px;
+      text-align: center;
+    }
+    nav.topnav {
+      background: #2E6DA4;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+    }
+    nav.topnav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .container {
+      display: flex;
+    }
+    aside {
+      width: 200px;
+      background: #eee;
+      padding: 15px;
+      position: relative;
+    }
+    .submenu {
+      display: none;
+      position: absolute;
+      left: 200px;
+      top: 0;
+      background: #f0f0f0;
+      border-left: 1px solid #ccc;
+      padding: 10px;
+    }
+    .submenu a {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      text-decoration: none;
+    }
+    .submenu a:hover {
+      text-decoration: underline;
+    }
+    .has-submenu {
+      cursor: pointer;
+      position: relative;
+    }
+    .has-submenu:hover .submenu {
+      display: block;
+    }
+    main {
+      flex: 1;
+      padding: 20px;
+      background: white;
+    }
   </style>
 </head>
 <body>
+
   {% include header.html %}
+  <nav class="topnav">
+    <a href="/">Accueil</a>
+    <a href="/page2">À propos</a>
+    <a href="/ressources">Ressources</a>
+  </nav>
+
   <div class="container">
     {% include sidebar.html %}
     <main>
       {{ content }}
     </main>
   </div>
+
 </body>
 </html>
