@@ -45,39 +45,17 @@
       width: 200px;
       background: #eee;
       padding: 15px;
-      position: relative;
     }
 
-    .submenu {
-      display: none;
-      position: absolute;
-      left: 200px;
-      top: 0;
-      width: 300px;
-      background: #f0f0f0;
-      border-left: 1px solid #ccc;
-      padding: 10px;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .submenu a {
+    aside a {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       color: #333;
       text-decoration: none;
     }
 
-    .submenu a:hover {
+    aside a:hover {
       text-decoration: underline;
-    }
-
-    .has-submenu {
-      cursor: pointer;
-      position: relative;
-    }
-
-    .has-submenu:hover .submenu {
-      display: block;
     }
 
     main {
@@ -88,14 +66,23 @@
   </style>
 </head>
 <body>
-  {% include header.html %}<nav class="topnav">
+  {% include header.html %}
+
+  <nav class="topnav">
     <a href="/">Accueil</a>
-    <a href="/work">Work</a>
+    <a href="/apropos">À propos</a>
     <a href="/ressources">Ressources</a>
   </nav>
 
   <div class="container">
-    {% include sidebar.html %}
+    {% if page.title == "À propos" %}
+      {% include sidebar-apropos.html %}
+    {% elsif page.title == "Ressources" %}
+      {% include sidebar-ressources.html %}
+    {% else %}
+      {% include sidebar.html %}
+    {% endif %}
+
     <main>
       {{ content }}
     </main>
