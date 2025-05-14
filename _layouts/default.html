@@ -70,15 +70,15 @@
 
   <nav class="topnav">
     <a href="/">Accueil</a>
-    <a href="/work.html">Work</a>
-    <a href="/contacts.html">Contacts</a>
+    <a href="/research.html">Research</a>
+    <a href="/contact.html">Contacts</a>
   </nav>
 
   <div class="container">
-    {% if page.title == "work" %}
-      {% include sidebar-work.html %}
-    {% elsif page.title == "contacts" %}
-      {% include sidebar-contacts.html %}
+    {% if page.title == "research" %}
+      {% include sidebar-research.html %}
+    {% elsif page.title == "contact" %}
+      {% include sidebar-contact.html %}
     {% else %}
       {% include sidebar.html %}
     {% endif %}
