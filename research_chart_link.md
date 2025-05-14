@@ -8,7 +8,10 @@ title: Research
 <br><br>
 <br><br>
 
-<p>Téléchargement de l'abaque au format .pdf :</p>
+<div style="text-align: center">
+   <p>Téléchargement de l'abaque au format .pdf :</p>
+</div>
+
 
 <div style="text-align: center; margin-bottom: 60px; margin-top: 20px;">
   <a href="/assets/pdf/chart_EF.pdf" download
