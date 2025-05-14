@@ -3,70 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page avec fonctionnalités diverses</title>
+    <title>Page avec onglets</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
         header {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 0;
+            padding: 15px;
             text-align: center;
         }
-        .content {
-            margin-top: 20px;
+        .tabs {
+            display: flex;
+            justify-content: center;
+            background-color: #ddd;
         }
-        .video-container, .image-container {
-            text-align: center;
-            margin-bottom: 20px;
+        .tabs button {
+            background-color: inherit;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 20px;
+            transition: 0.3s;
+            font-size: 16px;
         }
-        a {
-            color: #4CAF50;
-            text-decoration: none;
-            font-weight: bold;
+        .tabs button:hover {
+            background-color: #ccc;
         }
-        a:hover {
-            text-decoration: underline;
+        .tabs button.active {
+            background-color: #bbb;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        video, img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: auto;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Bienvenue sur ma page HTML</h1>
+    <h1>Page avec Onglets</h1>
 </header>
 
-<div class="content">
-    <!-- Texte -->
-    <section>
-        <p>Voici une page simple avec différentes fonctionnalités. Vous trouverez ci-dessous une vidéo, une image et un lien vers une autre page HTML.</p>
-    </section>
-
-    <!-- Vidéo -->
-    <section class="video-container">
-        <h2>Regarder une vidéo</h2>
-        <video width="640" height="360" controls>
-            <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
-            Votre navigateur ne prend pas en charge la lecture de vidéos.
-        </video>
-    </section>
-
-    <!-- Image -->
-    <section class="image-container">
-        <h2>Voici une image</h2>
-        <img src="https://www.w3schools.com/w3images/fjords.jpg" alt="Image des fjords" width="500">
-    </section>
-
-    <!-- Lien vers une autre page -->
-    <section>
-        <h2>Allez vers une autre page</h2>
-        <p>Pour plus d'informations, <a href="autre-page.html">cliquez ici</a>.</p>
-    </section>
+<!-- Onglets -->
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'texte')">Texte</button>
+    <button class="tab-button" onclick="openTab(event, 'video')">Vidéo</button>
+    <button class="tab-button" onclick="openTab(event, 'image')">Image</button>
+    <button class="tab-button" onclick="openTab(event, 'lien')">Lien</button>
 </div>
+
+<!-- Contenu des onglets -->
+<div id="texte" class="tab-content active">
+    <h2>Texte</h2>
+    <p>Bienvenue sur cette page avec des onglets ! Chaque onglet montre un contenu différent.</p>
+</div>
+
+<div id="video" class="tab-content">
+    <h2>Vidéo</h2>
+    <video controls>
+        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+        Votre navigateur ne prend pas en charge la lecture de vidéos.
+    </video>
+</div>
+
+<div id="image" class="tab-content">
+    <h2>Image</h2>
+    <img src="https://www.w3schools.com/w3images/fjords.jpg" alt="Image de démonstration">
+</div>
+
+<div id="lien" class="tab-content">
+    <h2>Lien</h2>
+    <p>Accédez à une autre page : <a href="autre-page.html">Cliquez ici</a>.</p>
+</div>
+
+<!-- Script JavaScript -->
+<script>
+function openTab(evt, tabId) {
+    var i, tabcontent, tabbuttons;
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].classList.remove("active");
+    }
+    tabbuttons = document.getElementsByClassName("tab-button");
+    for (i = 0; i < tabbuttons.length; i++) {
+        tabbuttons[i].classList.remove("active");
+    }
+    document.getElementById(tabId).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+</script>
 
 </body>
 </html>
