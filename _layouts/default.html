@@ -10,14 +10,14 @@
       background: #f9f9f9;
     }
     header {
-      background: #4A90E2;
+      background: #7e365e;
       color: white;
       padding: 20px;
       font-size: 24px;
       text-align: center;
     }
     nav.topnav {
-      background: #2E6DA4;
+      background: #580b39;
       padding: 10px;
       display: flex;
       justify-content: center;
@@ -38,13 +38,15 @@
       position: relative;
     }
     .submenu {
-      display: none;
-      position: absolute;
-      left: 200px;
-      top: 0;
-      background: #f0f0f0;
-      border-left: 1px solid #ccc;
-      padding: 10px;
+    display: none;
+    position: absolute;
+    left: 200px; /* distance depuis le bord gauche de l'aside */
+    top: 0;
+    width: 300px; /* ✅ Largeur personnalisée */
+    background: #f0f0f0;
+    border-left: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
     }
     .submenu a {
       display: block;
