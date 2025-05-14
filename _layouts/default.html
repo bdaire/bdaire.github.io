@@ -88,5 +88,38 @@
     </main>
   </div>
 
+  /* Ajoute ces styles à ton fichier CSS */
+
+aside .has-submenu {
+  position: relative;
+}
+
+aside .submenu {
+  display: none;
+  position: absolute;
+  left: 200px;  /* Décale le sous-menu à droite */
+  top: 0;
+  width: 200px; /* Largeur du sous-menu */
+  background: #f0f0f0;
+  padding: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+aside .has-submenu:hover .submenu {
+  display: block; /* Affiche le sous-menu au survol */
+}
+
+aside .submenu a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+}
+
+aside .submenu a:hover {
+  text-decoration: underline;
+}
+
+
 </body>
 </html>
