@@ -26,7 +26,7 @@ title: Research
 <div style="text-align: center; margin-bottom: 60px; margin-top: 30px;">
   <a href="/assets/other/chart_EF.fig" download
      style="background-color: #833c64; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold;">
-    📄 Download .fig
+    📄 .fig
   </a>
 </div>
 
