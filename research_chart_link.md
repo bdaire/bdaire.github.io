@@ -23,3 +23,4 @@ title: Research
   </a>
 </div>
 
+<p>Besoin d'un autre format ? d'informations complémentaires ? => Me contacter</p>
