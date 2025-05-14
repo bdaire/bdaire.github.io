@@ -3,4 +3,4 @@ layout: default
 title: Research
 ---
 
-Voici des informations à propos de moi.
+Liste des résultats issus des recherches menées
