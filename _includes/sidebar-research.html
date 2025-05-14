@@ -1,4 +1,59 @@
-<aside>
-  <a href="/research_chart.html">Class EF inverter design chart</a>
-  <a href="#">Symmetric Even Capacitive converter</a>
+<aside style="width: 200px; background: #eee; padding: 15px; font-family: Arial, sans-serif;">
+  <style>
+    .menu-item {
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .menu-link {
+      display: block;
+      color: #333;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px;
+    }
+
+    .menu-link:hover {
+      background-color: #ddd;
+    }
+
+    .submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #f5f5f5;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      min-width: 220px;
+      z-index: 1000;
+    }
+
+    .submenu a {
+      display: block;
+      padding: 8px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .submenu a:hover {
+      background: #ddd;
+    }
+
+    .menu-item:hover .submenu {
+      display: block;
+    }
+  </style>
+
+  <div class="menu-item">
+    <a href="/research_chart.html" class="menu-link">Class EF inverter design chart</a>
+  </div>
+
+  <div class="menu-item">
+    <a href="#" class="menu-link">Symmetric Even Capacitive converter ▾</a>
+    <div class="submenu">
+      <a href="/symmetric_overview.html">Overview</a>
+      <a href="/symmetric_design.html">Design Details</a>
+      <a href="/symmetric_results.html">Simulation Results</a>
+    </div>
+  </div>
 </aside>
