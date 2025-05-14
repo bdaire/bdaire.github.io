@@ -9,14 +9,14 @@ title: Research_chart
 
   <h3 style="margin-top: 0; color: #1A90E2;">Visualisation du PDF</h3>
 
-  <iframe src="/assets/pdf/mon-document.pdf"
+  <iframe src="/assets/pdf/chart_EF.pdf"
           width="100%"
           height="600px"
           style="border: 1px solid #ccc; border-radius: 8px;">
   </iframe>
 
   <div style="margin-top: 15px; text-align: right;">
-    <a href="/assets/pdf/mon-document.pdf" download
+    <a href="/assets/pdf/chart_EF.pdf" download
        style="background-color: #1A90E2; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
       📥 Télécharger le PDF
     </a>
