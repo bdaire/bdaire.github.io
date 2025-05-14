@@ -11,7 +11,7 @@ title: Research
 
 <div style="text-align: center; margin-bottom: 60px; margin-top: 20px;">
   <a href="/assets/pdf/chart_EF.pdf" download
-     style="background-color: #1A90E2; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+     style="background-color: #7e365e; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold;">
     📄 Télécharger le PDF complet
   </a>
 </div>
@@ -20,7 +20,7 @@ title: Research
 
 <div style="text-align: center; margin-bottom: 60px; margin-top: 20px;">
   <a href="/assets/other/chart_EF.fig" download
-     style="background-color: #1A90E2; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+     style="background-color: #7e365e; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold;">
     📄 Télécharger le .fig complet
   </a>
 </div>
