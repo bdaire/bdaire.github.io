@@ -1,6 +1,6 @@
 ---
 layout: default
-title: work
+title: research
 ---
 
 Voici des informations à propos de moi.
