@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Ressources
+title: Contact
 ---
 
 Voici des ressources utiles.
