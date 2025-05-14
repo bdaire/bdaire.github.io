@@ -1,1 +1,72 @@
-Site en construction
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page avec fonctionnalités diverses</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .content {
+            margin-top: 20px;
+        }
+        .video-container, .image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Bienvenue sur ma page HTML</h1>
+</header>
+
+<div class="content">
+    <!-- Texte -->
+    <section>
+        <p>Voici une page simple avec différentes fonctionnalités. Vous trouverez ci-dessous une vidéo, une image et un lien vers une autre page HTML.</p>
+    </section>
+
+    <!-- Vidéo -->
+    <section class="video-container">
+        <h2>Regarder une vidéo</h2>
+        <video width="640" height="360" controls>
+            <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+            Votre navigateur ne prend pas en charge la lecture de vidéos.
+        </video>
+    </section>
+
+    <!-- Image -->
+    <section class="image-container">
+        <h2>Voici une image</h2>
+        <img src="https://www.w3schools.com/w3images/fjords.jpg" alt="Image des fjords" width="500">
+    </section>
+
+    <!-- Lien vers une autre page -->
+    <section>
+        <h2>Allez vers une autre page</h2>
+        <p>Pour plus d'informations, <a href="autre-page.html">cliquez ici</a>.</p>
+    </section>
+</div>
+
+</body>
+</html>
