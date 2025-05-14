@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ page.title }}</title>
+  <style>
+    body { font-family: Arial; margin: 0; background: #f9f9f9; }
+    header { background: #4A90E2; color: white; padding: 20px; font-size: 24px; text-align: center; }
+    nav { background: #2E6DA4; padding: 10px; text-align: center; }
+    nav a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; }
+    .container { display: flex; }
+    aside { width: 200px; background: #eee; padding: 15px; }
+    main { flex: 1; padding: 20px; background: white; }
+  </style>
+</head>
+<body>
+  {% include header.html %}
+  <div class="container">
+    {% include sidebar.html %}
+    <main>
+      {{ content }}
+    </main>
+  </div>
+</body>
+</html>
