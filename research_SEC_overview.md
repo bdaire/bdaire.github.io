@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ESSAI
+title: Research
 ---
 
 Je suis un essai
