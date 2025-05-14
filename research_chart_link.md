@@ -5,7 +5,7 @@ title: Research
 
 ## Abaque de dimensionnement de l'onduleur de classe EF
 
-<br><br>
+<br><br><br>
 
 <p>Téléchargement de l'abaque au format .pdf :</p>
 
