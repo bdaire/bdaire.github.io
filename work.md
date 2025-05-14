@@ -1,6 +1,6 @@
 ---
 layout: default
-title: À propos
+title: work
 ---
 
 Voici des informations à propos de moi.
