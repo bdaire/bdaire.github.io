@@ -295,11 +295,11 @@ function plotCharts(res) {
             text: label
           },
           min: -2,
-          max: 2,
-          ticks: {
-          stepSize: 1
+          max: 2
         }
-        }
+      }
+    }
+  });
       }
     }
   });
