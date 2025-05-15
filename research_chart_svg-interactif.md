@@ -109,7 +109,7 @@ title: Research
   Click on the chart to dynamically see the waveforms of the circuit on the left. 
     
   Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case :S</div>
-  <div class="chart-block"><canvas id="vs-chart"></canvas></div>
+  <div class="chart-block"><canvas id="vs-chart" width="500" height="100"></canvas>
   <div class="chart-block"><canvas id="ie-chart"></canvas></div>
   <div class="chart-block"><canvas id="is-chart"></canvas></div>
   <div class="chart-block"><canvas id="ic-chart"></canvas></div>
