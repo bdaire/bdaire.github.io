@@ -51,18 +51,16 @@ title: Research
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  position: relative; /* position relative pour le texte absolu */
-  padding-top: 1.5rem; /* espace au dessus pour laisser place au texte */
+  /* plus besoin de position relative ou padding-top */
 }
 
 #top-text {
-  position: absolute;
-  top: 0;
-  right: 0;
   font-size: 0.9rem;
   color: #555;
-  white-space: nowrap;
+  margin-bottom: 1rem; /* espace entre le texte et les graphiques */
+  /* largeur, alignement et marge automatique */
 }
+
 
 
   .chart-block canvas {
@@ -95,15 +93,12 @@ title: Research
   </div>
 
   <div id="right-panel">
-    <div id="top-text" style="position: absolute; top: 0; right: 0; font-size: 0.9rem; color: #555;">
-    Voici un texte aligné avec circuit_EF.svg
-    </div>
-    <div class="chart-block"><canvas id="vs-chart"></canvas></div>
-    <div class="chart-block"><canvas id="ie-chart"></canvas></div>
-    <div class="chart-block"><canvas id="is-chart"></canvas></div>
-    <div class="chart-block"><canvas id="ic-chart"></canvas></div>
-    <div class="chart-block"><canvas id="sin-chart"></canvas></div>
-  </div>
+  <div id="top-text">Texte aligné avec le bord gauche des graphiques</div>
+  <div class="chart-block"><canvas id="vs-chart"></canvas></div>
+  <div class="chart-block"><canvas id="ie-chart"></canvas></div>
+  <div class="chart-block"><canvas id="is-chart"></canvas></div>
+  <div class="chart-block"><canvas id="ic-chart"></canvas></div>
+  <div class="chart-block"><canvas id="sin-chart"></canvas></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
