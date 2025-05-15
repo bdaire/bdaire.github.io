@@ -17,7 +17,7 @@ title: Research
   }
 
   #small-svg-wrapper svg {
-    width: 150px;  /* taille réduite du petit SVG */
+    width: 600px;  /* taille réduite du petit SVG */
     height: auto;
     display: block;
   }
