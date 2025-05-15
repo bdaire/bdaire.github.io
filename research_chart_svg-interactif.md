@@ -74,7 +74,7 @@ title: Research
 
   .chart-block canvas {
   width: 500px !important; /* ou la largeur que tu veux */
-  height: 160px;
+  height: 100px;
   max-width: 100%;
 }
 
