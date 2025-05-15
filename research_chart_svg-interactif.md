@@ -259,91 +259,60 @@ function plotCharts(res) {
   };
 
   const config = (label, data, color, showXAxisTitle = false) => ({
-    type: 'line',
-    data: {
-      datasets: [{
-        label,
-        data,
-        borderColor: color,
-        borderWidth: 2,
-        pointRadius: 0,
-        fill: false
-      }]
+  type: 'line',
+  data: {
+    datasets: [{
+      label,
+      data,
+      borderColor: color,
+      borderWidth: 2,
+      pointRadius: 0,
+      fill: false
+    }]
+  },
+  options: {
+    responsive: false,
+    layout: {
+      padding: {
+        top: 10,
+        bottom: 10,
+        left: 10,
+        right: 10
+      }
     },
-    options: {
-      responsive: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: {
-          type: 'linear',
-          min: 0,
-          max: 4 * PI,
-          title: {
-            display: showXAxisTitle,
-            text: 'ωt (rad)'
-          },
-          ticks: {
-            stepSize: PI,
-            callback: formatPi
-          }
+    plugins: {
+      legend: { display: false }
+    },
+    scales: {
+      x: {
+        type: 'linear',
+        min: 0,
+        max: 4 * PI,
+        title: {
+          display: showXAxisTitle,
+          text: 'ωt (rad)'
         },
-        y: {
-  title: {
-    display: true,
-    text: label
-  },
-  min: -2.1,  // un peu plus bas que -2 pour marge
-  max: 2.1,   // un peu plus haut que 2 pour marge
-  ticks: {
-    values: [-2, -1, 0, 1, 2],  // ticks fixes à afficher
-    callback: val => val.toString()
-  }
-}
-
-
-options: {
-  responsive: false,
-  layout: {
-    padding: {
-      top: 10,
-      bottom: 10,
-      left: 10,
-      right: 10
-    }
-  },
-  scales: {
-    y: {
-      min: -2,
-      max: 2,
-      ticks: {
-        stepSize: 1,
-        callback: val => val.toString()
-      }
-    },
-    x: {
-      type: 'linear',
-      min: 0,
-      max: 4 * PI,
-      title: {
-        display: showXAxisTitle,
-        text: 'ωt (rad)'
+        ticks: {
+          stepSize: PI,
+          callback: formatPi
+        }
       },
-      ticks: {
-        stepSize: PI,
-        callback: formatPi
+      y: {
+        title: {
+          display: true,
+          text: label
+        },
+        min: -2,
+        max: 2,
+        ticks: {
+          stepSize: 1,
+          callback: val => val.toString()
+        }
       }
     }
-  },
-  plugins: {
-    legend: { display: false }
   }
-}
+});
 
-
-
-      }
-    }
-  });
 
   // Générer les 5 graphes (les 4 premiers sans titre X, le dernier avec)
   const keys = ['vs', 'ie', 'is', 'ic', 'sin'];
