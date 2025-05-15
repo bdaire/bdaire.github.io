@@ -40,6 +40,16 @@ title: Research
     gap: 1rem;
     margin-top: 2rem;
   }
+
+  .charts-container {
+    margin-top: 1rem;
+  }
+
+  canvas {
+    margin-bottom: 2rem;
+    width: 100% !important;
+    height: auto !important;
+  }
 </style>
 
 <div class="container">
@@ -58,11 +68,18 @@ title: Research
     <p><strong>q :</strong> <span id="q-val">-</span></p>
     <p><strong>v :</strong> <span id="v-val">-</span></p>
 
-    <h3>Graphique de v_s(ωt) / V_DC</h3>
-    <canvas id="vs-chart" width="300" height="150" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
+    <h3>Graphique de v_s(ωt) / V_DC (1 période)</h3>
+    <canvas id="vs-chart" width="300" height="150"></canvas>
 
-    <h3>Graphiques des courants i_e, i, i_s, i_C en fonction de ωt</h3>
-    <canvas id="currents-chart" width="300" height="150" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
+    <div class="charts-container">
+      <h3>Courants normalisés i_e/I, i_s/I, i_c/I (2 périodes)</h3>
+      <canvas id="ie-chart" width="300" height="150"></canvas>
+      <canvas id="is-chart" width="300" height="150"></canvas>
+      <canvas id="ic-chart" width="300" height="150"></canvas>
+
+      <h3>sin(ωt + φ) (2 périodes)</h3>
+      <canvas id="sin-chart" width="300" height="150"></canvas>
+    </div>
   </div>
 </div>
 
@@ -134,6 +151,52 @@ function solveZVS(r, x) {
   return null;
 }
 
+function generateCurrents(theta, phi, omega_t_array) {
+  // Retourne i_e/I, i_s/I, i_c/I sur un tableau omega_t_array sur 2 périodes
+  const ie = [];
+  const is = [];
+  const ic = [];
+
+  for (const wt of omega_t_array) {
+    // on normalise à la période 2pi (modulo)
+    let mod_wt = wt % (2 * PI);
+
+    // Fonctions trigonométriques utilisées
+    const sinArg = Math.sin(mod_wt + phi);
+
+    // i_e/I
+    if (mod_wt < PI - theta) {
+      ie.push(sinArg);
+    } else if (mod_wt < PI) {
+      ie.push(0);
+    } else if (mod_wt < 2 * PI - theta) {
+      ie.push(-sinArg);
+    } else {
+      ie.push(0);
+    }
+
+    // i_c/I
+    if (mod_wt < PI - theta) {
+      ic.push(0);
+    } else if (mod_wt < PI) {
+      ic.push(sinArg);
+    } else if (mod_wt < 2 * PI - theta) {
+      ic.push(0);
+    } else {
+      ic.push(sinArg);
+    }
+
+    // i_s/I
+    if (mod_wt < PI - theta) {
+      is.push(2 * sinArg);
+    } else {
+      is.push(0);
+    }
+  }
+
+  return { ie, is, ic };
+}
+
 fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
   .then(svgText => {
@@ -193,149 +256,123 @@ fetch('/assets/img/chart_EF.svg')
         const theta = res.theta;
         const phi = res.phi || 0;
         const i = res.i;
+
+        // --- Graphe v_s sur 1 période ---
+        const vsLabels = [];
         const vsData = [];
-        const ieData = [];
-        const iData = [];
-        const isData = [];
-        const icData = [];
-        const labels = [];
         const N = 500;
-
         for (let k = 0; k <= N; k++) {
-          const wt = (k / N) * 4 * Math.PI; // 2 périodes (0 à 4π)
-          const wt_mod = wt % (2 * Math.PI);
-
-          // vs(ωt)
+          const wt = (k / N) * 2 * PI;
           let vs;
-          if (wt_mod <= Math.PI - theta) {
+          if (wt <= PI - theta) {
             vs = 0;
-          } else if (wt_mod <= Math.PI) {
-            vs = -i * (Math.cos(phi - theta) + Math.cos(wt_mod + phi));
-          } else if (wt_mod <= 2 * Math.PI - theta) {
+          } else if (wt <= PI) {
+            vs = -i * (Math.cos(phi - theta) + Math.cos(wt + phi));
+          } else if (wt <= 2 * PI - theta) {
             vs = 2;
           } else {
-            vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wt_mod + phi));
+            vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wt + phi));
           }
+          vsLabels.push(wt.toFixed(2));
           vsData.push(vs);
-          labels.push(wt.toFixed(2));
-
-          // Calcul des courants (formules types, à ajuster selon ta modélisation)
-          // i_e : courant injecté — ici i * sin(wt_mod + phi)
-          ieData.push(i * Math.sin(wt_mod + phi));
-
-          // i : courant total — ici i * cos(wt_mod + phi)
-          iData.push(i * Math.cos(wt_mod + phi));
-
-          // i_s : courant secondaire — ici i * sin(wt_mod)
-          isData.push(i * Math.sin(wt_mod));
-
-          // i_C : courant condensateur — exemple sinusoïde décalée
-          icData.push(i * Math.sin(wt_mod - phi));
         }
 
-        const ctx = document.getElementById('vs-chart').getContext('2d');
-        if (window.vsChart) {
-          window.vsChart.data.labels = labels;
-          window.vsChart.data.datasets[0].data = vsData;
-          window.vsChart.update();
-        } else {
-          window.vsChart = new Chart(ctx, {
+        if (window.vsChart) window.vsChart.destroy();
+        const ctxVs = document.getElementById('vs-chart').getContext('2d');
+        window.vsChart = new Chart(ctxVs, {
+          type: 'line',
+          data: {
+            labels: vsLabels,
+            datasets: [{
+              label: 'v_s(ωt)/V_DC',
+              data: vsData,
+              borderColor: 'blue',
+              fill: false,
+              pointRadius: 0,
+              borderWidth: 2,
+            }]
+          },
+          options: {
+            animation: false,
+            scales: {
+              x: { title: { display: true, text: 'ωt (rad)' } },
+              y: { title: { display: true, text: 'v_s / V_DC' } }
+            }
+          }
+        });
+
+        // --- Graphe des courants normalisés sur 2 périodes ---
+        const twoPeriodsN = 1000;
+        const omegaTArray = [];
+        for (let k = 0; k <= twoPeriodsN; k++) omegaTArray.push((k / twoPeriodsN) * 4 * PI);
+
+        const currents = generateCurrents(theta, phi, omegaTArray);
+
+        function plotCurrent(id, dataArr, label, color) {
+          const labels = omegaTArray.map(wt => wt.toFixed(2));
+          if (window[id]) window[id].destroy();
+          const ctx = document.getElementById(id).getContext('2d');
+          window[id] = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: labels,
+              labels,
               datasets: [{
-                label: 'v_s(ωt) / V_DC',
-                data: vsData,
-                borderColor: 'blue',
-                borderWidth: 2,
-                pointRadius: 0,
+                label,
+                data: dataArr,
+                borderColor: color,
                 fill: false,
+                pointRadius: 0,
+                borderWidth: 2,
               }]
             },
             options: {
+              animation: false,
               scales: {
-                x: {
-                  title: { display: true, text: 'ωt (rad)' },
-                  ticks: { maxTicksLimit: 10 }
-                },
-                y: {
-                  title: { display: true, text: 'v_s / V_DC' },
-                  suggestedMin: -1,
-                  suggestedMax: 3
-                }
+                x: { title: { display: true, text: 'ωt (rad)' } },
+                y: { title: { display: true, text: label } }
               }
             }
           });
         }
 
-        const ctx2 = document.getElementById('currents-chart').getContext('2d');
-        if (window.currentsChart) {
-          window.currentsChart.data.labels = labels;
-          window.currentsChart.data.datasets[0].data = ieData;
-          window.currentsChart.data.datasets[1].data = iData;
-          window.currentsChart.data.datasets[2].data = isData;
-          window.currentsChart.data.datasets[3].data = icData;
-          window.currentsChart.update();
-        } else {
-          window.currentsChart = new Chart(ctx2, {
-            type: 'line',
-            data: {
-              labels: labels,
-              datasets: [
-                {
-                  label: 'i_e(ωt)',
-                  data: ieData,
-                  borderColor: 'red',
-                  borderWidth: 2,
-                  pointRadius: 0,
-                  fill: false,
-                },
-                {
-                  label: 'i(ωt)',
-                  data: iData,
-                  borderColor: 'green',
-                  borderWidth: 2,
-                  pointRadius: 0,
-                  fill: false,
-                },
-                {
-                  label: 'i_s(ωt)',
-                  data: isData,
-                  borderColor: 'orange',
-                  borderWidth: 2,
-                  pointRadius: 0,
-                  fill: false,
-                },
-                {
-                  label: 'i_C(ωt)',
-                  data: icData,
-                  borderColor: 'purple',
-                  borderWidth: 2,
-                  pointRadius: 0,
-                  fill: false,
-                }
-              ]
-            },
-            options: {
-              scales: {
-                x: {
-                  title: { display: true, text: 'ωt (rad)' },
-                  ticks: { maxTicksLimit: 10 }
-                },
-                y: {
-                  title: { display: true, text: 'Courants' },
-                  suggestedMin: -Math.max(i, 1),
-                  suggestedMax: Math.max(i, 1)
-                }
-              }
+        plotCurrent('ie-chart', currents.ie, 'i_e / I', 'red');
+        plotCurrent('is-chart', currents.is, 'i_s / I', 'green');
+        plotCurrent('ic-chart', currents.ic, 'i_c / I', 'orange');
+
+        // --- Graphe de sin(ωt + φ) sur 2 périodes ---
+        const sinData = omegaTArray.map(wt => Math.sin(wt + phi));
+        if (window.sinChart) window.sinChart.destroy();
+        const ctxSin = document.getElementById('sin-chart').getContext('2d');
+        window.sinChart = new Chart(ctxSin, {
+          type: 'line',
+          data: {
+            labels: omegaTArray.map(wt => wt.toFixed(2)),
+            datasets: [{
+              label: 'sin(ωt + φ)',
+              data: sinData,
+              borderColor: 'purple',
+              fill: false,
+              pointRadius: 0,
+              borderWidth: 2,
+            }]
+          },
+          options: {
+            animation: false,
+            scales: {
+              x: { title: { display: true, text: 'ωt (rad)' } },
+              y: { title: { display: true, text: 'sin(ωt + φ)' } }
             }
-          });
-        }
+          }
+        });
+
+      } else {
+        // Effacer graphiques si pas de résultat
+        if (window.vsChart) window.vsChart.destroy();
+        if (window.ieChart) window.ieChart.destroy();
+        if (window.isChart) window.isChart.destroy();
+        if (window.icChart) window.icChart.destroy();
+        if (window.sinChart) window.sinChart.destroy();
       }
     });
-  })
-  .catch(error => {
-    document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG.";
-    console.error("Erreur lors du chargement du SVG :", error);
   });
 </script>
