@@ -49,9 +49,12 @@ title: Research
     gap: 1rem;
   }
 
+  /* Suppression du width: 100% sur canvas qui cause des tremblements */
   canvas {
-    width: 100% !important;
-    height: auto !important;
+    display: block;
+    /* taille fixe en pixels pour éviter les redimensionnements intempestifs */
+    width: 400px;
+    height: 200px;
   }
 
   .chart-block {
@@ -82,11 +85,11 @@ title: Research
   </div>
 
   <div id="right-panel">
-    <div class="chart-block"><canvas id="vs-chart"></canvas></div>
-    <div class="chart-block"><canvas id="ie-chart"></canvas></div>
-    <div class="chart-block"><canvas id="is-chart"></canvas></div>
-    <div class="chart-block"><canvas id="ic-chart"></canvas></div>
-    <div class="chart-block"><canvas id="sin-chart"></canvas></div>
+    <div class="chart-block"><canvas id="vs-chart" width="400" height="200"></canvas></div>
+    <div class="chart-block"><canvas id="ie-chart" width="400" height="200"></canvas></div>
+    <div class="chart-block"><canvas id="is-chart" width="400" height="200"></canvas></div>
+    <div class="chart-block"><canvas id="ic-chart" width="400" height="200"></canvas></div>
+    <div class="chart-block"><canvas id="sin-chart" width="400" height="200"></canvas></div>
   </div>
 </div>
 
@@ -260,43 +263,42 @@ fetch('/assets/img/chart_EF.svg')
         }
 
         const config = (label, data, color) => ({
-  type: 'line',
-  data: {
-    labels: labels,
-    datasets: [{
-      label: label,
-      data: data,
-      borderColor: color,
-      borderWidth: 2,
-      pointRadius: 0,
-      fill: false,
-    }]
-  },
-  options: {
-  plugins: {
-    title: {
-      display: false  // ça supprime le titre général du graphique
-    },
-    legend: {
-      display: false  // pour supprimer la légende si tu veux aussi
-    }
-  },
-  scales: {
-    x: {
-      title: { display: true, text: 'ωt (rad)' },  // titre de l’axe X conservé
-      ticks: { maxTicksLimit: 10 }
-    },
-    y: {
-      title: { display: true, text: label },  // titre de l’axe Y conservé
-      suggestedMin: -2,
-      suggestedMax: 3
-    }
-  }
-}
-
-
-});
-
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: label,
+              data: data,
+              borderColor: color,
+              borderWidth: 2,
+              pointRadius: 0,
+              fill: false,
+            }]
+          },
+          options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            plugins: {
+              title: {
+                display: false
+              },
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              x: {
+                title: { display: true, text: 'ωt (rad)' },
+                ticks: { maxTicksLimit: 10 }
+              },
+              y: {
+                title: { display: true, text: label },
+                suggestedMin: -2,
+                suggestedMax: 3
+              }
+            }
+          }
+        });
 
         const ctxs = {
           vs: document.getElementById('vs-chart').getContext('2d'),
