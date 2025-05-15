@@ -112,14 +112,14 @@ title: Research
       <div><strong>I =</strong> <span id="i-phys-inline">-</span></div>
       <div><strong>P =</strong> <span id="p-phys-inline">-</span></div>
     </div>
-  </div>
 
   <!-- Colonne 3 : valeurs calculées -->
   <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-  <div><strong>D (%) =</strong> <span id="D-percent">-</span></div>
-  <div><strong>q =</strong> <span id="q-val-inline">-</span></div>
-  <div><strong>Vcutoff (V) =</strong> <span id="vcutoff-val">-</span></div>
+    <div><strong>D (%) =</strong> <span id="D-percent">-</span></div>
+    <div><strong>q =</strong> <span id="q-val-inline">-</span></div>
+    <div><strong>Vcutoff (V) =</strong> <span id="vcutoff-val">-</span></div>
   </div>
+</div>
 
 
   <div id="svg-wrapper">Chargement du SVG principal...</div>
