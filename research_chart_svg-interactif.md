@@ -290,7 +290,7 @@ function plotCharts(res) {
             text: label
           },
           min: -2,
-          max: 2.1
+          max: 2
         }
       }
     }
