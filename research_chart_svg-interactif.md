@@ -51,17 +51,6 @@ title: Research
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    margin-top: 4rem; /* Décalage vers le bas */
-    position: relative; /* Pour positionner le texte */
-  }
-
-  #top-text {
-    position: absolute;
-    top: 0;
-    right: 0;
-    font-size: 0.9rem;
-    color: #555;
-    white-space: nowrap;
   }
 
   .chart-block canvas {
@@ -94,8 +83,6 @@ title: Research
   </div>
 
   <div id="right-panel">
-    <div id="top-text">Voici un texte aligné avec circuit_EF.svg</div>
-
     <div class="chart-block"><canvas id="vs-chart"></canvas></div>
     <div class="chart-block"><canvas id="ie-chart"></canvas></div>
     <div class="chart-block"><canvas id="is-chart"></canvas></div>
@@ -296,54 +283,57 @@ function plotCharts(res) {
   });
 }
 
-async function loadSVG(url, container) {
-  const response = await fetch(url);
-  const svgText = await response.text();
-  container.innerHTML = svgText;
-  return container.querySelector('svg');
-}
 
-(async function main() {
-  const smallSvgWrapper = document.getElementById('small-svg-wrapper');
-  const svgWrapper = document.getElementById('svg-wrapper');
 
-  const smallSvg = await loadSVG('circuit_EF.svg', smallSvgWrapper);
-  const mainSvg = await loadSVG('chart_EF.svg', svgWrapper);
 
-  // Position du point initial
-  let r = 0.25, x = 0.2;
 
-  function update() {
-    const distance = Math.sqrt(r * r + x * x);
+// === Chargement des SVG ===
+fetch('/assets/img/circuit_EF.svg')
+  .then(res => res.text())
+  .then(svg => document.getElementById('small-svg-wrapper').innerHTML = svg)
+  .catch(() => document.getElementById('small-svg-wrapper').textContent = 'Erreur de chargement du petit SVG.');
 
-    // Zone
-    let zone = 'ZONE 3';
-    if (r <= 0.4) zone = 'ZONE 2';
-    if (r <= 0.1) zone = 'ZONE 1';
+fetch('/assets/img/chart_EF.svg')
+  .then(res => res.text())
+  .then(svgText => {
+    const wrapper = document.getElementById('svg-wrapper');
+    wrapper.innerHTML = svgText;
+    const svg = wrapper.querySelector('svg');
+    svg.setAttribute('id', 'mysvg');
 
-    // Solution
-    let res = null;
-    if (zone === 'ZONE 1') res = solveZCS(r, x);
-    else if (zone === 'ZONE 2') res = solveZVS(r, x);
+    svg.addEventListener('click', evt => {
+      const pt = svg.createSVGPoint();
+      pt.x = evt.clientX;
+      pt.y = evt.clientY;
+      const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
+      const [xPix, yPix] = [svgPoint.x, svgPoint.y];
 
-    // Mise à jour point sur svg
-    if (smallSvg) {
-      const bbox = smallSvg.viewBox.baseVal;
-      const cx = bbox.x + r * bbox.width;
-      const cy = bbox.y + x * bbox.height;
-      drawDot(smallSvg, cx, cy);
-    }
-    if (mainSvg) {
-      const bbox = mainSvg.viewBox.baseVal;
-      const cx = bbox.x + r * bbox.width;
-      const cy = bbox.y + x * bbox.height;
-      drawDot(mainSvg, cx, cy);
-    }
+      const r = 0.000531 * xPix - 0.1078;
+      const x = -0.001022 * yPix + 1.0918;
+      const dist = Math.sqrt(r * r + x * x);
 
-    updateInfoPanel(r, x, distance, zone, res);
-    if (res) plotCharts(res);
-  }
+      drawDot(svg, xPix, yPix);
 
-  update();
-})();
+      let zone = '-', res = null;
+      if (r < 0 || r > 2 / PI || x < 0 || x > 1) {
+        zone = 'Hors zone';
+      } else {
+        const rFrontier = getFrontierR(x);
+        if (r < rFrontier) {
+          zone = 'ZVS';
+          res = solveZVS(r, x);
+        } else {
+          zone = 'ZCS';
+          res = solveZCS(r, x);
+        }
+      }
+
+      updateInfoPanel(r, x, dist, zone, res);
+      if (res) plotCharts(res);
+    });
+  })
+  .catch(err => {
+    document.getElementById('svg-wrapper').textContent = 'Erreur de chargement du SVG principal.';
+    console.error("Erreur SVG:", err);
+  });
 </script>
