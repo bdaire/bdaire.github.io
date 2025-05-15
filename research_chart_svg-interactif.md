@@ -285,16 +285,18 @@ function plotCharts(res) {
           }
         },
         y: {
-          title: {
-            display: true,
-            text: label
-          },
-          min: -2,
-          max: 2,
-          ticks: {
-          stepSize: 1
-        }
-        }
+  min: -2,
+  max: 2.1,    // laisse un peu de marge pour la courbe
+  ticks: {
+    stepSize: 1,
+    callback: function(value) {
+      // afficher les ticks seulement jusqu'à 2.0
+      if (value > 2.0) return '';
+      return value;
+    }
+  }
+}
+
       }
     }
   });
