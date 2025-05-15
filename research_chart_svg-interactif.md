@@ -110,16 +110,17 @@ function solveZCS(r, x) {
 }
 
 function solveZVS(r, x) {
-  for (let j = 0; j < 1000; j++) {
-    const theta = (j / 999) * PI;
+  const PI = Math.PI;
+  for (let j = 0; j < 5000; j++) {
+    const theta = (j / 4999) * PI;
     const phiMin = (theta - PI) / 2;
-    for (let k = 0; k < 100; k++) {
-      const phi = phiMin + (k / 99) * -phiMin;
+    for (let k = 0; k < 500; k++) {
+      const phi = phiMin + (k / 499) * -phiMin;
       const sinTh = Math.sin(theta);
       const sinTerm = Math.sin(theta - 2 * phi);
       const rTh = (1 / PI) * sinTh * sinTerm;
       const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
-      if (Math.abs(rTh - r) < 0.01 && Math.abs(xTh - x) < 0.01) {
+      if (Math.abs(rTh - r) < 0.001 && Math.abs(xTh - x) < 0.001) {
         const p = (2 / PI) * (sinTh * sinTerm) / Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
         const D = 0.5 - theta / (2 * PI);
         const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
@@ -130,6 +131,7 @@ function solveZVS(r, x) {
   }
   return null;
 }
+
 
 fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
