@@ -292,15 +292,14 @@ function plotCharts(res) {
     display: true,
     text: label
   },
-  min: -2,
-  max: 2,
+  min: -2.1,  // un peu plus bas que -2 pour marge
+  max: 2.1,   // un peu plus haut que 2 pour marge
   ticks: {
-    stepSize: 1,
-    callback: val => val.toString()  // garde les ticks simples
-  },
-  bounds: 'ticks', // les limites correspondent aux ticks
-  grace: '5%'      // ajoute 5% de marge visuelle au-dessus et en dessous
+    values: [-2, -1, 0, 1, 2],  // ticks fixes à afficher
+    callback: val => val.toString()
+  }
 }
+
 
       }
     }
