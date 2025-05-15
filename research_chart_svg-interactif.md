@@ -63,8 +63,9 @@ title: Research
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 const PI = Math.PI;
-const frontier = Array.from({ length: 500 }, (_, i) => {
-  const theta = (i / 499) * PI;
+
+const frontier = Array.from({ length: 500 }, (_, j) => {
+  const theta = (j / 499) * PI;
   const r = (1 / PI) * Math.pow(Math.sin(theta), 2);
   const x = (1 / PI) * (theta - Math.sin(theta) * Math.cos(theta));
   return { theta, x, r };
@@ -126,7 +127,7 @@ function solveZVS(r, x) {
   }
   return null;
 }
-  
+
 fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
   .then(svgText => {
@@ -202,7 +203,7 @@ fetch('/assets/img/chart_EF.svg')
           } else {
             vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wt + phi));
           }
-          labels.push((wt).toFixed(2));
+          labels.push(wt.toFixed(2));
           vsData.push(vs);
         }
 
