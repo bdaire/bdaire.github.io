@@ -290,7 +290,7 @@ function plotCharts(res) {
             text: label
           },
           min: -2,
-          max: 2.05
+          max: 2.05,
           ticks: {
           stepSize: 1
         }
