@@ -197,16 +197,18 @@ fetch('/assets/img/chart_EF.svg')
         const N = 500;
 
         for (let k = 0; k <= N; k++) {
-          const wt = (k / N) * 2 * Math.PI;
+          const wt = (k / N) * 4 * Math.PI; // 2 périodes (0 à 4π)
+          const wt_mod = wt % (2 * Math.PI); // modulo 2π pour périodicité
+
           let vs;
-          if (wt <= Math.PI - theta) {
+          if (wt_mod <= Math.PI - theta) {
             vs = 0;
-          } else if (wt <= Math.PI) {
-            vs = -i * (Math.cos(phi - theta) + Math.cos(wt + phi));
-          } else if (wt <= 2 * Math.PI - theta) {
+          } else if (wt_mod <= Math.PI) {
+            vs = -i * (Math.cos(phi - theta) + Math.cos(wt_mod + phi));
+          } else if (wt_mod <= 2 * Math.PI - theta) {
             vs = 2;
           } else {
-            vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wt + phi));
+            vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wt_mod + phi));
           }
           labels.push(wt.toFixed(2));
           vsData.push(vs);
