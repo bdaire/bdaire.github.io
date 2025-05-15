@@ -15,10 +15,21 @@ title: Research
     width: 60%;
   }
 
-  #small-svg-wrapper,
-  #svg-wrapper {
-    margin-bottom: 2rem;
-  }
+  <div id="small-svg-wrapper" style="position: relative;">
+  <div id="svg-inputs" style="position: absolute; top: 10px; left: 10px; z-index: 10;">
+    <label style="display: block; margin-bottom: 4px; background: white; padding: 2px 4px; border-radius: 4px;">
+      VDC: <input type="number" id="vdc-input" value="2" step="0.1" style="width: 60px;">
+    </label>
+    <label style="display: block; margin-bottom: 4px; background: white; padding: 2px 4px; border-radius: 4px;">
+      Cs: <input type="number" id="cs-input" value="1e-6" step="1e-7" style="width: 60px;">
+    </label>
+    <label style="display: block; margin-bottom: 4px; background: white; padding: 2px 4px; border-radius: 4px;">
+      F: <input type="number" id="f-input" value="50" step="1" style="width: 60px;">
+    </label>
+  </div>
+  Chargement du petit SVG...
+</div>
+
 
   #svg-wrapper {
     border: 1px solid #ccc;
@@ -153,6 +164,14 @@ function solveZVS(r, x) {
   }
   return null;
 }
+
+  function getUserInputs() {
+  const VDC = parseFloat(document.getElementById('vdc-input').value);
+  const Cs = parseFloat(document.getElementById('cs-input').value);
+  const F = parseFloat(document.getElementById('f-input').value);
+  return { VDC, Cs, F };
+}
+
 
 function drawDot(svg, xPix, yPix) {
   svg.querySelector('.dot')?.remove();
