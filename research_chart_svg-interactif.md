@@ -133,9 +133,9 @@ title: Research
   <div id="right-panel">
     <div id="top-text">Welcome to the interactive tool! 
 
-1/ Enter the values for VDC, F, and Cs. You can use exponential notation too (like 50e6 Hz for 50 MHz)
+1/ Enter the values for VDC, F, and Cs above the circuit. You can use exponent notation too (e.g., 50e6 Hz for 50 MHz)
 2/ Click on the chart to set the operating point
-3/ The waveforms will show up on the right, and the values for R, L, I, and P will appear above the circuit! It’s pretty magical 🧙‍♂️
+3/ The waveforms will show up on the right, and the values for R, L, I, and P related to that point will appear above the circuit! It’s magic! 🧙‍♂️
 
 Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case 😬
     </div>
