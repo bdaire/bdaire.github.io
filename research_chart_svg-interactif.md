@@ -81,6 +81,7 @@ function getFrontierR(xTarget) {
 }
 
 function solveZCS(r, x) {
+  const phi = 0; // Fixé explicitement
   for (let i = 0; i < 1000; i++) {
     const theta = (i / 999) * PI;
     const sinTh = Math.sin(theta);
@@ -94,11 +95,14 @@ function solveZCS(r, x) {
       const p = (8 * r) / (denom * denom);
       const D = 0.5 - theta / (2 * PI);
       const v = 1 + 2 * (Math.cos(theta) - 1) / denom;
-      return { p, D, q: 0, v };
+      // q dépend de phi, ici phi=0 donc q=0
+      const q = 0;
+      return { p, D, q, v, phi };  // On renvoie phi aussi pour l’instant
     }
   }
   return null;
 }
+
 
 function solveZVS(r, x) {
   for (let i = 0; i < 1000; i++) {
