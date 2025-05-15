@@ -1,7 +1,7 @@
----
+---------------
 layout: default
 title: Research
----
+---------------
 
 <style>
   #svg-wrapper {
@@ -40,12 +40,6 @@ title: Research
     gap: 1rem;
     margin-top: 2rem;
   }
-
-  canvas {
-    margin-top: 1rem;
-    width: 100% !important;
-    height: auto !important;
-  }
 </style>
 
 <div class="container">
@@ -64,24 +58,16 @@ title: Research
     <p><strong>q :</strong> <span id="q-val">-</span></p>
     <p><strong>v :</strong> <span id="v-val">-</span></p>
 
-    <h3>Graphique de v_s(ωt) / V_DC</h3>
-    <canvas id="vs-chart" width="300" height="150"></canvas>
+```
+<h3>Graphique de v_s(ωt) / V_DC</h3>
+<canvas id="vs-chart" width="300" height="150" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
+```
 
-    <h3>Graphique de i_e(ωt)/I</h3>
-    <canvas id="ie-chart" width="300" height="150"></canvas>
-
-    <h3>Graphique de i_s(ωt)/I</h3>
-    <canvas id="is-chart" width="300" height="150"></canvas>
-
-    <h3>Graphique de i_C(ωt)/I</h3>
-    <canvas id="ic-chart" width="300" height="150"></canvas>
-
-    <h3>Graphique de sin(ωt + φ)</h3>
-    <canvas id="sin-chart" width="300" height="150"></canvas>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
 const PI = Math.PI;
 
@@ -120,7 +106,7 @@ function solveZCS(r, x) {
       const p = (8 * r) / (denom * denom);
       const D = 0.5 - theta / (2 * PI);
       const v = 1 + 2 * (Math.cos(theta) - 1) / denom;
-      const phi = 0;
+      const phi = 0;  // condition imposée en ZCS
       return { p, D, q: 0, v, i: iVal, theta, phi };
     }
   }
@@ -128,6 +114,7 @@ function solveZCS(r, x) {
 }
 
 function solveZVS(r, x) {
+  const PI = Math.PI;
   for (let j = 0; j < 5000; j++) {
     const theta = (j / 4999) * PI;
     const phiMin = (theta - PI) / 2;
@@ -149,19 +136,6 @@ function solveZVS(r, x) {
   return null;
 }
 
-function generateCurrents(theta, phi, i, wt) {
-  if (wt <= PI - theta) {
-    return { ie: Math.sin(wt + phi), ic: 0, is: 2 * Math.sin(wt + phi) };
-  } else if (wt <= PI) {
-    return { ie: 0, ic: Math.sin(wt + phi), is: 0 };
-  } else if (wt <= 2 * PI - theta) {
-    return { ie: -Math.sin(wt + phi), ic: 0, is: 0 };
-  } else {
-    return { ie: 0, ic: Math.sin(wt + phi), is: 0 };
-  }
-}
-
-const charts = {};
 
 fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
@@ -222,93 +196,65 @@ fetch('/assets/img/chart_EF.svg')
         const theta = res.theta;
         const phi = res.phi || 0;
         const i = res.i;
-
-        const N = 1000;
-        const labels = [];
         const vsData = [];
-        const ieData = [];
-        const isData = [];
-        const icData = [];
-        const sinData = [];
+        const labels = [];
+        const N = 500;
 
-        const N = 1000; // double le nombre de points pour une meilleure résolution
-
-for (let k = 0; k <= N; k++) {
-  const wt = (k / N) * 4 * Math.PI; // 0 à 4π = 2 périodes
-  const wt_mod = wt % (2 * Math.PI); // on prend modulo 2π pour la périodicité
-  let vs;
-  if (wt_mod <= Math.PI - theta) {
-    vs = 0;
-  } else if (wt_mod <= Math.PI) {
-    vs = -i * (Math.cos(phi - theta) + Math.cos(wt_mod + phi));
-  } else if (wt_mod <= 2 * Math.PI - theta) {
-    vs = 2;
-  } else {
-    vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wt_mod + phi));
-  }
-  labels.push(wt.toFixed(2));
-  vsData.push(vs);
-
-
-
-          // Courants normalisés
-          const currents = generateCurrents(theta, phi, i, wt);
-          ieData.push(currents.ie);
-          isData.push(currents.is);
-          icData.push(currents.ic);
-
-          sinData.push(Math.sin(wt + phi));
+        for (let k = 0; k <= N; k++) {
+          const wt = (k / N) * 2 * Math.PI;
+          let vs;
+          if (wt <= Math.PI - theta) {
+            vs = 0;
+          } else if (wt <= Math.PI) {
+            vs = -i * (Math.cos(phi - theta) + Math.cos(wt + phi));
+          } else if (wt <= 2 * Math.PI - theta) {
+            vs = 2;
+          } else {
+            vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wt + phi));
+          }
+          labels.push(wt.toFixed(2));
+          vsData.push(vs);
         }
 
-        function plotChart(id, label, data, color) {
-          const ctx = document.getElementById(id).getContext('2d');
-
-          // Détruire ancien graphique si existant
-          if (charts[id]) {
-            charts[id].destroy();
-          }
-
-          charts[id] = new Chart(ctx, {
+        const ctx = document.getElementById('vs-chart').getContext('2d');
+        if (window.vsChart) {
+          window.vsChart.data.labels = labels;
+          window.vsChart.data.datasets[0].data = vsData;
+          window.vsChart.update();
+        } else {
+          window.vsChart = new Chart(ctx, {
             type: 'line',
             data: {
               labels: labels,
               datasets: [{
-                label: label,
-                data: data,
-                borderColor: color,
-                fill: false,
-                pointRadius: 0,
+                label: 'v_s(ωt) / V_DC',
+                data: vsData,
+                borderColor: 'blue',
                 borderWidth: 2,
+                pointRadius: 0,
+                fill: false,
               }]
             },
             options: {
-              animation: false,
               scales: {
                 x: {
                   title: { display: true, text: 'ωt (rad)' },
                   ticks: { maxTicksLimit: 10 }
                 },
                 y: {
-                  title: { display: true, text: label },
-                  // Fixe un domaine un peu plus large
-                  suggestedMin: Math.min(...data) - 0.5,
-                  suggestedMax: Math.max(...data) + 0.5
+                  title: { display: true, text: 'v_s / V_DC' },
+                  suggestedMin: -1,
+                  suggestedMax: 3
                 }
               }
             }
           });
         }
-
-        plotChart('vs-chart', 'v_s(ωt) / V_DC', vsData, 'blue');
-        plotChart('ie-chart', 'i_e(ωt) / I', ieData, 'red');
-        plotChart('is-chart', 'i_s(ωt) / I', isData, 'green');
-        plotChart('ic-chart', 'i_C(ωt) / I', icData, 'orange');
-        plotChart('sin-chart', 'sin(ωt + φ)', sinData, 'purple');
       }
     });
   })
   .catch(error => {
     document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG.";
-    console.error(error);
+    console.error("Erreur lors du chargement du SVG :", error);
   });
 </script>
