@@ -223,7 +223,7 @@ fetch('/assets/img/chart_EF.svg')
         const phi = res.phi || 0;
         const i = res.i;
 
-        const N = 500;
+        const N = 1000;
         const labels = [];
         const vsData = [];
         const ieData = [];
@@ -231,22 +231,25 @@ fetch('/assets/img/chart_EF.svg')
         const icData = [];
         const sinData = [];
 
-        for (let k = 0; k <= N; k++) {
-          const wt = (k / N) * 2 * PI;
-          labels.push(wt.toFixed(2));
+        const N = 1000; // double le nombre de points pour une meilleure résolution
 
-          // Calcul v_s/V_DC
-          let vs;
-          if (wt <= PI - theta) {
-            vs = 0;
-          } else if (wt <= PI) {
-            vs = -i * (Math.cos(phi - theta) + Math.cos(wt + phi));
-          } else if (wt <= 2 * PI - theta) {
-            vs = 2;
-          } else {
-            vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wt + phi));
-          }
-          vsData.push(vs);
+for (let k = 0; k <= N; k++) {
+  const wt = (k / N) * 4 * Math.PI; // 0 à 4π = 2 périodes
+  const wt_mod = wt % (2 * Math.PI); // on prend modulo 2π pour la périodicité
+  let vs;
+  if (wt_mod <= Math.PI - theta) {
+    vs = 0;
+  } else if (wt_mod <= Math.PI) {
+    vs = -i * (Math.cos(phi - theta) + Math.cos(wt_mod + phi));
+  } else if (wt_mod <= 2 * Math.PI - theta) {
+    vs = 2;
+  } else {
+    vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wt_mod + phi));
+  }
+  labels.push(wt.toFixed(2));
+  vsData.push(vs);
+
+
 
           // Courants normalisés
           const currents = generateCurrents(theta, phi, i, wt);
