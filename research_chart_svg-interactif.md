@@ -50,6 +50,7 @@ title: Research
     <p><strong>r :</strong> <span id="x-val">-</span></p>
     <p><strong>x :</strong> <span id="y-val">-</span></p>
     <p><strong>Distance à (0,0) :</strong> <span id="distance">-</span></p>
+    <p id="zone"><strong>Zone :</strong> -</p>
   </div>
 </div>
 
@@ -63,8 +64,32 @@ title: Research
     const svg = wrapper.querySelector('svg');
     svg.setAttribute('id', 'mysvg');
 
+    // 1. Pré-calcul frontière paramétrique (xFront, rFront)
+    const N = 100;
+    const pi = Math.PI;
+    let xFront = [];
+    let rFront = [];
+    for(let i=0; i<=N; i++){
+      let theta = i * pi / N;
+      let r = (1/pi) * Math.pow(Math.sin(theta), 2);
+      let x = (1/pi) * (theta - Math.sin(theta)*Math.cos(theta));
+      xFront.push(x);
+      rFront.push(r);
+    }
+
+    // 2. Fonction interpolation rFront en fonction de xFront
+    function getRAtX(X){
+      for(let i=0; i < xFront.length - 1; i++){
+        if(X >= xFront[i] && X <= xFront[i+1]){
+          let t = (X - xFront[i])/(xFront[i+1] - xFront[i]);
+          return rFront[i] + t*(rFront[i+1] - rFront[i]);
+        }
+      }
+      return null;
+    }
+
     svg.addEventListener('click', function(evt) {
-      // Supprimer le point rouge existant (pour le déplacer)
+      // Supprimer point rouge existant
       const existingDot = svg.querySelector('.dot');
       if (existingDot) {
         svg.removeChild(existingDot);
@@ -78,7 +103,7 @@ title: Research
       const x = svgPoint.x;
       const y = svgPoint.y;
 
-      // Créer un point rouge
+      // Créer point rouge
       const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
       dot.setAttribute("cx", x);
       dot.setAttribute("cy", y);
@@ -86,14 +111,26 @@ title: Research
       dot.setAttribute("class", "dot");
       svg.appendChild(dot);
 
-      // Transformation linéaire des coordonnées
+      // Transformation linéaire
       const X = 0.000531 * x - 0.1078;
       const Y = -0.001022 * y + 1.0918;
 
-      // Mise à jour des infos transformées
+      // Calcul zone
+      const rBoundary = getRAtX(X);
+      let zone;
+      if(rBoundary === null){
+        zone = "Zone hors frontière";
+      } else if(Y < rBoundary){
+        zone = "Zone ZVS";
+      } else {
+        zone = "Zone ZCS";
+      }
+
+      // Mise à jour affichage
       document.getElementById('x-val').textContent = X.toFixed(4);
       document.getElementById('y-val').textContent = Y.toFixed(4);
       document.getElementById('distance').textContent = Math.sqrt(X*X + Y*Y).toFixed(4);
+      document.getElementById('zone').textContent = "Zone : " + zone;
     });
   })
   .catch(error => {
