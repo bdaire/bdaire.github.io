@@ -16,13 +16,20 @@ title: Research
     width: 60%;
   }
 
+  #small-svg-wrapper {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-start;
+  }
+
   #svg-wrapper {
     border: 1px solid #ccc;
     width: 100%;
     max-width: 100%;
   }
 
-  #svg-wrapper svg {
+  #svg-wrapper svg,
+  #small-svg-wrapper svg {
     display: block;
     width: 100%;
     height: auto;
@@ -49,10 +56,8 @@ title: Research
     gap: 1rem;
   }
 
-  /* Suppression du width: 100% sur canvas qui cause des tremblements */
   canvas {
     display: block;
-    /* taille fixe en pixels pour éviter les redimensionnements intempestifs */
     width: 400px;
     height: 200px;
   }
@@ -70,7 +75,11 @@ title: Research
 
 <div class="container">
   <div id="left-panel">
-    <div id="svg-wrapper">Chargement du SVG...</div>
+
+    <!-- Petit SVG décoratif chargé via fetch -->
+    <div id="small-svg-wrapper">Chargement du petit SVG...</div>
+
+    <div id="svg-wrapper">Chargement du SVG principal...</div>
 
     <div id="info-panel">
       <div class="info-label">r :</div><div id="x-val">-</div>
@@ -161,6 +170,21 @@ function solveZVS(r, x) {
   return null;
 }
 
+// Chargement du petit SVG décoratif
+fetch('/assets/img/circuit_EF.svg')
+  .then(res => res.text())
+  .then(svgText => {
+    const smallWrapper = document.getElementById('small-svg-wrapper');
+    smallWrapper.innerHTML = svgText;
+    // Optionnel : ajouter un id pour le petit svg s'il faut manipuler
+    const svg = smallWrapper.querySelector('svg');
+    if(svg) svg.setAttribute('id', 'small-svg');
+  })
+  .catch(() => {
+    document.getElementById('small-svg-wrapper').textContent = 'Erreur de chargement du petit SVG.';
+  });
+
+// Chargement du SVG principal
 fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
   .then(svgText => {
@@ -279,12 +303,8 @@ fetch('/assets/img/chart_EF.svg')
             responsive: false,
             maintainAspectRatio: false,
             plugins: {
-              title: {
-                display: false
-              },
-              legend: {
-                display: false
-              }
+              title: { display: false },
+              legend: { display: false }
             },
             scales: {
               x: {
@@ -321,14 +341,20 @@ fetch('/assets/img/chart_EF.svg')
             window[key + 'Chart'].data.datasets[0].data = charts[key].data;
             window[key + 'Chart'].update();
           } else {
-            window[key + 'Chart'] = new Chart(ctxs[key], config(charts[key].label, charts[key].data, charts[key].color));
+            const showXAxisTitle = (key === 'sin');
+
+            const chartConfig = config(charts[key].label, charts[key].data, charts[key].color);
+
+            chartConfig.options.scales.x.title.display = showXAxisTitle;
+
+            window[key + 'Chart'] = new Chart(ctxs[key], chartConfig);
           }
         }
       }
     });
   })
   .catch(error => {
-    document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG.";
-    console.error("Erreur lors du chargement du SVG :", error);
+    document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG principal.";
+    console.error("Erreur lors du chargement du SVG principal :", error);
   });
 </script>
