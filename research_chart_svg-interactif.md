@@ -183,14 +183,15 @@ function plotCharts(res) {
   const phi = res.phi || 0;
   const i = res.i;
 
-  const vs = [], ie = [], is = [], ic = [], sin = [], labels = [];
+  const vs = [], ie = [], is = [], ic = [], sin = [];
+  const labels = [];
 
   for (let k = 0; k <= N; k++) {
-    const wt = (k / N) * 2 * period;
+    const wt = (k / N) * period * 2; // 0 -> 2π
+    labels.push(wt); // valeur numérique en radians
+
     const wtMod = wt % period;
     const sinTerm = Math.sin(wt + phi);
-    labels.push(wt.toFixed(2));
-    sin.push(sinTerm);
 
     // v_s(ωt)
     let vsVal = 0;
@@ -203,10 +204,10 @@ function plotCharts(res) {
     }
     vs.push(vsVal);
 
-    // i_e, i_s, i_C
     ie.push((wtMod <= Math.PI - theta || (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta)) ? sinTerm * (wtMod <= Math.PI - theta ? 1 : -1) : 0);
     ic.push((wtMod > Math.PI - theta && wtMod <= Math.PI || wtMod > 2 * Math.PI - theta) ? sinTerm : 0);
     is.push((wtMod <= Math.PI - theta) ? 2 * sinTerm : 0);
+    sin.push(sinTerm);
   }
 
   const chartData = {
@@ -217,41 +218,58 @@ function plotCharts(res) {
     sin: { data: sin, label: 'i(ωt) / I', color: 'purple' },
   };
 
+  const pi = Math.PI;
+
   const config = (label, data, color, showXAxisTitle = false) => ({
-  type: 'line',
-  data: {
-    labels,
-    datasets: [{ label, data, borderColor: color, borderWidth: 2, pointRadius: 0, fill: false }]
-  },
-  options: {
-    responsive: false,
-    plugins: { legend: { display: false } },
-    scales: {
-      x: { 
-        title: { display: showXAxisTitle, text: 'ωt (rad)' }, 
-        ticks: { maxTicksLimit: 10 } 
-      },
-      y: { 
-        title: { display: true, text: label }, 
-        suggestedMin: -2, 
-        suggestedMax: 3 
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{ label, data, borderColor: color, borderWidth: 2, pointRadius: 0, fill: false }]
+    },
+    options: {
+      responsive: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: {
+          title: { display: showXAxisTitle, text: 'ωt (rad)' },
+          min: 0,
+          max: 2 * pi,
+          ticks: {
+            stepSize: pi / 2,
+            maxTicksLimit: 10,
+            callback: function(value) {
+              if (value === 0) return '0';
+              if (Math.abs(value - pi) < 1e-6) return 'π';
+              if (Math.abs(value - 2 * pi) < 1e-6) return '2π';
+              if (Math.abs(value - 3 * pi) < 1e-6) return '3π';
+              if (Math.abs(value - 0.5 * pi) < 1e-6) return '½π';
+              if (Math.abs(value - 1.5 * pi) < 1e-6) return '1½π';
+              return '';
+            }
+          }
+        },
+        y: {
+          title: { display: true, text: label },
+          suggestedMin: -2,
+          suggestedMax: 3
+        }
       }
     }
-  }
-});
-
+  });
 
   for (const key in chartData) {
-  const ctx = document.getElementById(`${key}-chart`).getContext('2d');
-  const showXAxis = (key === 'sin'); // seul le dernier garde le titre axe x
-  if (window[`${key}Chart`]) {
-    window[`${key}Chart`].data.datasets[0].data = chartData[key].data;
-    window[`${key}Chart`].options.scales.x.title.display = showXAxis;
-    window[`${key}Chart`].update();
-  } else {
-    window[`${key}Chart`] = new Chart(ctx, config(chartData[key].label, chartData[key].data, chartData[key].color, showXAxis));
+    const ctx = document.getElementById(`${key}-chart`).getContext('2d');
+    const showXAxis = (key === 'sin'); // seul le dernier garde le titre axe X
+    if (window[`${key}Chart`]) {
+      window[`${key}Chart`].data.datasets[0].data = chartData[key].data;
+      window[`${key}Chart`].options.scales.x.title.display = showXAxis;
+      window[`${key}Chart`].update();
+    } else {
+      window[`${key}Chart`] = new Chart(ctx, config(chartData[key].label, chartData[key].data, chartData[key].color, showXAxis));
+    }
   }
 }
+
 
 
 // === Chargement des SVG ===
