@@ -85,8 +85,8 @@ function getFrontierR(xTarget) {
 }
 
 function solveZCS(r, x) {
-  for (let i = 0; i < 1000; i++) {
-    const theta = (i / 999) * PI;
+  for (let j = 0; j < 1000; j++) {
+    const theta = (j / 999) * PI;
     const sinTh = Math.sin(theta);
     const cosTh = Math.cos(theta);
     const sinTh4 = Math.pow(Math.sin(theta / 2), 4);
@@ -94,39 +94,38 @@ function solveZCS(r, x) {
     const rTheta = (4 / PI) * ((1 / (4 / (PI * r + 4 * sinTh4))) - sinTh4);
     if (Math.abs(xTheta - x) < 0.005 && Math.abs(rTheta - r) < 0.01) {
       const denom = PI * r + 4 * sinTh4;
-      const iNorm = Math.sqrt((2 * r) / denom); // i normalisé
-      const p = 0.5 * r * iNorm * iNorm;
+      const iVal = 4 / denom;
+      const p = (8 * r) / (denom * denom);
       const D = 0.5 - theta / (2 * PI);
       const v = 1 + 2 * (Math.cos(theta) - 1) / denom;
-      return { p, D, q: 0, v, theta, phi: 0, i: iNorm };
+      return { p, D, q: 0, v };
     }
   }
   return null;
 }
 
 function solveZVS(r, x) {
-  for (let i = 0; i < 1000; i++) {
-    const theta = (i / 999) * PI;
+  for (let j = 0; j < 1000; j++) {
+    const theta = (j / 999) * PI;
     const phiMin = (theta - PI) / 2;
-    for (let j = 0; j < 100; j++) {
-      const phi = phiMin + (j / 99) * -phiMin;
+    for (let k = 0; k < 100; k++) {
+      const phi = phiMin + (k / 99) * -phiMin;
       const sinTh = Math.sin(theta);
       const sinTerm = Math.sin(theta - 2 * phi);
       const rTh = (1 / PI) * sinTh * sinTerm;
       const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
       if (Math.abs(rTh - r) < 0.01 && Math.abs(xTh - x) < 0.01) {
-        const denom = Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
-        const p = (2 / PI) * (sinTh * sinTerm) / denom;
+        const p = (2 / PI) * (sinTh * sinTerm) / Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
         const D = 0.5 - theta / (2 * PI);
         const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
-        const iNorm = Math.sqrt((2 * r) / (PI * sinTh * sinTerm));
-        return { p, D, q, v: 0, theta, phi, i: iNorm };
+        return { p, D, q, v: 0 };
       }
     }
   }
   return null;
 }
 
+  
 fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
   .then(svgText => {
