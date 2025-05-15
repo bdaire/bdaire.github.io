@@ -88,7 +88,7 @@ title: Research
   <div id="left-panel">
   <div id="small-svg-wrapper">Chargement du petit SVG...</div>
 
-  <div id="input-vars" style="margin-bottom: 1.5rem; border: 1px solid #ccc; padding: 1rem; border-radius: 6px; max-width: 600px; background: #fafafa; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+  <div id="input-vars" style="margin-bottom: 1.5rem; border: 1px solid #ccc; padding: 1rem; border-radius: 6px; max-width: 600px; background: #fafafa; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
     <!-- Colonne 1 : entrées -->
     <div>
       <div style="margin-bottom: 0.5rem;">
@@ -113,6 +113,14 @@ title: Research
       <div><strong>P =</strong> <span id="p-phys-inline">-</span></div>
     </div>
   </div>
+
+  <!-- Colonne 3 : valeurs calculées -->
+  <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+  <div><strong>D (%) =</strong> <span id="D-percent">-</span></div>
+  <div><strong>q =</strong> <span id="q-val-inline">-</span></div>
+  <div><strong>Vcutoff (V) =</strong> <span id="vcutoff-val">-</span></div>
+  </div>
+
 
   <div id="svg-wrapper">Chargement du SVG principal...</div>
 
@@ -226,49 +234,39 @@ function drawDot(svg, xPix, yPix) {
 }
 
 function updateInfoPanel(r, x, distance, zone, res) {
-  const set = (id, val) => document.getElementById(id).textContent = val;
+  // Fonction utilitaire pour écrire dans un élément par son id
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
 
-  set('x-val', r.toFixed(4));
-  set('y-val', x.toFixed(4));
-  set('zone-val', zone);
-  set('p-val', res ? res.p.toFixed(4) : '-');
-  set('d-val', res ? res.D.toFixed(4) : '-');
-  set('q-val', res ? res.q.toFixed(4) : '-');
-  set('v-val', res ? res.v.toFixed(4) : '-');
-
+  // Variables globales d'entrées (à ajuster selon ton code)
   const F = parseFloat(document.getElementById('F-input')?.value);
   const Cs = parseFloat(document.getElementById('Cs-input')?.value);
   const VDC = parseFloat(document.getElementById('VDC-input')?.value);
 
+  // Affichage valeurs de la colonne 2 (exemple) — adapte selon tes variables
+  if (r != null) set('r-phys-inline', r.toFixed(4));
+  if (x != null) set('l-phys-inline', x.toFixed(4));
+  if (res && res.I != null) set('i-phys-inline', res.I.toFixed(4));
+  if (res && res.P != null) set('p-phys-inline', res.P.toFixed(4));
+
+  // Affichage valeurs calculées dans la 3ème colonne
   if (res && !isNaN(F) && !isNaN(Cs) && !isNaN(VDC)) {
-    const Rval = r / (2 * PI * F * Cs);
-    const Lval = x / (4 * PI * PI * F * F * Cs);
-    const Ival = res.i * 2 * PI * F * Cs * VDC;
-    const Pval = res.p * 2 * PI * F * Cs * VDC * VDC;
+    const Dpercent = res.D * 100;         // D en %
+    const qVal = res.q;                   // q (facteur qualité)
+    const Vcutoff = res.v * 2 * VDC;     // Vcutoff = v * 2 * VDC
 
-    set('r-phys', Rval.toFixed(4) + ' Ω');
-    set('l-phys', Lval.toExponential(2) + ' H');
-    set('i-phys', Ival.toFixed(3) + ' A');
-    set('p-phys', Pval.toFixed(2) + ' W');
-
-    // Met à jour la colonne de droite (inline)
-    set('r-phys-inline', Rval.toFixed(4) + ' Ω');
-    set('l-phys-inline', Lval.toExponential(2) + ' H');
-    set('i-phys-inline', Ival.toFixed(3) + ' A');
-    set('p-phys-inline', Pval.toFixed(2) + ' W');
+    set('D-percent', Dpercent.toFixed(2) + ' %');
+    set('q-val-inline', qVal.toFixed(4));
+    set('vcutoff-val', Vcutoff.toFixed(3) + ' V');
   } else {
-    set('r-phys', '-');
-    set('l-phys', '-');
-    set('i-phys', '-');
-    set('p-phys', '-');
-
-    // Met à jour la colonne de droite (inline)
-    set('r-phys-inline', '-');
-    set('l-phys-inline', '-');
-    set('i-phys-inline', '-');
-    set('p-phys-inline', '-');
+    set('D-percent', '-');
+    set('q-val-inline', '-');
+    set('vcutoff-val', '-');
   }
 }
+
 
 
 
