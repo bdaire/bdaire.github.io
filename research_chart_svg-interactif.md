@@ -98,7 +98,8 @@ function solveZCS(r, x) {
       const p = (8 * r) / (denom * denom);
       const D = 0.5 - theta / (2 * PI);
       const v = 1 + 2 * (Math.cos(theta) - 1) / denom;
-      return { p, D, q: 0, v, i: iVal };
+      const phi = 0;  // condition imposée en ZCS
+      return { p, D, q: 0, v, i: iVal, theta, phi };
     }
   }
   return null;
@@ -118,16 +119,13 @@ function solveZVS(r, x) {
         const p = (2 / PI) * (sinTh * sinTerm) / Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
         const D = 0.5 - theta / (2 * PI);
         const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
-        // i calculé via la relation p = 1/2 * r * i^2 => i = sqrt(2p/r)
         const iVal = Math.sqrt((2 * p) / r);
-        return { p, D, q, v: 0, i: iVal };
+        return { p, D, q, v: 0, i: iVal, theta, phi };
       }
     }
   }
   return null;
 }
-
-
   
 fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
