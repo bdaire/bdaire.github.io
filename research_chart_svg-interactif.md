@@ -19,7 +19,7 @@ title: Research
 
   #svg-wrapper, #small-svg-wrapper {
     margin-bottom: 3rem;
-    border: 1px solid #ccc;
+    border: none;
     width: 100%;
   }
 
