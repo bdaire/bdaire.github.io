@@ -288,13 +288,20 @@ function plotCharts(res) {
           }
         },
         y: {
-          title: {
-            display: true,
-            text: label
-          },
-          min: -2,
-          max: 2
-        }
+  title: {
+    display: true,
+    text: label
+  },
+  min: -2,
+  max: 2,
+  ticks: {
+    stepSize: 1,
+    callback: val => val.toString()  // garde les ticks simples
+  },
+  bounds: 'ticks', // les limites correspondent aux ticks
+  grace: '5%'      // ajoute 5% de marge visuelle au-dessus et en dessous
+}
+
       }
     }
   });
