@@ -41,7 +41,6 @@ title: Research
 
 <div class="container">
   <div id="svg-wrapper">
-    <!-- SVG sera injecté ici -->
     Chargement du SVG...
   </div>
 
@@ -50,112 +49,79 @@ title: Research
     <p><strong>r :</strong> <span id="x-val">-</span></p>
     <p><strong>x :</strong> <span id="y-val">-</span></p>
     <p><strong>Distance à (0,0) :</strong> <span id="distance">-</span></p>
-    <p><strong>Zone :</strong> <span id="zone">-</span></p>
+    <p><strong>Zone :</strong> <span id="zone-val">-</span></p>
     <p><strong>p :</strong> <span id="p-val">-</span></p>
-    <p><strong>D :</strong> <span id="D-val">-</span></p>
+    <p><strong>D :</strong> <span id="d-val">-</span></p>
     <p><strong>q :</strong> <span id="q-val">-</span></p>
     <p><strong>v :</strong> <span id="v-val">-</span></p>
-
-    <canvas id="vs-plot" width="600" height="200" style="border:1px solid #ccc; margin-top:1rem;"></canvas>
   </div>
 </div>
 
 <script>
-  // Fonction pour calculer theta via recherche binaire sur la frontière r(theta)
-  function rFrontier(theta) {
-    return (1 / Math.PI) * Math.pow(Math.sin(theta), 2);
-  }
+const PI = Math.PI;
+const frontier = Array.from({ length: 500 }, (_, i) => {
+  const theta = (i / 499) * PI;
+  const r = (1 / PI) * Math.pow(Math.sin(theta), 2);
+  const x = (1 / PI) * (theta - Math.sin(theta) * Math.cos(theta));
+  return { theta, x, r };
+});
 
-  // Recherche binaire pour theta à partir de r (frontière)
-  function getFrontierTheta(r, tol = 1e-5) {
-    let low = 0;
-    let high = Math.PI;
-    while (high - low > tol) {
-      let mid = (low + high) / 2;
-      let val = rFrontier(mid);
-      if (val < r) low = mid;
-      else high = mid;
+function getFrontierR(xTarget) {
+  let left = 0;
+  let right = frontier.length - 1;
+  while (left < right) {
+    const mid = Math.floor((left + right) / 2);
+    if (frontier[mid].x < xTarget) {
+      left = mid + 1;
+    } else {
+      right = mid;
     }
-    return (low + high) / 2;
   }
+  return frontier[left]?.r || 0;
+}
 
-  // Tracé de vs(ωt)
-  function drawVsPlot(theta, phi, I, omega, Cs, VDC) {
-    const canvas = document.getElementById('vs-plot');
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+function solveZCS(r, x) {
+  for (let i = 0; i < 1000; i++) {
+    const theta = (i / 999) * PI;
+    const sinTh = Math.sin(theta);
+    const cosTh = Math.cos(theta);
+    const sinTh4 = Math.pow(Math.sin(theta / 2), 4);
+    const xTheta = (1 / PI) * (theta - sinTh * cosTh);
+    const rTheta = (4 / PI) * ((1 / (4 / (PI * r + 4 * sinTh4))) - sinTh4);
+    if (Math.abs(xTheta - x) < 0.005 && Math.abs(rTheta - r) < 0.01) {
+      const denom = PI * r + 4 * sinTh4;
+      const iVal = 4 / denom;
+      const p = (8 * r) / (denom * denom);
+      const D = 0.5 - theta / (2 * PI);
+      const v = 1 + 2 * (Math.cos(theta) - 1) / denom;
+      return { p, D, q: 0, v };
+    }
+  }
+  return null;
+}
 
-    const width = canvas.width;
-    const height = canvas.height;
-    const margin = 40;
-    const xStart = margin;
-    const xEnd = width - margin;
-    const yStart = margin;
-    const yEnd = height - margin;
-
-    const steps = 500;
-    const omegaTMax = 2 * Math.PI;
-
-    let points = [];
-    for(let i = 0; i <= steps; i++) {
-      const omegaT = i * omegaTMax / steps;
-      let vs;
-
-      if (omegaT >= 0 && omegaT < Math.PI - theta) {
-        vs = 0;
-      } else if (omegaT >= Math.PI - theta && omegaT < Math.PI) {
-        vs = (-I / (omega * Cs)) * (Math.cos(phi - theta) + Math.cos(omegaT + phi));
-      } else if (omegaT >= Math.PI && omegaT < 2 * Math.PI - theta) {
-        vs = 2 * VDC;
-      } else {
-        vs = 2 * VDC + (I / (omega * Cs)) * (Math.cos(phi - theta) - Math.cos(omegaT + phi));
+function solveZVS(r, x) {
+  for (let i = 0; i < 1000; i++) {
+    const theta = (i / 999) * PI;
+    const phiMin = (theta - PI) / 2;
+    for (let j = 0; j < 100; j++) {
+      const phi = phiMin + (j / 99) * -phiMin;
+      const sinTh = Math.sin(theta);
+      const sinTerm = Math.sin(theta - 2 * phi);
+      const rTh = (1 / PI) * sinTh * sinTerm;
+      const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
+      if (Math.abs(rTh - r) < 0.01 && Math.abs(xTh - x) < 0.01) {
+        const p = (2 / PI) * (sinTh * sinTerm) / Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
+        const D = 0.5 - theta / (2 * PI);
+        const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
+        return { p, D, q, v: 0 };
       }
-
-      points.push({omegaT, vs});
     }
-
-    const vsValues = points.map(p => p.vs);
-    const vsMin = Math.min(...vsValues);
-    const vsMax = Math.max(...vsValues);
-
-    function scaleX(x) {
-      return xStart + (x / omegaTMax) * (xEnd - xStart);
-    }
-    function scaleY(y) {
-      return yEnd - ((y - vsMin) / (vsMax - vsMin)) * (yEnd - yStart);
-    }
-
-    // Axes
-    ctx.strokeStyle = '#333';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(xStart, yStart);
-    ctx.lineTo(xStart, yEnd);
-    ctx.lineTo(xEnd, yEnd);
-    ctx.stroke();
-
-    // Courbe vs(ωt)
-    ctx.strokeStyle = 'blue';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    points.forEach((p, i) => {
-      const x = scaleX(p.omegaT);
-      const y = scaleY(p.vs);
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    });
-    ctx.stroke();
-
-    // Labels
-    ctx.fillStyle = '#000';
-    ctx.font = '12px sans-serif';
-    ctx.fillText('0', scaleX(0) - 5, yEnd + 15);
-    ctx.fillText('π', scaleX(Math.PI) - 7, yEnd + 15);
-    ctx.fillText('2π', scaleX(2 * Math.PI) - 10, yEnd + 15);
-    ctx.fillText('v_s(ωt)', 5, yStart - 10);
   }
+  return null;
+}
 
-  fetch('/assets/img/chart_EF.svg')
+fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
   .then(svgText => {
     const wrapper = document.getElementById('svg-wrapper');
@@ -166,108 +132,53 @@ title: Research
 
     svg.addEventListener('click', function(evt) {
       const existingDot = svg.querySelector('.dot');
-      if (existingDot) {
-        svg.removeChild(existingDot);
-      }
+      if (existingDot) svg.removeChild(existingDot);
 
       const pt = svg.createSVGPoint();
       pt.x = evt.clientX;
       pt.y = evt.clientY;
       const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
-      const x = svgPoint.x;
-      const y = svgPoint.y;
+      const xPix = svgPoint.x;
+      const yPix = svgPoint.y;
+
+      const r = 0.000531 * xPix - 0.1078;
+      const x = -0.001022 * yPix + 1.0918;
 
       const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      dot.setAttribute("cx", x);
-      dot.setAttribute("cy", y);
+      dot.setAttribute("cx", xPix);
+      dot.setAttribute("cy", yPix);
       dot.setAttribute("r", 5);
       dot.setAttribute("class", "dot");
       svg.appendChild(dot);
 
-      // Transformation linéaire des coordonnées
-      const r = 0.000531 * x - 0.1078;
-      const xVal = -0.001022 * y + 1.0918;
-
       document.getElementById('x-val').textContent = r.toFixed(4);
-      document.getElementById('y-val').textContent = xVal.toFixed(4);
-      document.getElementById('distance').textContent = Math.sqrt(r*r + xVal*xVal).toFixed(4);
+      document.getElementById('y-val').textContent = x.toFixed(4);
+      document.getElementById('distance').textContent = Math.sqrt(r*r + x*x).toFixed(4);
 
-      // Check hors zone
-      if (r < 0 || r > 2/Math.PI || xVal < 0 || xVal > 1) {
-        document.getElementById('zone').textContent = "Hors zone";
-        ['p-val', 'D-val', 'q-val', 'v-val'].forEach(id => document.getElementById(id).textContent = "-");
-        drawVsPlot(0,0,0,1,1,1);  // Plot vide
-        return;
-      }
-
-      // Trouver theta* pour la frontière ZVS/ZCS
-      const thetaStar = getFrontierTheta(r);
-
-      let zone = "";
-      let theta, phi, p, D, q, v;
-
-      if (r < rFrontier(thetaStar)) {
-        zone = "Zone ZCS";
-        phi = 0;
-        theta = thetaStar;
-
-        // ZCS équations
-        // i = 4/(π*r + 4*sin^4(θ/2))
-        const sinHalfTheta = Math.sin(theta / 2);
-        const sinHalfTheta4 = Math.pow(sinHalfTheta, 4);
-        const denominator = Math.PI * r + 4 * sinHalfTheta4;
-        const iVal = 4 / denominator;
-
-        p = 8 * r / (denominator * denominator);
-        D = 0.5 - theta / (2 * Math.PI);
-        q = 0;
-        v = 1 + 2 * (Math.cos(theta) - 1) / denominator;
+      let zone = '-';
+      let res = null;
+      if (r < 0 || r > 2/PI || x < 0 || x > 1) {
+        zone = 'Hors zone';
       } else {
-        zone = "Zone ZVS";
-
-        // Résolution de phi: (θ - π)/2 <= phi <= 0
-        // Trouver phi qui satisfait r = (1/π) * sin(θ)*sin(θ - 2φ)
-        // Recherche binaire phi
-        const lowerPhi = (thetaStar - Math.PI) / 2;
-        const upperPhi = 0;
-        function rZVS(phi) {
-          return (1 / Math.PI) * Math.sin(thetaStar) * Math.sin(thetaStar - 2 * phi);
+        const rFrontier = getFrontierR(x);
+        if (r < rFrontier) {
+          zone = 'ZVS';
+          res = solveZVS(r, x);
+        } else {
+          zone = 'ZCS';
+          res = solveZCS(r, x);
         }
-        function targetPhi(phi) {
-          return r - rZVS(phi);
-        }
-        let low = lowerPhi;
-        let high = upperPhi;
-        const tol = 1e-7;
-        let mid, midVal;
-        while (high - low > tol) {
-          mid = (low + high) / 2;
-          midVal = targetPhi(mid);
-          if (midVal > 0) low = mid;
-          else high = mid;
-        }
-        phi = (low + high) / 2;
-        theta = thetaStar;
-
-        // Calculs ZVS
-        const cosPhi = Math.cos(phi);
-        const cosPhiTheta = Math.cos(phi - theta);
-
-        p = (2 / Math.PI) * (Math.sin(theta) * Math.sin(theta - 2 * phi)) / Math.pow(cosPhi - cosPhiTheta, 2);
-        D = 0.5 - theta / (2 * Math.PI);
-        q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
-        v = 0;
       }
 
-      document.getElementById('zone').textContent = zone;
-      document.getElementById('p-val').textContent = p.toFixed(4);
-      document.getElementById('D-val').textContent = D.toFixed(4);
-      document.getElementById('q-val').textContent = q.toFixed(4);
-      document.getElementById('v-val').textContent = v.toFixed(4);
-
-      // Paramètres pour vs plot
-      // Utiliser theta, phi, I=1, omega=1, Cs=1, VDC=1 (tu peux adapter)
-      drawVsPlot(theta, phi, 1, 1, 1, 1);
+      document.getElementById('zone-val').textContent = zone;
+      document.getElementById('p-val').textContent = res ? res.p.toFixed(4) : '-';
+      document.getElementById('d-val').textContent = res ? res.D.toFixed(4) : '-';
+      document.getElementById('q-val').textContent = res ? res.q.toFixed(4) : '-';
+      document.getElementById('v-val').textContent = res ? res.v.toFixed(4) : '-';
     });
+  })
+  .catch(error => {
+    document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG.";
+    console.error("Erreur lors du chargement du SVG :", error);
   });
 </script>
