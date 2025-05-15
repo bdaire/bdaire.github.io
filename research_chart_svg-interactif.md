@@ -120,7 +120,7 @@ function solveZCS(r, x) {
       const p = (8 * r) / (denom * denom);
       const D = 0.5 - theta / (2 * PI);
       const v = 1 + 2 * (Math.cos(theta) - 1) / denom;
-      const phi = 0;  // condition imposée en ZCS
+      const phi = 0;
       return { p, D, q: 0, v, i: iVal, theta, phi };
     }
   }
@@ -150,33 +150,18 @@ function solveZVS(r, x) {
 }
 
 function generateCurrents(theta, phi, i, wt) {
-  // i_e/I, i_s/I, i_C/I suivant les intervalles de wt
   if (wt <= PI - theta) {
-    return {
-      ie: Math.sin(wt + phi),
-      ic: 0,
-      is: 2 * Math.sin(wt + phi)
-    };
+    return { ie: Math.sin(wt + phi), ic: 0, is: 2 * Math.sin(wt + phi) };
   } else if (wt <= PI) {
-    return {
-      ie: 0,
-      ic: Math.sin(wt + phi),
-      is: 0
-    };
+    return { ie: 0, ic: Math.sin(wt + phi), is: 0 };
   } else if (wt <= 2 * PI - theta) {
-    return {
-      ie: -Math.sin(wt + phi),
-      ic: 0,
-      is: 0
-    };
+    return { ie: -Math.sin(wt + phi), ic: 0, is: 0 };
   } else {
-    return {
-      ie: 0,
-      ic: Math.sin(wt + phi),
-      is: 0
-    };
+    return { ie: 0, ic: Math.sin(wt + phi), is: 0 };
   }
 }
+
+const charts = {};
 
 fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
@@ -250,7 +235,7 @@ fetch('/assets/img/chart_EF.svg')
           const wt = (k / N) * 2 * PI;
           labels.push(wt.toFixed(2));
 
-          // v_s/V_DC
+          // Calcul v_s/V_DC
           let vs;
           if (wt <= PI - theta) {
             vs = 0;
@@ -263,56 +248,54 @@ fetch('/assets/img/chart_EF.svg')
           }
           vsData.push(vs);
 
-          // Currents normalized by I
+          // Courants normalisés
           const currents = generateCurrents(theta, phi, i, wt);
           ieData.push(currents.ie);
           isData.push(currents.is);
           icData.push(currents.ic);
 
-          // sin(ωt + phi)
           sinData.push(Math.sin(wt + phi));
         }
 
-        // Helper to plot or update chart
         function plotChart(id, label, data, color) {
           const ctx = document.getElementById(id).getContext('2d');
-          if (window[id]) {
-            window[id].data.labels = labels;
-            window[id].data.datasets[0].data = data;
-            window[id].update();
-          } else {
-            window[id] = new Chart(ctx, {
-              type: 'line',
-              data: {
-                labels: labels,
-                datasets: [{
-                  label: label,
-                  data: data,
-                  borderColor: color,
-                  fill: false,
-                  pointRadius: 0,
-                  borderWidth: 2,
-                }]
-              },
-              options: {
-                animation: false,
-                scales: {
-                  x: {
-                    title: { display: true, text: 'ωt (rad)' },
-                    ticks: { maxTicksLimit: 10 }
-                  },
-                  y: {
-                    title: { display: true, text: label },
-                    suggestedMin: Math.min(...data) - 0.5,
-                    suggestedMax: Math.max(...data) + 0.5
-                  }
+
+          // Détruire ancien graphique si existant
+          if (charts[id]) {
+            charts[id].destroy();
+          }
+
+          charts[id] = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: label,
+                data: data,
+                borderColor: color,
+                fill: false,
+                pointRadius: 0,
+                borderWidth: 2,
+              }]
+            },
+            options: {
+              animation: false,
+              scales: {
+                x: {
+                  title: { display: true, text: 'ωt (rad)' },
+                  ticks: { maxTicksLimit: 10 }
+                },
+                y: {
+                  title: { display: true, text: label },
+                  // Fixe un domaine un peu plus large
+                  suggestedMin: Math.min(...data) - 0.5,
+                  suggestedMax: Math.max(...data) + 0.5
                 }
               }
-            });
-          }
+            }
+          });
         }
 
-        // Plot all charts
         plotChart('vs-chart', 'v_s(ωt) / V_DC', vsData, 'blue');
         plotChart('ie-chart', 'i_e(ωt) / I', ieData, 'red');
         plotChart('is-chart', 'i_s(ωt) / I', isData, 'green');
