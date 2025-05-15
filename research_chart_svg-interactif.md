@@ -271,7 +271,7 @@ function plotCharts(res) {
     callback: function(value) {
       return value;
     },
-    values: [-2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5]
+    values: [ -2, -1,  0,  1,  2]
   }
 }
 
