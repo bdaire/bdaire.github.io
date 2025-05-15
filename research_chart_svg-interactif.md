@@ -42,6 +42,16 @@ title: Research
     margin-top: 1rem;
   }
 
+  #info-panel input {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+
   .info-label {
     font-weight: bold;
   }
@@ -71,16 +81,21 @@ title: Research
   <div id="small-svg-wrapper">Chargement du petit SVG...</div>
 
     <div id="info-panel">
-      <div class="info-label">r :</div><div id="x-val">-</div>
-      <div class="info-label">x :</div><div id="y-val">-</div>
-      <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
-      <div class="info-label">Zone :</div><div id="zone-val">-</div>
-      <div class="info-label">p :</div><div id="p-val">-</div>
-      <div class="info-label">D :</div><div id="d-val">-</div>
-      <div class="info-label">q :</div><div id="q-val">-</div>
-      <div class="info-label">v :</div><div id="v-val">-</div>
-    </div>
-  </div>
+  <div class="info-label">r :</div><div id="x-val">-</div>
+  <div class="info-label">x :</div><div id="y-val">-</div>
+  <!-- Ligne Distance à (0,0) supprimée -->
+  <div class="info-label">Zone :</div><div id="zone-val">-</div>
+  <div class="info-label">p :</div><div id="p-val">-</div>
+  <div class="info-label">D :</div><div id="d-val">-</div>
+  <div class="info-label">q :</div><div id="q-val">-</div>
+  <div class="info-label">v :</div><div id="v-val">-</div>
+
+  <!-- Champs de saisie ajoutés -->
+  <div class="info-label">VDC :</div><div><input type="number" id="input-vdc" value="1" step="0.01"></div>
+  <div class="info-label">F :</div><div><input type="number" id="input-f" value="50" step="0.01"></div>
+  <div class="info-label">Cs :</div><div><input type="number" id="input-cs" value="0.001" step="0.0001"></div>
+</div>
+
 
   <div id="right-panel">
     <div class="chart-block"><canvas id="vs-chart"></canvas></div>
@@ -93,6 +108,13 @@ title: Research
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+  
+const VDC = parseFloat(document.getElementById('input-vdc').value);
+const F = parseFloat(document.getElementById('input-f').value);
+const Cs = parseFloat(document.getElementById('input-cs').value);
+
+// Tu peux utiliser ces valeurs où tu veux dans ton code après récupération
+
 const PI = Math.PI;
 
 // Génère la frontière (ZVS / ZCS)
