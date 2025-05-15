@@ -21,7 +21,7 @@ title: Research
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* ou center selon ton besoin */
-  gap: 2rem; /* facultatif, pour espacer les blocs */
+  gap: 0.5rem; /* facultatif, pour espacer les blocs */
 }
 
 
