@@ -58,10 +58,9 @@ title: Research
     <p><strong>q :</strong> <span id="q-val">-</span></p>
     <p><strong>v :</strong> <span id="v-val">-</span></p>
 
-```
 <h3>Graphique de v_s(ωt) / V_DC</h3>
 <canvas id="vs-chart" width="300" height="150" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
-```
+
 
   </div>
 </div>
