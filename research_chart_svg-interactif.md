@@ -7,15 +7,15 @@ title: Research
   #svg-wrapper {
     flex: 3;
     border: 1px solid #ccc;
-    min-width: 60%;
-    width: 100%;       /* prend toute la largeur dispo */
-    max-width: 800px;  /* limite la largeur max */
+    min-width: 40%;
+    width: 60%;       /* prend toute la largeur dispo */
+    max-width: 600px;  /* limite la largeur max */
     height: auto;      /* hauteur auto pour garder proportions */
     overflow: visible; /* s'assure qu'on ne cache rien */
   }
 
   #svg-wrapper svg {
-    width: 60%;
+    width: 100%;
     height: auto;
     display: block;
   }
