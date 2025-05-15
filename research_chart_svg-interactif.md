@@ -5,19 +5,18 @@ title: Research
 
 <style>
   #svg-wrapper {
-  flex: 3;
+  width: 400px;     /* Taille réduite ici */
+  height: auto;
+  overflow: hidden; /* Évite les débordements */
   border: 1px solid #ccc;
-  display: inline-block; /* 👈 pour que le conteneur prenne la taille de son contenu */
-  padding: 0;
-  margin: 0;
 }
 
-  #svg-wrapper svg {
-  width: 200px;
+#svg-wrapper svg {
+  width: 100%;
   height: auto;
   display: block;
-  max-width: 100%; /* 👈 si tu veux éviter qu’il déborde sur les petits écrans */
 }
+
 
 
 
