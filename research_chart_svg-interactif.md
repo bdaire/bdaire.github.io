@@ -273,18 +273,28 @@ fetch('/assets/img/chart_EF.svg')
     }]
   },
   options: {
-    scales: {
-      x: {
-        title: { display: false },
-        ticks: { maxTicksLimit: 10 }
-      },
-      y: {
-        title: { display: false },
-        suggestedMin: -2,
-        suggestedMax: 3
-      }
+  plugins: {
+    title: {
+      display: false  // ça supprime le titre général du graphique
+    },
+    legend: {
+      display: false  // pour supprimer la légende si tu veux aussi
+    }
+  },
+  scales: {
+    x: {
+      title: { display: true, text: 'ωt (rad)' },  // titre de l’axe X conservé
+      ticks: { maxTicksLimit: 10 }
+    },
+    y: {
+      title: { display: true, text: label },  // titre de l’axe Y conservé
+      suggestedMin: -2,
+      suggestedMax: 3
     }
   }
+}
+
+
 });
 
 
