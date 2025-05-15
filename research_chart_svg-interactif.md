@@ -93,15 +93,15 @@ title: Research
     <div>
       <div style="margin-bottom: 0.5rem;">
         <label for="F-input" style="font-weight: bold;">F (Hz) :</label>
-        <input id="F-input" type="number" step="any" value="50" style="width: 80px; margin-left: 0.5rem;">
+        <input id="F-input" type="number" step="any" value="15e6" style="width: 80px; margin-left: 0.5rem;">
       </div>
       <div style="margin-bottom: 0.5rem;">
         <label for="Cs-input" style="font-weight: bold;">Cs (F) :</label>
-        <input id="Cs-input" type="number" step="any" value="0.1" style="width: 80px; margin-left: 0.5rem;">
+        <input id="Cs-input" type="number" step="any" value="385e-12" style="width: 80px; margin-left: 0.5rem;">
       </div>
       <div>
         <label for="VDC-input" style="font-weight: bold;">VDC (V) :</label>
-        <input id="VDC-input" type="number" step="any" value="400" style="width: 80px; margin-left: 0.5rem;">
+        <input id="VDC-input" type="number" step="any" value="25" style="width: 80px; margin-left: 0.5rem;">
       </div>
     </div>
 
