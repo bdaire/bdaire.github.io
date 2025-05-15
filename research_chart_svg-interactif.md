@@ -45,7 +45,7 @@ permalink: /svg-interactif/
 </div>
 
 <script>
-  fetch('/assets/img/chart_EF.svg')
+  fetch('{{ "/assets/img/chart_EF.svg" | relative_url }}')
     .then(response => response.text())
     .then(svgText => {
       const wrapper = document.getElementById('svg-wrapper');
