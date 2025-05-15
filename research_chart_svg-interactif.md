@@ -5,20 +5,20 @@ title: Research
 
 <style>
   #svg-wrapper {
-    flex: 3;
-    border: 1px solid #ccc;
-    min-width: 40%;
-    width: 60%;       /* prend toute la largeur dispo */
-    max-width: 600px;  /* limite la largeur max */
-    height: auto;      /* hauteur auto pour garder proportions */
-    overflow: visible; /* s'assure qu'on ne cache rien */
-  }
+  flex: 3;
+  border: 1px solid #ccc;
+  display: inline-block; /* 👈 pour que le conteneur prenne la taille de son contenu */
+  padding: 0;
+  margin: 0;
+}
 
   #svg-wrapper svg {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
+  width: auto;
+  height: auto;
+  display: block;
+  max-width: 100%; /* 👈 si tu veux éviter qu’il déborde sur les petits écrans */
+}
+
 
 
   #info-panel {
