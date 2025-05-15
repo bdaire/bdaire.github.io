@@ -132,33 +132,27 @@ function solveZCS(r, x) {
 }
 
 function solveZVS(r, x) {
-  const nTheta = 10000; // augmentation des itérations pour theta
-  const nPhi = 1000;    // augmentation des itérations pour phi
-
-  for (let j = 0; j < nTheta; j++) {
-    const theta = (j / (nTheta - 1)) * Math.PI;
-    const phiMin = (theta - Math.PI) / 2;
-
-    for (let k = 0; k < nPhi; k++) {
-      const phi = phiMin + (k / (nPhi - 1)) * -phiMin;
+  for (let j = 0; j < 5000; j++) {
+    const theta = (j / 4999) * PI;
+    const phiMin = (theta - PI) / 2;
+    for (let k = 0; k < 500; k++) {
+      const phi = phiMin + (k / 499) * -phiMin;
       const sinTh = Math.sin(theta);
       const sinTerm = Math.sin(theta - 2 * phi);
-      const rTh = (1 / Math.PI) * sinTh * sinTerm;
-      const xTh = (1 / Math.PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
-
+      const rTh = (1 / PI) * sinTh * sinTerm;
+      const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
       if (Math.abs(rTh - r) < 0.001 && Math.abs(xTh - x) < 0.001) {
-        const denom = Math.cos(phi) - Math.cos(phi - theta);
-        const p = (2 / Math.PI) * (sinTh * sinTerm) / (denom * denom);
-        const D = 0.5 - theta / (2 * Math.PI);
+        const denom = Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
+        const p = (2 / PI) * sinTh * sinTerm / denom;
         const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
-        const iVal = Math.sqrt((2 * p) / r);
-        return { p, D, q, v: 0, i: iVal, theta, phi };
+        const i = Math.sqrt((2 * p) / r);
+        const D = 0.5 - theta / (2 * PI);
+        return { p, D, q, v: 0, i, theta, phi };
       }
     }
   }
   return null;
 }
-
 
 function drawDot(svg, xPix, yPix) {
   svg.querySelector('.dot')?.remove();
