@@ -42,13 +42,9 @@ title: Research
     padding: 1rem;
     border: 1px solid #ddd;
     display: grid;
-    grid-template-columns: repeat(3, minmax(150px, 1fr));
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
     gap: 0.5rem 1rem;
     margin-top: 1rem;
-    <div class="info-label">D (%) :</div><div id="d-percent-val">-</div>
-  <div class="info-label">q :</div><div id="q-val-2">-</div>
-  <div class="info-label">Vcutoff (V) :</div><div id="vcutoff-val">-</div>
-
   }
 
   .info-label {
@@ -272,21 +268,6 @@ function updateInfoPanel(r, x, distance, zone, res) {
     set('i-phys-inline', '-');
     set('p-phys-inline', '-');
   }
-  
-  if (res && !isNaN(VDC)) {
-  const Dpercent = (res.D * 100).toFixed(2);
-  const q = res.q.toFixed(4);
-  const Vcutoff = (2 * VDC * res.v).toFixed(2);
-
-  document.getElementById('d-percent-val').textContent = Dpercent + ' %';
-  document.getElementById('q-val-2').textContent = q;
-  document.getElementById('vcutoff-val').textContent = Vcutoff + ' V';
-} else {
-  document.getElementById('d-percent-val').textContent = '-';
-  document.getElementById('q-val-2').textContent = '-';
-  document.getElementById('vcutoff-val').textContent = '-';
-}
-
 }
 
 
