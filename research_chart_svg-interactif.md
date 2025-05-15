@@ -53,17 +53,10 @@ title: Research
     gap: 0.5rem;
   }
 
-.chart-block {
-  height: 220px;
-  width: 100%; /* s'assurer que tous aient la même largeur */
-  box-sizing: border-box;
-}
-
-.chart-block canvas {
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
-}
+  .chart-block canvas {
+    width: 400px;
+    height: 200px;
+  }
 
   .dot {
     fill: red;
@@ -235,71 +228,60 @@ function plotCharts(res) {
     return '';
   };
 
-const config = (label, data, color, showXAxisTitle = false, labels) => ({
-  type: 'line',
-  data: {
-    labels,
-    datasets: [{
-      label,
-      data,
-      borderColor: color,
-      borderWidth: 2,
-      pointRadius: 0,
-      fill: false
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false }
+  const config = (label, data, color, showXAxisTitle = false) => ({
+    type: 'line',
+    data: {
+      datasets: [{
+        label,
+        data,
+        borderColor: color,
+        borderWidth: 2,
+        pointRadius: 0,
+        fill: false
+      }]
     },
-    scales: {
-      x: {
-        title: {
-          display: showXAxisTitle,
-          text: 'ωt (rad)'
+    options: {
+      responsive: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: {
+          type: 'linear',
+          min: 0,
+          max: 4 * PI,
+          title: {
+            display: showXAxisTitle,
+            text: 'ωt (rad)'
+          },
+          ticks: {
+            stepSize: PI,
+            callback: formatPi
+          }
         },
-        ticks: {
-          callback: formatPiTick,
-          maxTicksLimit: 10
-        }
-      },
-      y: {
-        min: -2,
-        max: 3,
-        title: {
-          display: true,
-          text: label
+        y: {
+          title: {
+            display: true,
+            text: label
+          },
+          suggestedMin: -2,
+          suggestedMax: 3
         }
       }
     }
-  }
-});
-
+  });
 
   // Générer les 5 graphes (les 4 premiers sans titre X, le dernier avec)
   const keys = ['vs', 'ie', 'is', 'ic', 'sin'];
-  keys.forEach((key) => {
-  const ctx = document.getElementById(`${key}-chart`).getContext('2d');
-  const showTitle = (key === 'sin');
-  if (window[`${key}Chart`]) {
-    window[`${key}Chart`].data.datasets[0].data = chartData[key].data;
-    window[`${key}Chart`].update();
-  } else {
-    window[`${key}Chart`] = new Chart(
-      ctx,
-      config(
-        chartData[key].label,
-        chartData[key].data,
-        chartData[key].color,
-        showTitle,
-        labels
-      )
-    );
-  }
-});
-
+  keys.forEach((key, index) => {
+    const ctx = document.getElementById(`${key}-chart`).getContext('2d');
+    const showTitle = (key === 'sin'); // titre X uniquement pour le dernier
+    if (window[`${key}Chart`]) {
+      window[`${key}Chart`].data.datasets[0].data = chartData[key].data;
+      window[`${key}Chart`].update();
+    } else {
+      window[`${key}Chart`] = new Chart(ctx, config(chartData[key].label, chartData[key].data, chartData[key].color, showTitle));
+    }
+  });
+}
 
 
 
