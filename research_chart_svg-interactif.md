@@ -82,44 +82,51 @@ function getFrontierR(xTarget) {
 
 function solveZCS(r, x) {
   for (let i = 0; i < 1000; i++) {
-    const theta = (i / 999) * PI;
+    const theta = (i / 999) * Math.PI;
     const sinTh = Math.sin(theta);
     const cosTh = Math.cos(theta);
     const sinTh4 = Math.pow(Math.sin(theta / 2), 4);
-    const xTheta = (1 / PI) * (theta - sinTh * cosTh);
-    const rTheta = (4 / PI) * ((1 / (4 / (PI * r + 4 * sinTh4))) - sinTh4);
+    const xTheta = (1 / Math.PI) * (theta - sinTh * cosTh);
+    const rTheta = (4 / Math.PI) * ((1 / (4 / (Math.PI * r + 4 * sinTh4))) - sinTh4);
+
     if (Math.abs(xTheta - x) < 0.005 && Math.abs(rTheta - r) < 0.01) {
-      const denom = PI * r + 4 * sinTh4;
-      const iVal = 4 / denom;
+      const denom = Math.PI * r + 4 * sinTh4;
       const p = (8 * r) / (denom * denom);
-      const D = 0.5 - theta / (2 * PI);
+      const D = 0.5 - theta / (2 * Math.PI);
       const v = 1 + 2 * (Math.cos(theta) - 1) / denom;
-      return { p, D, q: 0, v };
+      const i_norm = Math.sqrt((2 * p) / r);  // normalisé !
+
+      return { p, D, q: 0, v, theta, phi: 0, i: i_norm };
     }
   }
   return null;
 }
 
+
 function solveZVS(r, x) {
   for (let i = 0; i < 1000; i++) {
-    const theta = (i / 999) * PI;
-    const phiMin = (theta - PI) / 2;
+    const theta = (i / 999) * Math.PI;
+    const phiMin = (theta - Math.PI) / 2;
     for (let j = 0; j < 100; j++) {
       const phi = phiMin + (j / 99) * -phiMin;
       const sinTh = Math.sin(theta);
       const sinTerm = Math.sin(theta - 2 * phi);
-      const rTh = (1 / PI) * sinTh * sinTerm;
-      const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
+      const rTh = (1 / Math.PI) * sinTh * sinTerm;
+      const xTh = (1 / Math.PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
+
       if (Math.abs(rTh - r) < 0.01 && Math.abs(xTh - x) < 0.01) {
-        const p = (2 / PI) * (sinTh * sinTerm) / Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
-        const D = 0.5 - theta / (2 * PI);
+        const p = (2 / Math.PI) * (sinTh * sinTerm) / Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
+        const D = 0.5 - theta / (2 * Math.PI);
         const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
-        return { p, D, q, v: 0 };
+        const i_norm = Math.sqrt((2 * p) / r);  // normalisé !
+
+        return { p, D, q, v: 0, theta, phi, i: i_norm };
       }
     }
   }
   return null;
 }
+
 
 fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
