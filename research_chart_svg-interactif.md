@@ -249,10 +249,10 @@ function updateInfoPanel(r, x, distance, zone, res) {
   const VDC = parseFloat(document.getElementById('VDC-input')?.value);
 
   if (res && !isNaN(F) && !isNaN(Cs) && !isNaN(VDC)) {
-    const Rval = r / (2 * PI * F * Cs);
-    const Lval = x / (4 * PI * PI * F * F * Cs);
-    const Ival = res.i * 2 * PI * F * Cs * VDC;
-    const Pval = res.p * 2 * PI * F * Cs * VDC * VDC;
+    const Rval = r / (2 * Math.PI * F * Cs);
+    const Lval = x / (4 * Math.PI * Math.PI * F * F * Cs);
+    const Ival = res.i * 2 * Math.PI * F * Cs * VDC;
+    const Pval = res.p * 2 * Math.PI * F * Cs * VDC * VDC;
     const Dpercent = (res.D * 100).toFixed(1) + ' %';
     const Vcutoff = (res.v * 2 * VDC).toFixed(2) + ' V';
 
@@ -266,35 +266,20 @@ function updateInfoPanel(r, x, distance, zone, res) {
     set('i-phys-inline', Ival.toFixed(3) + ' A');
     set('p-phys-inline', Pval.toFixed(2) + ' W');
 
-    // Ajout dynamique de la 3e colonne si elle n'existe pas encore
-    if (!document.getElementById('d-percent')) {
-      const panel = document.getElementById('input-vars');
-      const thirdCol = document.createElement('div');
-      thirdCol.style.display = 'flex';
-      thirdCol.style.flexDirection = 'column';
-      thirdCol.style.gap = '0.5rem';
-
-      thirdCol.innerHTML = `
-        <div><strong>D =</strong> <span id="d-percent">${Dpercent}</span></div>
-        <div><strong>q =</strong> <span id="q-inline">${res.q.toFixed(4)}</span></div>
-        <div><strong>Vcutoff =</strong> <span id="vcutoff">${Vcutoff}</span></div>
-      `;
-
-      panel.appendChild(thirdCol);
-    } else {
-      set('d-percent', Dpercent);
-      set('q-inline', res.q.toFixed(4));
-      set('vcutoff', Vcutoff);
-    }
-
+    // Mise à jour des spans existants dans la colonne 3
+    set('d-inline', Dpercent);
+    set('q-inline', res.q.toFixed(4));
+    set('vcutoff-inline', Vcutoff);
   } else {
-    ['r-phys', 'l-phys', 'i-phys', 'p-phys', 'r-phys-inline', 'l-phys-inline', 'i-phys-inline', 'p-phys-inline', 'd-percent', 'q-inline', 'vcutoff'].forEach(id => {
+    ['r-phys', 'l-phys', 'i-phys', 'p-phys',
+     'r-phys-inline', 'l-phys-inline', 'i-phys-inline', 'p-phys-inline',
+     'd-inline', 'q-inline', 'vcutoff-inline'
+    ].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.textContent = '-';
     });
   }
 }
-
 
 
 
