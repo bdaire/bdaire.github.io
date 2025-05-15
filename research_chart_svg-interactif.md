@@ -131,9 +131,11 @@ title: Research
   </div>
 
   <div id="right-panel">
-    <div id="top-text">Welcome to our interactive tool! 
+    <div id="top-text">Welcome to the interactive tool! 
 
-Click on the chart to dynamically see the waveforms of the circuit on the left.
+1/ Enter the values for VDC, F, and Cs. You can use exponential notation too (like 50e6 Hz for 50 MHz)
+2/ Click on the chart to set the operating point
+3/ The waveforms will show up on the right, and the values for R, L, I, and P will appear above the circuit! It’s pretty magical 🧙‍♂️
 
 Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case 😬
     </div>
