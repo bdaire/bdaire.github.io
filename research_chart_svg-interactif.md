@@ -1,7 +1,7 @@
----------------
+---
 layout: default
 title: Research
----------------
+---
 
 <style>
   #svg-wrapper {
@@ -58,15 +58,12 @@ title: Research
     <p><strong>q :</strong> <span id="q-val">-</span></p>
     <p><strong>v :</strong> <span id="v-val">-</span></p>
 
-<h3>Graphique de v_s(ωt) / V_DC</h3>
-<canvas id="vs-chart" width="300" height="150" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
-
-
+    <h3>Graphique de v_s(ωt) / V_DC</h3>
+    <canvas id="vs-chart" width="300" height="150" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
 const PI = Math.PI;
 
@@ -197,20 +194,24 @@ fetch('/assets/img/chart_EF.svg')
         const i = res.i;
         const vsData = [];
         const labels = [];
-        const N = 500;
+        const N = 1000; // Résolution doublée pour deux périodes
+        const period = 2 * Math.PI;
 
         for (let k = 0; k <= N; k++) {
-          const wt = (k / N) * 2 * Math.PI;
+          const wt = (k / N) * 2 * period; // de 0 à 4π (deux périodes)
+          const wtMod = wt % period;       // phase relative dans la période
           let vs;
-          if (wt <= Math.PI - theta) {
+
+          if (wtMod <= Math.PI - theta) {
             vs = 0;
-          } else if (wt <= Math.PI) {
-            vs = -i * (Math.cos(phi - theta) + Math.cos(wt + phi));
-          } else if (wt <= 2 * Math.PI - theta) {
+          } else if (wtMod <= Math.PI) {
+            vs = -i * (Math.cos(phi - theta) + Math.cos(wtMod + phi));
+          } else if (wtMod <= 2 * Math.PI - theta) {
             vs = 2;
           } else {
-            vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wt + phi));
+            vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wtMod + phi));
           }
+
           labels.push(wt.toFixed(2));
           vsData.push(vs);
         }
