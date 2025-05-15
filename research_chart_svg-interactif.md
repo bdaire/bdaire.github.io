@@ -236,16 +236,16 @@ function updateInfoPanel(r, x, distance, zone, res) {
     const Ival = res.i * 2 * PI * F * Cs * VDC;
     const Pval = res.p * 2 * PI * F * Cs * VDC * VDC;
 
-    set('r-phys', Rval.toFixed(4));
-    set('l-phys', Lval.toExponential(2));
-    set('i-phys', Ival.toFixed(3));
-    set('p-phys', Pval.toFixed(2));
+    set('r-phys', Rval.toFixed(4) + ' Ω');
+    set('l-phys', Lval.toExponential(2) + ' H');
+    set('i-phys', Ival.toFixed(3) + ' A');
+    set('p-phys', Pval.toFixed(2) + ' W');
 
     // Met à jour la colonne de droite (inline)
-    set('r-phys-inline', Rval.toFixed(4));
-    set('l-phys-inline', Lval.toExponential(2));
-    set('i-phys-inline', Ival.toFixed(3));
-    set('p-phys-inline', Pval.toFixed(2));
+    set('r-phys-inline', Rval.toFixed(4) + ' Ω');
+    set('l-phys-inline', Lval.toExponential(2) + ' H');
+    set('i-phys-inline', Ival.toFixed(3) + ' A');
+    set('p-phys-inline', Pval.toFixed(2) + ' W');
   } else {
     set('r-phys', '-');
     set('l-phys', '-');
@@ -259,6 +259,7 @@ function updateInfoPanel(r, x, distance, zone, res) {
     set('p-phys-inline', '-');
   }
 }
+
 
 
 
