@@ -99,7 +99,6 @@ title: Research
     <div id="info-panel">
       <div class="info-label">r :</div><div id="x-val">-</div>
       <div class="info-label">x :</div><div id="y-val">-</div>
-      <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
       <div class="info-label">Zone :</div><div id="zone-val">-</div>
       <div class="info-label">p :</div><div id="p-val">-</div>
       <div class="info-label">D :</div><div id="d-val">-</div>
