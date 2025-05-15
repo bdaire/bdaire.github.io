@@ -50,7 +50,7 @@ title: Research
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.2rem;
   /* plus besoin de position relative ou padding-top */
 }
 
