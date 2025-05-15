@@ -94,8 +94,7 @@ title: Research
   </div>
 
   <div id="right-panel">
-    <div id="top-text">
-Welcome to our interactive tool! 
+    <div id="top-text">Welcome to our interactive tool! 
 
 Click on the chart to dynamically see the waveforms of the circuit on the left.
 
