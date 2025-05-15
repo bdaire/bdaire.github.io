@@ -263,8 +263,8 @@ function plotCharts(res) {
             title: { display: key === 'sin', text: 'ωt (rad)' }
           },
           y: {
-  min: -2.5,
-  max: 2.5,
+  min: -2,
+  max: 2,
   title: { display: true, text: label },
   ticks: {
     values: [-2, -1, 0, 1, 2],  // ticks forcés
