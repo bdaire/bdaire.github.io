@@ -214,9 +214,10 @@ function updateInfoPanel(r, x, distance, zone, res) {
   set('v-val', res ? res.v.toFixed(4) : '-');
 
   // Valeurs physiques si res et si F, Cs, VDC sont valides
-  const F = parseFloat(document.getElementById('input-F')?.value);
-  const Cs = parseFloat(document.getElementById('input-Cs')?.value);
-  const VDC = parseFloat(document.getElementById('input-VDC')?.value);
+  const F = parseFloat(document.getElementById('F-input')?.value);
+  const Cs = parseFloat(document.getElementById('Cs-input')?.value);
+  const VDC = parseFloat(document.getElementById('VDC-input')?.value);
+
 
   if (res && !isNaN(F) && !isNaN(Cs) && !isNaN(VDC)) {
     const Rval = r / (2 * PI * F * Cs);
