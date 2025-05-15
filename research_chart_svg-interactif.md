@@ -41,7 +41,6 @@ title: Research
 
 <div class="container">
   <div id="svg-wrapper">
-    <!-- SVG sera injecté ici -->
     Chargement du SVG...
   </div>
 
@@ -50,7 +49,7 @@ title: Research
     <p><strong>r :</strong> <span id="x-val">-</span></p>
     <p><strong>x :</strong> <span id="y-val">-</span></p>
     <p><strong>Distance à (0,0) :</strong> <span id="distance">-</span></p>
-    <p><strong>Zone :</strong> <span id="zone">-</span></p>
+    <p><strong>Zone :</strong> <span id="zone-val">-</span></p>
     <p><strong>p :</strong> <span id="p-val">-</span></p>
     <p><strong>D :</strong> <span id="d-val">-</span></p>
     <p><strong>q :</strong> <span id="q-val">-</span></p>
@@ -59,119 +58,127 @@ title: Research
 </div>
 
 <script>
-  function computeZCS(r, x) {
-    let theta = null;
-    for (let t = 0.01; t < Math.PI; t += 0.001) {
-      const xt = (1 / Math.PI) * (t - Math.sin(t) * Math.cos(t));
-      if (Math.abs(xt - x) < 1e-3) {
-        theta = t;
-        break;
+const PI = Math.PI;
+const frontier = Array.from({ length: 500 }, (_, i) => {
+  const theta = (i / 499) * PI;
+  const r = (1 / PI) * Math.pow(Math.sin(theta), 2);
+  const x = (1 / PI) * (theta - Math.sin(theta) * Math.cos(theta));
+  return { theta, x, r };
+});
+
+function getFrontierR(xTarget) {
+  let left = 0;
+  let right = frontier.length - 1;
+  while (left < right) {
+    const mid = Math.floor((left + right) / 2);
+    if (frontier[mid].x < xTarget) {
+      left = mid + 1;
+    } else {
+      right = mid;
+    }
+  }
+  return frontier[left]?.r || 0;
+}
+
+function solveZCS(r, x) {
+  for (let i = 0; i < 1000; i++) {
+    const theta = (i / 999) * PI;
+    const sinTh = Math.sin(theta);
+    const cosTh = Math.cos(theta);
+    const sinTh4 = Math.pow(Math.sin(theta / 2), 4);
+    const xTheta = (1 / PI) * (theta - sinTh * cosTh);
+    const rTheta = (4 / PI) * ((1 / (4 / (PI * r + 4 * sinTh4))) - sinTh4);
+    if (Math.abs(xTheta - x) < 0.005 && Math.abs(rTheta - r) < 0.01) {
+      const denom = PI * r + 4 * sinTh4;
+      const iVal = 4 / denom;
+      const p = (8 * r) / (denom * denom);
+      const D = 0.5 - theta / (2 * PI);
+      const v = 1 + 2 * (Math.cos(theta) - 1) / denom;
+      return { p, D, q: 0, v };
+    }
+  }
+  return null;
+}
+
+function solveZVS(r, x) {
+  for (let i = 0; i < 1000; i++) {
+    const theta = (i / 999) * PI;
+    const phiMin = (theta - PI) / 2;
+    for (let j = 0; j < 100; j++) {
+      const phi = phiMin + (j / 99) * -phiMin;
+      const sinTh = Math.sin(theta);
+      const sinTerm = Math.sin(theta - 2 * phi);
+      const rTh = (1 / PI) * sinTh * sinTerm;
+      const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
+      if (Math.abs(rTh - r) < 0.01 && Math.abs(xTh - x) < 0.01) {
+        const p = (2 / PI) * (sinTh * sinTerm) / Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
+        const D = 0.5 - theta / (2 * PI);
+        const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
+        return { p, D, q, v: 0 };
       }
     }
-    if (!theta) return null;
-    const sin4 = Math.pow(Math.sin(theta / 2), 4);
-    const i = 4 / (Math.PI * r + 4 * sin4);
-    const p = (8 * r) / Math.pow(Math.PI * r + 4 * sin4, 2);
-    const D = 0.5 - theta / (2 * Math.PI);
-    const v = 1 + 2 * (Math.cos(theta) - 1) / (Math.PI * r + 4 * sin4);
-    return { zone: "ZCS", p, D, q: 0, v };
   }
+  return null;
+}
 
-  function computeZVS(r, x) {
-    let bestError = 1e9;
-    let best = null;
-    for (let theta = 0.01; theta < Math.PI; theta += 0.01) {
-      for (let phi = (theta - Math.PI) / 2; phi <= 0; phi += 0.01) {
-        const rTest = (1 / Math.PI) * Math.sin(theta) * Math.sin(theta - 2 * phi);
-        const xTest = (1 / Math.PI) * (theta - Math.sin(theta) * Math.cos(theta - 2 * phi));
-        const err = Math.hypot(r - rTest, x - xTest);
-        if (err < bestError) {
-          bestError = err;
-          best = { theta, phi };
-        }
-      }
-    }
-    if (!best) return null;
-    const { theta, phi } = best;
-    const denom = Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
-    const p = (2 / Math.PI) * Math.sin(theta) * Math.sin(theta - 2 * phi) / denom;
-    const D = 0.5 - theta / (2 * Math.PI);
-    const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
-    return { zone: "ZVS", p, D, q, v: 0 };
-  }
+fetch('/assets/img/chart_EF.svg')
+  .then(response => response.text())
+  .then(svgText => {
+    const wrapper = document.getElementById('svg-wrapper');
+    wrapper.innerHTML = svgText;
 
-  fetch('/assets/img/chart_EF.svg')
-    .then(response => response.text())
-    .then(svgText => {
-      const wrapper = document.getElementById('svg-wrapper');
-      wrapper.innerHTML = svgText;
-      const svg = wrapper.querySelector('svg');
-      svg.setAttribute('id', 'mysvg');
+    const svg = wrapper.querySelector('svg');
+    svg.setAttribute('id', 'mysvg');
 
-      svg.addEventListener('click', function(evt) {
-        const existingDot = svg.querySelector('.dot');
-        if (existingDot) svg.removeChild(existingDot);
+    svg.addEventListener('click', function(evt) {
+      const existingDot = svg.querySelector('.dot');
+      if (existingDot) svg.removeChild(existingDot);
 
-        const pt = svg.createSVGPoint();
-        pt.x = evt.clientX;
-        pt.y = evt.clientY;
-        const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
-        const x = svgPoint.x;
-        const y = svgPoint.y;
+      const pt = svg.createSVGPoint();
+      pt.x = evt.clientX;
+      pt.y = evt.clientY;
+      const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
+      const xPix = svgPoint.x;
+      const yPix = svgPoint.y;
 
-        const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        dot.setAttribute("cx", x);
-        dot.setAttribute("cy", y);
-        dot.setAttribute("r", 5);
-        dot.setAttribute("class", "dot");
-        svg.appendChild(dot);
+      const r = 0.000531 * xPix - 0.1078;
+      const x = -0.001022 * yPix + 1.0918;
 
-        const rVal = 0.000531 * x - 0.1078;
-        const xVal = -0.001022 * y + 1.0918;
-        document.getElementById('x-val').textContent = rVal.toFixed(4);
-        document.getElementById('y-val').textContent = xVal.toFixed(4);
-        document.getElementById('distance').textContent = Math.sqrt(rVal * rVal + xVal * xVal).toFixed(4);
+      const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      dot.setAttribute("cx", xPix);
+      dot.setAttribute("cy", yPix);
+      dot.setAttribute("r", 5);
+      dot.setAttribute("class", "dot");
+      svg.appendChild(dot);
 
-        if (rVal < 0 || rVal > 2 / Math.PI || xVal < 0 || xVal > 1) {
-          document.getElementById('zone').textContent = "Hors zone";
-          document.getElementById('p-val').textContent = "–";
-          document.getElementById('d-val').textContent = "–";
-          document.getElementById('q-val').textContent = "–";
-          document.getElementById('v-val').textContent = "–";
-          return;
-        }
+      document.getElementById('x-val').textContent = r.toFixed(4);
+      document.getElementById('y-val').textContent = x.toFixed(4);
+      document.getElementById('distance').textContent = Math.sqrt(r*r + x*x).toFixed(4);
 
-        const frontier = (theta) => (1 / Math.PI) * Math.sin(theta) * Math.sin(theta);
-        let thetaStar = null;
-        for (let t = 0.01; t < Math.PI; t += 0.001) {
-          const xt = (1 / Math.PI) * (t - Math.sin(t) * Math.cos(t));
-          if (Math.abs(xt - xVal) < 1e-3) {
-            thetaStar = t;
-            break;
-          }
-        }
-
-        let result = null;
-        if (thetaStar && rVal < frontier(thetaStar)) {
-          result = computeZVS(rVal, xVal);
+      let zone = '-';
+      let res = null;
+      if (r < 0 || r > 2/PI || x < 0 || x > 1) {
+        zone = 'Hors zone';
+      } else {
+        const rFrontier = getFrontierR(x);
+        if (r < rFrontier) {
+          zone = 'ZVS';
+          res = solveZVS(r, x);
         } else {
-          result = computeZCS(rVal, xVal);
+          zone = 'ZCS';
+          res = solveZCS(r, x);
         }
+      }
 
-        if (!result) {
-          document.getElementById('zone').textContent = "Erreur calcul";
-          return;
-        }
-
-        document.getElementById('zone').textContent = result.zone;
-        document.getElementById('p-val').textContent = result.p.toFixed(4);
-        document.getElementById('d-val').textContent = result.D.toFixed(4);
-        document.getElementById('q-val').textContent = result.q.toFixed(4);
-        document.getElementById('v-val').textContent = result.v.toFixed(4);
-      });
-    })
-    .catch(error => {
-      document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG.";
-      console.error("Erreur lors du chargement du SVG :", error);
+      document.getElementById('zone-val').textContent = zone;
+      document.getElementById('p-val').textContent = res ? res.p.toFixed(4) : '-';
+      document.getElementById('d-val').textContent = res ? res.D.toFixed(4) : '-';
+      document.getElementById('q-val').textContent = res ? res.q.toFixed(4) : '-';
+      document.getElementById('v-val').textContent = res ? res.v.toFixed(4) : '-';
     });
+  })
+  .catch(error => {
+    document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG.";
+    console.error("Erreur lors du chargement du SVG :", error);
+  });
 </script>
