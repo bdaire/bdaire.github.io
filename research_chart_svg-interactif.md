@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8" />
-<title>Research</title>
+---
+layout: default
+title: Research
+---
+
 <style>
   #svg-wrapper {
     border: 1px solid #ccc;
@@ -39,12 +39,6 @@
   }
 </style>
 
-<!-- Chart.js CDN -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-</head>
-<body>
-
 <div class="container">
   <div id="svg-wrapper">
     Chargement du SVG...
@@ -60,11 +54,6 @@
     <p><strong>D :</strong> <span id="d-val">-</span></p>
     <p><strong>q :</strong> <span id="q-val">-</span></p>
     <p><strong>v :</strong> <span id="v-val">-</span></p>
-
-    <div id="waveforms-container" style="margin-top: 2rem;">
-      <h3>Forme d'onde \(v_s(\omega t)\)</h3>
-      <canvas id="vs-chart" width="400" height="200"></canvas>
-    </div>
   </div>
 </div>
 
@@ -91,7 +80,6 @@ function getFrontierR(xTarget) {
   return frontier[left]?.r || 0;
 }
 
-// On fixe phi=0 pour ZCS (modifié ici)
 function solveZCS(r, x) {
   for (let i = 0; i < 1000; i++) {
     const theta = (i / 999) * PI;
@@ -106,8 +94,7 @@ function solveZCS(r, x) {
       const p = (8 * r) / (denom * denom);
       const D = 0.5 - theta / (2 * PI);
       const v = 1 + 2 * (Math.cos(theta) - 1) / denom;
-      const phi = 0;  // phi fixé ici
-      return { p, D, q: 0, v, theta, phi };
+      return { p, D, q: 0, v };
     }
   }
   return null;
@@ -127,80 +114,11 @@ function solveZVS(r, x) {
         const p = (2 / PI) * (sinTh * sinTerm) / Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
         const D = 0.5 - theta / (2 * PI);
         const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
-        return { p, D, q, v: 0, theta, phi };
+        return { p, D, q, v: 0 };
       }
     }
   }
   return null;
-}
-
-// Chart.js global variable
-let vsChart = null;
-
-// Fonction calcul de vs(omega t) selon tableau et paramètres
-function computeVsWaveform(theta, phi, I, Vdc = 10, Cs = 1e-6, points = 200) {
-  const data = [];
-  const omegaTValues = [];
-  const PI = Math.PI;
-  const interval = (2 * PI) / points;
-
-  for (let i = 0; i <= points; i++) {
-    const omegaT = i * interval;
-    omegaTValues.push(omegaT);
-
-    let vsValue = 0;
-
-    if (omegaT >= 0 && omegaT < PI - theta) {
-      vsValue = 0;
-    } else if (omegaT >= PI - theta && omegaT < PI) {
-      vsValue = (-I / (omegaT * Cs)) * (Math.cos(phi - theta) + Math.cos(omegaT + phi));
-    } else if (omegaT >= PI && omegaT < 2 * PI - theta) {
-      vsValue = 2 * Vdc;
-    } else if (omegaT >= 2 * PI - theta && omegaT <= 2 * PI) {
-      vsValue = 2 * Vdc + (I / (omegaT * Cs)) * (Math.cos(phi - theta) - Math.cos(omegaT + phi));
-    }
-    data.push(vsValue);
-  }
-
-  return { omegaTValues, data };
-}
-
-// Création / mise à jour du graphique
-function updateVsChart(theta, phi, I) {
-  const ctx = document.getElementById('vs-chart').getContext('2d');
-  const { omegaTValues, data } = computeVsWaveform(theta, phi, I);
-
-  if (vsChart) {
-    vsChart.data.labels = omegaTValues.map(v => v.toFixed(2));
-    vsChart.data.datasets[0].data = data;
-    vsChart.update();
-  } else {
-    vsChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: omegaTValues.map(v => v.toFixed(2)),
-        datasets: [{
-          label: 'v_s(ωt)',
-          data: data,
-          borderColor: 'blue',
-          fill: false,
-          tension: 0.2,
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          x: {
-            type: 'linear',
-            title: { display: true, text: 'ωt (rad)' }
-          },
-          y: {
-            title: { display: true, text: 'v_s(ωt) (V)' }
-          }
-        }
-      }
-    });
-  }
 }
 
 fetch('/assets/img/chart_EF.svg')
@@ -235,41 +153,32 @@ fetch('/assets/img/chart_EF.svg')
 
       document.getElementById('x-val').textContent = r.toFixed(4);
       document.getElementById('y-val').textContent = x.toFixed(4);
-      document.getElementById('distance').textContent = Math.sqrt(r * r + x * x).toFixed(4);
+      document.getElementById('distance').textContent = Math.sqrt(r*r + x*x).toFixed(4);
 
-      const frontierR = getFrontierR(x);
-      const zone = (r > frontierR) ? "ZCS" : "ZVS";
-      document.getElementById('zone-val').textContent = zone;
-
+      let zone = '-';
       let res = null;
-      if (zone === "ZCS") {
-        res = solveZCS(r, x);
+      if (r < 0 || r > 2/PI || x < 0 || x > 1) {
+        zone = 'Hors zone';
       } else {
-        res = solveZVS(r, x);
-      }
-
-      if (res) {
-        document.getElementById('p-val').textContent = res.p.toFixed(4);
-        document.getElementById('d-val').textContent = res.D.toFixed(4);
-        document.getElementById('q-val').textContent = res.q.toFixed(4);
-        document.getElementById('v-val').textContent = res.v.toFixed(4);
-
-        // theta est dans res, phi aussi
-        updateVsChart(res.theta, res.phi, res.p);
-      } else {
-        document.getElementById('p-val').textContent = "-";
-        document.getElementById('d-val').textContent = "-";
-        document.getElementById('q-val').textContent = "-";
-        document.getElementById('v-val').textContent = "-";
-
-        if (vsChart) {
-          vsChart.data.datasets[0].data = [];
-          vsChart.update();
+        const rFrontier = getFrontierR(x);
+        if (r < rFrontier) {
+          zone = 'ZVS';
+          res = solveZVS(r, x);
+        } else {
+          zone = 'ZCS';
+          res = solveZCS(r, x);
         }
       }
+
+      document.getElementById('zone-val').textContent = zone;
+      document.getElementById('p-val').textContent = res ? res.p.toFixed(4) : '-';
+      document.getElementById('d-val').textContent = res ? res.D.toFixed(4) : '-';
+      document.getElementById('q-val').textContent = res ? res.q.toFixed(4) : '-';
+      document.getElementById('v-val').textContent = res ? res.v.toFixed(4) : '-';
     });
+  })
+  .catch(error => {
+    document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG.";
+    console.error("Erreur lors du chargement du SVG :", error);
   });
 </script>
-
-</body>
-</html>
