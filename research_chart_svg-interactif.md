@@ -260,32 +260,33 @@ fetch('/assets/img/chart_EF.svg')
         }
 
         const config = (label, data, color) => ({
-          type: 'line',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: label,
-              data: data,
-              borderColor: color,
-              borderWidth: 2,
-              pointRadius: 0,
-              fill: false,
-            }]
-          },
-          options: {
-            scales: {
-              x: {
-                title: { display: true, text: 'ωt (rad)' },
-                ticks: { maxTicksLimit: 10 }
-              },
-              y: {
-                title: { display: true, text: label },
-                suggestedMin: -2,
-                suggestedMax: 3
-              }
-            }
-          }
-        });
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: [{
+      label: label,
+      data: data,
+      borderColor: color,
+      borderWidth: 2,
+      pointRadius: 0,
+      fill: false,
+    }]
+  },
+  options: {
+    scales: {
+      x: {
+        title: { display: false },
+        ticks: { maxTicksLimit: 10 }
+      },
+      y: {
+        title: { display: false },
+        suggestedMin: -2,
+        suggestedMax: 3
+      }
+    }
+  }
+});
+
 
         const ctxs = {
           vs: document.getElementById('vs-chart').getContext('2d'),
