@@ -259,7 +259,7 @@ fetch('/assets/img/chart_EF.svg')
           isData.push(i_s);
         }
 
-const config = (label, data, color, hideXAxis = false) => ({
+        const config = (label, data, color) => ({
   type: 'line',
   data: {
     labels: labels,
@@ -273,25 +273,29 @@ const config = (label, data, color, hideXAxis = false) => ({
     }]
   },
   options: {
-    plugins: {
-      title: { display: false },
-      legend: { display: false }
+  plugins: {
+    title: {
+      display: false  // ça supprime le titre général du graphique
     },
-    scales: {
-      x: {
-        display: !hideXAxis,
-        title: { display: !hideXAxis, text: 'ωt (rad)' },
-        ticks: { maxTicksLimit: 10 }
-      },
-      y: {
-        title: { display: true, text: label },
-        suggestedMin: -2,
-        suggestedMax: 3
-      }
+    legend: {
+      display: false  // pour supprimer la légende si tu veux aussi
+    }
+  },
+  scales: {
+    x: {
+      title: { display: true, text: 'ωt (rad)' },  // titre de l’axe X conservé
+      ticks: { maxTicksLimit: 10 }
+    },
+    y: {
+      title: { display: true, text: label },  // titre de l’axe Y conservé
+      suggestedMin: -2,
+      suggestedMax: 3
     }
   }
-});
+}
 
+
+});
 
 
         const ctxs = {
@@ -303,26 +307,21 @@ const config = (label, data, color, hideXAxis = false) => ({
         };
 
         const charts = {
-  vs: { data: vsData, label: 'v_s(ωt) / V_DC', color: 'blue', hideXAxis: true },
-  ie: { data: ieData, label: 'i_e(ωt)', color: 'red', hideXAxis: true },
-  is: { data: isData, label: 'i_s(ωt)', color: 'green', hideXAxis: true },
-  ic: { data: icData, label: 'i_C(ωt)', color: 'orange', hideXAxis: true },
-  sin: { data: sinData, label: 'sin(ωt + φ)', color: 'purple', hideXAxis: false },
-};
+          vs: { data: vsData, label: 'v_s(ωt) / V_DC', color: 'blue' },
+          ie: { data: ieData, label: 'i_e(ωt)', color: 'red' },
+          is: { data: isData, label: 'i_s(ωt)', color: 'green' },
+          ic: { data: icData, label: 'i_C(ωt)', color: 'orange' },
+          sin: { data: sinData, label: 'sin(ωt + φ)', color: 'purple' },
+        };
 
-for (const key in charts) {
-  if (window[key + 'Chart']) {
-    window[key + 'Chart'].data.datasets[0].data = charts[key].data;
-    window[key + 'Chart'].options.scales.x.display = !charts[key].hideXAxis ? true : false;
-    window[key + 'Chart'].update();
-  } else {
-    window[key + 'Chart'] = new Chart(
-      ctxs[key],
-      config(charts[key].label, charts[key].data, charts[key].color, charts[key].hideXAxis)
-    );
-  }
-}
-
+        for (const key in charts) {
+          if (window[key + 'Chart']) {
+            window[key + 'Chart'].data.datasets[0].data = charts[key].data;
+            window[key + 'Chart'].update();
+          } else {
+            window[key + 'Chart'] = new Chart(ctxs[key], config(charts[key].label, charts[key].data, charts[key].color));
+          }
+        }
       }
     });
   })
