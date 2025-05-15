@@ -88,7 +88,7 @@ title: Research
   <div id="left-panel">
   <div id="small-svg-wrapper">Chargement du petit SVG...</div>
 
-  <div id="input-vars" style="margin-bottom: 1.5rem; border: 1px solid #ccc; padding: 1rem; border-radius: 6px; max-width: 600px; background: #fafafa; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+  <div id="input-vars" style="margin-bottom: 1.5rem; border: 1px solid #ccc; padding: 1rem; border-radius: 6px; max-width: 600px; background: #fafafa; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
     <!-- Colonne 1 : entrées -->
     <div>
       <div style="margin-bottom: 0.5rem;">
@@ -112,6 +112,14 @@ title: Research
       <div><strong>I =</strong> <span id="i-phys-inline">-</span></div>
       <div><strong>P =</strong> <span id="p-phys-inline">-</span></div>
     </div>
+    
+    <!-- Colonne 3 : calculs supplémentaires -->
+<div style="display: flex; flex-direction: column; gap: 0.5rem;">
+  <div><strong>D (%) =</strong> <span id="d-inline">-</span></div>
+  <div><strong>q =</strong> <span id="q-inline">-</span></div>
+  <div><strong>V<sub>cutoff</sub> =</strong> <span id="vcutoff-inline">-</span> V</div>
+</div>
+
   </div>
 
   <div id="svg-wrapper">Chargement du SVG principal...</div>
@@ -245,30 +253,48 @@ function updateInfoPanel(r, x, distance, zone, res) {
     const Lval = x / (4 * PI * PI * F * F * Cs);
     const Ival = res.i * 2 * PI * F * Cs * VDC;
     const Pval = res.p * 2 * PI * F * Cs * VDC * VDC;
+    const Dpercent = (res.D * 100).toFixed(1) + ' %';
+    const Vcutoff = (res.v * 2 * VDC).toFixed(2) + ' V';
 
     set('r-phys', Rval.toFixed(4) + ' Ω');
     set('l-phys', Lval.toExponential(2) + ' H');
     set('i-phys', Ival.toFixed(3) + ' A');
     set('p-phys', Pval.toFixed(2) + ' W');
 
-    // Met à jour la colonne de droite (inline)
     set('r-phys-inline', Rval.toFixed(4) + ' Ω');
     set('l-phys-inline', Lval.toExponential(2) + ' H');
     set('i-phys-inline', Ival.toFixed(3) + ' A');
     set('p-phys-inline', Pval.toFixed(2) + ' W');
-  } else {
-    set('r-phys', '-');
-    set('l-phys', '-');
-    set('i-phys', '-');
-    set('p-phys', '-');
 
-    // Met à jour la colonne de droite (inline)
-    set('r-phys-inline', '-');
-    set('l-phys-inline', '-');
-    set('i-phys-inline', '-');
-    set('p-phys-inline', '-');
+    // Ajout dynamique de la 3e colonne si elle n'existe pas encore
+    if (!document.getElementById('d-percent')) {
+      const panel = document.getElementById('input-vars');
+      const thirdCol = document.createElement('div');
+      thirdCol.style.display = 'flex';
+      thirdCol.style.flexDirection = 'column';
+      thirdCol.style.gap = '0.5rem';
+
+      thirdCol.innerHTML = `
+        <div><strong>D =</strong> <span id="d-percent">${Dpercent}</span></div>
+        <div><strong>q =</strong> <span id="q-inline">${res.q.toFixed(4)}</span></div>
+        <div><strong>Vcutoff =</strong> <span id="vcutoff">${Vcutoff}</span></div>
+      `;
+
+      panel.appendChild(thirdCol);
+    } else {
+      set('d-percent', Dpercent);
+      set('q-inline', res.q.toFixed(4));
+      set('vcutoff', Vcutoff);
+    }
+
+  } else {
+    ['r-phys', 'l-phys', 'i-phys', 'p-phys', 'r-phys-inline', 'l-phys-inline', 'i-phys-inline', 'p-phys-inline', 'd-percent', 'q-inline', 'vcutoff'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = '-';
+    });
   }
 }
+
 
 
 
