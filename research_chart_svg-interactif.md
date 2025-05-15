@@ -88,36 +88,37 @@ title: Research
   <div id="left-panel">
   <div id="small-svg-wrapper">Chargement du petit SVG...</div>
 
-  <div id="input-vars" style="margin-bottom: 1.5rem; border: 1px solid #ccc; padding: 1rem; border-radius: 6px; max-width: 600px; background: #fafafa; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
-    <!-- Colonne 1 : entrées -->
-    <div>
-      <div style="margin-bottom: 0.5rem;">
-        <label for="F-input" style="font-weight: bold;">F (Hz) :</label>
-        <input id="F-input" type="number" step="any" value="15e6" style="width: 80px; margin-left: 0.5rem;">
-      </div>
-      <div style="margin-bottom: 0.5rem;">
-        <label for="Cs-input" style="font-weight: bold;">Cs (F) :</label>
-        <input id="Cs-input" type="number" step="any" value="385e-12" style="width: 80px; margin-left: 0.5rem;">
-      </div>
-      <div>
-        <label for="VDC-input" style="font-weight: bold;">VDC (V) :</label>
-        <input id="VDC-input" type="number" step="any" value="25" style="width: 80px; margin-left: 0.5rem;">
-      </div>
-    </div>
-
-    <!-- Colonne 2 : sorties -->
-    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-      <div><strong>R =</strong> <span id="r-phys-inline">-</span></div>
-      <div><strong>L =</strong> <span id="l-phys-inline">-</span></div>
-      <div><strong>I =</strong> <span id="i-phys-inline">-</span></div>
-      <div><strong>P =</strong> <span id="p-phys-inline">-</span></div>
-    </div>
-
-  <!-- Colonne 3 : valeurs calculées -->
+<div id="input-vars" style="margin-bottom: 1.5rem; border: 1px solid #ccc; padding: 1rem; border-radius: 6px; max-width: 600px; background: #fafafa; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+  
+  <!-- Colonne 1 : entrées -->
   <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+    <div style="display: flex; align-items: center;">
+      <label for="F-input" style="font-weight: bold; width: 70px;">F (Hz) :</label>
+      <input id="F-input" type="number" step="any" value="15e6" style="width: 80px;">
+    </div>
+    <div style="display: flex; align-items: center;">
+      <label for="Cs-input" style="font-weight: bold; width: 70px;">Cs (F) :</label>
+      <input id="Cs-input" type="number" step="any" value="385e-12" style="width: 80px;">
+    </div>
+    <div style="display: flex; align-items: center;">
+      <label for="VDC-input" style="font-weight: bold; width: 70px;">VDC (V) :</label>
+      <input id="VDC-input" type="number" step="any" value="25" style="width: 80px;">
+    </div>
+  </div>
+
+  <!-- Colonne 2 : R, L, P, D -->
+  <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+    <div><strong>R =</strong> <span id="r-phys-inline">-</span></div>
+    <div><strong>L =</strong> <span id="l-phys-inline">-</span></div>
+    <div><strong>P =</strong> <span id="p-phys-inline">-</span></div>
     <div><strong>D (%) =</strong> <span id="D-percent">-</span></div>
+  </div>
+
+  <!-- Colonne 3 : q, Vcutoff, I -->
+  <div style="display: flex; flex-direction: column; gap: 0.5rem;">
     <div><strong>q =</strong> <span id="q-val-inline">-</span></div>
     <div><strong>Vcutoff (V) =</strong> <span id="vcutoff-val">-</span></div>
+    <div><strong>I =</strong> <span id="i-phys-inline">-</span></div>
   </div>
 </div>
 
