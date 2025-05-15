@@ -50,7 +50,7 @@ title: Research
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
   }
 
   .chart-block canvas {
