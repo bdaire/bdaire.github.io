@@ -291,6 +291,9 @@ function plotCharts(res) {
           },
           min: -2,
           max: 2.05
+          ticks: {
+          stepSize: 1
+        }
         }
       }
     }
