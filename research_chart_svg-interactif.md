@@ -135,8 +135,8 @@ function solveZVS(r, x) {
   for (let j = 0; j < 5000; j++) {
     const theta = (j / 4999) * PI;
     const phiMin = (theta - PI) / 2;
-    for (let k = 0; k < 500; k++) {
-      const phi = phiMin + (k / 499) * -phiMin;
+    for (let k = 0; k < 1000; k++) {
+      const phi = phiMin + (k / 999) * -phiMin;
       const sinTh = Math.sin(theta);
       const sinTerm = Math.sin(theta - 2 * phi);
       const rTh = (1 / PI) * sinTh * sinTerm;
