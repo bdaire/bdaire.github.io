@@ -67,8 +67,8 @@ title: Research
 
 <div class="container">
   <div id="left-panel">
-    <div id="small-svg-wrapper">Chargement du petit SVG...</div>
-    <div id="svg-wrapper">Chargement du SVG principal...</div>
+  <div id="svg-wrapper">Chargement du SVG principal...</div>
+  <div id="small-svg-wrapper">Chargement du petit SVG...</div>
 
     <div id="info-panel">
       <div class="info-label">r :</div><div id="x-val">-</div>
