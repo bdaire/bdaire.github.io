@@ -41,76 +41,93 @@ title: Research
 
 <div class="container">
   <div id="svg-wrapper">
-    <!-- SVG sera injecté ici -->
     Chargement du SVG...
   </div>
-
   <div id="info-panel">
     <h2>Infos du clic</h2>
     <p><strong>r :</strong> <span id="x-val">-</span></p>
     <p><strong>x :</strong> <span id="y-val">-</span></p>
     <p><strong>Distance à (0,0) :</strong> <span id="distance">-</span></p>
-    <!-- Zone détectée s'affichera ici -->
+    <p><strong>Zone :</strong> <span id="zone">-</span></p>
+    <p><strong>p :</strong> <span id="p-val">-</span></p>
+    <p><strong>D :</strong> <span id="D-val">-</span></p>
+    <p><strong>q/v :</strong> <span id="qv-val">-</span></p>
   </div>
 </div>
 
 <script>
-  fetch('/assets/img/chart_EF.svg')
+function solveTheta(r, x) {
+  let minErr = Infinity, bestTheta = 0;
+  for (let i = 0; i <= 1000; i++) {
+    const theta = i * Math.PI / 1000;
+    const r_th = (1 / Math.PI) * Math.pow(Math.sin(theta), 2);
+    const x_th = (1 / Math.PI) * (theta - Math.sin(theta) * Math.cos(theta));
+    const err = Math.pow(r_th - r, 2) + Math.pow(x_th - x, 2);
+    if (err < minErr) {
+      minErr = err;
+      bestTheta = theta;
+    }
+  }
+  return bestTheta;
+}
+
+function solvePhi(r, x, theta) {
+  let phiMin = (theta - Math.PI) / 2, phiMax = 0, bestPhi = phiMin, bestErr = Infinity;
+  for (let i = 0; i <= 1000; i++) {
+    const phi = phiMin + (phiMax - phiMin) * i / 1000;
+    const rSim = (1 / Math.PI) * Math.sin(theta) * Math.sin(theta - 2 * phi);
+    const xSim = (1 / Math.PI) * (theta - Math.sin(theta) * Math.cos(theta - 2 * phi));
+    const err = Math.pow(rSim - r, 2) + Math.pow(xSim - x, 2);
+    if (err < bestErr) {
+      bestErr = err;
+      bestPhi = phi;
+    }
+  }
+  return bestPhi;
+}
+
+function computeZVS(r, x, theta) {
+  const phi = solvePhi(r, x, theta);
+  const sinTheta = Math.sin(theta);
+  const sinTheta_2phi = Math.sin(theta - 2 * phi);
+  const cosPhi = Math.cos(phi);
+  const cosPhi_theta = Math.cos(phi - theta);
+  const p = (2 / Math.PI) * (sinTheta * sinTheta_2phi) / Math.pow(cosPhi - cosPhi_theta, 2);
+  const D = 0.5 - theta / (2 * Math.PI);
+  const qv = (1 - cosPhi) / (1 + cosPhi_theta);
+  return { p, D, qv };
+}
+
+function computeZCS(r, x, theta) {
+  const sinHalfTheta = Math.sin(theta / 2);
+  const sin4 = Math.pow(sinHalfTheta, 4);
+  const denom = Math.PI * r + 4 * sin4;
+  const i = 4 / denom;
+  const p = 0.5 * r * i * i;
+  const D = 0.5 - theta / (2 * Math.PI);
+  const qv = 0;
+  return { p, D, qv };
+}
+
+fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
   .then(svgText => {
     const wrapper = document.getElementById('svg-wrapper');
     wrapper.innerHTML = svgText;
-
     const svg = wrapper.querySelector('svg');
     svg.setAttribute('id', 'mysvg');
 
-    // Fonctions de paramétrisation
-    function r_theta(theta) {
-      return (1 / Math.PI) * Math.pow(Math.sin(theta), 2);
-    }
-
-    function x_theta(theta) {
-      return (1 / Math.PI) * (theta - Math.sin(theta) * Math.cos(theta));
-    }
-
-    // Recherche numérique de theta* tel que x_theta(theta*) ≈ x (Y ici)
-    function findTheta(x) {
-      let low = 0;
-      let high = Math.PI;
-      let mid;
-      const tolerance = 1e-6;
-      let iter = 0;
-      const maxIter = 100;
-
-      while ((high - low) > tolerance && iter < maxIter) {
-        mid = (low + high) / 2;
-        const val = x_theta(mid);
-        if (val > x) {
-          high = mid;
-        } else {
-          low = mid;
-        }
-        iter++;
-      }
-      return (low + high) / 2;
-    }
-
     svg.addEventListener('click', function(evt) {
-      // Supprimer le point rouge existant (pour le déplacer)
       const existingDot = svg.querySelector('.dot');
-      if (existingDot) {
-        svg.removeChild(existingDot);
-      }
+      if (existingDot) svg.removeChild(existingDot);
 
       const pt = svg.createSVGPoint();
       pt.x = evt.clientX;
       pt.y = evt.clientY;
-
       const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
       const x = svgPoint.x;
       const y = svgPoint.y;
 
-      // Créer un point rouge
       const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
       dot.setAttribute("cx", x);
       dot.setAttribute("cy", y);
@@ -118,45 +135,34 @@ title: Research
       dot.setAttribute("class", "dot");
       svg.appendChild(dot);
 
-      // Transformation linéaire des coordonnées (ajuste si besoin)
-      const X = 0.000531 * x - 0.1078;      // r
-      const Y = -0.001022 * y + 1.0918;    // x
+      const r = 0.000531 * x - 0.1078;
+      const xcoord = -0.001022 * y + 1.0918;
+      document.getElementById('x-val').textContent = r.toFixed(4);
+      document.getElementById('y-val').textContent = xcoord.toFixed(4);
+      document.getElementById('distance').textContent = Math.sqrt(r * r + xcoord * xcoord).toFixed(4);
 
-      // Mise à jour des infos transformées
-      document.getElementById('x-val').textContent = X.toFixed(4);
-      document.getElementById('y-val').textContent = Y.toFixed(4);
-      document.getElementById('distance').textContent = Math.sqrt(X*X + Y*Y).toFixed(4);
+      let zone = '-';
+      let p = '-', D = '-', qv = '-';
 
-      // Vérification des bornes pour zone valide
-      if (X < 0 || X > 2/Math.PI || Y < 0 || Y > 1) {
-        setZone('Hors zone');
-        return;
-      }
-
-      // Trouver theta* pour le x (Y ici)
-      const thetaStar = findTheta(Y);
-      const rCurve = r_theta(thetaStar);
-
-      // console pour debug si besoin
-      console.log(`X: ${X.toFixed(4)}, Y: ${Y.toFixed(4)}, θ*: ${thetaStar.toFixed(6)}, r(θ*): ${rCurve.toFixed(6)}`);
-
-      // Déterminer la zone
-      if (X < rCurve) {
-        setZone('Zone ZVS');
+      if (r < 0 || r > 2 / Math.PI || xcoord < 0 || xcoord > 1) {
+        zone = 'Hors zone';
       } else {
-        setZone('Zone ZCS');
+        const thetaStar = solveTheta(r, xcoord);
+        const r_boundary = (1 / Math.PI) * Math.pow(Math.sin(thetaStar), 2);
+
+        if (r < r_boundary) {
+          zone = 'Zone ZVS';
+          ({ p, D, qv } = computeZVS(r, xcoord, thetaStar));
+        } else {
+          zone = 'Zone ZCS';
+          ({ p, D, qv } = computeZCS(r, xcoord, thetaStar));
+        }
       }
 
-      // Fonction d'affichage de zone
-      function setZone(text) {
-        let zoneElem = document.getElementById('zone-val');
-        if (!zoneElem) {
-          zoneElem = document.createElement('p');
-          zoneElem.id = 'zone-val';
-          document.getElementById('info-panel').appendChild(zoneElem);
-        }
-        zoneElem.textContent = text;
-      }
+      document.getElementById('zone').textContent = zone;
+      document.getElementById('p-val').textContent = isNaN(p) ? '-' : p.toFixed(4);
+      document.getElementById('D-val').textContent = isNaN(D) ? '-' : D.toFixed(4);
+      document.getElementById('qv-val').textContent = isNaN(qv) ? '-' : qv.toFixed(4);
     });
   })
   .catch(error => {
