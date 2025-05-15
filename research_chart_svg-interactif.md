@@ -264,10 +264,10 @@ function plotCharts(res) {
             title: { display: key === 'sin', text: 'ωt (rad)' }
           },
           y: {
-            min: -2,
-            max: 2,
+            min: -2.5,
+            max: 2.5,
             title: { display: true, text: label },
-            ticks: { stepSize: 1 }
+            ticks: { stepSize: 0.5 }
           }
         }
       }
