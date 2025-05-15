@@ -51,8 +51,8 @@ title: Research
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-top: 4rem;
-  position: relative;
+  position: relative; /* position relative pour le texte absolu */
+  padding-top: 1.5rem; /* espace au dessus pour laisser place au texte */
 }
 
 #top-text {
@@ -63,6 +63,7 @@ title: Research
   color: #555;
   white-space: nowrap;
 }
+
 
   .chart-block canvas {
     width: 400px;
