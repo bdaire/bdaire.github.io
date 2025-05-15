@@ -132,94 +132,27 @@ function solveZCS(r, x) {
 }
 
 function solveZVS(r, x) {
-  const PI = Math.PI;
-  const invPI = 1 / PI;
-  const twoOverPI = 2 / PI;
-
-  const tolR = 1e-3 * Math.max(1, Math.abs(r));
-  const tolX = 1e-3 * Math.max(1, Math.abs(x));
-
-  // Paramètres gros pas (1ère passe)
-  const coarseJ = 500;
-  const coarseK = 50;
-
-  let bestDiff = Infinity;
-  let bestParams = null;
-
-  // 1ère passe : coarse grid scan
-  for (let j = 0; j < coarseJ; j++) {
-    const theta = (j / (coarseJ - 1)) * PI;
+  for (let j = 0; j < 5000; j++) {
+    const theta = (j / 4999) * PI;
     const phiMin = (theta - PI) / 2;
-    for (let k = 0; k < coarseK; k++) {
-      const phi = phiMin + (k / (coarseK - 1)) * (0 - phiMin);
-
+    for (let k = 0; k < 500; k++) {
+      const phi = phiMin + (k / 499) * -phiMin;
       const sinTh = Math.sin(theta);
-      const phiMinusTheta = phi - theta;
       const sinTerm = Math.sin(theta - 2 * phi);
-
-      const rTh = invPI * sinTh * sinTerm;
-      const cosThetaMinus2Phi = Math.cos(theta - 2 * phi);
-      const xTh = invPI * (theta - sinTh * cosThetaMinus2Phi);
-
-      const diff = Math.abs(rTh - r) + Math.abs(xTh - x);
-      if (diff < bestDiff) {
-        bestDiff = diff;
-        bestParams = { theta, phi };
-      }
-    }
-  }
-
-  // Si pas assez proche, retourne null
-  if (bestDiff > tolR + tolX) return null;
-
-  // 2ème passe : fine grid zoom autour de bestParams
-  const fineJ = 5000;
-  const fineK = 500;
-
-  // Zone zoom : +/- 5% autour du theta et phi trouvés
-  const thetaStart = Math.max(0, bestParams.theta - 0.05 * PI);
-  const thetaEnd = Math.min(PI, bestParams.theta + 0.05 * PI);
-  const phiMinStart = (thetaStart - PI) / 2;
-  const phiMinEnd = (thetaEnd - PI) / 2;
-
-  for (let j = 0; j < fineJ; j++) {
-    // theta entre thetaStart et thetaEnd
-    const theta = thetaStart + (j / (fineJ - 1)) * (thetaEnd - thetaStart);
-    // recalcul phiMin à theta courant
-    const phiMin = (theta - PI) / 2;
-
-    for (let k = 0; k < fineK; k++) {
-      // phi entre phiMin et 0
-      const phi = phiMin + (k / (fineK - 1)) * (0 - phiMin);
-
-      const sinTh = Math.sin(theta);
-      const phiMinusTheta = phi - theta;
-      const sinTerm = Math.sin(theta - 2 * phi);
-
-      const rTh = invPI * sinTh * sinTerm;
-      const cosThetaMinus2Phi = Math.cos(theta - 2 * phi);
-      const xTh = invPI * (theta - sinTh * cosThetaMinus2Phi);
-
-      if (Math.abs(rTh - r) < tolR && Math.abs(xTh - x) < tolX) {
-        const cosPhi = Math.cos(phi);
-        const cosPhiMinusTheta = Math.cos(phiMinusTheta);
-
-        const numeratorP = sinTh * sinTerm;
-        const denominatorP = Math.pow(cosPhi - cosPhiMinusTheta, 2);
-        const p = twoOverPI * numeratorP / denominatorP;
-
+      const rTh = (1 / PI) * sinTh * sinTerm;
+      const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
+      if (Math.abs(rTh - r) < 0.001 && Math.abs(xTh - x) < 0.001) {
+        const denom = Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
+        const p = (2 / PI) * sinTh * sinTerm / denom;
+        const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
+        const i = Math.sqrt((2 * p) / r);
         const D = 0.5 - theta / (2 * PI);
-        const q = (1 - cosPhi) / (1 + cosPhiMinusTheta);
-        const iVal = Math.sqrt((2 * p) / r);
-
-        return { p, D, q, v: 0, i: iVal, theta, phi };
+        return { p, D, q, v: 0, i, theta, phi };
       }
     }
   }
-
   return null;
 }
-
 
 function drawDot(svg, xPix, yPix) {
   svg.querySelector('.dot')?.remove();
