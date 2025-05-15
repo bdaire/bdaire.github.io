@@ -59,7 +59,7 @@ title: Research
   color: #000;
   margin-bottom: 1rem;
   white-space: pre-line;
-  max-width: 320px;
+  max-width: 300px;
 
   /* ✅ Style d'encadrement */
   border: 2px solid black;
@@ -73,9 +73,11 @@ title: Research
 
 
   .chart-block canvas {
-    width: 400px;
-    height: 200px;
-  }
+  width: 500px !important; /* ou la largeur que tu veux */
+  height: 200px;
+  max-width: 100%;
+}
+
 
   .dot {
     fill: red;
