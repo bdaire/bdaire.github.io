@@ -17,15 +17,10 @@ title: Research
     width: 60%;
   }
 
-  #small-svg-wrapper,
-  #svg-wrapper {
+  #svg-wrapper, #small-svg-wrapper {
     margin-bottom: 3rem;
-  }
-
-  #svg-wrapper {
     border: 1px solid #ccc;
     width: 100%;
-    max-width: 100%;
   }
 
   svg {
@@ -52,7 +47,7 @@ title: Research
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 0rem;
+    gap: 0;
   }
 
   #top-text {
@@ -68,19 +63,10 @@ title: Research
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
   }
 
-  .chart-block {
-    width: 100%;
-    height: 170px;
-    position: relative;
-    margin-bottom: 1rem;
-  }
-
   .chart-block canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100% !important;
+    width: 500px !important;
+    height: 100px;
+    max-width: 100%;
   }
 
   .dot {
@@ -108,27 +94,27 @@ title: Research
   </div>
 
   <div id="right-panel">
-    <div id="top-text">Welcome to our interactive tool! 
+    <div id="top-text">
+Welcome to our interactive tool! 
 
 Click on the chart to dynamically see the waveforms of the circuit on the left.
 
-Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case \:S</div>
+Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case 😬
+    </div>
 
-    <div class="chart-block"><canvas id="vs-chart"></canvas></div>
-    <div class="chart-block"><canvas id="ie-chart"></canvas></div>
-    <div class="chart-block"><canvas id="is-chart"></canvas></div>
-    <div class="chart-block"><canvas id="ic-chart"></canvas></div>
-    <div class="chart-block"><canvas id="sin-chart"></canvas></div>
+    <div class="chart-block"><canvas id="vs-chart" width="500" height="170"></canvas></div>
+    <div class="chart-block"><canvas id="ie-chart" width="500" height="170"></canvas></div>
+    <div class="chart-block"><canvas id="is-chart" width="500" height="170"></canvas></div>
+    <div class="chart-block"><canvas id="ic-chart" width="500" height="170"></canvas></div>
+    <div class="chart-block"><canvas id="sin-chart" width="500" height="180"></canvas></div>
   </div>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
 const PI = Math.PI;
 
-// Génère la frontière (ZVS / ZCS)
 const frontier = Array.from({ length: 500 }, (_, j) => {
   const theta = (j / 499) * PI;
   const r = (1 / PI) * Math.pow(Math.sin(theta), 2);
@@ -140,7 +126,7 @@ function getFrontierR(xTarget) {
   let left = 0, right = frontier.length - 1;
   while (left < right) {
     const mid = Math.floor((left + right) / 2);
-    (frontier[mid].x < xTarget) ? left = mid + 1 : right = mid;
+    frontier[mid].x < xTarget ? (left = mid + 1) : (right = mid);
   }
   return frontier[left]?.r || 0;
 }
@@ -211,20 +197,19 @@ function updateInfoPanel(r, x, distance, zone, res) {
 
 function plotCharts(res) {
   const N = 1000;
-  const period = 2 * PI;
   const theta = res.theta;
   const phi = res.phi || 0;
   const i = res.i;
 
-  const vs = [], ie = [], is = [], ic = [], sin = [];
+  const data = { vs: [], ie: [], is: [], ic: [], sin: [] };
 
   for (let k = 0; k <= N; k++) {
-    const wt = (k / N) * 4 * PI; // Deux périodes
+    const wt = (k / N) * 4 * PI;
     const wtMod = wt % (2 * PI);
     const sinTerm = Math.sin(wt + phi);
-    sin.push({ x: wt, y: sinTerm });
 
-    // v_s(ωt)
+    data.sin.push({ x: wt, y: sinTerm });
+
     let vsVal = 0;
     if (wtMod > Math.PI - theta && wtMod <= Math.PI) {
       vsVal = -i * (Math.cos(phi - theta) + Math.cos(wtMod + phi));
@@ -233,107 +218,70 @@ function plotCharts(res) {
     } else if (wtMod > 2 * Math.PI - theta) {
       vsVal = 2 + i * (Math.cos(phi - theta) - Math.cos(wtMod + phi));
     }
-    vs.push({ x: wt, y: vsVal });
+    data.vs.push({ x: wt, y: vsVal });
 
-    // i_e, i_s, i_C
-    ie.push({ x: wt, y: (wtMod <= Math.PI - theta || (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta)) ? sinTerm * (wtMod <= Math.PI - theta ? 1 : -1) : 0 });
-    ic.push({ x: wt, y: (wtMod > Math.PI - theta && wtMod <= Math.PI || wtMod > 2 * Math.PI - theta) ? sinTerm : 0 });
-    is.push({ x: wt, y: (wtMod <= Math.PI - theta) ? 2 * sinTerm : 0 });
+    data.ie.push({ x: wt, y: (wtMod <= Math.PI - theta || (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta)) ? sinTerm * (wtMod <= Math.PI - theta ? 1 : -1) : 0 });
+    data.ic.push({ x: wt, y: (wtMod > Math.PI - theta && wtMod <= Math.PI || wtMod > 2 * Math.PI - theta) ? sinTerm : 0 });
+    data.is.push({ x: wt, y: (wtMod <= Math.PI - theta) ? 2 * sinTerm : 0 });
   }
 
-  const chartData = {
-    vs: { data: vs, label: 'vs(ωt) / VDC', color: 'blue' },
-    ie: { data: ie, label: 'ie(ωt) / I', color: 'red' },
-    is: { data: is, label: 'is(ωt) / I', color: 'green' },
-    ic: { data: ic, label: 'iC(ωt) / I', color: 'orange' },
-    sin: { data: sin, label: 'i(ωt) / I', color: 'purple' },
+  const chartParams = {
+    vs: { label: 'vs(ωt) / VDC', color: 'blue' },
+    ie: { label: 'ie(ωt) / I', color: 'red' },
+    is: { label: 'is(ωt) / I', color: 'green' },
+    ic: { label: 'iC(ωt) / I', color: 'orange' },
+    sin: { label: 'i(ωt) / I', color: 'purple' }
   };
 
-  // Fonction pour formater les ticks en multiples de π
-  const formatPi = (val) => {
+  const formatPi = val => {
     const n = val / PI;
-    if (Math.abs(n - Math.round(n)) < 0.05) {
-      const rounded = Math.round(n);
-      if (rounded === 0) return '0';
-      if (rounded === 1) return 'π';
-      return `${rounded}π`;
-    }
-    return '';
+    const rounded = Math.round(n);
+    return Math.abs(n - rounded) < 0.05 ? (rounded === 0 ? '0' : `${rounded === 1 ? '' : rounded}π`) : '';
   };
 
-  const config = (label, data, color, showXAxisTitle = false) => ({
-  type: 'line',
-  data: {
-    datasets: [{
-      label,
-      data,
-      borderColor: color,
-      borderWidth: 2,
-      pointRadius: 0,
-      fill: false
-    }]
-  },
-  options: {
-  responsive: true,
-  maintainAspectRatio: false,
-  layout: {
-    padding: {
-      top: 20,
-      bottom: 20,
-      left: 20,
-      right: 20
-    }
-  },
-  plugins: {
-    legend: { display: false }
-  },
-  scales: {
-    x: {
-      type: 'linear',
-      min: 0,
-      max: 4 * PI,
-      title: {
-        display: showXAxisTitle,
-        text: 'ωt (rad)'
-      },
-      ticks: {
-        stepSize: PI,
-        callback: formatPi
-      }
-    },
-    y: {
-      title: {
-        display: true,
-        text: label
-      },
-      min: -2.2,
-      max: 2.2,
-      ticks: {
-        stepSize: 1,
-        callback: val => val.toString()
-      }
-    }
-  }
-}
-
-});
-
-
-  // Générer les 5 graphes (les 4 premiers sans titre X, le dernier avec)
-  const keys = ['vs', 'ie', 'is', 'ic', 'sin'];
-  keys.forEach((key, index) => {
+  for (const [key, { label, color }] of Object.entries(chartParams)) {
     const ctx = document.getElementById(`${key}-chart`).getContext('2d');
-    const showTitle = (key === 'sin'); // titre X uniquement pour le dernier
+    const config = {
+      type: 'line',
+      data: {
+        datasets: [{
+          label,
+          data: data[key],
+          borderColor: color,
+          borderWidth: 2,
+          pointRadius: 0
+        }]
+      },
+      options: {
+        responsive: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: {
+            type: 'linear',
+            min: 0,
+            max: 4 * PI,
+            ticks: { stepSize: PI, callback: formatPi },
+            title: { display: key === 'sin', text: 'ωt (rad)' }
+          },
+          y: {
+            min: -2,
+            max: 2,
+            title: { display: true, text: label },
+            ticks: { stepSize: 1 }
+          }
+        }
+      }
+    };
+
     if (window[`${key}Chart`]) {
-      window[`${key}Chart`].data.datasets[0].data = chartData[key].data;
+      window[`${key}Chart`].data.datasets[0].data = data[key];
       window[`${key}Chart`].update();
     } else {
-      window[`${key}Chart`] = new Chart(ctx, config(chartData[key].label, chartData[key].data, chartData[key].color, showTitle));
+      window[`${key}Chart`] = new Chart(ctx, config);
     }
-  });
+  }
 }
 
-// === Chargement des SVG ===
 fetch('/assets/img/circuit_EF.svg')
   .then(res => res.text())
   .then(svg => document.getElementById('small-svg-wrapper').innerHTML = svg)
@@ -360,10 +308,8 @@ fetch('/assets/img/chart_EF.svg')
 
       drawDot(svg, xPix, yPix);
 
-      let zone = '-', res = null;
-      if (r < 0 || r > 2 / PI || x < 0 || x > 1) {
-        zone = 'Hors zone';
-      } else {
+      let zone = 'Hors zone', res = null;
+      if (r >= 0 && r <= 2 / PI && x >= 0 && x <= 1) {
         const rFrontier = getFrontierR(x);
         if (r < rFrontier) {
           zone = 'ZVS';
@@ -378,12 +324,6 @@ fetch('/assets/img/chart_EF.svg')
       if (res) plotCharts(res);
     });
   })
-  .catch(err => {
-    document.getElementById('svg-wrapper').textContent = 'Erreur de chargement du SVG principal.';
-    console.error("Erreur SVG:", err);
-  });
-</script>
-
   .catch(err => {
     document.getElementById('svg-wrapper').textContent = 'Erreur de chargement du SVG principal.';
     console.error("Erreur SVG:", err);
