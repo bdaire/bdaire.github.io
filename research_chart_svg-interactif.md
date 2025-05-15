@@ -43,14 +43,20 @@ title: Research
 
   .chart-section {
     margin-top: 2rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   canvas {
     width: 100% !important;
     height: auto !important;
+  }
+
+  .canvas-block {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
   }
 </style>
 
@@ -69,13 +75,13 @@ title: Research
     <p><strong>D :</strong> <span id="d-val">-</span></p>
     <p><strong>q :</strong> <span id="q-val">-</span></p>
     <p><strong>v :</strong> <span id="v-val">-</span></p>
-
-    <h3>Graphique de v_s(ωt) / V_DC</h3>
-    <canvas id="vs-chart" width="300" height="150"></canvas>
   </div>
 </div>
 
-<div class="chart-section">
+<div class="chart-section canvas-block">
+  <h3>v_s(ωt) / V_DC</h3>
+  <canvas id="vs-chart"></canvas>
+
   <h3>i_e(ωt)</h3>
   <canvas id="ie-chart"></canvas>
 
