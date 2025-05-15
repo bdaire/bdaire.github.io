@@ -18,9 +18,37 @@ title: Research
 
   #small-svg-wrapper {
     margin-bottom: 2rem;
+    position: relative;
     display: flex;
     justify-content: flex-start;
-    position: relative; /* ajouté pour positionner inputs absolus */
+  }
+
+  /* Conteneur des inputs sur le petit SVG */
+  #inputs-wrapper {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 10px;
+    background: white;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 10;
+  }
+
+  #inputs-wrapper label {
+    font-size: 0.9rem;
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+
+  #inputs-wrapper input {
+    width: 60px;
+    padding: 4px 6px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    font-size: 0.9rem;
   }
 
   #svg-wrapper {
@@ -72,34 +100,30 @@ title: Research
     stroke: black;
     stroke-width: 1px;
   }
-
-  /* Styles pour les inputs sur le petit SVG */
-  #small-svg-wrapper input[type="number"] {
-    position: absolute;
-    top: 10px;
-    width: 80px;
-    padding: 5px;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-
-  #input-vdc {
-    left: 10px;
-  }
-  #input-f {
-    left: 110px;
-  }
-  #input-cs {
-    left: 210px;
-  }
 </style>
 
 <div class="container">
   <div id="left-panel">
 
     <!-- Petit SVG décoratif chargé via fetch -->
-    <div id="small-svg-wrapper">Chargement du petit SVG...</div>
+    <div id="small-svg-wrapper">
+      Chargement du petit SVG...
+      <!-- Inputs pour V_DC, F et C_s -->
+      <div id="inputs-wrapper">
+        <div>
+          <label for="input-vdc">V<sub>DC</sub>:</label>
+          <input id="input-vdc" type="number" step="any" value="1.0" />
+        </div>
+        <div>
+          <label for="input-f">F:</label>
+          <input id="input-f" type="number" step="any" value="50" />
+        </div>
+        <div>
+          <label for="input-cs">C<sub>s</sub>:</label>
+          <input id="input-cs" type="number" step="any" value="0.1" />
+        </div>
+      </div>
+    </div>
 
     <div id="svg-wrapper">Chargement du SVG principal...</div>
 
@@ -198,17 +222,24 @@ fetch('/assets/img/circuit_EF.svg')
   .then(svgText => {
     const smallWrapper = document.getElementById('small-svg-wrapper');
     smallWrapper.innerHTML = svgText;
-    // Optionnel : ajouter un id pour le petit svg s'il faut manipuler
-    const svg = smallWrapper.querySelector('svg');
-    if(svg) svg.setAttribute('id', 'small-svg');
 
-    // Ajout des inputs positionnés sur le petit SVG
-    const inputsHTML = `
-      <input id="input-vdc" type="number" step="any" placeholder="V_{DC}" />
-      <input id="input-f" type="number" step="any" placeholder="F" />
-      <input id="input-cs" type="number" step="any" placeholder="C_s" />
-    `;
-    smallWrapper.insertAdjacentHTML('beforeend', inputsHTML);
+    // On remet les inputs dans #inputs-wrapper (car innerHTML écrase tout)
+    const inputsWrapper = document.createElement('div');
+    inputsWrapper.id = 'inputs-wrapper';
+    inputsWrapper.innerHTML = `
+      <div>
+        <label for="input-vdc">V<sub>DC</sub>:</label>
+        <input id="input-vdc" type="number" step="any" value="1.0" />
+      </div>
+      <div>
+        <label for="input-f">F:</label>
+        <input id="input-f" type="number" step="any" value="50" />
+      </div>
+      <div>
+        <label for="input-cs">C<sub>s</sub>:</label>
+        <input id="input-cs" type="number" step="any" value="0.1" />
+      </div>`;
+    smallWrapper.appendChild(inputsWrapper);
   })
   .catch(() => {
     document.getElementById('small-svg-wrapper').textContent = 'Erreur de chargement du petit SVG.';
@@ -216,7 +247,7 @@ fetch('/assets/img/circuit_EF.svg')
 
 // Chargement du SVG principal
 fetch('/assets/img/chart_EF.svg')
-  .then(response => response.text())
+  .then(res => res.text())
   .then(svgText => {
     const wrapper = document.getElementById('svg-wrapper');
     wrapper.innerHTML = svgText;
@@ -224,55 +255,101 @@ fetch('/assets/img/chart_EF.svg')
     const svg = wrapper.querySelector('svg');
     svg.setAttribute('id', 'mysvg');
 
-    svg.addEventListener('click', function(evt) {
-      const existingDot = svg.querySelector('.dot');
-      if (existingDot) svg.removeChild(existingDot);
-
+    // Event listener pour déplacer le point rouge sur le SVG et calculs associés
+    svg.addEventListener('click', event => {
       const pt = svg.createSVGPoint();
-      pt.x = evt.clientX;
-      pt.y = evt.clientY;
-      const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
-      const xPix = svgPoint.x;
-      const yPix = svgPoint.y;
+      pt.x = event.clientX;
+      pt.y = event.clientY;
+      const cursorpt = pt.matrixTransform(svg.getScreenCTM().inverse());
+      const x = cursorpt.x;
+      const y = cursorpt.y;
 
-      const r = 0.000531 * xPix - 0.1078;
-      const x = -0.001022 * yPix + 1.0918;
+      // Limite la zone à 0 ≤ x ≤ 1.25 et y ≥ 0 (selon frontiere)
+      if (x < 0 || x > 1.25 || y < 0) return;
 
-      const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      dot.setAttribute("cx", xPix);
-      dot.setAttribute("cy", yPix);
-      dot.setAttribute("r", 5);
-      dot.setAttribute("class", "dot");
-      svg.appendChild(dot);
+      // Trouve r selon x dans frontier (interpolation)
+      const r = getFrontierR(x);
 
+      // Positionne le point rouge
+      let point = svg.querySelector('.dot');
+      if (!point) {
+        point = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        point.classList.add('dot');
+        point.setAttribute('r', '6');
+        svg.appendChild(point);
+      }
+      point.setAttribute('cx', x);
+      point.setAttribute('cy', y);
+
+      // Calcule distance au centre
+      const dist = Math.sqrt(x * x + y * y);
+
+      // Mise à jour infos
       document.getElementById('x-val').textContent = x.toFixed(3);
-      document.getElementById('y-val').textContent = yPix.toFixed(0);
-      document.getElementById('distance').textContent = r.toFixed(3);
+      document.getElementById('y-val').textContent = y.toFixed(3);
+      document.getElementById('distance').textContent = dist.toFixed(3);
+      document.getElementById('zone-val').textContent = y > r ? 'hors frontière' : 'intérieur';
 
-      if (r > getFrontierR(x)) {
-        document.getElementById('zone-val').textContent = 'ZCS';
-        const zcsVals = solveZCS(r, x);
-        if (zcsVals) {
-          document.getElementById('p-val').textContent = zcsVals.p.toFixed(3);
-          document.getElementById('d-val').textContent = zcsVals.D.toFixed(3);
-          document.getElementById('q-val').textContent = zcsVals.q.toFixed(3);
-          document.getElementById('v-val').textContent = zcsVals.v.toFixed(3);
-        }
+      // Calcule p, D, q, v selon ZCS ou ZVS
+      let res;
+      if (y > r) {
+        res = solveZCS(r, x);
       } else {
-        document.getElementById('zone-val').textContent = 'ZVS';
-        const zvsVals = solveZVS(r, x);
-        if (zvsVals) {
-          document.getElementById('p-val').textContent = zvsVals.p.toFixed(3);
-          document.getElementById('d-val').textContent = zvsVals.D.toFixed(3);
-          document.getElementById('q-val').textContent = zvsVals.q.toFixed(3);
-          document.getElementById('v-val').textContent = zvsVals.v.toFixed(3);
-        }
+        res = solveZVS(r, x);
+      }
+
+      if (res) {
+        document.getElementById('p-val').textContent = res.p.toFixed(4);
+        document.getElementById('d-val').textContent = res.D.toFixed(4);
+        document.getElementById('q-val').textContent = res.q.toFixed(4);
+        document.getElementById('v-val').textContent = res.v.toFixed(4);
+      } else {
+        document.getElementById('p-val').textContent = '-';
+        document.getElementById('d-val').textContent = '-';
+        document.getElementById('q-val').textContent = '-';
+        document.getElementById('v-val').textContent = '-';
       }
     });
+
+    // Initialisation des graphiques Chart.js
+    initCharts();
   })
   .catch(() => {
     document.getElementById('svg-wrapper').textContent = 'Erreur de chargement du SVG principal.';
   });
 
-// TODO: Ajoute ici le code pour les graphiques Chart.js, etc.
+// Fonction d'initialisation des graphiques
+function initCharts() {
+  const charts = [
+    {id: 'vs-chart', label: 'VS', color: 'blue'},
+    {id: 'ie-chart', label: 'IE', color: 'green'},
+    {id: 'is-chart', label: 'IS', color: 'orange'},
+    {id: 'ic-chart', label: 'IC', color: 'red'},
+    {id: 'sin-chart', label: 'SIN', color: 'purple'}
+  ];
+
+  charts.forEach(({id, label, color}) => {
+    const ctx = document.getElementById(id).getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [0, 1, 2, 3, 4],
+        datasets: [{
+          label: label + ' sample',
+          data: [0, 0, 0, 0, 0],
+          borderColor: color,
+          fill: false,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {display: true},
+          y: {display: true}
+        }
+      }
+    });
+  });
+}
 </script>
