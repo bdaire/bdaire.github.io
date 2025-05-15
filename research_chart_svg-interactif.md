@@ -44,7 +44,7 @@ title: Research
 </div>
 
 <script>
-  fetch('{{ "/assets/img/chart_EF.svg" | relative_url }}')
+    fetch('/assets/img/chart_EF.svg')
     .then(response => response.text())
     .then(svgText => {
       const wrapper = document.getElementById('svg-wrapper');
