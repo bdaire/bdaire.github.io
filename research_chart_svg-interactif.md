@@ -8,16 +8,18 @@ title: Research
     flex: 3;
     border: 1px solid #ccc;
     min-width: 60%;
-    width: 80vw;        /* largeur flexible (80% de la largeur de la fenêtre) */
-    max-width: 800px;   /* largeur max */
-    height: auto;       /* hauteur auto pour garder les proportions */
+    width: 100%;       /* prend toute la largeur dispo */
+    max-width: 800px;  /* limite la largeur max */
+    height: auto;      /* hauteur auto pour garder proportions */
+    overflow: visible; /* s'assure qu'on ne cache rien */
   }
 
   #svg-wrapper svg {
-    width: 100%;
-    height: auto;       /* hauteur auto pour respecter le ratio */
-    display: block;     /* enlève les espaces blancs sous le SVG */
+    width: 60%;
+    height: auto;
+    display: block;
   }
+
 
   #info-panel {
     flex: 1;
