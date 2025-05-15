@@ -4,17 +4,23 @@ title: Research
 ---
 
 <style>
-  #svg-wrapper {
-  width: 800px;     /* ou 100% si tu veux responsive */
-  height: auto;
-  border: 1px solid #ccc;
-}
+  <div id="svg-wrapper">
+  <!-- SVG ici -->
+</div>
 
-#svg-wrapper svg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+<style>
+  #svg-wrapper {
+    border: 1px solid #ccc;
+    display: inline-block; /* ou block */
+  }
+
+  #svg-wrapper svg {
+    display: block;
+    width: auto;
+    height: auto;
+  }
+</style>
+
 
 
 
