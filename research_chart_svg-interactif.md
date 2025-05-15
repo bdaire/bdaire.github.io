@@ -117,7 +117,7 @@ title: Research
 <div style="display: flex; flex-direction: column; gap: 0.5rem;">
   <div><strong>D (%) =</strong> <span id="d-inline">-</span></div>
   <div><strong>q =</strong> <span id="q-inline">-</span></div>
-  <div><strong>V<sub>cutoff</sub> =</strong> <span id="vcutoff-inline">-</span> V</div>
+  <div><strong>V<sub>cutoff</sub> =</strong> <span id="vcutoff-inline">-</span></div>
 </div>
 
   </div>
