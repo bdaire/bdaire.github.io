@@ -268,12 +268,16 @@ function plotCharts(res) {
   max: 2.5,
   title: { display: true, text: label },
   ticks: {
+    stepSize: 0.5,
     callback: function(value) {
-      return value;
-    },
-    values: [-2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5]
+      if ([-2, -1, 0, 1, 2].includes(value)) {
+        return value;
+      }
+      return '';  // cache les autres ticks
+    }
   }
 }
+
 
 
 
