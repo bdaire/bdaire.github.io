@@ -85,9 +85,10 @@ title: Research
       <label for="F-input" style="font-weight: bold;">F (Hz) :</label>
       <input id="F-input" type="number" step="any" value="50" style="width: 80px; margin-left: 0.5rem;">
     </div>
-    <div style="margin-bottom: 0.5rem;">
-      <label for="Cs-input" style="font-weight: bold;">Cs (F) :</label>
-      <input id="Cs-input" type="number" step="any" value="0.1" style="width: 80px; margin-left: 0.5rem;">
+    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+      <label for="Cs-input" style="font-weight: bold; white-space: nowrap;">Cs (F) :</label>
+      <input id="Cs-input" type="number" step="any" value="0.1" style="width: 80px;">
+      <span style="font-size: 0.85rem; color: #555; user-select: none;">&lt;-- e-12 works! :)</span>
     </div>
     <div>
       <label for="VDC-input" style="font-weight: bold;">VDC (V) :</label>
@@ -101,9 +102,9 @@ title: Research
     <div><strong>L (H) :</strong> <span id="l-phys-inline">-</span></div>
     <div><strong>I (A) :</strong> <span id="i-phys-inline">-</span></div>
     <div><strong>P (W) :</strong> <span id="p-phys-inline">-</span></div>
-
   </div>
 </div>
+
 
 
   <div id="small-svg-wrapper">Chargement du petit SVG...</div>
