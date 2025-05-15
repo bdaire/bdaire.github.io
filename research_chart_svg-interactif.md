@@ -93,33 +93,31 @@ title: Research
     <div id="small-svg-wrapper">Chargement du petit SVG...</div>
     <div id="svg-wrapper">Chargement du SVG principal...</div>
 
-```
-<div id="info-panel">
-  <div class="info-label">r :</div><div id="x-val">-</div>
-  <div class="info-label">x :</div><div id="y-val">-</div>
-  <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
-  <div class="info-label">Zone :</div><div id="zone-val">-</div>
-  <div class="info-label">p :</div><div id="p-val">-</div>
-  <div class="info-label">D :</div><div id="d-val">-</div>
-  <div class="info-label">q :</div><div id="q-val">-</div>
-  <div class="info-label">v :</div><div id="v-val">-</div>
-</div>
-```
-
+    <div id="info-panel">
+      <div class="info-label">r :</div><div id="x-val">-</div>
+      <div class="info-label">x :</div><div id="y-val">-</div>
+      <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
+      <div class="info-label">Zone :</div><div id="zone-val">-</div>
+      <div class="info-label">p :</div><div id="p-val">-</div>
+      <div class="info-label">D :</div><div id="d-val">-</div>
+      <div class="info-label">q :</div><div id="q-val">-</div>
+      <div class="info-label">v :</div><div id="v-val">-</div>
+    </div>
   </div>
 
   <div id="right-panel">
-  <div id="top-text">Welcome to our interactive tool! 
+    <div id="top-text">Welcome to our interactive tool! 
 
 Click on the chart to dynamically see the waveforms of the circuit on the left.
 
 Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case \:S</div>
 
-  <div class="chart-block"><canvas id="vs-chart" width="500" height="170"></canvas>
-  <div class="chart-block"><canvas id="ie-chart" width="500" height="170"></canvas>
-  <div class="chart-block"><canvas id="is-chart" width="500" height="170"></canvas>
-  <div class="chart-block"><canvas id="ic-chart" width="500" height="170"></canvas>
-  <div class="chart-block"><canvas id="sin-chart" width="500" height="180"></canvas>
+    <div class="chart-block"><canvas id="vs-chart" width="500" height="170"></canvas></div>
+    <div class="chart-block"><canvas id="ie-chart" width="500" height="170"></canvas></div>
+    <div class="chart-block"><canvas id="is-chart" width="500" height="170"></canvas></div>
+    <div class="chart-block"><canvas id="ic-chart" width="500" height="170"></canvas></div>
+    <div class="chart-block"><canvas id="sin-chart" width="500" height="180"></canvas></div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -248,7 +246,7 @@ function plotCharts(res) {
     sin: { data: sin, label: 'i(ωt) / I', color: 'purple' },
   };
 
-  // ✅ Fonction pour formater les ticks en multiples de π
+  // Fonction pour formater les ticks en multiples de π
   const formatPi = (val) => {
     const n = val / PI;
     if (Math.abs(n - Math.round(n)) < 0.05) {
@@ -300,9 +298,6 @@ function plotCharts(res) {
       }
     }
   });
-      }
-    }
-  });
 
   // Générer les 5 graphes (les 4 premiers sans titre X, le dernier avec)
   const keys = ['vs', 'ie', 'is', 'ic', 'sin'];
@@ -317,10 +312,6 @@ function plotCharts(res) {
     }
   });
 }
-
-
-
-
 
 // === Chargement des SVG ===
 fetch('/assets/img/circuit_EF.svg')
@@ -367,6 +358,12 @@ fetch('/assets/img/chart_EF.svg')
       if (res) plotCharts(res);
     });
   })
+  .catch(err => {
+    document.getElementById('svg-wrapper').textContent = 'Erreur de chargement du SVG principal.';
+    console.error("Erreur SVG:", err);
+  });
+</script>
+
   .catch(err => {
     document.getElementById('svg-wrapper').textContent = 'Erreur de chargement du SVG principal.';
     console.error("Erreur SVG:", err);
