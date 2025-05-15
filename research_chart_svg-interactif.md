@@ -321,7 +321,15 @@ fetch('/assets/img/chart_EF.svg')
             window[key + 'Chart'].data.datasets[0].data = charts[key].data;
             window[key + 'Chart'].update();
           } else {
-            window[key + 'Chart'] = new Chart(ctxs[key], config(charts[key].label, charts[key].data, charts[key].color));
+            const showXAxisTitle = (key === 'sin');  // Seulement pour le 5ᵉ graphique (sin)
+
+const chartConfig = config(charts[key].label, charts[key].data, charts[key].color);
+
+// Masquer ou afficher le titre de l’axe X selon le graphique
+chartConfig.options.scales.x.title.display = showXAxisTitle;
+
+window[key + 'Chart'] = new Chart(ctxs[key], chartConfig);
+
           }
         }
       }
