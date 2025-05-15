@@ -78,7 +78,22 @@ title: Research
 
 <div class="container">
   <div id="left-panel">
-    <div id="small-svg-wrapper">Chargement du petit SVG...</div>
+  <div id="input-vars" style="margin-bottom: 1.5rem; border: 1px solid #ccc; padding: 1rem; border-radius: 6px; max-width: 400px; background: #fafafa;">
+    <div style="margin-bottom: 0.5rem;">
+      <label for="F-input" style="font-weight: bold;">F :</label>
+      <input id="F-input" type="number" step="any" value="50" style="width: 80px; margin-left: 0.5rem;">
+    </div>
+    <div style="margin-bottom: 0.5rem;">
+      <label for="Cs-input" style="font-weight: bold;">Cs :</label>
+      <input id="Cs-input" type="number" step="any" value="0.1" style="width: 80px; margin-left: 0.5rem;">
+    </div>
+    <div>
+      <label for="VDC-input" style="font-weight: bold;">VDC :</label>
+      <input id="VDC-input" type="number" step="any" value="400" style="width: 80px; margin-left: 0.5rem;">
+    </div>
+  </div>
+
+  <div id="small-svg-wrapper">Chargement du petit SVG...</div>
     <div id="svg-wrapper">Chargement du SVG principal...</div>
 
     <div id="info-panel">
@@ -304,6 +319,12 @@ fetch('/assets/img/chart_EF.svg')
     const svg = wrapper.querySelector('svg');
     svg.setAttribute('id', 'mysvg');
 
+    // Récupération des champs input
+const FInput = document.getElementById('F-input');
+const CsInput = document.getElementById('Cs-input');
+const VDCInput = document.getElementById('VDC-input');
+
+
     svg.addEventListener('click', evt => {
       const pt = svg.createSVGPoint();
       pt.x = evt.clientX;
@@ -316,6 +337,13 @@ fetch('/assets/img/chart_EF.svg')
       const dist = Math.sqrt(r * r + x * x);
 
       drawDot(svg, xPix, yPix);
+
+      // Lire les valeurs des champs
+const F = parseFloat(FInput.value);
+const Cs = parseFloat(CsInput.value);
+const VDC = parseFloat(VDCInput.value);
+console.log('Valeurs utilisateur :', { F, Cs, VDC });
+
 
       let zone = 'Hors zone', res = null;
       if (r >= 0 && r <= 2 / PI && x >= 0 && x <= 1) {
