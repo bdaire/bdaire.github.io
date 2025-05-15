@@ -183,13 +183,13 @@ function plotCharts(res) {
   const phi = res.phi || 0;
   const i = res.i;
 
-  const vs = [], ie = [], is = [], ic = [], sin = [], labels = [];
+  const vs = [], ie = [], is = [], ic = [], sin = [];
 
   for (let k = 0; k <= N; k++) {
-    const wt = (k / N) * 4 * PI; // de 0 à 4π
-    const wtMod = wt % period;
+    const wt = (k / N) * 4 * PI; // Deux périodes
+    const wtMod = wt % (2 * PI);
     const sinTerm = Math.sin(wt + phi);
-    labels.push(wt);
+    sin.push({ x: wt, y: sinTerm });
 
     // v_s(ωt)
     let vsVal = 0;
@@ -200,12 +200,12 @@ function plotCharts(res) {
     } else if (wtMod > 2 * Math.PI - theta) {
       vsVal = 2 + i * (Math.cos(phi - theta) - Math.cos(wtMod + phi));
     }
-    vs.push(vsVal);
+    vs.push({ x: wt, y: vsVal });
 
-    ie.push((wtMod <= Math.PI - theta || (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta)) ? sinTerm * (wtMod <= Math.PI - theta ? 1 : -1) : 0);
-    ic.push((wtMod > Math.PI - theta && wtMod <= Math.PI || wtMod > 2 * Math.PI - theta) ? sinTerm : 0);
-    is.push((wtMod <= Math.PI - theta) ? 2 * sinTerm : 0);
-    sin.push(sinTerm);
+    // i_e, i_s, i_C
+    ie.push({ x: wt, y: (wtMod <= Math.PI - theta || (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta)) ? sinTerm * (wtMod <= Math.PI - theta ? 1 : -1) : 0 });
+    ic.push({ x: wt, y: (wtMod > Math.PI - theta && wtMod <= Math.PI || wtMod > 2 * Math.PI - theta) ? sinTerm : 0 });
+    is.push({ x: wt, y: (wtMod <= Math.PI - theta) ? 2 * sinTerm : 0 });
   }
 
   const chartData = {
@@ -216,12 +216,14 @@ function plotCharts(res) {
     sin: { data: sin, label: 'i(ωt) / I', color: 'purple' },
   };
 
+  // ✅ Fonction pour formater les ticks en multiples de π
   const formatPi = (val) => {
     const n = val / PI;
-    if (Math.abs(n - Math.round(n)) < 0.01) {
-      if (n === 0) return '0';
-      if (n === 1) return 'π';
-      return `${Math.round(n)}π`;
+    if (Math.abs(n - Math.round(n)) < 0.05) {
+      const rounded = Math.round(n);
+      if (rounded === 0) return '0';
+      if (rounded === 1) return 'π';
+      return `${rounded}π`;
     }
     return '';
   };
@@ -229,14 +231,21 @@ function plotCharts(res) {
   const config = (label, data, color, showXAxisTitle = false) => ({
     type: 'line',
     data: {
-      labels,
-      datasets: [{ label, data, borderColor: color, borderWidth: 2, pointRadius: 0, fill: false }]
+      datasets: [{
+        label,
+        data,
+        borderColor: color,
+        borderWidth: 2,
+        pointRadius: 0,
+        fill: false
+      }]
     },
     options: {
       responsive: false,
       plugins: { legend: { display: false } },
       scales: {
         x: {
+          type: 'linear',
           min: 0,
           max: 4 * PI,
           title: {
@@ -245,8 +254,7 @@ function plotCharts(res) {
           },
           ticks: {
             stepSize: PI,
-            callback: formatPi,
-            maxTicksLimit: 9
+            callback: formatPi
           }
         },
         y: {
@@ -261,18 +269,20 @@ function plotCharts(res) {
     }
   });
 
-  for (const key in chartData) {
+  // Générer les 5 graphes (les 4 premiers sans titre X, le dernier avec)
+  const keys = ['vs', 'ie', 'is', 'ic', 'sin'];
+  keys.forEach((key, index) => {
     const ctx = document.getElementById(`${key}-chart`).getContext('2d');
-    const showXAxis = (key === 'sin'); // seul le dernier a un titre X
+    const showTitle = (key === 'sin'); // titre X uniquement pour le dernier
     if (window[`${key}Chart`]) {
       window[`${key}Chart`].data.datasets[0].data = chartData[key].data;
-      window[`${key}Chart`].options.scales.x.title.display = showXAxis;
       window[`${key}Chart`].update();
     } else {
-      window[`${key}Chart`] = new Chart(ctx, config(chartData[key].label, chartData[key].data, chartData[key].color, showXAxis));
+      window[`${key}Chart`] = new Chart(ctx, config(chartData[key].label, chartData[key].data, chartData[key].color, showTitle));
     }
-  }
+  });
 }
+
 
 
 
