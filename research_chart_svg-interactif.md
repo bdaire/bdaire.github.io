@@ -217,11 +217,11 @@ function plotCharts(res) {
     } else if (wtMod > 2 * Math.PI - theta) {
       vsVal = 2 + i * (Math.cos(phi - theta) - Math.cos(wtMod + phi));
     }
-    data.vs.push({ x: wt, y: 0.99*vsVal });
+    data.vs.push({ x: wt, y: 0.98*vsVal });
 
     data.ie.push({ x: wt, y: (wtMod <= Math.PI - theta || (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta)) ? sinTerm * (wtMod <= Math.PI - theta ? 1 : -1) : 0 });
     data.ic.push({ x: wt, y: (wtMod > Math.PI - theta && wtMod <= Math.PI || wtMod > 2 * Math.PI - theta) ? sinTerm : 0 });
-    data.is.push({ x: wt, y: (wtMod <= Math.PI - theta) ? 0.99*2 * sinTerm : 0 });
+    data.is.push({ x: wt, y: (wtMod <= Math.PI - theta) ? 0.98*2 * sinTerm : 0 });
   }
 
   const chartParams = {
