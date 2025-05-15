@@ -23,7 +23,7 @@ title: Research
   }
 
   #small-svg-wrapper {
-    margin-bottom: 1rem; /* un peu d'espace sous le petit SVG */
+    margin-bottom: 2rem; /* un peu d'espace sous le petit SVG */
   }
 
   #svg-wrapper {
