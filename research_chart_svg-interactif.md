@@ -1,6 +1,6 @@
 ---
 layout: default
-title: SVG Interactif
+title: Research
 permalink: /svg-interactif/
 ---
 
