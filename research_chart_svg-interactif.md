@@ -211,10 +211,10 @@ function plotCharts(res) {
 
   const chartData = {
     vs: { data: vs, label: 'vs(ωt) / VDC', color: 'blue' },
-    ie: { data: ie, label: 'ie(ωt)/I', color: 'red' },
-    is: { data: is, label: 'is(ωt)/I', color: 'green' },
-    ic: { data: ic, label: 'iC(ωt)/I', color: 'orange' },
-    sin: { data: sin, label: 'i(ωt)/I', color: 'purple' },
+    ie: { data: ie, label: 'ie(ωt) / I', color: 'red' },
+    is: { data: is, label: 'is(ωt) / I', color: 'green' },
+    ic: { data: ic, label: 'iC(ωt) / I', color: 'orange' },
+    sin: { data: sin, label: 'i(ωt) / I', color: 'purple' },
   };
 
   const config = (label, data, color) => ({
