@@ -13,14 +13,14 @@ title: Research
     display: flex;
     gap: 2rem;
     margin-top: 2rem;
-    align-items: center;
+    align-items: flex-start;
   }
 
   #left-panel {
   width: 60%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* ou center selon ton besoin */
+  align-items: center; /* ou center selon ton besoin */
   gap: 0.5rem; /* facultatif, pour espacer les blocs */
 }
 
