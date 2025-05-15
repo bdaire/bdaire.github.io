@@ -99,11 +99,17 @@ title: Research
     <div id="info-panel">
       <div class="info-label">r :</div><div id="x-val">-</div>
       <div class="info-label">x :</div><div id="y-val">-</div>
+      <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
       <div class="info-label">Zone :</div><div id="zone-val">-</div>
       <div class="info-label">p :</div><div id="p-val">-</div>
       <div class="info-label">D :</div><div id="d-val">-</div>
       <div class="info-label">q :</div><div id="q-val">-</div>
       <div class="info-label">v :</div><div id="v-val">-</div>
+      <div class="info-label">R :</div><div id="r-phys">-</div>
+      <div class="info-label">L :</div><div id="l-phys">-</div>
+      <div class="info-label">I :</div><div id="i-phys">-</div>
+      <div class="info-label">P :</div><div id="p-phys">-</div>
+
     </div>
   </div>
 
@@ -198,15 +204,38 @@ function drawDot(svg, xPix, yPix) {
 
 function updateInfoPanel(r, x, distance, zone, res) {
   const set = (id, val) => document.getElementById(id).textContent = val;
+
   set('x-val', r.toFixed(4));
   set('y-val', x.toFixed(4));
-  set('distance', distance.toFixed(4));
   set('zone-val', zone);
   set('p-val', res ? res.p.toFixed(4) : '-');
   set('d-val', res ? res.D.toFixed(4) : '-');
   set('q-val', res ? res.q.toFixed(4) : '-');
   set('v-val', res ? res.v.toFixed(4) : '-');
+
+  // Valeurs physiques si res et si F, Cs, VDC sont valides
+  const F = parseFloat(document.getElementById('input-F')?.value);
+  const Cs = parseFloat(document.getElementById('input-Cs')?.value);
+  const VDC = parseFloat(document.getElementById('input-VDC')?.value);
+
+  if (res && !isNaN(F) && !isNaN(Cs) && !isNaN(VDC)) {
+    const Rval = r / (2 * PI * F * Cs);
+    const Lval = x / (4 * PI * PI * F * F * Cs);
+    const Ival = res.i * 2 * PI * F * Cs * VDC;
+    const Pval = res.p * 2 * PI * F * Cs * VDC * VDC;
+
+    set('r-phys', Rval.toFixed(4));
+    set('l-phys', Lval.toExponential(2));
+    set('i-phys', Ival.toFixed(3));
+    set('p-phys', Pval.toFixed(2));
+  } else {
+    set('r-phys', '-');
+    set('l-phys', '-');
+    set('i-phys', '-');
+    set('p-phys', '-');
+  }
 }
+
 
 function plotCharts(res) {
   const N = 1000;
