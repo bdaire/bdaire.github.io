@@ -55,11 +55,20 @@ title: Research
 }
 
 #top-text {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 1rem; /* espace entre le texte et les graphiques */
-  /* largeur, alignement et marge automatique */
+  font-size: 1.2rem;
+  color: #000;
+  margin-bottom: 1rem;
+  white-space: pre-line;
+  max-width: 320px;
+
+  /* ✅ Style d'encadrement */
+  border: 2px solid black;
+  padding: 0.8rem;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
 }
+
 
 
 
@@ -93,7 +102,12 @@ title: Research
   </div>
 
   <div id="right-panel">
-  <div id="top-text">Welcome to our interactive tool! Click on the chart to dynamically see the waveforms of the circuit on the left. Just a heads-up: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little crazy :S</div>
+  <div id="top-text">Welcome to our interactive tool! 
+    
+  Click on the chart to dynamically see the waveforms of the circuit on the left. 
+    
+  Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little crazy 
+  :S</div>
   <div class="chart-block"><canvas id="vs-chart"></canvas></div>
   <div class="chart-block"><canvas id="ie-chart"></canvas></div>
   <div class="chart-block"><canvas id="is-chart"></canvas></div>
