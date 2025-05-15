@@ -13,7 +13,7 @@ title: Research
     display: flex;
     gap: 2rem;
     margin-top: 2rem;
-    align-items: flex-start;
+    align-items: center;
   }
 
   #left-panel {
