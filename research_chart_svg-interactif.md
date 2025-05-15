@@ -20,6 +20,7 @@ title: Research
     margin-bottom: 2rem;
     display: flex;
     justify-content: flex-start;
+    position: relative; /* ajouté pour positionner inputs absolus */
   }
 
   #svg-wrapper {
@@ -70,6 +71,27 @@ title: Research
     fill: red;
     stroke: black;
     stroke-width: 1px;
+  }
+
+  /* Styles pour les inputs sur le petit SVG */
+  #small-svg-wrapper input[type="number"] {
+    position: absolute;
+    top: 10px;
+    width: 80px;
+    padding: 5px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  #input-vdc {
+    left: 10px;
+  }
+  #input-f {
+    left: 110px;
+  }
+  #input-cs {
+    left: 210px;
   }
 </style>
 
@@ -179,6 +201,14 @@ fetch('/assets/img/circuit_EF.svg')
     // Optionnel : ajouter un id pour le petit svg s'il faut manipuler
     const svg = smallWrapper.querySelector('svg');
     if(svg) svg.setAttribute('id', 'small-svg');
+
+    // Ajout des inputs positionnés sur le petit SVG
+    const inputsHTML = `
+      <input id="input-vdc" type="number" step="any" placeholder="V_{DC}" />
+      <input id="input-f" type="number" step="any" placeholder="F" />
+      <input id="input-cs" type="number" step="any" placeholder="C_s" />
+    `;
+    smallWrapper.insertAdjacentHTML('beforeend', inputsHTML);
   })
   .catch(() => {
     document.getElementById('small-svg-wrapper').textContent = 'Erreur de chargement du petit SVG.';
@@ -215,146 +245,34 @@ fetch('/assets/img/chart_EF.svg')
       dot.setAttribute("class", "dot");
       svg.appendChild(dot);
 
-      document.getElementById('x-val').textContent = r.toFixed(4);
-      document.getElementById('y-val').textContent = x.toFixed(4);
-      document.getElementById('distance').textContent = Math.sqrt(r*r + x*x).toFixed(4);
+      document.getElementById('x-val').textContent = x.toFixed(3);
+      document.getElementById('y-val').textContent = yPix.toFixed(0);
+      document.getElementById('distance').textContent = r.toFixed(3);
 
-      let zone = '-';
-      let res = null;
-      if (r < 0 || r > 2/PI || x < 0 || x > 1) {
-        zone = 'Hors zone';
+      if (r > getFrontierR(x)) {
+        document.getElementById('zone-val').textContent = 'ZCS';
+        const zcsVals = solveZCS(r, x);
+        if (zcsVals) {
+          document.getElementById('p-val').textContent = zcsVals.p.toFixed(3);
+          document.getElementById('d-val').textContent = zcsVals.D.toFixed(3);
+          document.getElementById('q-val').textContent = zcsVals.q.toFixed(3);
+          document.getElementById('v-val').textContent = zcsVals.v.toFixed(3);
+        }
       } else {
-        const rFrontier = getFrontierR(x);
-        if (r < rFrontier) {
-          zone = 'ZVS';
-          res = solveZVS(r, x);
-        } else {
-          zone = 'ZCS';
-          res = solveZCS(r, x);
-        }
-      }
-
-      document.getElementById('zone-val').textContent = zone;
-      document.getElementById('p-val').textContent = res ? res.p.toFixed(4) : '-';
-      document.getElementById('d-val').textContent = res ? res.D.toFixed(4) : '-';
-      document.getElementById('q-val').textContent = res ? res.q.toFixed(4) : '-';
-      document.getElementById('v-val').textContent = res ? res.v.toFixed(4) : '-';
-
-      if (res && typeof res.theta === 'number' && typeof res.i === 'number') {
-        const theta = res.theta;
-        const phi = res.phi || 0;
-        const i = res.i;
-
-        const vsData = [], ieData = [], isData = [], icData = [], sinData = [], labels = [];
-        const N = 1000;
-        const period = 2 * Math.PI;
-
-        for (let k = 0; k <= N; k++) {
-          const wt = (k / N) * 2 * period;
-          const wtMod = wt % period;
-          const sinTerm = Math.sin(wt + phi);
-          labels.push(wt.toFixed(2));
-          sinData.push(sinTerm);
-
-          // v_s(ωt)
-          let vs;
-          if (wtMod <= Math.PI - theta) {
-            vs = 0;
-          } else if (wtMod <= Math.PI) {
-            vs = -i * (Math.cos(phi - theta) + Math.cos(wtMod + phi));
-          } else if (wtMod <= 2 * Math.PI - theta) {
-            vs = 2;
-          } else {
-            vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wtMod + phi));
-          }
-          vsData.push(vs);
-
-          // i_e(ωt)
-          const i_e = (wtMod <= Math.PI - theta) ? 1 * sinTerm :
-                      (wtMod <= Math.PI) ? 0 :
-                      (wtMod <= 2 * Math.PI - theta) ? -1 * sinTerm : 0;
-          ieData.push(i_e);
-
-          // i_C(ωt)
-          const i_C = (wtMod <= Math.PI - theta) ? 0 :
-                      (wtMod <= Math.PI) ? 1 * sinTerm :
-                      (wtMod <= 2 * Math.PI - theta) ? 0 : 1 * sinTerm;
-          icData.push(i_C);
-
-          // i_s(ωt)
-          const i_s = (wtMod <= Math.PI - theta) ? 2 * 1 * sinTerm : 0;
-          isData.push(i_s);
-        }
-
-        const config = (label, data, color) => ({
-          type: 'line',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: label,
-              data: data,
-              borderColor: color,
-              borderWidth: 2,
-              pointRadius: 0,
-              fill: false,
-            }]
-          },
-          options: {
-            responsive: false,
-            maintainAspectRatio: false,
-            plugins: {
-              title: { display: false },
-              legend: { display: false }
-            },
-            scales: {
-              x: {
-                title: { display: true, text: 'ωt (rad)' },
-                ticks: { maxTicksLimit: 10 }
-              },
-              y: {
-                title: { display: true, text: label },
-                suggestedMin: -2,
-                suggestedMax: 3
-              }
-            }
-          }
-        });
-
-        const ctxs = {
-          vs: document.getElementById('vs-chart').getContext('2d'),
-          ie: document.getElementById('ie-chart').getContext('2d'),
-          is: document.getElementById('is-chart').getContext('2d'),
-          ic: document.getElementById('ic-chart').getContext('2d'),
-          sin: document.getElementById('sin-chart').getContext('2d'),
-        };
-
-        const charts = {
-          vs: { data: vsData, label: 'v_s(ωt) / V_DC', color: 'blue' },
-          ie: { data: ieData, label: 'i_e(ωt)', color: 'red' },
-          is: { data: isData, label: 'i_s(ωt)', color: 'green' },
-          ic: { data: icData, label: 'i_C(ωt)', color: 'orange' },
-          sin: { data: sinData, label: 'sin(ωt + φ)', color: 'purple' },
-        };
-
-        for (const key in charts) {
-          if (window[key + 'Chart']) {
-            window[key + 'Chart'].data.datasets[0].data = charts[key].data;
-            window[key + 'Chart'].update();
-          } else {
-            const showXAxisTitle = (key === 'sin');
-
-            const chartConfig = config(charts[key].label, charts[key].data, charts[key].color);
-
-            chartConfig.options.scales.x.title.display = showXAxisTitle;
-
-            window[key + 'Chart'] = new Chart(ctxs[key], chartConfig);
-          }
+        document.getElementById('zone-val').textContent = 'ZVS';
+        const zvsVals = solveZVS(r, x);
+        if (zvsVals) {
+          document.getElementById('p-val').textContent = zvsVals.p.toFixed(3);
+          document.getElementById('d-val').textContent = zvsVals.D.toFixed(3);
+          document.getElementById('q-val').textContent = zvsVals.q.toFixed(3);
+          document.getElementById('v-val').textContent = zvsVals.v.toFixed(3);
         }
       }
     });
   })
-  .catch(error => {
-    document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG principal.";
-    console.error("Erreur lors du chargement du SVG principal :", error);
+  .catch(() => {
+    document.getElementById('svg-wrapper').textContent = 'Erreur de chargement du SVG principal.';
   });
+
+// TODO: Ajoute ici le code pour les graphiques Chart.js, etc.
 </script>
