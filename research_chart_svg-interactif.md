@@ -183,15 +183,13 @@ function plotCharts(res) {
   const phi = res.phi || 0;
   const i = res.i;
 
-  const vs = [], ie = [], is = [], ic = [], sin = [];
-  const labels = [];
+  const vs = [], ie = [], is = [], ic = [], sin = [], labels = [];
 
   for (let k = 0; k <= N; k++) {
-    const wt = (k / N) * period * 2; // 0 -> 2π
-    labels.push(wt); // valeur numérique en radians
-
+    const wt = (k / N) * 4 * PI; // de 0 à 4π
     const wtMod = wt % period;
     const sinTerm = Math.sin(wt + phi);
+    labels.push(wt);
 
     // v_s(ωt)
     let vsVal = 0;
@@ -218,7 +216,15 @@ function plotCharts(res) {
     sin: { data: sin, label: 'i(ωt) / I', color: 'purple' },
   };
 
-  const pi = Math.PI;
+  const formatPi = (val) => {
+    const n = val / PI;
+    if (Math.abs(n - Math.round(n)) < 0.01) {
+      if (n === 0) return '0';
+      if (n === 1) return 'π';
+      return `${Math.round(n)}π`;
+    }
+    return '';
+  };
 
   const config = (label, data, color, showXAxisTitle = false) => ({
     type: 'line',
@@ -231,25 +237,23 @@ function plotCharts(res) {
       plugins: { legend: { display: false } },
       scales: {
         x: {
-          title: { display: showXAxisTitle, text: 'ωt (rad)' },
           min: 0,
-          max: 2 * pi,
+          max: 4 * PI,
+          title: {
+            display: showXAxisTitle,
+            text: 'ωt (rad)'
+          },
           ticks: {
-            stepSize: pi / 2,
-            maxTicksLimit: 10,
-            callback: function(value) {
-              if (value === 0) return '0';
-              if (Math.abs(value - pi) < 1e-6) return 'π';
-              if (Math.abs(value - 2 * pi) < 1e-6) return '2π';
-              if (Math.abs(value - 3 * pi) < 1e-6) return '3π';
-              if (Math.abs(value - 0.5 * pi) < 1e-6) return '½π';
-              if (Math.abs(value - 1.5 * pi) < 1e-6) return '1½π';
-              return '';
-            }
+            stepSize: PI,
+            callback: formatPi,
+            maxTicksLimit: 9
           }
         },
         y: {
-          title: { display: true, text: label },
+          title: {
+            display: true,
+            text: label
+          },
           suggestedMin: -2,
           suggestedMax: 3
         }
@@ -259,7 +263,7 @@ function plotCharts(res) {
 
   for (const key in chartData) {
     const ctx = document.getElementById(`${key}-chart`).getContext('2d');
-    const showXAxis = (key === 'sin'); // seul le dernier garde le titre axe X
+    const showXAxis = (key === 'sin'); // seul le dernier a un titre X
     if (window[`${key}Chart`]) {
       window[`${key}Chart`].data.datasets[0].data = chartData[key].data;
       window[`${key}Chart`].options.scales.x.title.display = showXAxis;
@@ -269,6 +273,7 @@ function plotCharts(res) {
     }
   }
 }
+
 
 
 
