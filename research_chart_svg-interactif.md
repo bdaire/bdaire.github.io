@@ -81,6 +81,8 @@ title: Research
 
 <div class="container">
   <div id="left-panel">
+  <div id="small-svg-wrapper">Chargement du petit SVG...</div>
+
   <div id="input-vars" style="margin-bottom: 1.5rem; border: 1px solid #ccc; padding: 1rem; border-radius: 6px; max-width: 600px; background: #fafafa; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
     <!-- Colonne 1 : entrées -->
     <div>
@@ -107,6 +109,8 @@ title: Research
     </div>
   </div>
 
+  <div id="svg-wrapper">Chargement du SVG principal...</div>
+
   <div id="info-panel">
     <div class="info-label">r :</div><div id="x-val">-</div>
     <div class="info-label">x :</div><div id="y-val">-</div>
@@ -121,9 +125,6 @@ title: Research
     <div class="info-label">I :</div><div id="i-phys">-</div>
     <div class="info-label">P :</div><div id="p-phys">-</div>
   </div>
-
-  <div id="small-svg-wrapper">Chargement du petit SVG...</div>
-  <div id="svg-wrapper">Chargement du SVG principal...</div>
 </div>
 
 
