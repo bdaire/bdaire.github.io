@@ -3,7 +3,6 @@ layout: default
 title: Research
 ---
 
-<style>
   <div id="svg-wrapper">
   <!-- SVG ici -->
 </div>
