@@ -82,53 +82,50 @@ title: Research
 <div class="container">
   <div id="left-panel">
   <div id="input-vars" style="margin-bottom: 1.5rem; border: 1px solid #ccc; padding: 1rem; border-radius: 6px; max-width: 600px; background: #fafafa; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-  <!-- Colonne 1 : entrées -->
-  <div>
-    <div style="margin-bottom: 0.5rem;">
-      <label for="F-input" style="font-weight: bold;">F (Hz) :</label>
-      <input id="F-input" type="number" step="any" value="50" style="width: 80px; margin-left: 0.5rem;">
-    </div>
-    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-      <label for="Cs-input" style="font-weight: bold; white-space: nowrap;">Cs (F) :</label>
-      <input id="Cs-input" type="number" step="any" value="0.1" style="width: 80px;">
-      <span style="font-size: 0.85rem; color: #555; user-select: none;">&lt;-- e-12 works! 😄</span>
-    </div>
+    <!-- Colonne 1 : entrées -->
     <div>
-      <label for="VDC-input" style="font-weight: bold;">VDC (V) :</label>
-      <input id="VDC-input" type="number" step="any" value="400" style="width: 80px; margin-left: 0.5rem;">
+      <div style="margin-bottom: 0.5rem;">
+        <label for="F-input" style="font-weight: bold;">F (Hz) :</label>
+        <input id="F-input" type="number" step="any" value="50" style="width: 80px; margin-left: 0.5rem;">
+      </div>
+      <div style="margin-bottom: 0.5rem;">
+        <label for="Cs-input" style="font-weight: bold;">Cs (F) :</label>
+        <input id="Cs-input" type="number" step="any" value="0.1" style="width: 80px; margin-left: 0.5rem;">
+      </div>
+      <div>
+        <label for="VDC-input" style="font-weight: bold;">VDC (V) :</label>
+        <input id="VDC-input" type="number" step="any" value="400" style="width: 80px; margin-left: 0.5rem;">
+      </div>
+    </div>
+
+    <!-- Colonne 2 : sorties -->
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+      <div><strong>R (Ω) :</strong> <span id="r-phys-inline">-</span></div>
+      <div><strong>L (H) :</strong> <span id="l-phys-inline">-</span></div>
+      <div><strong>I (A) :</strong> <span id="i-phys-inline">-</span></div>
+      <div><strong>P (W) :</strong> <span id="p-phys-inline">-</span></div>
     </div>
   </div>
 
-  <!-- Colonne 2 : sorties -->
-  <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-    <div><strong>R :</strong> <span id="r-phys-inline">-</span></div>
-    <div><strong>L :</strong> <span id="l-phys-inline">-</span></div>
-    <div><strong>I :</strong> <span id="i-phys-inline">-</span></div>
-    <div><strong>P :</strong> <span id="p-phys-inline">-</span></div>
+  <div id="info-panel">
+    <div class="info-label">r :</div><div id="x-val">-</div>
+    <div class="info-label">x :</div><div id="y-val">-</div>
+    <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
+    <div class="info-label">Zone :</div><div id="zone-val">-</div>
+    <div class="info-label">p :</div><div id="p-val">-</div>
+    <div class="info-label">D :</div><div id="d-val">-</div>
+    <div class="info-label">q :</div><div id="q-val">-</div>
+    <div class="info-label">v :</div><div id="v-val">-</div>
+    <div class="info-label">R :</div><div id="r-phys">-</div>
+    <div class="info-label">L :</div><div id="l-phys">-</div>
+    <div class="info-label">I :</div><div id="i-phys">-</div>
+    <div class="info-label">P :</div><div id="p-phys">-</div>
   </div>
-</div>
-
-
 
   <div id="small-svg-wrapper">Chargement du petit SVG...</div>
-    <div id="svg-wrapper">Chargement du SVG principal...</div>
+  <div id="svg-wrapper">Chargement du SVG principal...</div>
+</div>
 
-    <div id="info-panel">
-      <div class="info-label">r :</div><div id="x-val">-</div>
-      <div class="info-label">x :</div><div id="y-val">-</div>
-      <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
-      <div class="info-label">Zone :</div><div id="zone-val">-</div>
-      <div class="info-label">p :</div><div id="p-val">-</div>
-      <div class="info-label">D :</div><div id="d-val">-</div>
-      <div class="info-label">q :</div><div id="q-val">-</div>
-      <div class="info-label">v :</div><div id="v-val">-</div>
-      <div class="info-label">R :</div><div id="r-phys">-</div>
-      <div class="info-label">L :</div><div id="l-phys">-</div>
-      <div class="info-label">I :</div><div id="i-phys">-</div>
-      <div class="info-label">P :</div><div id="p-phys">-</div>
-
-    </div>
-  </div>
 
   <div id="right-panel">
     <div id="top-text">Welcome to the interactive tool! 
