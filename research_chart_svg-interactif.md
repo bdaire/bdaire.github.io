@@ -5,64 +5,80 @@ permalink: /svg-interactif/
 ---
 
 <style>
-  #svg-container {
-    display: flex;
-    border: 1px solid #aaa;
-    margin-bottom: 1rem;
+  #svg-wrapper {
+    flex: 3;
+    border: 1px solid #ccc;
+    min-width: 60%;
   }
-  svg {
-    width: 100%;
-    height: auto;
+  #info-panel {
+    flex: 1;
+    background: #f9f9f9;
+    padding: 1rem;
+    margin-left: 1rem;
+    border: 1px solid #ddd;
   }
   .dot {
     fill: red;
     stroke: black;
     stroke-width: 1px;
   }
-  #info-panel {
-    background: #f4f4f4;
-    padding: 1rem;
-    margin-left: 1rem;
-    min-width: 150px;
+  .container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 2rem;
   }
 </style>
 
-<div style="display: flex;">
-  <div id="svg-container">
-    <svg id="mysvg" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
-      <rect width="600" height="400" fill="white" />
-      <assets\img\chart_EF.svg>
-    </svg>
+<div class="container">
+  <div id="svg-wrapper">
+    <!-- SVG sera injecté ici -->
+    Chargement du SVG...
   </div>
+
   <div id="info-panel">
-    <h2>Infos</h2>
-    <p><strong>X:</strong> <span id="x-val">-</span></p>
-    <p><strong>Y:</strong> <span id="y-val">-</span></p>
-    <p><strong>Distance à l’origine:</strong> <span id="distance">-</span></p>
+    <h2>Infos du clic</h2>
+    <p><strong>X :</strong> <span id="x-val">-</span></p>
+    <p><strong>Y :</strong> <span id="y-val">-</span></p>
+    <p><strong>Distance à (0,0) :</strong> <span id="distance">-</span></p>
   </div>
 </div>
 
 <script>
-  const svg = document.getElementById('mysvg');
+  fetch('/assets/img/chart_EF.svg')
+    .then(response => response.text())
+    .then(svgText => {
+      const wrapper = document.getElementById('svg-wrapper');
+      wrapper.innerHTML = svgText;
 
-  svg.addEventListener('click', function(evt) {
-    const pt = svg.createSVGPoint();
-    pt.x = evt.clientX;
-    pt.y = evt.clientY;
+      const svg = wrapper.querySelector('svg');
+      svg.setAttribute('id', 'mysvg');
 
-    const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
-    const x = svgPoint.x;
-    const y = svgPoint.y;
+      svg.addEventListener('click', function(evt) {
+        const pt = svg.createSVGPoint();
+        pt.x = evt.clientX;
+        pt.y = evt.clientY;
 
-    const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    dot.setAttribute("cx", x);
-    dot.setAttribute("cy", y);
-    dot.setAttribute("r", 5);
-    dot.setAttribute("class", "dot");
-    svg.appendChild(dot);
+        const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
+        const x = svgPoint.x;
+        const y = svgPoint.y;
 
-    document.getElementById('x-val').textContent = x.toFixed(2);
-    document.getElementById('y-val').textContent = y.toFixed(2);
-    document.getElementById('distance').textContent = Math.sqrt(x*x + y*y).toFixed(2);
-  });
+        // Créer un point rouge
+        const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        dot.setAttribute("cx", x);
+        dot.setAttribute("cy", y);
+        dot.setAttribute("r", 5);
+        dot.setAttribute("class", "dot");
+        svg.appendChild(dot);
+
+        // Mise à jour des infos
+        document.getElementById('x-val').textContent = x.toFixed(2);
+        document.getElementById('y-val').textContent = y.toFixed(2);
+        document.getElementById('distance').textContent = Math.sqrt(x*x + y*y).toFixed(2);
+      });
+    })
+    .catch(error => {
+      document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG.";
+      console.error("Erreur lors du chargement du SVG :", error);
+    });
 </script>
