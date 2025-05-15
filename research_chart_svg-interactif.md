@@ -50,7 +50,7 @@ title: Research
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0rem;
   /* plus besoin de position relative ou padding-top */
 }
 
@@ -93,7 +93,7 @@ title: Research
   </div>
 
   <div id="right-panel">
-  <div id="top-text">Texte aligné avec le bord gauche des graphiques</div>
+  <div id="top-text">Welcome to our interactive tool! Click on the chart to dynamically see the waveforms of the circuit on the left. Just a heads-up: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little crazy :S</div>
   <div class="chart-block"><canvas id="vs-chart"></canvas></div>
   <div class="chart-block"><canvas id="ie-chart"></canvas></div>
   <div class="chart-block"><canvas id="is-chart"></canvas></div>
