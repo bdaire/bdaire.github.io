@@ -5,10 +5,12 @@ title: Research
 
 <style>
   #svg-wrapper {
-    border: 1px solid #ccc;
-    display: inline-block; /* pour que le conteneur prenne la taille naturelle du SVG */
-    max-width: 100vw; /* ne dépasse pas la largeur de la fenêtre */
-  }
+  border: 1px solid #ccc;
+  display: inline-block;
+  width: 60%;      /* conteneur prend 60% de la largeur parent */
+  max-width: 60%;  /* ne dépassera pas 60% */
+}
+
 
   #svg-wrapper svg {
     display: block; /* évite l'espace blanc sous le SVG */
