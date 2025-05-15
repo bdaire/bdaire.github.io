@@ -9,21 +9,22 @@ title: Research
     gap: 2rem;
     margin-top: 2rem;
     align-items: flex-start;
+    flex-direction: column; /* Pour inverser petit SVG sous grand */
   }
 
   #left-panel {
-    width: 60%;
-  }
-
-  #small-svg-wrapper,
-  #svg-wrapper {
-    margin-bottom: 2rem;
+    width: 100%;
   }
 
   #svg-wrapper {
     border: 1px solid #ccc;
     width: 100%;
     max-width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  #small-svg-wrapper {
+    margin-bottom: 2rem;
   }
 
   svg {
@@ -42,18 +43,17 @@ title: Research
     margin-top: 1rem;
   }
 
-  #info-panel input {
-  width: 100%;
-  box-sizing: border-box;
-  font-size: 1rem;
-  padding: 0.2rem 0.4rem;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-
   .info-label {
     font-weight: bold;
+  }
+
+  #info-panel input {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1rem;
+    padding: 0.2rem 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
   }
 
   #right-panel {
@@ -77,25 +77,31 @@ title: Research
 
 <div class="container">
   <div id="left-panel">
-  <div id="svg-wrapper">Chargement du SVG principal...</div>
-  <div id="small-svg-wrapper">Chargement du petit SVG...</div>
+    <div id="svg-wrapper">Chargement du SVG principal...</div>
+    <div id="small-svg-wrapper">Chargement du petit SVG...</div>
 
     <div id="info-panel">
-  <div class="info-label">r :</div><div id="x-val">-</div>
-  <div class="info-label">x :</div><div id="y-val">-</div>
-  <!-- Ligne Distance à (0,0) supprimée -->
-  <div class="info-label">Zone :</div><div id="zone-val">-</div>
-  <div class="info-label">p :</div><div id="p-val">-</div>
-  <div class="info-label">D :</div><div id="d-val">-</div>
-  <div class="info-label">q :</div><div id="q-val">-</div>
-  <div class="info-label">v :</div><div id="v-val">-</div>
+      <div class="info-label">r :</div><div id="x-val">-</div>
+      <div class="info-label">x :</div><div id="y-val">-</div>
+      <!-- Distance supprimée -->
+      <div class="info-label">Zone :</div><div id="zone-val">-</div>
+      <div class="info-label">p :</div><div id="p-val">-</div>
+      <div class="info-label">D :</div><div id="d-val">-</div>
+      <div class="info-label">q :</div><div id="q-val">-</div>
+      <div class="info-label">v :</div><div id="v-val">-</div>
 
-  <!-- Champs de saisie ajoutés -->
-  <div class="info-label">VDC :</div><div><input type="number" id="input-vdc" value="1" step="0.01"></div>
-  <div class="info-label">F :</div><div><input type="number" id="input-f" value="50" step="0.01"></div>
-  <div class="info-label">Cs :</div><div><input type="number" id="input-cs" value="0.001" step="0.0001"></div>
-</div>
+      <!-- Inputs utilisateur -->
+      <div class="info-label">VDC :</div><div><input type="number" id="input-vdc" value="1" step="0.01"></div>
+      <div class="info-label">F :</div><div><input type="number" id="input-f" value="50" step="0.01"></div>
+      <div class="info-label">Cs :</div><div><input type="number" id="input-cs" value="0.001" step="0.0001"></div>
 
+      <!-- Calculs automatiques -->
+      <div class="info-label">P :</div><div id="p-calc">-</div>
+      <div class="info-label">I :</div><div id="i-calc">-</div>
+      <div class="info-label">R :</div><div id="r-calc">-</div>
+      <div class="info-label">L :</div><div id="l-calc">-</div>
+    </div>
+  </div>
 
   <div id="right-panel">
     <div class="chart-block"><canvas id="vs-chart"></canvas></div>
@@ -108,13 +114,6 @@ title: Research
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  
-const VDC = parseFloat(document.getElementById('input-vdc').value);
-const F = parseFloat(document.getElementById('input-f').value);
-const Cs = parseFloat(document.getElementById('input-cs').value);
-
-// Tu peux utiliser ces valeurs où tu veux dans ton code après récupération
-
 const PI = Math.PI;
 
 // Génère la frontière (ZVS / ZCS)
@@ -190,7 +189,7 @@ function updateInfoPanel(r, x, distance, zone, res) {
   const set = (id, val) => document.getElementById(id).textContent = val;
   set('x-val', r.toFixed(4));
   set('y-val', x.toFixed(4));
-  set('distance', distance.toFixed(4));
+  // distance supprimée
   set('zone-val', zone);
   set('p-val', res ? res.p.toFixed(4) : '-');
   set('d-val', res ? res.D.toFixed(4) : '-');
@@ -198,121 +197,82 @@ function updateInfoPanel(r, x, distance, zone, res) {
   set('v-val', res ? res.v.toFixed(4) : '-');
 }
 
-function plotCharts(res) {
-  const N = 1000;
-  const period = 2 * PI;
-  const theta = res.theta;
-  const phi = res.phi || 0;
+function updateCalculatedValues(res, r, x) {
+  const VDC = parseFloat(document.getElementById('input-vdc').value);
+  const F = parseFloat(document.getElementById('input-f').value);
+  const Cs = parseFloat(document.getElementById('input-cs').value);
+
+  if (!res || isNaN(VDC) || isNaN(F) || isNaN(Cs)) {
+    document.getElementById('p-calc').textContent = '-';
+    document.getElementById('i-calc').textContent = '-';
+    document.getElementById('r-calc').textContent = '-';
+    document.getElementById('l-calc').textContent = '-';
+    return;
+  }
+
+  const p = res.p;
   const i = res.i;
 
-  const vs = [], ie = [], is = [], ic = [], sin = [], labels = [];
+  const P = p * 2 * Math.PI * F * VDC * VDC * Cs;
+  const I = i * 2 * Math.PI * F * VDC * Cs;
+  const R = r / (2 * Math.PI * F * Cs);
+  const L = x / (4 * Math.PI * Math.PI * F * F * Cs);
 
-  for (let k = 0; k <= N; k++) {
-    const wt = (k / N) * 2 * period;
-    const wtMod = wt % period;
-    const sinTerm = Math.sin(wt + phi);
-    labels.push(wt.toFixed(2));
-    sin.push(sinTerm);
-
-    // v_s(ωt)
-    let vsVal = 0;
-    if (wtMod > Math.PI - theta && wtMod <= Math.PI) {
-      vsVal = -i * (Math.cos(phi - theta) + Math.cos(wtMod + phi));
-    } else if (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta) {
-      vsVal = 2;
-    } else if (wtMod > 2 * Math.PI - theta) {
-      vsVal = 2 + i * (Math.cos(phi - theta) - Math.cos(wtMod + phi));
-    }
-    vs.push(vsVal);
-
-    // i_e, i_s, i_C
-    ie.push((wtMod <= Math.PI - theta || (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta)) ? sinTerm * (wtMod <= Math.PI - theta ? 1 : -1) : 0);
-    ic.push((wtMod > Math.PI - theta && wtMod <= Math.PI || wtMod > 2 * Math.PI - theta) ? sinTerm : 0);
-    is.push((wtMod <= Math.PI - theta) ? 2 * sinTerm : 0);
-  }
-
-  const chartData = {
-    vs: { data: vs, label: 'v_s(ωt) / V_DC', color: 'blue' },
-    ie: { data: ie, label: 'i_e(ωt)', color: 'red' },
-    is: { data: is, label: 'i_s(ωt)', color: 'green' },
-    ic: { data: ic, label: 'i_C(ωt)', color: 'orange' },
-    sin: { data: sin, label: 'sin(ωt + φ)', color: 'purple' },
-  };
-
-  const config = (label, data, color) => ({
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{ label, data, borderColor: color, borderWidth: 2, pointRadius: 0, fill: false }]
-    },
-    options: {
-      responsive: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { title: { display: true, text: 'ωt (rad)' }, ticks: { maxTicksLimit: 10 } },
-        y: { title: { display: true, text: label }, suggestedMin: -2, suggestedMax: 3 }
-      }
-    }
-  });
-
-  for (const key in chartData) {
-    const ctx = document.getElementById(`${key}-chart`).getContext('2d');
-    if (window[`${key}Chart`]) {
-      window[`${key}Chart`].data.datasets[0].data = chartData[key].data;
-      window[`${key}Chart`].update();
-    } else {
-      window[`${key}Chart`] = new Chart(ctx, config(chartData[key].label, chartData[key].data, chartData[key].color));
-    }
-  }
+  document.getElementById('p-calc').textContent = P.toFixed(4);
+  document.getElementById('i-calc').textContent = I.toFixed(4);
+  document.getElementById('r-calc').textContent = R.toFixed(4);
+  document.getElementById('l-calc').textContent = L.toFixed(4);
 }
 
-// === Chargement des SVG ===
-fetch('/assets/img/circuit_EF.svg')
-  .then(res => res.text())
-  .then(svg => document.getElementById('small-svg-wrapper').innerHTML = svg)
-  .catch(() => document.getElementById('small-svg-wrapper').textContent = 'Erreur de chargement du petit SVG.');
+function handleSvgClick(event, svg, width, height) {
+  const rect = svg.getBoundingClientRect();
+  const xPix = event.clientX - rect.left;
+  const yPix = event.clientY - rect.top;
 
-fetch('/assets/img/chart_EF.svg')
-  .then(res => res.text())
-  .then(svgText => {
-    const wrapper = document.getElementById('svg-wrapper');
-    wrapper.innerHTML = svgText;
-    const svg = wrapper.querySelector('svg');
-    svg.setAttribute('id', 'mysvg');
+  // Conversion pixels en coordonnées (0-1)
+  const r = xPix / width;
+  const x = yPix / height;
 
-    svg.addEventListener('click', evt => {
-      const pt = svg.createSVGPoint();
-      pt.x = evt.clientX;
-      pt.y = evt.clientY;
-      const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
-      const [xPix, yPix] = [svgPoint.x, svgPoint.y];
+  // Limiter dans le domaine
+  if (r < 0 || r > 1 || x < 0 || x > 1) return;
 
-      const r = 0.000531 * xPix - 0.1078;
-      const x = -0.001022 * yPix + 1.0918;
-      const dist = Math.sqrt(r * r + x * x);
+  const frontierR = getFrontierR(x);
+  let zone, res;
+  if (r > frontierR) {
+    zone = 'ZCS';
+    res = solveZCS(r, x);
+  } else {
+    zone = 'ZVS';
+    res = solveZVS(r, x);
+  }
 
-      drawDot(svg, xPix, yPix);
+  drawDot(svg, xPix, yPix);
+  updateInfoPanel(r, x, null, zone, res);
+  updateCalculatedValues(res, r, x);
+}
 
-      let zone = '-', res = null;
-      if (r < 0 || r > 2 / PI || x < 0 || x > 1) {
-        zone = 'Hors zone';
-      } else {
-        const rFrontier = getFrontierR(x);
-        if (r < rFrontier) {
-          zone = 'ZVS';
-          res = solveZVS(r, x);
-        } else {
-          zone = 'ZCS';
-          res = solveZCS(r, x);
-        }
-      }
+async function loadSVG(url, containerId) {
+  const response = await fetch(url);
+  const svgText = await response.text();
+  document.getElementById(containerId).innerHTML = svgText;
+  const svg = document.getElementById(containerId).querySelector('svg');
+  return svg;
+}
 
-      updateInfoPanel(r, x, dist, zone, res);
-      if (res) plotCharts(res);
-    });
-  })
-  .catch(err => {
-    document.getElementById('svg-wrapper').textContent = 'Erreur de chargement du SVG principal.';
-    console.error("Erreur SVG:", err);
-  });
+async function init() {
+  const svg = await loadSVG('big.svg', 'svg-wrapper');
+  const smallSvg = await loadSVG('small.svg', 'small-svg-wrapper');
+
+  const width = svg.viewBox.baseVal.width || svg.clientWidth;
+  const height = svg.viewBox.baseVal.height || svg.clientHeight;
+
+  svg.style.cursor = 'crosshair';
+
+  svg.addEventListener('click', (e) => handleSvgClick(e, svg, width, height));
+
+  // Pour le petit svg, si tu veux faire pareil, tu peux aussi ajouter un listener similaire
+  // smallSvg.addEventListener('click', ...);
+}
+
+init();
 </script>
