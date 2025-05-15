@@ -287,7 +287,7 @@ function plotCharts(res) {
             display: true,
             text: label
           },
-          suggestedMin: -1.5,
+          suggestedMin: -2,
           suggestedMax: 2.5
         }
       }
