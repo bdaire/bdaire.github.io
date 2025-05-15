@@ -145,7 +145,17 @@ function solveZVS(r, x) {
 }
 
 function createOrUpdateChart(canvasId, label, dataArray, labels) {
-  const ctx = document.getElementById(canvasId).getContext('2d');
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) {
+    console.warn(`Canvas avec id ${canvasId} introuvable`);
+    return;
+  }
+  const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    console.warn(`Impossible d'obtenir le contexte 2D pour ${canvasId}`);
+    return;
+  }
+
   if (!window[canvasId]) {
     window[canvasId] = new Chart(ctx, {
       type: 'line',
@@ -242,7 +252,7 @@ fetch('/assets/img/chart_EF.svg')
         const period = 2 * Math.PI;
 
         for (let k = 0; k <= N; k++) {
-          const wt = (k / N) * 2 * period;
+          const wt = (k / N) * period;
           const wtMod = wt % period;
           const sinVal = Math.sin(wt + phi);
 
@@ -278,6 +288,7 @@ fetch('/assets/img/chart_EF.svg')
           icData.push(ic);
         }
 
+        // Graphe v_s
         const ctx = document.getElementById('vs-chart').getContext('2d');
         if (window.vsChart) {
           window.vsChart.data.labels = labels;
@@ -314,7 +325,6 @@ fetch('/assets/img/chart_EF.svg')
     });
   })
   .catch(error => {
-    document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG.";
-    console.error("Erreur lors du chargement du SVG :", error);
+    document.getElementById('svg-wrapper').textContent = "Erreur chargement SVG : " + error;
   });
 </script>
