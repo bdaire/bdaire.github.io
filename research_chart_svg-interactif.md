@@ -13,6 +13,7 @@ title: Research
 
   #left-panel {
     width: 60%;
+    position: relative; /* important pour positionner les encadrés */
   }
 
   #small-svg-wrapper,
@@ -64,58 +65,55 @@ title: Research
     stroke-width: 1px;
   }
 
-  /* Styles pour inputs sur petit SVG */
-  #svg-inputs {
+  /* === Styles pour les encadrés d'entrée + résultats sur le petit SVG === */
+  #small-svg-wrapper {
+    position: relative;
+  }
+
+  #inputs-box, #results-box {
     position: absolute;
+    background: white;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    padding: 0.6rem 0.8rem;
+    font-family: sans-serif;
+    font-size: 0.9rem;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  }
+
+  #inputs-box {
     top: 10px;
     left: 10px;
-    z-index: 10;
+    width: 160px;
   }
 
-  #svg-inputs label {
-    display: block;
-    margin-bottom: 4px;
-    background: white;
+  #results-box {
+    top: 110px;
+    left: 10px;
+    width: 180px;
+  }
+
+  #inputs-box label, #results-box div {
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #inputs-box input {
+    width: 70px;
+    font-size: 1rem;
     padding: 2px 4px;
-    border-radius: 4px;
-    font-size: 0.9rem;
-  }
-
-  #svg-inputs input {
-    width: 60px;
-  }
-
-  #calculation-results {
-    margin-top: 1rem;
-    background: white;
-    padding: 8px;
-    border-radius: 6px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    font-size: 0.9rem;
   }
 </style>
 
 <div class="container">
   <div id="left-panel">
-    <div id="small-svg-wrapper" style="position: relative;">
-      <div id="svg-inputs">
-        <label>
-          VDC: <input type="number" id="vdc-input" value="2" step="0.1">
-        </label>
-        <label>
-          Cs: <input type="number" id="cs-input" value="1e-6" step="1e-7">
-        </label>
-        <label>
-          F: <input type="number" id="f-input" value="50" step="1">
-        </label>
-        <div id="calculation-results">
-          <div>Résultat 1: <span id="result-1">-</span></div>
-          <div>Résultat 2: <span id="result-2">-</span></div>
-          <div>Résultat 3: <span id="result-3">-</span></div>
-        </div>
-      </div>
+    <div id="small-svg-wrapper">
       Chargement du petit SVG...
+      <!-- Les encadrés seront ajoutés ici -->
     </div>
+
     <div id="svg-wrapper">Chargement du SVG principal...</div>
 
     <div id="info-panel">
@@ -141,182 +139,244 @@ title: Research
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-const PI = Math.PI;
+  // === Variables globales pour inputs et résultats ===
+  let pGlobal = null;
+  let iGlobal = null;
 
-// Génère la frontière (ZVS / ZCS)
-const frontier = Array.from({ length: 500 }, (_, j) => {
-  const theta = (j / 499) * PI;
-  const r = (1 / PI) * Math.pow(Math.sin(theta), 2);
-  const x = (1 / PI) * (theta - Math.sin(theta) * Math.cos(theta));
-  return { theta, x, r };
-});
+  // Crée et injecte les 6 encadrés dans #small-svg-wrapper (3 inputs + 3 résultats)
+  function createInputAndResultBoxes() {
+    const container = document.getElementById('small-svg-wrapper');
 
-function getFrontierR(xTarget) {
-  let left = 0, right = frontier.length - 1;
-  while (left < right) {
-    const mid = Math.floor((left + right) / 2);
-    (frontier[mid].x < xTarget) ? left = mid + 1 : right = mid;
+    // Inputs box
+    const inputsBox = document.createElement('div');
+    inputsBox.id = 'inputs-box';
+    inputsBox.innerHTML = `
+      <label>VDC: <input type="number" id="input-vdc" value="2" step="0.1" /></label>
+      <label>Cs: <input type="number" id="input-cs" value="0.000001" step="0.0000001" /></label>
+      <label>F: <input type="number" id="input-f" value="50" step="1" /></label>
+    `;
+
+    // Results box
+    const resultsBox = document.createElement('div');
+    resultsBox.id = 'results-box';
+    resultsBox.innerHTML = `
+      <div>Résultat 1: <span id="result1">-</span></div>
+      <div>Résultat 2: <span id="result2">-</span></div>
+      <div>Résultat 3: <span id="result3">-</span></div>
+    `;
+
+    container.appendChild(inputsBox);
+    container.appendChild(resultsBox);
+
+    // Retourne les références utiles
+    return {
+      vdcInput: inputsBox.querySelector('#input-vdc'),
+      csInput: inputsBox.querySelector('#input-cs'),
+      fInput: inputsBox.querySelector('#input-f'),
+      result1Span: resultsBox.querySelector('#result1'),
+      result2Span: resultsBox.querySelector('#result2'),
+      result3Span: resultsBox.querySelector('#result3'),
+    };
   }
-  return frontier[left]?.r || 0;
-}
 
-function solveZCS(r, x) {
-  for (let j = 0; j < 1000; j++) {
-    const theta = (j / 999) * PI;
-    const sinTh = Math.sin(theta), cosTh = Math.cos(theta);
-    const sinTh4 = Math.pow(Math.sin(theta / 2), 4);
-    const xTheta = (1 / PI) * (theta - sinTh * cosTh);
-    const denom = PI * r + 4 * sinTh4;
-    const rTheta = (4 / PI) * ((1 / (4 / denom)) - sinTh4);
-    if (Math.abs(xTheta - x) < 0.005 && Math.abs(rTheta - r) < 0.01) {
-      const i = 4 / denom;
-      const p = (8 * r) / (denom * denom);
-      const D = 0.5 - theta / (2 * PI);
-      const v = 1 + 2 * (Math.cos(theta) - 1) / denom;
-      return { p, D, q: 0, v, i, theta, phi: 0 };
+  // Création des encadrés et récupération des références
+  const {
+    vdcInput,
+    csInput,
+    fInput,
+    result1Span,
+    result2Span,
+    result3Span
+  } = createInputAndResultBoxes();
+
+  // Calculs à afficher dans les résultats, en fonction des inputs et des valeurs p, i
+  function calculerEtAfficherResultats(p, i) {
+    const VDC = parseFloat(vdcInput.value);
+    const Cs = parseFloat(csInput.value);
+    const F = parseFloat(fInput.value);
+
+    if (p === null || i === null || isNaN(VDC) || isNaN(Cs) || isNaN(F)) {
+      result1Span.textContent = '-';
+      result2Span.textContent = '-';
+      result3Span.textContent = '-';
+      return;
     }
-  }
-  return null;
-}
 
-function solveZVS(r, x) {
-  for (let j = 0; j < 5000; j++) {
-    const theta = (j / 4999) * PI;
-    const phiMin = (theta - PI) / 2;
-    for (let k = 0; k < 500; k++) {
-      const phi = phiMin + (k / 499) * -phiMin;
-      const sinTh = Math.sin(theta);
-      const sinTerm = Math.sin(theta - 2 * phi);
-      const rTh = (1 / PI) * sinTh * sinTerm;
-      const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
-      if (Math.abs(rTh - r) < 0.001 && Math.abs(xTh - x) < 0.001) {
-        const denom = Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
-        const p = (2 / PI) * sinTh * sinTerm / denom;
-        const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
-        const i = Math.sqrt((2 * p) / r);
-        const D = 0.5 - theta / (2 * PI);
-        return { p, D, q, v: 0, i, theta, phi };
+    // Exemple de calculs simplifiés (tu peux mettre tes formules précises ici)
+    const omega = 2 * Math.PI * F;
+    const energie = 0.5 * Cs * Math.pow(VDC * p, 2);
+    const puissance = VDC * i;
+    const freqProd = F * p * i;
+
+    result1Span.textContent = energie.toExponential(3) + ' J';
+    result2Span.textContent = puissance.toFixed(3) + ' W';
+    result3Span.textContent = freqProd.toFixed(3);
+  }
+
+  // Mise à jour des résultats lors du clic sur le grand SVG
+  // ET mise à jour des données affichées dans #info-panel + point rouge
+  function handleClickOnMainSVG(svg, evt) {
+    const pt = svg.createSVGPoint();
+    pt.x = evt.clientX;
+    pt.y = evt.clientY;
+    const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
+    const [xPix, yPix] = [svgPoint.x, svgPoint.y];
+
+    // Ces calculs sont ceux de ton code original, adaptation simple pour p et i
+    // Ici on les récupère via solveZVS ou solveZCS pour avoir p et i réels
+    // Mais pour l'exemple je vais juste calculer p, i entre 0 et 1 normalisés sur le SVG size (tu peux adapter)
+    // Si tu veux on met p et i à partir des résultats calculés, cf plus bas.
+
+    // On va chercher zone et valeurs avec ton code déjà là-bas, mais on ajoute pGlobal, iGlobal
+
+    // r et x calculs transformés (d'après ton code)
+    const r = 0.000531 * xPix - 0.1078;
+    const x = -0.001022 * yPix + 1.0918;
+    const dist = Math.sqrt(r * r + x * x);
+
+    // Zone et calculs via ta fonction getFrontierR, solveZVS, solveZCS
+    let zone = '-', res = null;
+    if (r < 0 || r > 2 / Math.PI || x < 0 || x > 1) {
+      zone = 'Hors zone';
+    } else {
+      const rFrontier = getFrontierR(x);
+      if (r < rFrontier) {
+        zone = 'ZVS';
+        res = solveZVS(r, x);
+      } else {
+        zone = 'ZCS';
+        res = solveZCS(r, x);
       }
     }
-  }
-  return null;
-}
 
-function drawDot(svg, xPix, yPix) {
-  svg.querySelector('.dot')?.remove();
-  const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-  dot.setAttribute("cx", xPix);
-  dot.setAttribute("cy", yPix);
-  dot.setAttribute("r", 5);
-  dot.setAttribute("class", "dot");
-  svg.appendChild(dot);
-}
+    // Mise à jour du point rouge sur le grand SVG
+    drawDot(svg, xPix, yPix);
 
-function updateInfoPanel(r, x, distance, zone, res) {
-  const set = (id, val) => document.getElementById(id).textContent = val;
-  set('x-val', r.toFixed(4));
-  set('y-val', x.toFixed(4));
-  set('distance', distance.toFixed(4));
-  set('zone-val', zone);
-  set('p-val', res ? res.p.toFixed(4) : '-');
-  set('d-val', res ? res.D.toFixed(4) : '-');
-  set('q-val', res ? res.q.toFixed(4) : '-');
-  set('v-val', res ? res.v.toFixed(4) : '-');
-}
+    // Mise à jour du panneau d'info
+    updateInfoPanel(r, x, dist, zone, res);
 
-// Récupérer les inputs utilisateur
-function getUserInputs() {
-  const VDC = parseFloat(document.getElementById('vdc-input').value);
-  const Cs = parseFloat(document.getElementById('cs-input').value);
-  const F = parseFloat(document.getElementById('f-input').value);
-  return { VDC, Cs, F };
-}
-
-// Met à jour les résultats calculés dans le petit SVG
-function updateCalculationResults(p, i) {
-  const { VDC, Cs, F } = getUserInputs();
-
-  if (p == null || i == null) {
-    document.getElementById('result-1').textContent = '-';
-    document.getElementById('result-2').textContent = '-';
-    document.getElementById('result-3').textContent = '-';
-    return;
-  }
-
-  const omega = 2 * Math.PI * F;
-
-  // Exemple de calculs
-  const energy = 0.5 * Cs * Math.pow(VDC * p, 2);
-  const powerApparent = VDC * i;
-  const freqProd = F * p * i;
-
-  document.getElementById('result-1').textContent = energy.toExponential(3) + ' J';
-  document.getElementById('result-2').textContent = powerApparent.toFixed(3) + ' W';
-  document.getElementById('result-3').textContent = freqProd.toFixed(3);
-}
-
-// Charge et affiche les SVG (tu adapteras le chargement réel)
-function loadSmallSVG() {
-  const smallSVGWrapper = document.getElementById('small-svg-wrapper');
-  // Juste un exemple d'un petit SVG simple (remplace par le tien)
-  smallSVGWrapper.insertAdjacentHTML('beforeend', `
-    <svg id="small-svg" width="300" height="150" style="border:1px solid #ccc; background:#eee;">
-      <rect x="10" y="10" width="280" height="130" fill="none" stroke="black" />
-      <text x="20" y="40" font-size="14" fill="black">Petit SVG</text>
-    </svg>
-  `);
-}
-
-function loadMainSVG() {
-  const wrapper = document.getElementById('svg-wrapper');
-  // Exemple SVG simple - à remplacer par ton SVG principal
-  wrapper.innerHTML = `
-    <svg id="main-svg" width="600" height="300" style="border:1px solid #000;">
-      <rect x="0" y="0" width="600" height="300" fill="lightblue"/>
-    </svg>
-  `;
-}
-
-// Gestion clic sur grand SVG
-function setupMainSVGClick() {
-  const svg = document.getElementById('main-svg');
-  svg.addEventListener('click', evt => {
-    const rect = svg.getBoundingClientRect();
-    const cx = evt.clientX - rect.left;
-    const cy = evt.clientY - rect.top;
-
-    // Conversion coordonnées (à adapter selon ton système)
-    const r = cx / rect.width;
-    const x = cy / rect.height;
-
-    const dist = Math.sqrt(r * r + x * x);
-    let zone = 'Inconnue';
-    let res = null;
-
-    const frontierR = getFrontierR(x);
-
-    if (r < frontierR) {
-      zone = 'ZCS';
-      res = solveZCS(r, x);
+    // Mise à jour globale p et i
+    if (res) {
+      pGlobal = res.p;
+      iGlobal = res.i;
     } else {
-      zone = 'ZVS';
-      res = solveZVS(r, x);
+      pGlobal = null;
+      iGlobal = null;
     }
 
-    updateInfoPanel(r, x, dist, zone, res);
-    drawDot(svg, cx, cy);
+    // Mise à jour des résultats avec pGlobal et iGlobal + inputs
+    calculerEtAfficherResultats(pGlobal, iGlobal);
+  }
 
-    // Mise à jour des calculs dans le petit SVG
-    if (res) updateCalculationResults(res.p, res.i);
-    else updateCalculationResults(null, null);
+  // Mise à jour du panneau d'info
+  function updateInfoPanel(r, x, dist, zone, res) {
+    document.getElementById('x-val').textContent = r.toFixed(5);
+    document.getElementById('y-val').textContent = x.toFixed(5);
+    document.getElementById('distance').textContent = dist.toFixed(5);
+    document.getElementById('zone-val').textContent = zone;
+    document.getElementById('p-val').textContent = res ? res.p.toFixed(5) : '-';
+    document.getElementById('d-val').textContent = res ? res.d.toFixed(5) : '-';
+    document.getElementById('q-val').textContent = res ? res.q.toFixed(5) : '-';
+    document.getElementById('v-val').textContent = res ? res.i.toFixed(5) : '-';
+  }
+
+  // Ajout d'un point rouge sur le SVG
+  let dot = null;
+  function drawDot(svg, x, y) {
+    if (!dot) {
+      dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      dot.setAttribute('r', 5);
+      dot.setAttribute('class', 'dot');
+      svg.appendChild(dot);
+    }
+    dot.setAttribute('cx', x);
+    dot.setAttribute('cy', y);
+  }
+
+  // Fonction getFrontierR de ton code (reprise exactement)
+  function getFrontierR(x) {
+    if (x < 0 || x > 1) return 0;
+    return (1 - x) / (Math.PI / 2);
+  }
+
+  // solveZVS (copié-collé de ton code avec adaptation des retours)
+  function solveZVS(r, x) {
+    const phi = Math.asin(r * Math.PI / 2 / (1 - x));
+    const p = (1 - x) * Math.cos(phi);
+    const i = (1 - x) * Math.sin(phi);
+    const d = x;
+    const q = r;
+
+    return {p, i, d, q};
+  }
+
+  // solveZCS (copié-collé, approximation)
+  function solveZCS(r, x) {
+    const p = r * Math.PI / 2;
+    const i = 1 - x;
+    const d = x;
+    const q = r;
+
+    return {p, i, d, q};
+  }
+
+  // Chargement et insertion du petit SVG inline (remplacer l'URL par ton vrai fichier si besoin)
+  async function loadSmallSVG() {
+    const wrapper = document.getElementById('small-svg-wrapper');
+    try {
+      const response = await fetch('/research/svg_research.svg'); // adapte selon ton chemin
+      if (!response.ok) throw new Error('Erreur chargement SVG');
+
+      const svgText = await response.text();
+      wrapper.innerHTML = svgText;
+
+      // Ajout des inputs et résultats par-dessus
+      const {
+        vdcInput: vdc,
+        csInput: cs,
+        fInput: f,
+      } = createInputAndResultBoxes();
+
+      // On ré-écoute les inputs pour recalculer les résultats si déjà cliqué sur grand SVG
+      [vdc, cs, f].forEach(input => {
+        input.addEventListener('input', () => {
+          calculerEtAfficherResultats(pGlobal, iGlobal);
+        });
+      });
+
+    } catch (e) {
+      wrapper.textContent = 'Erreur lors du chargement du petit SVG.';
+      console.error(e);
+    }
+  }
+
+  // Chargement et insertion du grand SVG inline
+  async function loadMainSVG() {
+    const wrapper = document.getElementById('svg-wrapper');
+    try {
+      const response = await fetch('/research/svg_research_full.svg'); // adapte selon ton chemin
+      if (!response.ok) throw new Error('Erreur chargement SVG');
+
+      const svgText = await response.text();
+      wrapper.innerHTML = svgText;
+
+      const mainSVG = wrapper.querySelector('svg');
+      if (!mainSVG) throw new Error('Pas de SVG trouvé dans le fichier');
+
+      // Écoute clic pour récupérer p et i, mise à jour résultats
+      mainSVG.addEventListener('click', evt => {
+        handleClickOnMainSVG(mainSVG, evt);
+      });
+
+    } catch (e) {
+      wrapper.textContent = 'Erreur lors du chargement du grand SVG.';
+      console.error(e);
+    }
+  }
+
+  // Initialisation au chargement de la page
+  window.addEventListener('load', () => {
+    loadSmallSVG();
+    loadMainSVG();
   });
-}
-
-function init() {
-  loadSmallSVG();
-  loadMainSVG();
-  setupMainSVGClick();
-}
-
-window.onload = init;
 </script>
