@@ -13,7 +13,7 @@ title: Research
 }
 
   #svg-wrapper svg {
-  width: auto;
+  width: 200px;
   height: auto;
   display: block;
   max-width: 100%; /* 👈 si tu veux éviter qu’il déborde sur les petits écrans */
