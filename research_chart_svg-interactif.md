@@ -127,28 +127,36 @@ title: Research
       document.getElementById('y-val').textContent = Y.toFixed(4);
       document.getElementById('distance').textContent = Math.sqrt(X*X + Y*Y).toFixed(4);
 
+      // Vérification des bornes pour zone valide
+      if (X < 0 || X > 2/Math.PI || Y < 0 || Y > 1) {
+        setZone('Hors zone');
+        return;
+      }
+
       // Trouver theta* pour le x (Y ici)
       const thetaStar = findTheta(Y);
       const rCurve = r_theta(thetaStar);
 
+      // console pour debug si besoin
       console.log(`X: ${X.toFixed(4)}, Y: ${Y.toFixed(4)}, θ*: ${thetaStar.toFixed(6)}, r(θ*): ${rCurve.toFixed(6)}`);
 
       // Déterminer la zone
-      let zone = '';
       if (X < rCurve) {
-        zone = 'Zone ZVS';
+        setZone('Zone ZVS');
       } else {
-        zone = 'Zone ZCS';
+        setZone('Zone ZCS');
       }
 
-      // Afficher la zone sous les coordonnées
-      let zoneElem = document.getElementById('zone-val');
-      if (!zoneElem) {
-        zoneElem = document.createElement('p');
-        zoneElem.id = 'zone-val';
-        document.getElementById('info-panel').appendChild(zoneElem);
+      // Fonction d'affichage de zone
+      function setZone(text) {
+        let zoneElem = document.getElementById('zone-val');
+        if (!zoneElem) {
+          zoneElem = document.createElement('p');
+          zoneElem.id = 'zone-val';
+          document.getElementById('info-panel').appendChild(zoneElem);
+        }
+        zoneElem.textContent = text;
       }
-      zoneElem.textContent = zone;
     });
   })
   .catch(error => {
