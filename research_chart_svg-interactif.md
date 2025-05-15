@@ -16,49 +16,13 @@ title: Research
     width: 60%;
   }
 
-  #small-svg-wrapper {
-    margin-bottom: 2rem;
-    position: relative;
-    display: flex;
-    justify-content: flex-start;
-  }
-
-  /* Conteneur des inputs sur le petit SVG */
-  #inputs-wrapper {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    display: flex;
-    gap: 10px;
-    background: white;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    z-index: 10;
-  }
-
-  #inputs-wrapper label {
-    font-size: 0.9rem;
-    margin-right: 4px;
-    white-space: nowrap;
-  }
-
-  #inputs-wrapper input {
-    width: 60px;
-    padding: 4px 6px;
-    border: 1px solid #aaa;
-    border-radius: 3px;
-    font-size: 0.9rem;
-  }
-
   #svg-wrapper {
     border: 1px solid #ccc;
     width: 100%;
     max-width: 100%;
   }
 
-  #svg-wrapper svg,
-  #small-svg-wrapper svg {
+  #svg-wrapper svg {
     display: block;
     width: 100%;
     height: auto;
@@ -85,8 +49,10 @@ title: Research
     gap: 1rem;
   }
 
+  /* Suppression du width: 100% sur canvas qui cause des tremblements */
   canvas {
     display: block;
+    /* taille fixe en pixels pour éviter les redimensionnements intempestifs */
     width: 400px;
     height: 200px;
   }
@@ -104,28 +70,7 @@ title: Research
 
 <div class="container">
   <div id="left-panel">
-
-    <!-- Petit SVG décoratif chargé via fetch -->
-    <div id="small-svg-wrapper">
-      Chargement du petit SVG...
-      <!-- Inputs pour V_DC, F et C_s -->
-      <div id="inputs-wrapper">
-        <div>
-          <label for="input-vdc">V<sub>DC</sub>:</label>
-          <input id="input-vdc" type="number" step="any" value="1.0" />
-        </div>
-        <div>
-          <label for="input-f">F:</label>
-          <input id="input-f" type="number" step="any" value="50" />
-        </div>
-        <div>
-          <label for="input-cs">C<sub>s</sub>:</label>
-          <input id="input-cs" type="number" step="any" value="0.1" />
-        </div>
-      </div>
-    </div>
-
-    <div id="svg-wrapper">Chargement du SVG principal...</div>
+    <div id="svg-wrapper">Chargement du SVG...</div>
 
     <div id="info-panel">
       <div class="info-label">r :</div><div id="x-val">-</div>
@@ -216,38 +161,8 @@ function solveZVS(r, x) {
   return null;
 }
 
-// Chargement du petit SVG décoratif
-fetch('/assets/img/circuit_EF.svg')
-  .then(res => res.text())
-  .then(svgText => {
-    const smallWrapper = document.getElementById('small-svg-wrapper');
-    smallWrapper.innerHTML = svgText;
-
-    // On remet les inputs dans #inputs-wrapper (car innerHTML écrase tout)
-    const inputsWrapper = document.createElement('div');
-    inputsWrapper.id = 'inputs-wrapper';
-    inputsWrapper.innerHTML = `
-      <div>
-        <label for="input-vdc">V<sub>DC</sub>:</label>
-        <input id="input-vdc" type="number" step="any" value="1.0" />
-      </div>
-      <div>
-        <label for="input-f">F:</label>
-        <input id="input-f" type="number" step="any" value="50" />
-      </div>
-      <div>
-        <label for="input-cs">C<sub>s</sub>:</label>
-        <input id="input-cs" type="number" step="any" value="0.1" />
-      </div>`;
-    smallWrapper.appendChild(inputsWrapper);
-  })
-  .catch(() => {
-    document.getElementById('small-svg-wrapper').textContent = 'Erreur de chargement du petit SVG.';
-  });
-
-// Chargement du SVG principal
 fetch('/assets/img/chart_EF.svg')
-  .then(res => res.text())
+  .then(response => response.text())
   .then(svgText => {
     const wrapper = document.getElementById('svg-wrapper');
     wrapper.innerHTML = svgText;
@@ -255,101 +170,165 @@ fetch('/assets/img/chart_EF.svg')
     const svg = wrapper.querySelector('svg');
     svg.setAttribute('id', 'mysvg');
 
-    // Event listener pour déplacer le point rouge sur le SVG et calculs associés
-    svg.addEventListener('click', event => {
+    svg.addEventListener('click', function(evt) {
+      const existingDot = svg.querySelector('.dot');
+      if (existingDot) svg.removeChild(existingDot);
+
       const pt = svg.createSVGPoint();
-      pt.x = event.clientX;
-      pt.y = event.clientY;
-      const cursorpt = pt.matrixTransform(svg.getScreenCTM().inverse());
-      const x = cursorpt.x;
-      const y = cursorpt.y;
+      pt.x = evt.clientX;
+      pt.y = evt.clientY;
+      const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
+      const xPix = svgPoint.x;
+      const yPix = svgPoint.y;
 
-      // Limite la zone à 0 ≤ x ≤ 1.25 et y ≥ 0 (selon frontiere)
-      if (x < 0 || x > 1.25 || y < 0) return;
+      const r = 0.000531 * xPix - 0.1078;
+      const x = -0.001022 * yPix + 1.0918;
 
-      // Trouve r selon x dans frontier (interpolation)
-      const r = getFrontierR(x);
+      const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      dot.setAttribute("cx", xPix);
+      dot.setAttribute("cy", yPix);
+      dot.setAttribute("r", 5);
+      dot.setAttribute("class", "dot");
+      svg.appendChild(dot);
 
-      // Positionne le point rouge
-      let point = svg.querySelector('.dot');
-      if (!point) {
-        point = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        point.classList.add('dot');
-        point.setAttribute('r', '6');
-        svg.appendChild(point);
-      }
-      point.setAttribute('cx', x);
-      point.setAttribute('cy', y);
+      document.getElementById('x-val').textContent = r.toFixed(4);
+      document.getElementById('y-val').textContent = x.toFixed(4);
+      document.getElementById('distance').textContent = Math.sqrt(r*r + x*x).toFixed(4);
 
-      // Calcule distance au centre
-      const dist = Math.sqrt(x * x + y * y);
-
-      // Mise à jour infos
-      document.getElementById('x-val').textContent = x.toFixed(3);
-      document.getElementById('y-val').textContent = y.toFixed(3);
-      document.getElementById('distance').textContent = dist.toFixed(3);
-      document.getElementById('zone-val').textContent = y > r ? 'hors frontière' : 'intérieur';
-
-      // Calcule p, D, q, v selon ZCS ou ZVS
-      let res;
-      if (y > r) {
-        res = solveZCS(r, x);
+      let zone = '-';
+      let res = null;
+      if (r < 0 || r > 2/PI || x < 0 || x > 1) {
+        zone = 'Hors zone';
       } else {
-        res = solveZVS(r, x);
+        const rFrontier = getFrontierR(x);
+        if (r < rFrontier) {
+          zone = 'ZVS';
+          res = solveZVS(r, x);
+        } else {
+          zone = 'ZCS';
+          res = solveZCS(r, x);
+        }
       }
 
-      if (res) {
-        document.getElementById('p-val').textContent = res.p.toFixed(4);
-        document.getElementById('d-val').textContent = res.D.toFixed(4);
-        document.getElementById('q-val').textContent = res.q.toFixed(4);
-        document.getElementById('v-val').textContent = res.v.toFixed(4);
-      } else {
-        document.getElementById('p-val').textContent = '-';
-        document.getElementById('d-val').textContent = '-';
-        document.getElementById('q-val').textContent = '-';
-        document.getElementById('v-val').textContent = '-';
-      }
-    });
+      document.getElementById('zone-val').textContent = zone;
+      document.getElementById('p-val').textContent = res ? res.p.toFixed(4) : '-';
+      document.getElementById('d-val').textContent = res ? res.D.toFixed(4) : '-';
+      document.getElementById('q-val').textContent = res ? res.q.toFixed(4) : '-';
+      document.getElementById('v-val').textContent = res ? res.v.toFixed(4) : '-';
 
-    // Initialisation des graphiques Chart.js
-    initCharts();
-  })
-  .catch(() => {
-    document.getElementById('svg-wrapper').textContent = 'Erreur de chargement du SVG principal.';
-  });
+      if (res && typeof res.theta === 'number' && typeof res.i === 'number') {
+        const theta = res.theta;
+        const phi = res.phi || 0;
+        const i = res.i;
 
-// Fonction d'initialisation des graphiques
-function initCharts() {
-  const charts = [
-    {id: 'vs-chart', label: 'VS', color: 'blue'},
-    {id: 'ie-chart', label: 'IE', color: 'green'},
-    {id: 'is-chart', label: 'IS', color: 'orange'},
-    {id: 'ic-chart', label: 'IC', color: 'red'},
-    {id: 'sin-chart', label: 'SIN', color: 'purple'}
-  ];
+        const vsData = [], ieData = [], isData = [], icData = [], sinData = [], labels = [];
+        const N = 1000;
+        const period = 2 * Math.PI;
 
-  charts.forEach(({id, label, color}) => {
-    const ctx = document.getElementById(id).getContext('2d');
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: [0, 1, 2, 3, 4],
-        datasets: [{
-          label: label + ' sample',
-          data: [0, 0, 0, 0, 0],
-          borderColor: color,
-          fill: false,
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          x: {display: true},
-          y: {display: true}
+        for (let k = 0; k <= N; k++) {
+          const wt = (k / N) * 2 * period;
+          const wtMod = wt % period;
+          const sinTerm = Math.sin(wt + phi);
+          labels.push(wt.toFixed(2));
+          sinData.push(sinTerm);
+
+          // v_s(ωt)
+          let vs;
+          if (wtMod <= Math.PI - theta) {
+            vs = 0;
+          } else if (wtMod <= Math.PI) {
+            vs = -i * (Math.cos(phi - theta) + Math.cos(wtMod + phi));
+          } else if (wtMod <= 2 * Math.PI - theta) {
+            vs = 2;
+          } else {
+            vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wtMod + phi));
+          }
+          vsData.push(vs);
+
+          // i_e(ωt)
+          const i_e = (wtMod <= Math.PI - theta) ? 1 * sinTerm :
+                      (wtMod <= Math.PI) ? 0 :
+                      (wtMod <= 2 * Math.PI - theta) ? -1 * sinTerm : 0;
+          ieData.push(i_e);
+
+          // i_C(ωt)
+          const i_C = (wtMod <= Math.PI - theta) ? 0 :
+                      (wtMod <= Math.PI) ? 1 * sinTerm :
+                      (wtMod <= 2 * Math.PI - theta) ? 0 : 1 * sinTerm;
+          icData.push(i_C);
+
+          // i_s(ωt)
+          const i_s = (wtMod <= Math.PI - theta) ? 2 * 1 * sinTerm : 0;
+          isData.push(i_s);
+        }
+
+        const config = (label, data, color) => ({
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: label,
+              data: data,
+              borderColor: color,
+              borderWidth: 2,
+              pointRadius: 0,
+              fill: false,
+            }]
+          },
+          options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            plugins: {
+              title: {
+                display: false
+              },
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              x: {
+                title: { display: true, text: 'ωt (rad)' },
+                ticks: { maxTicksLimit: 10 }
+              },
+              y: {
+                title: { display: true, text: label },
+                suggestedMin: -2,
+                suggestedMax: 3
+              }
+            }
+          }
+        });
+
+        const ctxs = {
+          vs: document.getElementById('vs-chart').getContext('2d'),
+          ie: document.getElementById('ie-chart').getContext('2d'),
+          is: document.getElementById('is-chart').getContext('2d'),
+          ic: document.getElementById('ic-chart').getContext('2d'),
+          sin: document.getElementById('sin-chart').getContext('2d'),
+        };
+
+        const charts = {
+          vs: { data: vsData, label: 'v_s(ωt) / V_DC', color: 'blue' },
+          ie: { data: ieData, label: 'i_e(ωt)', color: 'red' },
+          is: { data: isData, label: 'i_s(ωt)', color: 'green' },
+          ic: { data: icData, label: 'i_C(ωt)', color: 'orange' },
+          sin: { data: sinData, label: 'sin(ωt + φ)', color: 'purple' },
+        };
+
+        for (const key in charts) {
+          if (window[key + 'Chart']) {
+            window[key + 'Chart'].data.datasets[0].data = charts[key].data;
+            window[key + 'Chart'].update();
+          } else {
+            window[key + 'Chart'] = new Chart(ctxs[key], config(charts[key].label, charts[key].data, charts[key].color));
+          }
         }
       }
     });
+  })
+  .catch(error => {
+    document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG.";
+    console.error("Erreur lors du chargement du SVG :", error);
   });
-}
 </script>
