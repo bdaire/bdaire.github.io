@@ -5,6 +5,9 @@ title: Research
 
 ## Abaque de dimensionnement de l'onduleur de classe EF
 
+<br><br>
+<br><br>
+
 <style>
   .container {
     display: flex;
@@ -88,7 +91,7 @@ title: Research
     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
       <label for="Cs-input" style="font-weight: bold; white-space: nowrap;">Cs (F) :</label>
       <input id="Cs-input" type="number" step="any" value="0.1" style="width: 80px;">
-      <span style="font-size: 0.85rem; color: #555; user-select: none;">&lt;-- e-12 works! :)</span>
+      <span style="font-size: 0.85rem; color: #555; user-select: none;">&lt;-- e-12 works! 😄</span>
     </div>
     <div>
       <label for="VDC-input" style="font-weight: bold;">VDC (V) :</label>
