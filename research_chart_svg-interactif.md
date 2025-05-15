@@ -17,8 +17,13 @@ title: Research
   }
 
   #left-panel {
-    width: 60%;
-  }
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* ou center selon ton besoin */
+  gap: 2rem; /* facultatif, pour espacer les blocs */
+}
+
 
   #svg-wrapper, #small-svg-wrapper {
     margin-bottom: 3rem;
