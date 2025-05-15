@@ -4,48 +4,28 @@ title: Research
 ---
 
 <style>
-  .main-container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-
-  .left-panel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 40%;
-  }
-
   #svg-wrapper {
-    width: 100%;
     border: 1px solid #ccc;
+    display: inline-block;
+    width: 60%;
+    max-width: 60%;
   }
 
-  .info-panel {
+  #svg-wrapper svg {
+    display: block;
     width: 100%;
+    height: auto;
+  }
+
+  #info-panel {
+    flex: 1;
     background: #f9f9f9;
     padding: 1rem;
-    margin-top: 1rem;
+    margin-left: 1rem;
     border: 1px solid #ddd;
-  }
-
-  .info-panel p {
-    margin: 0.25rem 0;
-  }
-
-  .right-panel {
-    width: 60%;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  canvas {
-    width: 100% !important;
-    height: 100px !important;
+    gap: 0.5rem;
   }
 
   .dot {
@@ -53,30 +33,39 @@ title: Research
     stroke: black;
     stroke-width: 1px;
   }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
 </style>
 
-<div class="main-container">
-  <div class="left-panel">
-    <div id="svg-wrapper">Chargement du SVG...</div>
-    <div class="info-panel">
-      <h3>Infos du clic</h3>
-      <p><strong>r :</strong> <span id="x-val">-</span></p>
-      <p><strong>x :</strong> <span id="y-val">-</span></p>
-      <p><strong>Distance à (0,0) :</strong> <span id="distance">-</span></p>
-      <p><strong>Zone :</strong> <span id="zone-val">-</span></p>
-      <p><strong>p :</strong> <span id="p-val">-</span></p>
-      <p><strong>D :</strong> <span id="d-val">-</span></p>
-      <p><strong>q :</strong> <span id="q-val">-</span></p>
-      <p><strong>v :</strong> <span id="v-val">-</span></p>
-    </div>
+<div class="container">
+  <div id="svg-wrapper">
+    Chargement du SVG...
   </div>
 
-  <div class="right-panel">
-    <canvas id="vs-chart"></canvas>
-    <canvas id="ie-chart"></canvas>
-    <canvas id="is-chart"></canvas>
-    <canvas id="ic-chart"></canvas>
-    <canvas id="sin-chart"></canvas>
+  <div id="info-panel">
+    <h2>Infos du clic</h2>
+    <p><strong>r :</strong> <span id="x-val">-</span></p>
+    <p><strong>x :</strong> <span id="y-val">-</span></p>
+    <p><strong>Distance à (0,0) :</strong> <span id="distance">-</span></p>
+    <p><strong>Zone :</strong> <span id="zone-val">-</span></p>
+    <p><strong>p :</strong> <span id="p-val">-</span></p>
+    <p><strong>D :</strong> <span id="d-val">-</span></p>
+    <p><strong>q :</strong> <span id="q-val">-</span></p>
+    <p><strong>v :</strong> <span id="v-val">-</span></p>
+
+    <h3>Graphique de v_s(ωt) / V_DC</h3>
+    <canvas id="vs-chart" width="300" height="150" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
+
+    <h3>Autres grandeurs normalisées</h3>
+    <canvas id="ie-chart" width="300" height="100" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
+    <canvas id="is-chart" width="300" height="100" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
+    <canvas id="ic-chart" width="300" height="100" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
+    <canvas id="sin-chart" width="300" height="100" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
   </div>
 </div>
 
