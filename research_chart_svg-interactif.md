@@ -1,8 +1,7 @@
 ---
-
 layout: default
 title: Research
----------------
+---
 
 <style>
   .container {
@@ -38,10 +37,9 @@ title: Research
     padding: 1rem;
     border: 1px solid #ddd;
     display: grid;
-    grid-template-columns: repeat(4, minmax(150px, 1fr));
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
     gap: 0.5rem 1rem;
     margin-top: 1rem;
-    align-items: center;
   }
 
   .info-label {
@@ -65,24 +63,6 @@ title: Research
     stroke: black;
     stroke-width: 1px;
   }
-
-  #params-panel {
-    grid-column: span 4;
-    margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  #params-panel label {
-    font-weight: bold;
-  }
-
-  #params-panel input {
-    width: 80px;
-    padding: 0.2rem 0.4rem;
-    font-size: 1rem;
-  }
 </style>
 
 <div class="container">
@@ -99,26 +79,7 @@ title: Research
       <div class="info-label">D :</div><div id="d-val">-</div>
       <div class="info-label">q :</div><div id="q-val">-</div>
       <div class="info-label">v :</div><div id="v-val">-</div>
-
-      <!-- Nouvelles valeurs calculées -->
-      <div class="info-label">R :</div><div id="R-val">-</div>
-      <div class="info-label">L :</div><div id="L-val">-</div>
-      <div class="info-label">P :</div><div id="P-val">-</div>
-      <div class="info-label">I :</div><div id="I-val">-</div>
-
-      <!-- Inputs pour F, Cs, VDC -->
-      <div id="params-panel">
-        <label for="F-input">F (Hz):</label>
-        <input type="number" id="F-input" value="50000" step="1000" min="1" />
-
-        <label for="Cs-input">Cs (F):</label>
-        <input type="number" id="Cs-input" value="10e-9" step="1e-9" min="0" />
-
-        <label for="VDC-input">VDC (V):</label>
-        <input type="number" id="VDC-input" value="300" step="1" min="0" />
-      </div>
     </div>
-
   </div>
 
   <div id="right-panel">
@@ -131,7 +92,6 @@ title: Research
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
 const PI = Math.PI;
 
@@ -214,33 +174,9 @@ function updateInfoPanel(r, x, distance, zone, res) {
   set('d-val', res ? res.D.toFixed(4) : '-');
   set('q-val', res ? res.q.toFixed(4) : '-');
   set('v-val', res ? res.v.toFixed(4) : '-');
-
-  // Récupérer valeurs F, Cs, VDC des inputs
-  const F = parseFloat(document.getElementById('F-input').value) || 0;
-  const Cs = parseFloat(document.getElementById('Cs-input').value) || 0;
-  const VDC = parseFloat(document.getElementById('VDC-input').value) || 0;
-
-  if (res && F > 0 && Cs > 0 && VDC > 0) {
-    const R = r / (2 * Math.PI * F * Cs);
-    const L = x / (4 * Math.PI * Math.PI * F * F * Cs);
-    const P = res.p * 2 * Math.PI * F * Cs * VDC * VDC;
-    const I = res.i * 2 * Math.PI * F * Cs * VDC;
-
-    set('R-val', R.toFixed(6));
-    set('L-val', L.toFixed(6));
-    set('P-val', P.toFixed(6));
-    set('I-val', I.toFixed(6));
-  } else {
-    set('R-val', '-');
-    set('L-val', '-');
-    set('P-val', '-');
-    set('I-val', '-');
-  }
 }
 
 function plotCharts(res) {
-  if (!res) return;
-
   const N = 1000;
   const period = 2 * PI;
   const theta = res.theta;
@@ -275,122 +211,86 @@ function plotCharts(res) {
 
   const chartData = {
     vs: { data: vs, label: 'v_s(ωt) / V_DC', color: 'blue' },
-    ie: { data: ie, label: 'i_e(ωt)', color: 'green' },
-    is: { data: is, label: 'i_s(ωt)', color: 'orange' },
-    ic: { data: ic, label: 'i_c(ωt)', color: 'red' },
-    sin: { data: sin, label: 'sin(ωt + ϕ)', color: 'purple' }
+    ie: { data: ie, label: 'i_e(ωt)', color: 'red' },
+    is: { data: is, label: 'i_s(ωt)', color: 'green' },
+    ic: { data: ic, label: 'i_C(ωt)', color: 'orange' },
+    sin: { data: sin, label: 'sin(ωt + φ)', color: 'purple' },
   };
 
-  for (const [id, val] of Object.entries(chartData)) {
-    const ctx = document.getElementById(`${id}-chart`).getContext('2d');
-    if (ctx.chartInstance) ctx.chartInstance.destroy();
-
-    ctx.chartInstance = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [{
-          label: val.label,
-          data: val.data,
-          borderColor: val.color,
-          fill: false,
-          pointRadius: 0,
-          borderWidth: 2,
-        }]
-      },
-      options: {
-        animation: false,
-        scales: {
-          x: { display: false },
-          y: { beginAtZero: false }
-        },
-        plugins: { legend: { display: true } }
+  const config = (label, data, color) => ({
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{ label, data, borderColor: color, borderWidth: 2, pointRadius: 0, fill: false }]
+    },
+    options: {
+      responsive: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { title: { display: true, text: 'ωt (rad)' }, ticks: { maxTicksLimit: 10 } },
+        y: { title: { display: true, text: label }, suggestedMin: -2, suggestedMax: 3 }
       }
-    });
+    }
+  });
+
+  for (const key in chartData) {
+    const ctx = document.getElementById(`${key}-chart`).getContext('2d');
+    if (window[`${key}Chart`]) {
+      window[`${key}Chart`].data.datasets[0].data = chartData[key].data;
+      window[`${key}Chart`].update();
+    } else {
+      window[`${key}Chart`] = new Chart(ctx, config(chartData[key].label, chartData[key].data, chartData[key].color));
+    }
   }
 }
 
-// Gestion du clic sur le SVG principal
-function setupSVG(svg) {
-  svg.addEventListener('click', (event) => {
-    const pt = svg.createSVGPoint();
-    pt.x = event.clientX;
-    pt.y = event.clientY;
-    const cursorpt = pt.matrixTransform(svg.getScreenCTM().inverse());
-
-    const r = cursorpt.x;
-    const x = cursorpt.y;
-    const distance = Math.sqrt(r*r + x*x);
-
-    // Trouver zone en fonction de r, x
-    let zone = 'ZCS';
-    let res = null;
-
-    if (r >= 0 && x >= 0) {
-      const rF = getFrontierR(x);
-      if (r < rF) {
-        res = solveZCS(r, x);
-      } else {
-        zone = 'ZVS';
-        res = solveZVS(r, x);
-      }
-    } else {
-      zone = 'Hors zone';
-    }
-
-    drawDot(svg, r, x);
-    updateInfoPanel(r, x, distance, zone, res);
-    plotCharts(res);
-  });
-}
-
-// Chargement des SVGs
+// === Chargement des SVG ===
 fetch('/assets/img/circuit_EF.svg')
-  .then(r => r.text())
-  .then(svgText => {
-    const container = document.getElementById('svg-wrapper');
-    container.innerHTML = svgText;
-    const svg = container.querySelector('svg');
-    if (svg) setupSVG(svg);
-  });
+  .then(res => res.text())
+  .then(svg => document.getElementById('small-svg-wrapper').innerHTML = svg)
+  .catch(() => document.getElementById('small-svg-wrapper').textContent = 'Erreur de chargement du petit SVG.');
 
 fetch('/assets/img/chart_EF.svg')
-  .then(r => r.text())
+  .then(res => res.text())
   .then(svgText => {
-    const container = document.getElementById('small-svg-wrapper');
-    container.innerHTML = svgText;
-  });
+    const wrapper = document.getElementById('svg-wrapper');
+    wrapper.innerHTML = svgText;
+    const svg = wrapper.querySelector('svg');
+    svg.setAttribute('id', 'mysvg');
 
-// Mettre à jour les valeurs affichées dès que F, Cs, VDC changent (si un point est déjà sélectionné)
-const inputs = ['F-input', 'Cs-input', 'VDC-input'];
-inputs.forEach(id => {
-  document.getElementById(id).addEventListener('input', () => {
-    // Récupérer le point sélectionné si possible
-    const dot = document.querySelector('#svg-wrapper svg .dot');
-    if (!dot) return;
+    svg.addEventListener('click', evt => {
+      const pt = svg.createSVGPoint();
+      pt.x = evt.clientX;
+      pt.y = evt.clientY;
+      const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
+      const [xPix, yPix] = [svgPoint.x, svgPoint.y];
 
-    const r = parseFloat(dot.getAttribute('cx'));
-    const x = parseFloat(dot.getAttribute('cy'));
-    const distance = Math.sqrt(r*r + x*x);
+      const r = 0.000531 * xPix - 0.1078;
+      const x = -0.001022 * yPix + 1.0918;
+      const dist = Math.sqrt(r * r + x * x);
 
-    // Même logique que dans le clic
-    let zone = 'ZCS';
-    let res = null;
+      drawDot(svg, xPix, yPix);
 
-    if (r >= 0 && x >= 0) {
-      const rF = getFrontierR(x);
-      if (r < rF) {
-        res = solveZCS(r, x);
+      let zone = '-', res = null;
+      if (r < 0 || r > 2 / PI || x < 0 || x > 1) {
+        zone = 'Hors zone';
       } else {
-        zone = 'ZVS';
-        res = solveZVS(r, x);
+        const rFrontier = getFrontierR(x);
+        if (r < rFrontier) {
+          zone = 'ZVS';
+          res = solveZVS(r, x);
+        } else {
+          zone = 'ZCS';
+          res = solveZCS(r, x);
+        }
       }
-    } else {
-      zone = 'Hors zone';
-    }
 
-    updateInfoPanel(r, x, distance, zone, res);
-    plotCharts(res);
+      updateInfoPanel(r, x, dist, zone, res);
+      if (res) plotCharts(res);
+    });
+  })
+  .catch(err => {
+    document.getElementById('svg-wrapper').textContent = 'Erreur de chargement du SVG principal.';
+    console.error("Erreur SVG:", err);
   });
-});
 </script>
