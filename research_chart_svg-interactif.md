@@ -53,10 +53,17 @@ title: Research
     gap: 0.5rem;
   }
 
-  .chart-block canvas {
-    width: 400px;
-    height: 200px;
-  }
+.chart-block {
+  height: 220px;
+  width: 100%; /* s'assurer que tous aient la même largeur */
+  box-sizing: border-box;
+}
+
+.chart-block canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
 
   .dot {
     fill: red;
