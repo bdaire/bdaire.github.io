@@ -14,9 +14,7 @@
       <path d="M0 0 L1551 0 L1551 1200 L0 1200 Z"/>
     </clipPath>
   </defs>
-  <g style="fill:white; stroke:white;">
-    <rect x="0" y="0" width="1551" height="1200" style="clip-path:url(#clipPath1); stroke:none;"/>
-  </g>
+  <!-- Le rect de fond blanc a été supprimé ici -->
   <g>
     <image x="0" y="0" width="1551" xlink:href="data:image/
 png;base64,iVBORw0KGgoAAAANSUhEUgAABg8AAASwCAIAAABD0k3tAACAAElEQVR42uy9D6xV
