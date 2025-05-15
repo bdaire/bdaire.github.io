@@ -4,22 +4,11 @@ title: Research
 ---
 
 <style>
-  .container {
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-    margin-top: 2rem;
-    align-items: flex-start;
-  }
-
-  #left-panel {
-    width: 60%;
-  }
-
   #svg-wrapper {
     border: 1px solid #ccc;
-    width: 100%;
-    max-width: 100%;
+    display: inline-block;
+    width: 60%;
+    max-width: 60%;
   }
 
   #svg-wrapper svg {
@@ -29,33 +18,14 @@ title: Research
   }
 
   #info-panel {
-    margin-top: 1rem;
+    flex: 1;
     background: #f9f9f9;
     padding: 1rem;
+    margin-left: 1rem;
     border: 1px solid #ddd;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(150px, 1fr));
-    gap: 0.5rem 1rem;
-  }
-
-  .info-label {
-    font-weight: bold;
-  }
-
-  #right-panel {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-  }
-
-  canvas {
-    width: 100% !important;
-    height: auto !important;
-  }
-
-  .chart-block {
-    width: 100%;
+    gap: 0.5rem;
   }
 
   .dot {
@@ -63,30 +33,39 @@ title: Research
     stroke: black;
     stroke-width: 1px;
   }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
 </style>
 
 <div class="container">
-  <div id="left-panel">
-    <div id="svg-wrapper">Chargement du SVG...</div>
-
-    <div id="info-panel">
-      <div class="info-label">r :</div><div id="x-val">-</div>
-      <div class="info-label">x :</div><div id="y-val">-</div>
-      <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
-      <div class="info-label">Zone :</div><div id="zone-val">-</div>
-      <div class="info-label">p :</div><div id="p-val">-</div>
-      <div class="info-label">D :</div><div id="d-val">-</div>
-      <div class="info-label">q :</div><div id="q-val">-</div>
-      <div class="info-label">v :</div><div id="v-val">-</div>
-    </div>
+  <div id="svg-wrapper">
+    Chargement du SVG...
   </div>
 
-  <div id="right-panel">
-    <div class="chart-block"><h4>v_s(ωt) / V_DC</h4><canvas id="vs-chart"></canvas></div>
-    <div class="chart-block"><h4>i_e(ωt)</h4><canvas id="ie-chart"></canvas></div>
-    <div class="chart-block"><h4>i_s(ωt)</h4><canvas id="is-chart"></canvas></div>
-    <div class="chart-block"><h4>i_C(ωt)</h4><canvas id="ic-chart"></canvas></div>
-    <div class="chart-block"><h4>sin(ωt + φ)</h4><canvas id="sin-chart"></canvas></div>
+  <div id="info-panel">
+    <h2>Infos du clic</h2>
+    <p><strong>r :</strong> <span id="x-val">-</span></p>
+    <p><strong>x :</strong> <span id="y-val">-</span></p>
+    <p><strong>Distance à (0,0) :</strong> <span id="distance">-</span></p>
+    <p><strong>Zone :</strong> <span id="zone-val">-</span></p>
+    <p><strong>p :</strong> <span id="p-val">-</span></p>
+    <p><strong>D :</strong> <span id="d-val">-</span></p>
+    <p><strong>q :</strong> <span id="q-val">-</span></p>
+    <p><strong>v :</strong> <span id="v-val">-</span></p>
+
+    <h3>Graphique de v_s(ωt) / V_DC</h3>
+    <canvas id="vs-chart" width="300" height="150" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
+
+    <h3>Autres grandeurs normalisées</h3>
+    <canvas id="ie-chart" width="300" height="100" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
+    <canvas id="is-chart" width="300" height="100" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
+    <canvas id="ic-chart" width="300" height="100" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
+    <canvas id="sin-chart" width="300" height="100" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
   </div>
 </div>
 
@@ -102,8 +81,7 @@ const frontier = Array.from({ length: 500 }, (_, j) => {
 });
 
 function getFrontierR(xTarget) {
-  let left = 0;
-  let right = frontier.length - 1;
+  let left = 0, right = frontier.length - 1;
   while (left < right) {
     const mid = Math.floor((left + right) / 2);
     if (frontier[mid].x < xTarget) {
@@ -129,8 +107,7 @@ function solveZCS(r, x) {
       const p = (8 * r) / (denom * denom);
       const D = 0.5 - theta / (2 * PI);
       const v = 1 + 2 * (Math.cos(theta) - 1) / denom;
-      const phi = 0;
-      return { p, D, q: 0, v, i: iVal, theta, phi };
+      return { p, D, q: 0, v, i: iVal, theta, phi: 0 };
     }
   }
   return null;
@@ -156,6 +133,40 @@ function solveZVS(r, x) {
     }
   }
   return null;
+}
+
+function createOrUpdateChart(canvasId, label, dataArray, labels) {
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  if (!window[canvasId]) {
+    window[canvasId] = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: label,
+          data: dataArray,
+          borderColor: 'darkgreen',
+          borderWidth: 1.5,
+          pointRadius: 0,
+          fill: false
+        }]
+      },
+      options: {
+        scales: {
+          x: { display: false },
+          y: {
+            title: { display: true, text: label },
+            suggestedMin: -2,
+            suggestedMax: 2
+          }
+        }
+      }
+    });
+  } else {
+    window[canvasId].data.labels = labels;
+    window[canvasId].data.datasets[0].data = dataArray;
+    window[canvasId].update();
+  }
 }
 
 fetch('/assets/img/chart_EF.svg')
@@ -214,103 +225,82 @@ fetch('/assets/img/chart_EF.svg')
       document.getElementById('v-val').textContent = res ? res.v.toFixed(4) : '-';
 
       if (res && typeof res.theta === 'number' && typeof res.i === 'number') {
-        const theta = res.theta;
-        const phi = res.phi || 0;
-        const i = res.i;
+        const { theta, phi = 0, i } = res;
+        const vsData = [], labels = [];
+        const ieData = [], isData = [], icData = [], sinData = [];
 
-        const vsData = [], ieData = [], isData = [], icData = [], sinData = [], labels = [];
         const N = 1000;
         const period = 2 * Math.PI;
 
         for (let k = 0; k <= N; k++) {
           const wt = (k / N) * 2 * period;
           const wtMod = wt % period;
-          const sinTerm = Math.sin(wt + phi);
-          labels.push(wt.toFixed(2));
-          sinData.push(sinTerm);
+          const sinVal = Math.sin(wt + phi);
 
-          // v_s(ωt)
-          let vs;
+          sinData.push(sinVal);
+
+          let vs, ie = 0, is = 0, ic = 0;
           if (wtMod <= Math.PI - theta) {
             vs = 0;
+            ie = sinVal;
+            is = 2 * sinVal;
+            ic = 0;
           } else if (wtMod <= Math.PI) {
             vs = -i * (Math.cos(phi - theta) + Math.cos(wtMod + phi));
+            ie = 0;
+            is = 0;
+            ic = sinVal;
           } else if (wtMod <= 2 * Math.PI - theta) {
             vs = 2;
+            ie = -sinVal;
+            is = 0;
+            ic = 0;
           } else {
             vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wtMod + phi));
+            ie = 0;
+            is = 0;
+            ic = sinVal;
           }
+
+          labels.push(wt.toFixed(2));
           vsData.push(vs);
-
-          // i_e(ωt)
-          const i_e = (wtMod <= Math.PI - theta) ? i * sinTerm :
-                      (wtMod <= Math.PI) ? 0 :
-                      (wtMod <= 2 * Math.PI - theta) ? -i * sinTerm : 0;
-          ieData.push(i_e);
-
-          // i_C(ωt)
-          const i_C = (wtMod <= Math.PI - theta) ? 0 :
-                      (wtMod <= Math.PI) ? i * sinTerm :
-                      (wtMod <= 2 * Math.PI - theta) ? 0 : i * sinTerm;
-          icData.push(i_C);
-
-          // i_s(ωt)
-          const i_s = (wtMod <= Math.PI - theta) ? 2 * i * sinTerm : 0;
-          isData.push(i_s);
+          ieData.push(ie);
+          isData.push(is);
+          icData.push(ic);
         }
 
-        const config = (label, data, color) => ({
-          type: 'line',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: label,
-              data: data,
-              borderColor: color,
-              borderWidth: 2,
-              pointRadius: 0,
-              fill: false,
-            }]
-          },
-          options: {
-            scales: {
-              x: {
-                title: { display: true, text: 'ωt (rad)' },
-                ticks: { maxTicksLimit: 10 }
-              },
-              y: {
-                title: { display: true, text: label },
-                suggestedMin: -2,
-                suggestedMax: 3
+        const ctx = document.getElementById('vs-chart').getContext('2d');
+        if (window.vsChart) {
+          window.vsChart.data.labels = labels;
+          window.vsChart.data.datasets[0].data = vsData;
+          window.vsChart.update();
+        } else {
+          window.vsChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'v_s(ωt) / V_DC',
+                data: vsData,
+                borderColor: 'blue',
+                borderWidth: 2,
+                pointRadius: 0,
+                fill: false,
+              }]
+            },
+            options: {
+              scales: {
+                x: { title: { display: true, text: 'ωt (rad)' }, ticks: { maxTicksLimit: 10 } },
+                y: { title: { display: true, text: 'v_s / V_DC' }, suggestedMin: -1, suggestedMax: 3 }
               }
             }
-          }
-        });
-
-        const ctxs = {
-          vs: document.getElementById('vs-chart').getContext('2d'),
-          ie: document.getElementById('ie-chart').getContext('2d'),
-          is: document.getElementById('is-chart').getContext('2d'),
-          ic: document.getElementById('ic-chart').getContext('2d'),
-          sin: document.getElementById('sin-chart').getContext('2d'),
-        };
-
-        const charts = {
-          vs: { data: vsData, label: 'v_s(ωt) / V_DC', color: 'blue' },
-          ie: { data: ieData, label: 'i_e(ωt)', color: 'red' },
-          is: { data: isData, label: 'i_s(ωt)', color: 'green' },
-          ic: { data: icData, label: 'i_C(ωt)', color: 'orange' },
-          sin: { data: sinData, label: 'sin(ωt + φ)', color: 'purple' },
-        };
-
-        for (const key in charts) {
-          if (window[key + 'Chart']) {
-            window[key + 'Chart'].data.datasets[0].data = charts[key].data;
-            window[key + 'Chart'].update();
-          } else {
-            window[key + 'Chart'] = new Chart(ctxs[key], config(charts[key].label, charts[key].data, charts[key].color));
-          }
+          });
         }
+
+        createOrUpdateChart('ie-chart', 'i_e / I', ieData, labels);
+        createOrUpdateChart('is-chart', 'i_s / I', isData, labels);
+        createOrUpdateChart('ic-chart', 'i_C / I', icData, labels);
+        createOrUpdateChart('sin-chart', 'sin(ωt + φ)', sinData, labels);
       }
     });
   })
