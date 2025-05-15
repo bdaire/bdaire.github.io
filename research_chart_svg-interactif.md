@@ -111,10 +111,10 @@ title: Research
   Click on the chart to dynamically see the waveforms of the circuit on the left. 
     
   Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case :S</div>
-  <div class="chart-block"><canvas id="vs-chart" width="500" height="180"></canvas>
-  <div class="chart-block"><canvas id="ie-chart" width="500" height="180"></canvas>
-  <div class="chart-block"><canvas id="is-chart" width="500" height="180"></canvas>
-  <div class="chart-block"><canvas id="ic-chart" width="500" height="180"></canvas>
+  <div class="chart-block"><canvas id="vs-chart" width="500" height="170"></canvas>
+  <div class="chart-block"><canvas id="ie-chart" width="500" height="170"></canvas>
+  <div class="chart-block"><canvas id="is-chart" width="500" height="170"></canvas>
+  <div class="chart-block"><canvas id="ic-chart" width="500" height="170"></canvas>
   <div class="chart-block"><canvas id="sin-chart" width="500" height="180"></canvas>
 </div>
 
