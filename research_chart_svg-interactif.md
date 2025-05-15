@@ -47,11 +47,22 @@ title: Research
   }
 
   #right-panel {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 4rem;
+  position: relative;
+}
+
+#top-text {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.9rem;
+  color: #555;
+  white-space: nowrap;
+}
 
   .chart-block canvas {
     width: 400px;
@@ -83,6 +94,9 @@ title: Research
   </div>
 
   <div id="right-panel">
+    <div id="top-text" style="position: absolute; top: 0; right: 0; font-size: 0.9rem; color: #555;">
+    Voici un texte aligné avec circuit_EF.svg
+    </div>
     <div class="chart-block"><canvas id="vs-chart"></canvas></div>
     <div class="chart-block"><canvas id="ie-chart"></canvas></div>
     <div class="chart-block"><canvas id="is-chart"></canvas></div>
