@@ -243,19 +243,19 @@ fetch('/assets/img/chart_EF.svg')
           vsData.push(vs);
 
           // i_e(ωt)
-          const i_e = (wtMod <= Math.PI - theta) ? i * sinTerm :
+          const i_e = (wtMod <= Math.PI - theta) ? 1 * sinTerm :
                       (wtMod <= Math.PI) ? 0 :
-                      (wtMod <= 2 * Math.PI - theta) ? -i * sinTerm : 0;
+                      (wtMod <= 2 * Math.PI - theta) ? -1 * sinTerm : 0;
           ieData.push(i_e);
 
           // i_C(ωt)
           const i_C = (wtMod <= Math.PI - theta) ? 0 :
-                      (wtMod <= Math.PI) ? i * sinTerm :
-                      (wtMod <= 2 * Math.PI - theta) ? 0 : i * sinTerm;
+                      (wtMod <= Math.PI) ? 1 * sinTerm :
+                      (wtMod <= 2 * Math.PI - theta) ? 0 : 1 * sinTerm;
           icData.push(i_C);
 
           // i_s(ωt)
-          const i_s = (wtMod <= Math.PI - theta) ? 2 * i * sinTerm : 0;
+          const i_s = (wtMod <= Math.PI - theta) ? 2 * 1 * sinTerm : 0;
           isData.push(i_s);
         }
 
