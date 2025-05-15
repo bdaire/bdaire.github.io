@@ -40,6 +40,15 @@ title: Research
     gap: 1rem;
     margin-top: 2rem;
   }
+
+  /* Nouveau : styliser les canvas pour alignement vertical */
+  #info-panel canvas {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+    margin-top: 0.5rem;
+    max-width: 400px; /* optionnel, ajuste selon besoin */
+  }
 </style>
 
 <div class="container">
@@ -59,13 +68,13 @@ title: Research
     <p><strong>v :</strong> <span id="v-val">-</span></p>
 
     <h3>Graphique de v_s(ωt) / V_DC</h3>
-    <canvas id="vs-chart" width="300" height="150" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
+    <canvas id="vs-chart" width="300" height="150"></canvas>
 
     <h3>Autres grandeurs normalisées</h3>
-    <canvas id="ie-chart" width="300" height="100" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
-    <canvas id="is-chart" width="300" height="100" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
-    <canvas id="ic-chart" width="300" height="100" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
-    <canvas id="sin-chart" width="300" height="100" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
+    <canvas id="ie-chart" width="300" height="100"></canvas>
+    <canvas id="is-chart" width="300" height="100"></canvas>
+    <canvas id="ic-chart" width="300" height="100"></canvas>
+    <canvas id="sin-chart" width="300" height="100"></canvas>
   </div>
 </div>
 
