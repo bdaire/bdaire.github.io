@@ -60,6 +60,9 @@ title: Research
 
     <h3>Graphique de v_s(ωt) / V_DC</h3>
     <canvas id="vs-chart" width="300" height="150" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
+
+    <h3>Graphiques des courants i_e, i, i_s, i_C en fonction de ωt</h3>
+    <canvas id="currents-chart" width="300" height="150" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
   </div>
 </div>
 
@@ -110,7 +113,6 @@ function solveZCS(r, x) {
 }
 
 function solveZVS(r, x) {
-  const PI = Math.PI;
   for (let j = 0; j < 5000; j++) {
     const theta = (j / 4999) * PI;
     const phiMin = (theta - PI) / 2;
@@ -131,7 +133,6 @@ function solveZVS(r, x) {
   }
   return null;
 }
-
 
 fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
@@ -193,13 +194,18 @@ fetch('/assets/img/chart_EF.svg')
         const phi = res.phi || 0;
         const i = res.i;
         const vsData = [];
+        const ieData = [];
+        const iData = [];
+        const isData = [];
+        const icData = [];
         const labels = [];
         const N = 500;
 
         for (let k = 0; k <= N; k++) {
           const wt = (k / N) * 4 * Math.PI; // 2 périodes (0 à 4π)
-          const wt_mod = wt % (2 * Math.PI); // modulo 2π pour périodicité
+          const wt_mod = wt % (2 * Math.PI);
 
+          // vs(ωt)
           let vs;
           if (wt_mod <= Math.PI - theta) {
             vs = 0;
@@ -210,8 +216,21 @@ fetch('/assets/img/chart_EF.svg')
           } else {
             vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wt_mod + phi));
           }
-          labels.push(wt.toFixed(2));
           vsData.push(vs);
+          labels.push(wt.toFixed(2));
+
+          // Calcul des courants (formules types, à ajuster selon ta modélisation)
+          // i_e : courant injecté — ici i * sin(wt_mod + phi)
+          ieData.push(i * Math.sin(wt_mod + phi));
+
+          // i : courant total — ici i * cos(wt_mod + phi)
+          iData.push(i * Math.cos(wt_mod + phi));
+
+          // i_s : courant secondaire — ici i * sin(wt_mod)
+          isData.push(i * Math.sin(wt_mod));
+
+          // i_C : courant condensateur — exemple sinusoïde décalée
+          icData.push(i * Math.sin(wt_mod - phi));
         }
 
         const ctx = document.getElementById('vs-chart').getContext('2d');
@@ -243,6 +262,70 @@ fetch('/assets/img/chart_EF.svg')
                   title: { display: true, text: 'v_s / V_DC' },
                   suggestedMin: -1,
                   suggestedMax: 3
+                }
+              }
+            }
+          });
+        }
+
+        const ctx2 = document.getElementById('currents-chart').getContext('2d');
+        if (window.currentsChart) {
+          window.currentsChart.data.labels = labels;
+          window.currentsChart.data.datasets[0].data = ieData;
+          window.currentsChart.data.datasets[1].data = iData;
+          window.currentsChart.data.datasets[2].data = isData;
+          window.currentsChart.data.datasets[3].data = icData;
+          window.currentsChart.update();
+        } else {
+          window.currentsChart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: 'i_e(ωt)',
+                  data: ieData,
+                  borderColor: 'red',
+                  borderWidth: 2,
+                  pointRadius: 0,
+                  fill: false,
+                },
+                {
+                  label: 'i(ωt)',
+                  data: iData,
+                  borderColor: 'green',
+                  borderWidth: 2,
+                  pointRadius: 0,
+                  fill: false,
+                },
+                {
+                  label: 'i_s(ωt)',
+                  data: isData,
+                  borderColor: 'orange',
+                  borderWidth: 2,
+                  pointRadius: 0,
+                  fill: false,
+                },
+                {
+                  label: 'i_C(ωt)',
+                  data: icData,
+                  borderColor: 'purple',
+                  borderWidth: 2,
+                  pointRadius: 0,
+                  fill: false,
+                }
+              ]
+            },
+            options: {
+              scales: {
+                x: {
+                  title: { display: true, text: 'ωt (rad)' },
+                  ticks: { maxTicksLimit: 10 }
+                },
+                y: {
+                  title: { display: true, text: 'Courants' },
+                  suggestedMin: -Math.max(i, 1),
+                  suggestedMax: Math.max(i, 1)
                 }
               }
             }
