@@ -8,7 +8,17 @@ title: Research
     flex: 3;
     border: 1px solid #ccc;
     min-width: 60%;
+    width: 80vw;        /* largeur flexible (80% de la largeur de la fenêtre) */
+    max-width: 800px;   /* largeur max */
+    height: auto;       /* hauteur auto pour garder les proportions */
   }
+
+  #svg-wrapper svg {
+    width: 100%;
+    height: auto;       /* hauteur auto pour respecter le ratio */
+    display: block;     /* enlève les espaces blancs sous le SVG */
+  }
+
   #info-panel {
     flex: 1;
     background: #f9f9f9;
@@ -16,11 +26,13 @@ title: Research
     margin-left: 1rem;
     border: 1px solid #ddd;
   }
+
   .dot {
     fill: red;
     stroke: black;
     stroke-width: 1px;
   }
+
   .container {
     display: flex;
     flex-direction: row;
@@ -44,40 +56,51 @@ title: Research
 </div>
 
 <script>
-    fetch('/assets/img/chart_EF.svg')
-    .then(response => response.text())
-    .then(svgText => {
-      const wrapper = document.getElementById('svg-wrapper');
-      wrapper.innerHTML = svgText;
+  fetch('/assets/img/chart_EF.svg')
+  .then(response => response.text())
+  .then(svgText => {
+    const wrapper = document.getElementById('svg-wrapper');
+    wrapper.innerHTML = svgText;
 
-      const svg = wrapper.querySelector('svg');
-      svg.setAttribute('id', 'mysvg');
+    const svg = wrapper.querySelector('svg');
+    svg.setAttribute('id', 'mysvg');
 
-      svg.addEventListener('click', function(evt) {
-        const pt = svg.createSVGPoint();
-        pt.x = evt.clientX;
-        pt.y = evt.clientY;
+    svg.addEventListener('click', function(evt) {
+      // Supprimer le point rouge s'il existe déjà
+      const existingDot = svg.querySelector('.dot');
+      if (existingDot) {
+        svg.removeChild(existingDot);
+        // Vider les infos
+        document.getElementById('x-val').textContent = '-';
+        document.getElementById('y-val').textContent = '-';
+        document.getElementById('distance').textContent = '-';
+        return;  // Pas de nouveau point créé cette fois
+      }
 
-        const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
-        const x = svgPoint.x;
-        const y = svgPoint.y;
+      const pt = svg.createSVGPoint();
+      pt.x = evt.clientX;
+      pt.y = evt.clientY;
 
-        // Créer un point rouge
-        const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        dot.setAttribute("cx", x);
-        dot.setAttribute("cy", y);
-        dot.setAttribute("r", 5);
-        dot.setAttribute("class", "dot");
-        svg.appendChild(dot);
+      const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
+      const x = svgPoint.x;
+      const y = svgPoint.y;
 
-        // Mise à jour des infos
-        document.getElementById('x-val').textContent = x.toFixed(2);
-        document.getElementById('y-val').textContent = y.toFixed(2);
-        document.getElementById('distance').textContent = Math.sqrt(x*x + y*y).toFixed(2);
-      });
-    })
-    .catch(error => {
-      document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG.";
-      console.error("Erreur lors du chargement du SVG :", error);
+      // Créer un point rouge
+      const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      dot.setAttribute("cx", x);
+      dot.setAttribute("cy", y);
+      dot.setAttribute("r", 5);
+      dot.setAttribute("class", "dot");
+      svg.appendChild(dot);
+
+      // Mise à jour des infos
+      document.getElementById('x-val').textContent = x.toFixed(2);
+      document.getElementById('y-val').textContent = y.toFixed(2);
+      document.getElementById('distance').textContent = Math.sqrt(x*x + y*y).toFixed(2);
     });
+  })
+  .catch(error => {
+    document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG.";
+    console.error("Erreur lors du chargement du SVG :", error);
+  });
 </script>
