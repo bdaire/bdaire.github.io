@@ -88,40 +88,31 @@ title: Research
   <div id="left-panel">
   <div id="small-svg-wrapper">Chargement du petit SVG...</div>
 
-<div id="input-vars" style="margin-bottom: 1.5rem; border: 1px solid #ccc; padding: 1rem; border-radius: 6px; max-width: 600px; background: #fafafa; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
-  
-  <!-- Colonne 1 : entrées -->
-  <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-    <div style="display: flex; align-items: center;">
-      <label for="F-input" style="font-weight: bold; width: 70px;">F (Hz) :</label>
-      <input id="F-input" type="number" step="any" value="15e6" style="width: 80px;">
+  <div id="input-vars" style="margin-bottom: 1.5rem; border: 1px solid #ccc; padding: 1rem; border-radius: 6px; max-width: 600px; background: #fafafa; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+    <!-- Colonne 1 : entrées -->
+    <div>
+      <div style="margin-bottom: 0.5rem;">
+        <label for="F-input" style="font-weight: bold;">F (Hz) :</label>
+        <input id="F-input" type="number" step="any" value="15e6" style="width: 80px; margin-left: 0.5rem;">
+      </div>
+      <div style="margin-bottom: 0.5rem;">
+        <label for="Cs-input" style="font-weight: bold;">Cs (F) :</label>
+        <input id="Cs-input" type="number" step="any" value="385e-12" style="width: 80px; margin-left: 0.5rem;">
+      </div>
+      <div>
+        <label for="VDC-input" style="font-weight: bold;">VDC (V) :</label>
+        <input id="VDC-input" type="number" step="any" value="25" style="width: 80px; margin-left: 0.5rem;">
+      </div>
     </div>
-    <div style="display: flex; align-items: center;">
-      <label for="Cs-input" style="font-weight: bold; width: 70px;">Cs (F) :</label>
-      <input id="Cs-input" type="number" step="any" value="385e-12" style="width: 80px;">
-    </div>
-    <div style="display: flex; align-items: center;">
-      <label for="VDC-input" style="font-weight: bold; width: 70px;">VDC (V) :</label>
-      <input id="VDC-input" type="number" step="any" value="25" style="width: 80px;">
+
+    <!-- Colonne 2 : sorties -->
+    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+      <div><strong>R =</strong> <span id="r-phys-inline">-</span></div>
+      <div><strong>L =</strong> <span id="l-phys-inline">-</span></div>
+      <div><strong>I =</strong> <span id="i-phys-inline">-</span></div>
+      <div><strong>P =</strong> <span id="p-phys-inline">-</span></div>
     </div>
   </div>
-
-  <!-- Colonne 2 : R, L, P, D -->
-  <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-    <div><strong>R =</strong> <span id="r-phys-inline">-</span></div>
-    <div><strong>L =</strong> <span id="l-phys-inline">-</span></div>
-    <div><strong>P =</strong> <span id="p-phys-inline">-</span></div>
-    <div><strong>D (%) =</strong> <span id="D-percent">-</span></div>
-  </div>
-
-  <!-- Colonne 3 : q, Vcutoff, I -->
-  <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-    <div><strong>q =</strong> <span id="q-val-inline">-</span></div>
-    <div><strong>Vcutoff (V) =</strong> <span id="vcutoff-val">-</span></div>
-    <div><strong>I =</strong> <span id="i-phys-inline">-</span></div>
-  </div>
-</div>
-
 
   <div id="svg-wrapper">Chargement du SVG principal...</div>
 
@@ -235,39 +226,49 @@ function drawDot(svg, xPix, yPix) {
 }
 
 function updateInfoPanel(r, x, distance, zone, res) {
-  // Fonction utilitaire pour écrire dans un élément par son id
-  const set = (id, val) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = val;
-  };
+  const set = (id, val) => document.getElementById(id).textContent = val;
 
-  // Variables globales d'entrées (à ajuster selon ton code)
+  set('x-val', r.toFixed(4));
+  set('y-val', x.toFixed(4));
+  set('zone-val', zone);
+  set('p-val', res ? res.p.toFixed(4) : '-');
+  set('d-val', res ? res.D.toFixed(4) : '-');
+  set('q-val', res ? res.q.toFixed(4) : '-');
+  set('v-val', res ? res.v.toFixed(4) : '-');
+
   const F = parseFloat(document.getElementById('F-input')?.value);
   const Cs = parseFloat(document.getElementById('Cs-input')?.value);
   const VDC = parseFloat(document.getElementById('VDC-input')?.value);
 
-  // Affichage valeurs de la colonne 2 (exemple) — adapte selon tes variables
-  if (r != null) set('r-phys-inline', r.toFixed(4));
-  if (x != null) set('l-phys-inline', x.toFixed(4));
-  if (res && res.I != null) set('i-phys-inline', res.I.toFixed(4));
-  if (res && res.P != null) set('p-phys-inline', res.P.toFixed(4));
-
-  // Affichage valeurs calculées dans la 3ème colonne
   if (res && !isNaN(F) && !isNaN(Cs) && !isNaN(VDC)) {
-    const Dpercent = res.D * 100;         // D en %
-    const qVal = res.q;                   // q (facteur qualité)
-    const Vcutoff = res.v * 2 * VDC;     // Vcutoff = v * 2 * VDC
+    const Rval = r / (2 * PI * F * Cs);
+    const Lval = x / (4 * PI * PI * F * F * Cs);
+    const Ival = res.i * 2 * PI * F * Cs * VDC;
+    const Pval = res.p * 2 * PI * F * Cs * VDC * VDC;
 
-    set('D-percent', Dpercent.toFixed(2) + ' %');
-    set('q-val-inline', qVal.toFixed(4));
-    set('vcutoff-val', Vcutoff.toFixed(3) + ' V');
+    set('r-phys', Rval.toFixed(4) + ' Ω');
+    set('l-phys', Lval.toExponential(2) + ' H');
+    set('i-phys', Ival.toFixed(3) + ' A');
+    set('p-phys', Pval.toFixed(2) + ' W');
+
+    // Met à jour la colonne de droite (inline)
+    set('r-phys-inline', Rval.toFixed(4) + ' Ω');
+    set('l-phys-inline', Lval.toExponential(2) + ' H');
+    set('i-phys-inline', Ival.toFixed(3) + ' A');
+    set('p-phys-inline', Pval.toFixed(2) + ' W');
   } else {
-    set('D-percent', '-');
-    set('q-val-inline', '-');
-    set('vcutoff-val', '-');
+    set('r-phys', '-');
+    set('l-phys', '-');
+    set('i-phys', '-');
+    set('p-phys', '-');
+
+    // Met à jour la colonne de droite (inline)
+    set('r-phys-inline', '-');
+    set('l-phys-inline', '-');
+    set('i-phys-inline', '-');
+    set('p-phys-inline', '-');
   }
 }
-
 
 
 
