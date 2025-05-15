@@ -109,7 +109,7 @@ title: Research
 <div style="display: flex; flex-direction: column; gap: 0.5rem;">
   <div><strong>R =</strong> <span id="r-phys-inline">-</span></div>
   <div><strong>L =</strong> <span id="l-phys-inline">-</span></div>
-  <div><strong>D =</strong> <span id="d-inline">-</span></div>
+  <div><strong>D (%) =</strong> <span id="d-inline">-</span></div>
   <div><strong>P =</strong> <span id="p-phys-inline">-</span></div>
 </div>
 
@@ -126,15 +126,19 @@ title: Research
   <div id="svg-wrapper">Chargement du SVG principal...</div>
 
   <div id="info-panel">
-  <div class="info-label">r :</div><div id="x-val">-</div>
-  <div class="info-label">x :</div><div id="y-val">-</div>
-  <div class="info-label">Zone :</div><div id="zone-val">-</div>
-  <div class="info-label">p :</div><div id="p-val">-</div>
-  <div class="info-label">D :</div><div id="d-val">-</div>
-  <div class="info-label">v :</div><div id="v-val">-</div>
-  <div class="info-label">q :</div><div id="q-val">-</div>
-</div>
-
+    <div class="info-label">r :</div><div id="x-val">-</div>
+    <div class="info-label">x :</div><div id="y-val">-</div>
+    <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
+    <div class="info-label">Zone :</div><div id="zone-val">-</div>
+    <div class="info-label">p :</div><div id="p-val">-</div>
+    <div class="info-label">D :</div><div id="d-val">-</div>
+    <div class="info-label">q :</div><div id="q-val">-</div>
+    <div class="info-label">v :</div><div id="v-val">-</div>
+    <div class="info-label">R :</div><div id="r-phys">-</div>
+    <div class="info-label">L :</div><div id="l-phys">-</div>
+    <div class="info-label">I :</div><div id="i-phys">-</div>
+    <div class="info-label">P :</div><div id="p-phys">-</div>
+  </div>
 </div>
 
 
