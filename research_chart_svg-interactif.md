@@ -49,42 +49,39 @@ title: Research
   }
 
   #right-panel {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0rem;
-  /* plus besoin de position relative ou padding-top */
-}
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0rem;
+  }
 
-#top-text {
-  font-size: 1.2rem;
-  color: #000;
-  margin-bottom: 4rem;
-  white-space: pre-line;
-  max-width: 500px;
-
-  /* ✅ Style d'encadrement */
-  border: 2px solid black;
-  padding: 0.8rem;
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-
-
-
-  .chart-block canvas {
-  width: 100% !important;
-  height: auto !important;
-  display: block;
-}
+  #top-text {
+    font-size: 1.2rem;
+    color: #000;
+    margin-bottom: 4rem;
+    white-space: pre-line;
+    max-width: 500px;
+    border: 2px solid black;
+    padding: 0.8rem;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  }
 
   .chart-block {
-  height: 200px;
-}
+    width: 100%;
+    height: 170px;
+    position: relative;
+    margin-bottom: 1rem;
+  }
 
-
+  .chart-block canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
 
   .dot {
     fill: red;
@@ -117,13 +114,14 @@ Click on the chart to dynamically see the waveforms of the circuit on the left.
 
 Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case \:S</div>
 
-    <div class="chart-block"><canvas id="vs-chart" width="500" height="170"></canvas></div>
-    <div class="chart-block"><canvas id="ie-chart" width="500" height="170"></canvas></div>
-    <div class="chart-block"><canvas id="is-chart" width="500" height="170"></canvas></div>
-    <div class="chart-block"><canvas id="ic-chart" width="500" height="170"></canvas></div>
-    <div class="chart-block"><canvas id="sin-chart" width="500" height="180"></canvas></div>
+    <div class="chart-block"><canvas id="vs-chart"></canvas></div>
+    <div class="chart-block"><canvas id="ie-chart"></canvas></div>
+    <div class="chart-block"><canvas id="is-chart"></canvas></div>
+    <div class="chart-block"><canvas id="ic-chart"></canvas></div>
+    <div class="chart-block"><canvas id="sin-chart"></canvas></div>
   </div>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
