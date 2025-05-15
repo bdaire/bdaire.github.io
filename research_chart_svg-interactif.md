@@ -267,7 +267,7 @@ function plotCharts(res) {
             min: -2.5,
             max: 2.5,
             title: { display: true, text: label },
-            ticks: { stepSize: 0.5 }
+            ticks: { stepSize: 1 }
           }
         }
       }
