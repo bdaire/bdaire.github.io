@@ -5,17 +5,16 @@ title: Research
 
 <style>
   #svg-wrapper {
-  border: 1px solid #ccc;
-  display: inline-block;
-  width: 60%;      /* conteneur prend 60% de la largeur parent */
-  max-width: 60%;  /* ne dépassera pas 60% */
-}
-
+    border: 1px solid #ccc;
+    display: inline-block;
+    width: 60%;
+    max-width: 60%;
+  }
 
   #svg-wrapper svg {
-    display: block; /* évite l'espace blanc sous le SVG */
-    width: 100%;    /* remplit le conteneur */
-    height: auto;   /* conserve les proportions */
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   #info-panel {
@@ -87,10 +86,14 @@ title: Research
       dot.setAttribute("class", "dot");
       svg.appendChild(dot);
 
-      // Mise à jour des infos
-      document.getElementById('x-val').textContent = x.toFixed(2);
-      document.getElementById('y-val').textContent = y.toFixed(2);
-      document.getElementById('distance').textContent = Math.sqrt(x*x + y*y).toFixed(2);
+      // Transformation linéaire des coordonnées
+      const X = 0.000531 * x - 0.1078;
+      const Y = -0.001022 * y + 1.0918;
+
+      // Mise à jour des infos transformées
+      document.getElementById('x-val').textContent = X.toFixed(4);
+      document.getElementById('y-val').textContent = Y.toFixed(4);
+      document.getElementById('distance').textContent = Math.sqrt(X*X + Y*Y).toFixed(4);
     });
   })
   .catch(error => {
