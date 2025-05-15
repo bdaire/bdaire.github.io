@@ -5,17 +5,17 @@ title: Research
 
 <style>
   #svg-wrapper {
-  width: 600px;     /* ou 100%, ou autre valeur fixe */
-  height: 400px;
+  width: 600px;     /* ou 100% si tu veux responsive */
+  height: auto;
   border: 1px solid #ccc;
-  overflow: hidden;
 }
 
 #svg-wrapper svg {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
 }
+
 
 
 
