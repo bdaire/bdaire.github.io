@@ -93,24 +93,28 @@ title: Research
     <div id="small-svg-wrapper">Chargement du petit SVG...</div>
     <div id="svg-wrapper">Chargement du SVG principal...</div>
 
-    <div id="info-panel">
-      <div class="info-label">r :</div><div id="x-val">-</div>
-      <div class="info-label">x :</div><div id="y-val">-</div>
-      <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
-      <div class="info-label">Zone :</div><div id="zone-val">-</div>
-      <div class="info-label">p :</div><div id="p-val">-</div>
-      <div class="info-label">D :</div><div id="d-val">-</div>
-      <div class="info-label">q :</div><div id="q-val">-</div>
-      <div class="info-label">v :</div><div id="v-val">-</div>
-    </div>
+```
+<div id="info-panel">
+  <div class="info-label">r :</div><div id="x-val">-</div>
+  <div class="info-label">x :</div><div id="y-val">-</div>
+  <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
+  <div class="info-label">Zone :</div><div id="zone-val">-</div>
+  <div class="info-label">p :</div><div id="p-val">-</div>
+  <div class="info-label">D :</div><div id="d-val">-</div>
+  <div class="info-label">q :</div><div id="q-val">-</div>
+  <div class="info-label">v :</div><div id="v-val">-</div>
+</div>
+```
+
   </div>
 
   <div id="right-panel">
   <div id="top-text">Welcome to our interactive tool! 
-    
-  Click on the chart to dynamically see the waveforms of the circuit on the left. 
-    
-  Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case :S</div>
+
+Click on the chart to dynamically see the waveforms of the circuit on the left.
+
+Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case \:S</div>
+
   <div class="chart-block"><canvas id="vs-chart" width="500" height="170"></canvas>
   <div class="chart-block"><canvas id="ie-chart" width="500" height="170"></canvas>
   <div class="chart-block"><canvas id="is-chart" width="500" height="170"></canvas>
@@ -119,6 +123,7 @@ title: Research
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
 const PI = Math.PI;
 
@@ -285,18 +290,16 @@ function plotCharts(res) {
           }
         },
         y: {
-  min: -2,
-  max: 2.1,    // laisse un peu de marge pour la courbe
-  ticks: {
-    stepSize: 1,
-    callback: function(value) {
-      // afficher les ticks seulement jusqu'à 2.0
-      if (value > 2.0) return '';
-      return value;
-    }
-  }
-}
-
+          title: {
+            display: true,
+            text: label
+          },
+          min: -2,
+          max: 2,
+          ticks: {
+          stepSize: 1
+        }
+        }
       }
     }
   });
