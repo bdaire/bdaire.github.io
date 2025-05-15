@@ -66,15 +66,10 @@ title: Research
     svg.setAttribute('id', 'mysvg');
 
     svg.addEventListener('click', function(evt) {
-      // Supprimer le point rouge s'il existe déjà
+      // Supprimer le point rouge s'il existe déjà (pour le "déplacer")
       const existingDot = svg.querySelector('.dot');
       if (existingDot) {
         svg.removeChild(existingDot);
-        // Vider les infos
-        document.getElementById('x-val').textContent = '-';
-        document.getElementById('y-val').textContent = '-';
-        document.getElementById('distance').textContent = '-';
-        return;  // Pas de nouveau point créé cette fois
       }
 
       const pt = svg.createSVGPoint();
