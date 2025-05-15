@@ -75,6 +75,7 @@ title: Research
     <div id="info-panel">
       <div class="info-label">r :</div><div id="x-val">-</div>
       <div class="info-label">x :</div><div id="y-val">-</div>
+      <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
       <div class="info-label">Zone :</div><div id="zone-val">-</div>
       <div class="info-label">p :</div><div id="p-val">-</div>
       <div class="info-label">D :</div><div id="d-val">-</div>
@@ -320,15 +321,7 @@ fetch('/assets/img/chart_EF.svg')
             window[key + 'Chart'].data.datasets[0].data = charts[key].data;
             window[key + 'Chart'].update();
           } else {
-            const showXAxisTitle = (key === 'sin');  // Seulement pour le 5ᵉ graphique (sin)
-
-const chartConfig = config(charts[key].label, charts[key].data, charts[key].color);
-
-// Masquer ou afficher le titre de l’axe X selon le graphique
-chartConfig.options.scales.x.title.display = showXAxisTitle;
-
-window[key + 'Chart'] = new Chart(ctxs[key], chartConfig);
-
+            window[key + 'Chart'] = new Chart(ctxs[key], config(charts[key].label, charts[key].data, charts[key].color));
           }
         }
       }
