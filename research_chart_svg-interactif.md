@@ -82,11 +82,21 @@ title: Research
   </div>
 
   <div id="right-panel">
-    <div class="chart-block"><h4>v_s(ωt) / V_DC</h4><canvas id="vs-chart"></canvas></div>
-    <div class="chart-block"><h4>i_e(ωt)</h4><canvas id="ie-chart"></canvas></div>
-    <div class="chart-block"><h4>i_s(ωt)</h4><canvas id="is-chart"></canvas></div>
-    <div class="chart-block"><h4>i_C(ωt)</h4><canvas id="ic-chart"></canvas></div>
-    <div class="chart-block"><h4>sin(ωt + φ)</h4><canvas id="sin-chart"></canvas></div>
+    <div class="chart-block">
+      <canvas id="vs-chart"></canvas>
+    </div>
+    <div class="chart-block">
+      <canvas id="ie-chart"></canvas>
+    </div>
+    <div class="chart-block">
+      <canvas id="is-chart"></canvas>
+    </div>
+    <div class="chart-block">
+      <canvas id="ic-chart"></canvas>
+    </div>
+    <div class="chart-block">
+      <canvas id="sin-chart"></canvas>
+    </div>
   </div>
 </div>
 
@@ -243,90 +253,48 @@ fetch('/assets/img/chart_EF.svg')
           vsData.push(vs);
 
           // i_e(ωt)
-          const i_e = (wtMod <= Math.PI - theta) ? 1 * sinTerm :
+          const i_e = (wtMod <= Math.PI - theta) ? i * sinTerm :
                       (wtMod <= Math.PI) ? 0 :
-                      (wtMod <= 2 * Math.PI - theta) ? -1 * sinTerm : 0;
+                      (wtMod <= 2 * Math.PI - theta) ? -i * sinTerm : 0;
           ieData.push(i_e);
 
           // i_C(ωt)
           const i_C = (wtMod <= Math.PI - theta) ? 0 :
-                      (wtMod <= Math.PI) ? 1 * sinTerm :
-                      (wtMod <= 2 * Math.PI - theta) ? 0 : 1 * sinTerm;
+                      (wtMod <= Math.PI) ? i * sinTerm :
+                      (wtMod <= 2 * Math.PI - theta) ? 0 : i * sinTerm;
           icData.push(i_C);
 
           // i_s(ωt)
-          const i_s = (wtMod <= Math.PI - theta) ? 2 * 1 * sinTerm : 0;
+          const i_s = (wtMod <= Math.PI - theta) ? 2 * i * sinTerm : 0;
           isData.push(i_s);
         }
 
         const config = (label, data, color) => ({
-  type: 'line',
-  data: {
-    labels: labels,
-    datasets: [{
-      label: label,
-      data: data,
-      borderColor: color,
-      borderWidth: 2,
-      pointRadius: 0,
-      fill: false,
-    }]
-  },
-  options: {
-  plugins: {
-    title: {
-      display: false  // ça supprime le titre général du graphique
-    },
-    legend: {
-      display: false  // pour supprimer la légende si tu veux aussi
-    }
-  },
-  scales: {
-    x: {
-      title: { display: true, text: 'ωt (rad)' },  // titre de l’axe X conservé
-      ticks: { maxTicksLimit: 10 }
-    },
-    y: {
-      title: { display: true, text: label },  // titre de l’axe Y conservé
-      suggestedMin: -2,
-      suggestedMax: 3
-    }
-  }
-}
-
-
-});
-
-
-        const ctxs = {
-          vs: document.getElementById('vs-chart').getContext('2d'),
-          ie: document.getElementById('ie-chart').getContext('2d'),
-          is: document.getElementById('is-chart').getContext('2d'),
-          ic: document.getElementById('ic-chart').getContext('2d'),
-          sin: document.getElementById('sin-chart').getContext('2d'),
-        };
-
-        const charts = {
-          vs: { data: vsData, label: 'v_s(ωt) / V_DC', color: 'blue' },
-          ie: { data: ieData, label: 'i_e(ωt)', color: 'red' },
-          is: { data: isData, label: 'i_s(ωt)', color: 'green' },
-          ic: { data: icData, label: 'i_C(ωt)', color: 'orange' },
-          sin: { data: sinData, label: 'sin(ωt + φ)', color: 'purple' },
-        };
-
-        for (const key in charts) {
-          if (window[key + 'Chart']) {
-            window[key + 'Chart'].data.datasets[0].data = charts[key].data;
-            window[key + 'Chart'].update();
-          } else {
-            window[key + 'Chart'] = new Chart(ctxs[key], config(charts[key].label, charts[key].data, charts[key].color));
+          type: 'line',
+          data: { labels, datasets: [{ label, data, borderColor: color, fill: false, pointRadius: 0 }] },
+          options: {
+            responsive: true,
+            interaction: { mode: 'nearest', intersect: false },
+            plugins: { legend: { display: true }, title: { display: false } },
+            scales: {
+              x: { title: { display: true, text: 'ωt' } },
+              y: { title: { display: true, text: label } }
+            }
           }
-        }
+        });
+
+        Chart.getChart("vs-chart")?.destroy();
+        Chart.getChart("ie-chart")?.destroy();
+        Chart.getChart("is-chart")?.destroy();
+        Chart.getChart("ic-chart")?.destroy();
+        Chart.getChart("sin-chart")?.destroy();
+
+        new Chart(document.getElementById('vs-chart'), config('v_s(ωt) / V_DC', vsData, 'blue'));
+        new Chart(document.getElementById('ie-chart'), config('i_e(ωt)', ieData, 'green'));
+        new Chart(document.getElementById('is-chart'), config('i_s(ωt)', isData, 'orange'));
+        new Chart(document.getElementById('ic-chart'), config('i_C(ωt)', icData, 'purple'));
+        new Chart(document.getElementById('sin-chart'), config('sin(ωt + φ)', sinData, 'red'));
       }
     });
-  })
-  .catch(error => {
-    document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG.";
-    console.error("Erreur lors du chargement du SVG :", error);
   });
 </script>
