@@ -101,10 +101,10 @@ title: Research
 
   <!-- Colonne 2 : sorties -->
   <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-    <div><strong>R (Ω) :</strong> <span id="r-phys-inline">-</span></div>
-    <div><strong>L (H) :</strong> <span id="l-phys-inline">-</span></div>
-    <div><strong>I (A) :</strong> <span id="i-phys-inline">-</span></div>
-    <div><strong>P (W) :</strong> <span id="p-phys-inline">-</span></div>
+    <div><strong>R :</strong> <span id="r-phys-inline">-</span></div>
+    <div><strong>L :</strong> <span id="l-phys-inline">-</span></div>
+    <div><strong>I :</strong> <span id="i-phys-inline">-</span></div>
+    <div><strong>P :</strong> <span id="p-phys-inline">-</span></div>
   </div>
 </div>
 
