@@ -82,25 +82,26 @@ title: Research
   <!-- Colonne 1 : entrées -->
   <div>
     <div style="margin-bottom: 0.5rem;">
-      <label for="F-input" style="font-weight: bold;">F :</label>
+      <label for="F-input" style="font-weight: bold;">F (Hz) :</label>
       <input id="F-input" type="number" step="any" value="50" style="width: 80px; margin-left: 0.5rem;">
     </div>
     <div style="margin-bottom: 0.5rem;">
-      <label for="Cs-input" style="font-weight: bold;">Cs :</label>
+      <label for="Cs-input" style="font-weight: bold;">Cs (F) :</label>
       <input id="Cs-input" type="number" step="any" value="0.1" style="width: 80px; margin-left: 0.5rem;">
     </div>
     <div>
-      <label for="VDC-input" style="font-weight: bold;">VDC :</label>
+      <label for="VDC-input" style="font-weight: bold;">VDC (V) :</label>
       <input id="VDC-input" type="number" step="any" value="400" style="width: 80px; margin-left: 0.5rem;">
     </div>
   </div>
 
   <!-- Colonne 2 : sorties -->
   <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-    <div><strong>R :</strong> <span id="r-phys-inline">-</span></div>
-    <div><strong>L :</strong> <span id="l-phys-inline">-</span></div>
-    <div><strong>I :</strong> <span id="i-phys-inline">-</span></div>
-    <div><strong>P :</strong> <span id="p-phys-inline">-</span></div>
+    <div><strong>R (Ω) :</strong> <span id="r-phys-inline">-</span></div>
+    <div><strong>L (H) :</strong> <span id="l-phys-inline">-</span></div>
+    <div><strong>I (A) :</strong> <span id="i-phys-inline">-</span></div>
+    <div><strong>P (W) :</strong> <span id="p-phys-inline">-</span></div>
+
   </div>
 </div>
 
