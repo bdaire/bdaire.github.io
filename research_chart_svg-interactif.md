@@ -4,11 +4,22 @@ title: Research
 ---
 
 <style>
+  .container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin-top: 2rem;
+    align-items: flex-start;
+  }
+
+  #left-panel {
+    width: 60%;
+  }
+
   #svg-wrapper {
     border: 1px solid #ccc;
-    display: inline-block;
-    width: 60%;
-    max-width: 60%;
+    width: 100%;
+    max-width: 100%;
   }
 
   #svg-wrapper svg {
@@ -18,31 +29,21 @@ title: Research
   }
 
   #info-panel {
-    flex: 1;
+    margin-top: 1rem;
     background: #f9f9f9;
     padding: 1rem;
-    margin-left: 1rem;
     border: 1px solid #ddd;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+    gap: 0.5rem 1rem;
   }
 
-  .dot {
-    fill: red;
-    stroke: black;
-    stroke-width: 1px;
+  .info-label {
+    font-weight: bold;
   }
 
-  .container {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-
-  .chart-section {
-    margin-top: 2rem;
+  #right-panel {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -53,46 +54,40 @@ title: Research
     height: auto !important;
   }
 
-  .canvas-block {
+  .chart-block {
     width: 100%;
-    max-width: 900px;
-    margin: auto;
+  }
+
+  .dot {
+    fill: red;
+    stroke: black;
+    stroke-width: 1px;
   }
 </style>
 
 <div class="container">
-  <div id="svg-wrapper">
-    Chargement du SVG...
+  <div id="left-panel">
+    <div id="svg-wrapper">Chargement du SVG...</div>
+
+    <div id="info-panel">
+      <div class="info-label">r :</div><div id="x-val">-</div>
+      <div class="info-label">x :</div><div id="y-val">-</div>
+      <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
+      <div class="info-label">Zone :</div><div id="zone-val">-</div>
+      <div class="info-label">p :</div><div id="p-val">-</div>
+      <div class="info-label">D :</div><div id="d-val">-</div>
+      <div class="info-label">q :</div><div id="q-val">-</div>
+      <div class="info-label">v :</div><div id="v-val">-</div>
+    </div>
   </div>
 
-  <div id="info-panel">
-    <h2>Infos du clic</h2>
-    <p><strong>r :</strong> <span id="x-val">-</span></p>
-    <p><strong>x :</strong> <span id="y-val">-</span></p>
-    <p><strong>Distance à (0,0) :</strong> <span id="distance">-</span></p>
-    <p><strong>Zone :</strong> <span id="zone-val">-</span></p>
-    <p><strong>p :</strong> <span id="p-val">-</span></p>
-    <p><strong>D :</strong> <span id="d-val">-</span></p>
-    <p><strong>q :</strong> <span id="q-val">-</span></p>
-    <p><strong>v :</strong> <span id="v-val">-</span></p>
+  <div id="right-panel">
+    <div class="chart-block"><h4>v_s(ωt) / V_DC</h4><canvas id="vs-chart"></canvas></div>
+    <div class="chart-block"><h4>i_e(ωt)</h4><canvas id="ie-chart"></canvas></div>
+    <div class="chart-block"><h4>i_s(ωt)</h4><canvas id="is-chart"></canvas></div>
+    <div class="chart-block"><h4>i_C(ωt)</h4><canvas id="ic-chart"></canvas></div>
+    <div class="chart-block"><h4>sin(ωt + φ)</h4><canvas id="sin-chart"></canvas></div>
   </div>
-</div>
-
-<div class="chart-section canvas-block">
-  <h3>v_s(ωt) / V_DC</h3>
-  <canvas id="vs-chart"></canvas>
-
-  <h3>i_e(ωt)</h3>
-  <canvas id="ie-chart"></canvas>
-
-  <h3>i_s(ωt)</h3>
-  <canvas id="is-chart"></canvas>
-
-  <h3>i_C(ωt)</h3>
-  <canvas id="ic-chart"></canvas>
-
-  <h3>sin(ωt + φ)</h3>
-  <canvas id="sin-chart"></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
