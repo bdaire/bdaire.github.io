@@ -3,6 +3,9 @@ layout: default
 title: Research
 ---
 
+<!-- Intégration de MathJax pour afficher du LaTeX -->
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <style>
   .container {
     display: flex;
@@ -16,20 +19,13 @@ title: Research
     width: 60%;
   }
 
-  #small-svg-wrapper {
-    margin-bottom: 2rem;
-    display: flex;
-    justify-content: flex-start;
-  }
-
   #svg-wrapper {
     border: 1px solid #ccc;
     width: 100%;
     max-width: 100%;
   }
 
-  #svg-wrapper svg,
-  #small-svg-wrapper svg {
+  #svg-wrapper svg {
     display: block;
     width: 100%;
     height: auto;
@@ -75,25 +71,18 @@ title: Research
 
 <div class="container">
   <div id="left-panel">
+    <div id="svg-wrapper">Chargement du SVG...</div>
 
-```
-<!-- Petit SVG décoratif chargé via fetch -->
-<div id="small-svg-wrapper">Chargement du petit SVG...</div>
-
-<div id="svg-wrapper">Chargement du SVG principal...</div>
-
-<div id="info-panel">
-  <div class="info-label">r :</div><div id="x-val">-</div>
-  <div class="info-label">x :</div><div id="y-val">-</div>
-  <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
-  <div class="info-label">Zone :</div><div id="zone-val">-</div>
-  <div class="info-label">p :</div><div id="p-val">-</div>
-  <div class="info-label">D :</div><div id="d-val">-</div>
-  <div class="info-label">q :</div><div id="q-val">-</div>
-  <div class="info-label">v :</div><div id="v-val">-</div>
-</div>
-```
-
+    <div id="info-panel">
+      <div class="info-label">r :</div><div id="x-val">-</div>
+      <div class="info-label">x :</div><div id="y-val">-</div>
+      <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
+      <div class="info-label">Zone :</div><div id="zone-val">-</div>
+      <div class="info-label">p :</div><div id="p-val">-</div>
+      <div class="info-label">D :</div><div id="d-val">-</div>
+      <div class="info-label">q :</div><div id="q-val">-</div>
+      <div class="info-label">v :</div><div id="v-val">-</div>
+    </div>
   </div>
 
   <div id="right-panel">
@@ -174,21 +163,6 @@ function solveZVS(r, x) {
   return null;
 }
 
-// Chargement du petit SVG décoratif
-fetch('/assets/img/circuit_EF.svg')
-  .then(res => res.text())
-  .then(svgText => {
-    const smallWrapper = document.getElementById('small-svg-wrapper');
-    smallWrapper.innerHTML = svgText;
-    // Optionnel : ajouter un id pour le petit svg s'il faut manipuler
-    const svg = smallWrapper.querySelector('svg');
-    if(svg) svg.setAttribute('id', 'small-svg');
-  })
-  .catch(() => {
-    document.getElementById('small-svg-wrapper').textContent = 'Erreur de chargement du petit SVG.';
-  });
-
-// Chargement du SVG principal
 fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
   .then(svgText => {
@@ -255,42 +229,31 @@ fetch('/assets/img/chart_EF.svg')
 
         for (let k = 0; k <= N; k++) {
           const wt = (k / N) * 2 * period;
-          const wtMod = wt % period;
-          const sinTerm = Math.sin(wt + phi);
           labels.push(wt.toFixed(2));
-          sinData.push(sinTerm);
-
-          // v_s(ωt)
-          let vs;
-          if (wtMod <= Math.PI - theta) {
-            vs = 0;
-          } else if (wtMod <= Math.PI) {
-            vs = -i * (Math.cos(phi - theta) + Math.cos(wtMod + phi));
-          } else if (wtMod <= 2 * Math.PI - theta) {
-            vs = 2;
-          } else {
-            vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wtMod + phi));
-          }
-          vsData.push(vs);
-
-          // i_e(ωt)
-          const i_e = (wtMod <= Math.PI - theta) ? 1 * sinTerm :
-                      (wtMod <= Math.PI) ? 0 :
-                      (wtMod <= 2 * Math.PI - theta) ? -1 * sinTerm : 0;
-          ieData.push(i_e);
-
-          // i_C(ωt)
-          const i_C = (wtMod <= Math.PI - theta) ? 0 :
-                      (wtMod <= Math.PI) ? 1 * sinTerm :
-                      (wtMod <= 2 * Math.PI - theta) ? 0 : 1 * sinTerm;
-          icData.push(i_C);
-
-          // i_s(ωt)
-          const i_s = (wtMod <= Math.PI - theta) ? 2 * 1 * sinTerm : 0;
-          isData.push(i_s);
+          vsData.push(i * (Math.cos(wt - phi) - Math.cos(theta)));
+          ieData.push(i * Math.sin(wt));
+          isData.push(i * (Math.sin(theta) + Math.sin(wt - theta)));
+          icData.push(i * (Math.sin(theta) - Math.sin(wt - theta)));
+          sinData.push(Math.sin(wt + phi));
         }
 
-        const config = (label, data, color) => ({
+        const charts = {
+          vs: { data: vsData, label: 'v_s(\\omega t) / V_{DC}', color: 'blue', latexYTitle: '$v_s(\\omega t) / V_{DC}$' },
+          ie: { data: ieData, label: 'i_e(\\omega t)', color: 'red', latexYTitle: '$i_e(\\omega t)$' },
+          is: { data: isData, label: 'i_s(\\omega t)', color: 'green', latexYTitle: '$i_s(\\omega t)$' },
+          ic: { data: icData, label: 'i_c(\\omega t)', color: 'orange', latexYTitle: '$i_c(\\omega t)$' },
+          sin: { data: sinData, label: 'sin(\\omega t + \\varphi)', color: 'purple', latexYTitle: '$\\sin(\\omega t + \\varphi)$' },
+        };
+
+        const ctxs = {
+          vs: document.getElementById('vs-chart').getContext('2d'),
+          ie: document.getElementById('ie-chart').getContext('2d'),
+          is: document.getElementById('is-chart').getContext('2d'),
+          ic: document.getElementById('ic-chart').getContext('2d'),
+          sin: document.getElementById('sin-chart').getContext('2d'),
+        };
+
+        const config = (label, data, color, latexYTitle) => ({
           type: 'line',
           data: {
             labels: labels,
@@ -312,54 +275,32 @@ fetch('/assets/img/chart_EF.svg')
             },
             scales: {
               x: {
-                title: { display: true, text: 'ωt (rad)' },
-                ticks: { maxTicksLimit: 10 }
+                title: { display: true, text: '$\\omega t\\ \\text{(rad)}$' }
               },
               y: {
-                title: { display: true, text: label },
-                suggestedMin: -2,
-                suggestedMax: 3
+                title: { display: true, text: latexYTitle }
               }
             }
           }
         });
-
-        const ctxs = {
-          vs: document.getElementById('vs-chart').getContext('2d'),
-          ie: document.getElementById('ie-chart').getContext('2d'),
-          is: document.getElementById('is-chart').getContext('2d'),
-          ic: document.getElementById('ic-chart').getContext('2d'),
-          sin: document.getElementById('sin-chart').getContext('2d'),
-        };
-
-        const charts = {
-          vs: { data: vsData, label: 'v_s(ωt) / V_DC', color: 'blue' },
-          ie: { data: ieData, label: 'i_e(ωt)', color: 'red' },
-          is: { data: isData, label: 'i_s(ωt)', color: 'green' },
-          ic: { data: icData, label: 'i_C(ωt)', color: 'orange' },
-          sin: { data: sinData, label: 'sin(ωt + φ)', color: 'purple' },
-        };
 
         for (const key in charts) {
           if (window[key + 'Chart']) {
             window[key + 'Chart'].data.datasets[0].data = charts[key].data;
             window[key + 'Chart'].update();
           } else {
-            const showXAxisTitle = (key === 'sin');
-
-            const chartConfig = config(charts[key].label, charts[key].data, charts[key].color);
-
-            chartConfig.options.scales.x.title.display = showXAxisTitle;
-
-            window[key + 'Chart'] = new Chart(ctxs[key], chartConfig);
+            window[key + 'Chart'] = new Chart(ctxs[key], config(
+              charts[key].label,
+              charts[key].data,
+              charts[key].color,
+              charts[key].latexYTitle
+            ));
           }
         }
+
+        MathJax.typesetPromise();
+
       }
     });
-  })
-  .catch(error => {
-    document.getElementById('svg-wrapper').innerHTML = "Erreur de chargement du SVG principal.";
-    console.error("Erreur lors du chargement du SVG principal :", error);
   });
 </script>
-
