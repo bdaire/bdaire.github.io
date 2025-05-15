@@ -118,7 +118,7 @@ title: Research
       dot.setAttribute("class", "dot");
       svg.appendChild(dot);
 
-      // Transformation linéaire des coordonnées
+      // Transformation linéaire des coordonnées (ajuste si besoin)
       const X = 0.000531 * x - 0.1078;      // r
       const Y = -0.001022 * y + 1.0918;    // x
 
@@ -130,6 +130,8 @@ title: Research
       // Trouver theta* pour le x (Y ici)
       const thetaStar = findTheta(Y);
       const rCurve = r_theta(thetaStar);
+
+      console.log(`X: ${X.toFixed(4)}, Y: ${Y.toFixed(4)}, θ*: ${thetaStar.toFixed(6)}, r(θ*): ${rCurve.toFixed(6)}`);
 
       // Déterminer la zone
       let zone = '';
