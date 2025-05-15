@@ -57,7 +57,7 @@ title: Research
 #top-text {
   font-size: 1.2rem;
   color: #000;
-  margin-bottom: 1rem;
+  margin-bottom: 4rem;
   white-space: pre-line;
   max-width: 500px;
 
