@@ -59,7 +59,7 @@ title: Research
   color: #000;
   margin-bottom: 1rem;
   white-space: pre-line;
-  max-width: 300px;
+  max-width: 500px;
 
   /* ✅ Style d'encadrement */
   border: 2px solid black;
@@ -74,7 +74,7 @@ title: Research
 
   .chart-block canvas {
   width: 500px !important; /* ou la largeur que tu veux */
-  height: 200px;
+  height: 180px;
   max-width: 100%;
 }
 
@@ -108,8 +108,7 @@ title: Research
     
   Click on the chart to dynamically see the waveforms of the circuit on the left. 
     
-  Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little crazy 
-  :S</div>
+  Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case :S</div>
   <div class="chart-block"><canvas id="vs-chart"></canvas></div>
   <div class="chart-block"><canvas id="ie-chart"></canvas></div>
   <div class="chart-block"><canvas id="is-chart"></canvas></div>
