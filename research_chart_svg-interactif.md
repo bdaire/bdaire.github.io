@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Research
-permalink: /svg-interactif/
 ---
 
 <style>
