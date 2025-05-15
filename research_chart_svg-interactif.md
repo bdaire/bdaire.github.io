@@ -47,8 +47,8 @@ title: Research
 
   <div id="info-panel">
     <h2>Infos du clic</h2>
-    <p><strong>X :</strong> <span id="x-val">-</span></p>
-    <p><strong>Y :</strong> <span id="y-val">-</span></p>
+    <p><strong>r :</strong> <span id="x-val">-</span></p>
+    <p><strong>x :</strong> <span id="y-val">-</span></p>
     <p><strong>Distance à (0,0) :</strong> <span id="distance">-</span></p>
   </div>
 </div>
