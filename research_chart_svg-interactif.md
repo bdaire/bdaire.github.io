@@ -217,32 +217,42 @@ function plotCharts(res) {
     sin: { data: sin, label: 'i(ωt) / I', color: 'purple' },
   };
 
-  const config = (label, data, color) => ({
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{ label, data, borderColor: color, borderWidth: 2, pointRadius: 0, fill: false }]
-    },
-    options: {
-      responsive: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { title: { display: true, text: 'ωt (rad)' }, ticks: { maxTicksLimit: 10 } },
-        y: { title: { display: true, text: label }, suggestedMin: -2, suggestedMax: 3 }
+  const config = (label, data, color, showXAxisTitle = false) => ({
+  type: 'line',
+  data: {
+    labels,
+    datasets: [{ label, data, borderColor: color, borderWidth: 2, pointRadius: 0, fill: false }]
+  },
+  options: {
+    responsive: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { 
+        title: { display: showXAxisTitle, text: 'ωt (rad)' }, 
+        ticks: { maxTicksLimit: 10 } 
+      },
+      y: { 
+        title: { display: true, text: label }, 
+        suggestedMin: -2, 
+        suggestedMax: 3 
       }
     }
-  });
+  }
+});
+
 
   for (const key in chartData) {
-    const ctx = document.getElementById(`${key}-chart`).getContext('2d');
-    if (window[`${key}Chart`]) {
-      window[`${key}Chart`].data.datasets[0].data = chartData[key].data;
-      window[`${key}Chart`].update();
-    } else {
-      window[`${key}Chart`] = new Chart(ctx, config(chartData[key].label, chartData[key].data, chartData[key].color));
-    }
+  const ctx = document.getElementById(`${key}-chart`).getContext('2d');
+  const showXAxis = (key === 'sin'); // seul le dernier garde le titre axe x
+  if (window[`${key}Chart`]) {
+    window[`${key}Chart`].data.datasets[0].data = chartData[key].data;
+    window[`${key}Chart`].options.scales.x.title.display = showXAxis;
+    window[`${key}Chart`].update();
+  } else {
+    window[`${key}Chart`] = new Chart(ctx, config(chartData[key].label, chartData[key].data, chartData[key].color, showXAxis));
   }
 }
+
 
 // === Chargement des SVG ===
 fetch('/assets/img/circuit_EF.svg')
