@@ -100,26 +100,31 @@ function solveZCS(r, x) {
   return null;
 }
 
-function solveZVS(r, x) {
+function solveZCS(r, x) {
+  const phi = 0;  // phi fixé explicitement à 0
   for (let i = 0; i < 1000; i++) {
     const theta = (i / 999) * PI;
-    const phiMin = (theta - PI) / 2;
-    for (let j = 0; j < 100; j++) {
-      const phi = phiMin + (j / 99) * -phiMin;
-      const sinTh = Math.sin(theta);
-      const sinTerm = Math.sin(theta - 2 * phi);
-      const rTh = (1 / PI) * sinTh * sinTerm;
-      const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
-      if (Math.abs(rTh - r) < 0.01 && Math.abs(xTh - x) < 0.01) {
-        const p = (2 / PI) * (sinTh * sinTerm) / Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
-        const D = 0.5 - theta / (2 * PI);
-        const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
-        return { p, D, q, v: 0 };
-      }
+    const sinTh = Math.sin(theta);
+    const cosTh = Math.cos(theta);
+    const sinHalfTheta = Math.sin(theta / 2);
+    const sinTh4 = Math.pow(sinHalfTheta, 4);
+
+    // Calculs actuels ne dépendent pas de phi, mais phi est fixé ici
+    const xTheta = (1 / PI) * (theta - sinTh * cosTh);
+    const rTheta = (4 / PI) * ((1 / (4 / (PI * r + 4 * sinTh4))) - sinTh4);
+
+    if (Math.abs(xTheta - x) < 0.005 && Math.abs(rTheta - r) < 0.01) {
+      const denom = PI * r + 4 * sinTh4;
+      const p = (8 * r) / (denom * denom);
+      const D = 0.5 - theta / (2 * PI);
+      const q = 0;  // q reste nul, phi = 0
+      const v = 1 + 2 * (Math.cos(theta) - 1) / denom;
+      return { p, D, q, v };
     }
   }
   return null;
 }
+
 
 fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
