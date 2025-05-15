@@ -57,6 +57,10 @@ title: Research
   </div>
 </div>
 
+<h2>Graphique de v_s(ωt) / V_DC</h2>
+<canvas id="vs-chart" width="600" height="300" style="margin-top: 2rem;"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 const PI = Math.PI;
 const frontier = Array.from({ length: 500 }, (_, i) => {
@@ -82,51 +86,46 @@ function getFrontierR(xTarget) {
 
 function solveZCS(r, x) {
   for (let i = 0; i < 1000; i++) {
-    const theta = (i / 999) * Math.PI;
+    const theta = (i / 999) * PI;
     const sinTh = Math.sin(theta);
     const cosTh = Math.cos(theta);
     const sinTh4 = Math.pow(Math.sin(theta / 2), 4);
-    const xTheta = (1 / Math.PI) * (theta - sinTh * cosTh);
-    const rTheta = (4 / Math.PI) * ((1 / (4 / (Math.PI * r + 4 * sinTh4))) - sinTh4);
-
+    const xTheta = (1 / PI) * (theta - sinTh * cosTh);
+    const rTheta = (4 / PI) * ((1 / (4 / (PI * r + 4 * sinTh4))) - sinTh4);
     if (Math.abs(xTheta - x) < 0.005 && Math.abs(rTheta - r) < 0.01) {
-      const denom = Math.PI * r + 4 * sinTh4;
-      const p = (8 * r) / (denom * denom);
-      const D = 0.5 - theta / (2 * Math.PI);
+      const denom = PI * r + 4 * sinTh4;
+      const iNorm = Math.sqrt((2 * r) / denom); // i normalisé
+      const p = 0.5 * r * iNorm * iNorm;
+      const D = 0.5 - theta / (2 * PI);
       const v = 1 + 2 * (Math.cos(theta) - 1) / denom;
-      const i_norm = Math.sqrt((2 * p) / r);  // normalisé !
-
-      return { p, D, q: 0, v, theta, phi: 0, i: i_norm };
+      return { p, D, q: 0, v, theta, phi: 0, i: iNorm };
     }
   }
   return null;
 }
 
-
 function solveZVS(r, x) {
   for (let i = 0; i < 1000; i++) {
-    const theta = (i / 999) * Math.PI;
-    const phiMin = (theta - Math.PI) / 2;
+    const theta = (i / 999) * PI;
+    const phiMin = (theta - PI) / 2;
     for (let j = 0; j < 100; j++) {
       const phi = phiMin + (j / 99) * -phiMin;
       const sinTh = Math.sin(theta);
       const sinTerm = Math.sin(theta - 2 * phi);
-      const rTh = (1 / Math.PI) * sinTh * sinTerm;
-      const xTh = (1 / Math.PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
-
+      const rTh = (1 / PI) * sinTh * sinTerm;
+      const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
       if (Math.abs(rTh - r) < 0.01 && Math.abs(xTh - x) < 0.01) {
-        const p = (2 / Math.PI) * (sinTh * sinTerm) / Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
-        const D = 0.5 - theta / (2 * Math.PI);
+        const denom = Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
+        const p = (2 / PI) * (sinTh * sinTerm) / denom;
+        const D = 0.5 - theta / (2 * PI);
         const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
-        const i_norm = Math.sqrt((2 * p) / r);  // normalisé !
-
-        return { p, D, q, v: 0, theta, phi, i: i_norm };
+        const iNorm = Math.sqrt((2 * r) / (PI * sinTh * sinTerm));
+        return { p, D, q, v: 0, theta, phi, i: iNorm };
       }
     }
   }
   return null;
 }
-
 
 fetch('/assets/img/chart_EF.svg')
   .then(response => response.text())
@@ -182,6 +181,66 @@ fetch('/assets/img/chart_EF.svg')
       document.getElementById('d-val').textContent = res ? res.D.toFixed(4) : '-';
       document.getElementById('q-val').textContent = res ? res.q.toFixed(4) : '-';
       document.getElementById('v-val').textContent = res ? res.v.toFixed(4) : '-';
+
+      if (res && typeof res.theta === 'number' && typeof res.i === 'number') {
+        const theta = res.theta;
+        const phi = res.phi || 0;
+        const i = res.i;
+        const vsData = [];
+        const labels = [];
+        const N = 500;
+
+        for (let k = 0; k <= N; k++) {
+          const wt = (k / N) * 2 * Math.PI;
+          let vs;
+          if (wt <= Math.PI - theta) {
+            vs = 0;
+          } else if (wt <= Math.PI) {
+            vs = -i * (Math.cos(phi - theta) + Math.cos(wt + phi));
+          } else if (wt <= 2 * Math.PI - theta) {
+            vs = 2;
+          } else {
+            vs = 2 + i * (Math.cos(phi - theta) - Math.cos(wt + phi));
+          }
+          labels.push((wt).toFixed(2));
+          vsData.push(vs);
+        }
+
+        const ctx = document.getElementById('vs-chart').getContext('2d');
+        if (window.vsChart) {
+          window.vsChart.data.labels = labels;
+          window.vsChart.data.datasets[0].data = vsData;
+          window.vsChart.update();
+        } else {
+          window.vsChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'v_s(ωt) / V_DC',
+                data: vsData,
+                borderColor: 'blue',
+                borderWidth: 2,
+                pointRadius: 0,
+                fill: false,
+              }]
+            },
+            options: {
+              scales: {
+                x: {
+                  title: { display: true, text: 'ωt (rad)' },
+                  ticks: { maxTicksLimit: 10 }
+                },
+                y: {
+                  title: { display: true, text: 'v_s / V_DC' },
+                  suggestedMin: -1,
+                  suggestedMax: 3
+                }
+              }
+            }
+          });
+        }
+      }
     });
   })
   .catch(error => {
