@@ -23,6 +23,9 @@ title: Research
     padding: 1rem;
     margin-left: 1rem;
     border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   .dot {
@@ -54,11 +57,11 @@ title: Research
     <p><strong>D :</strong> <span id="d-val">-</span></p>
     <p><strong>q :</strong> <span id="q-val">-</span></p>
     <p><strong>v :</strong> <span id="v-val">-</span></p>
+
+    <h3>Graphique de v_s(ωt) / V_DC</h3>
+    <canvas id="vs-chart" width="300" height="150" style="margin-top: 1rem; width: 100%; height: auto;"></canvas>
   </div>
 </div>
-
-<h2>Graphique de v_s(ωt) / V_DC</h2>
-<canvas id="vs-chart" width="600" height="300" style="margin-top: 2rem;"></canvas>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
