@@ -131,28 +131,51 @@ function solveZCS(r, x) {
   return null;
 }
 
-function solveZVS(r, x) {
+function solveZVS(r, x, tol = 1e-5, maxIter = 20) {
   for (let j = 0; j < 5000; j++) {
-    const theta = (j / 4999) * PI;
-    const phiMin = (theta - PI) / 2;
-    for (let k = 0; k < 500; k++) {
-      const phi = phiMin + (k / 499) * -phiMin;
+    const theta = (j / 4999) * Math.PI;
+    const phiMin = (theta - Math.PI) / 2;
+    const phiMax = 0;  // puisque -phiMin = -((theta - PI)/2), phi varie entre phiMin et 0
+
+    // Recherche dichotomique sur phi
+    let low = phiMin;
+    let high = phiMax;
+    let found = null;
+
+    for (let iter = 0; iter < maxIter; iter++) {
+      const phi = (low + high) / 2;
       const sinTh = Math.sin(theta);
       const sinTerm = Math.sin(theta - 2 * phi);
-      const rTh = (1 / PI) * sinTh * sinTerm;
-      const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
-      if (Math.abs(rTh - r) < 0.001 && Math.abs(xTh - x) < 0.001) {
-        const denom = Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
-        const p = (2 / PI) * sinTh * sinTerm / denom;
-        const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
-        const i = Math.sqrt((2 * p) / r);
-        const D = 0.5 - theta / (2 * PI);
-        return { p, D, q, v: 0, i, theta, phi };
+      const rTh = (1 / Math.PI) * sinTh * sinTerm;
+      const xTh = (1 / Math.PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
+
+      if (Math.abs(rTh - r) < tol && Math.abs(xTh - x) < tol) {
+        found = phi;
+        break;
       }
+
+      // On affine la recherche en fonction de l'écart
+      if (rTh > r || (rTh <= r && xTh > x)) {
+        high = phi;
+      } else {
+        low = phi;
+      }
+    }
+
+    if (found !== null) {
+      const phi = found;
+      const sinTh = Math.sin(theta);
+      const sinTerm = Math.sin(theta - 2 * phi);
+      const p = (2 / Math.PI) * (sinTh * sinTerm) / Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
+      const D = 0.5 - theta / (2 * Math.PI);
+      const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
+      const iVal = Math.sqrt((2 * p) / r);
+      return { p, D, q, v: 0, i: iVal, theta, phi };
     }
   }
   return null;
 }
+
 
 function drawDot(svg, xPix, yPix) {
   svg.querySelector('.dot')?.remove();
