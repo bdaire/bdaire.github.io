@@ -74,7 +74,7 @@ title: Research
 
   .chart-block canvas {
   width: 500px !important; /* ou la largeur que tu veux */
-  height: 180px;
+  height: 160px;
   max-width: 100%;
 }
 
@@ -287,8 +287,8 @@ function plotCharts(res) {
             display: true,
             text: label
           },
-          suggestedMin: -2,
-          suggestedMax: 3
+          suggestedMin: -1.5,
+          suggestedMax: 2.5
         }
       }
     }
