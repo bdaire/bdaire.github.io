@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Research
----------------
+---
 
 <style>
   .container {
