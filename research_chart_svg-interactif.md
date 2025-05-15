@@ -75,10 +75,15 @@ title: Research
 
 
   .chart-block canvas {
-  width: 500px !important; /* ou la largeur que tu veux */
-  height: 100px;
-  max-width: 100%;
+  width: 100% !important;
+  height: auto !important;
+  display: block;
 }
+
+  .chart-block {
+  height: 200px;
+}
+
 
 
   .dot {
@@ -271,46 +276,48 @@ function plotCharts(res) {
     }]
   },
   options: {
-    responsive: false,
-    layout: {
-      padding: {
-        top: 10,
-        bottom: 10,
-        left: 10,
-        right: 10
+  responsive: true,
+  maintainAspectRatio: false,
+  layout: {
+    padding: {
+      top: 20,
+      bottom: 20,
+      left: 20,
+      right: 20
+    }
+  },
+  plugins: {
+    legend: { display: false }
+  },
+  scales: {
+    x: {
+      type: 'linear',
+      min: 0,
+      max: 4 * PI,
+      title: {
+        display: showXAxisTitle,
+        text: 'ωt (rad)'
+      },
+      ticks: {
+        stepSize: PI,
+        callback: formatPi
       }
     },
-    plugins: {
-      legend: { display: false }
-    },
-    scales: {
-      x: {
-        type: 'linear',
-        min: 0,
-        max: 4 * PI,
-        title: {
-          display: showXAxisTitle,
-          text: 'ωt (rad)'
-        },
-        ticks: {
-          stepSize: PI,
-          callback: formatPi
-        }
+    y: {
+      title: {
+        display: true,
+        text: label
       },
-      y: {
-        title: {
-          display: true,
-          text: label
-        },
-        min: -2,
-        max: 2,
-        ticks: {
-          stepSize: 1,
-          callback: val => val.toString()
-        }
+      min: -2.2,
+      max: 2.2,
+      ticks: {
+        stepSize: 1,
+        callback: val => val.toString()
       }
     }
   }
+}
+
 });
 
 
