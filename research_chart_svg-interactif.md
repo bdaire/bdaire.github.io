@@ -15,21 +15,10 @@ title: Research
     width: 60%;
   }
 
-  <div id="small-svg-wrapper" style="position: relative;">
-  <div id="svg-inputs" style="position: absolute; top: 10px; left: 10px; z-index: 10;">
-    <label style="display: block; margin-bottom: 4px; background: white; padding: 2px 4px; border-radius: 4px;">
-      VDC: <input type="number" id="vdc-input" value="2" step="0.1" style="width: 60px;">
-    </label>
-    <label style="display: block; margin-bottom: 4px; background: white; padding: 2px 4px; border-radius: 4px;">
-      Cs: <input type="number" id="cs-input" value="1e-6" step="1e-7" style="width: 60px;">
-    </label>
-    <label style="display: block; margin-bottom: 4px; background: white; padding: 2px 4px; border-radius: 4px;">
-      F: <input type="number" id="f-input" value="50" step="1" style="width: 60px;">
-    </label>
-  </div>
-  Chargement du petit SVG...
-</div>
-
+  #small-svg-wrapper,
+  #svg-wrapper {
+    margin-bottom: 2rem;
+  }
 
   #svg-wrapper {
     border: 1px solid #ccc;
@@ -74,11 +63,59 @@ title: Research
     stroke: black;
     stroke-width: 1px;
   }
+
+  /* Styles pour inputs sur petit SVG */
+  #svg-inputs {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+  }
+
+  #svg-inputs label {
+    display: block;
+    margin-bottom: 4px;
+    background: white;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+
+  #svg-inputs input {
+    width: 60px;
+  }
+
+  #calculation-results {
+    margin-top: 1rem;
+    background: white;
+    padding: 8px;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    font-size: 0.9rem;
+  }
 </style>
 
 <div class="container">
   <div id="left-panel">
-    <div id="small-svg-wrapper">Chargement du petit SVG...</div>
+    <div id="small-svg-wrapper" style="position: relative;">
+      <div id="svg-inputs">
+        <label>
+          VDC: <input type="number" id="vdc-input" value="2" step="0.1">
+        </label>
+        <label>
+          Cs: <input type="number" id="cs-input" value="1e-6" step="1e-7">
+        </label>
+        <label>
+          F: <input type="number" id="f-input" value="50" step="1">
+        </label>
+        <div id="calculation-results">
+          <div>Résultat 1: <span id="result-1">-</span></div>
+          <div>Résultat 2: <span id="result-2">-</span></div>
+          <div>Résultat 3: <span id="result-3">-</span></div>
+        </div>
+      </div>
+      Chargement du petit SVG...
+    </div>
     <div id="svg-wrapper">Chargement du SVG principal...</div>
 
     <div id="info-panel">
@@ -165,14 +202,6 @@ function solveZVS(r, x) {
   return null;
 }
 
-  function getUserInputs() {
-  const VDC = parseFloat(document.getElementById('vdc-input').value);
-  const Cs = parseFloat(document.getElementById('cs-input').value);
-  const F = parseFloat(document.getElementById('f-input').value);
-  return { VDC, Cs, F };
-}
-
-
 function drawDot(svg, xPix, yPix) {
   svg.querySelector('.dot')?.remove();
   const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -195,121 +224,99 @@ function updateInfoPanel(r, x, distance, zone, res) {
   set('v-val', res ? res.v.toFixed(4) : '-');
 }
 
-function plotCharts(res) {
-  const N = 1000;
-  const period = 2 * PI;
-  const theta = res.theta;
-  const phi = res.phi || 0;
-  const i = res.i;
-
-  const vs = [], ie = [], is = [], ic = [], sin = [], labels = [];
-
-  for (let k = 0; k <= N; k++) {
-    const wt = (k / N) * 2 * period;
-    const wtMod = wt % period;
-    const sinTerm = Math.sin(wt + phi);
-    labels.push(wt.toFixed(2));
-    sin.push(sinTerm);
-
-    // v_s(ωt)
-    let vsVal = 0;
-    if (wtMod > Math.PI - theta && wtMod <= Math.PI) {
-      vsVal = -i * (Math.cos(phi - theta) + Math.cos(wtMod + phi));
-    } else if (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta) {
-      vsVal = 2;
-    } else if (wtMod > 2 * Math.PI - theta) {
-      vsVal = 2 + i * (Math.cos(phi - theta) - Math.cos(wtMod + phi));
-    }
-    vs.push(vsVal);
-
-    // i_e, i_s, i_C
-    ie.push((wtMod <= Math.PI - theta || (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta)) ? sinTerm * (wtMod <= Math.PI - theta ? 1 : -1) : 0);
-    ic.push((wtMod > Math.PI - theta && wtMod <= Math.PI || wtMod > 2 * Math.PI - theta) ? sinTerm : 0);
-    is.push((wtMod <= Math.PI - theta) ? 2 * sinTerm : 0);
-  }
-
-  const chartData = {
-    vs: { data: vs, label: 'v_s(ωt) / V_DC', color: 'blue' },
-    ie: { data: ie, label: 'i_e(ωt)', color: 'red' },
-    is: { data: is, label: 'i_s(ωt)', color: 'green' },
-    ic: { data: ic, label: 'i_C(ωt)', color: 'orange' },
-    sin: { data: sin, label: 'sin(ωt + φ)', color: 'purple' },
-  };
-
-  const config = (label, data, color) => ({
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{ label, data, borderColor: color, borderWidth: 2, pointRadius: 0, fill: false }]
-    },
-    options: {
-      responsive: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { title: { display: true, text: 'ωt (rad)' }, ticks: { maxTicksLimit: 10 } },
-        y: { title: { display: true, text: label }, suggestedMin: -2, suggestedMax: 3 }
-      }
-    }
-  });
-
-  for (const key in chartData) {
-    const ctx = document.getElementById(`${key}-chart`).getContext('2d');
-    if (window[`${key}Chart`]) {
-      window[`${key}Chart`].data.datasets[0].data = chartData[key].data;
-      window[`${key}Chart`].update();
-    } else {
-      window[`${key}Chart`] = new Chart(ctx, config(chartData[key].label, chartData[key].data, chartData[key].color));
-    }
-  }
+// Récupérer les inputs utilisateur
+function getUserInputs() {
+  const VDC = parseFloat(document.getElementById('vdc-input').value);
+  const Cs = parseFloat(document.getElementById('cs-input').value);
+  const F = parseFloat(document.getElementById('f-input').value);
+  return { VDC, Cs, F };
 }
 
-// === Chargement des SVG ===
-fetch('/assets/img/circuit_EF.svg')
-  .then(res => res.text())
-  .then(svg => document.getElementById('small-svg-wrapper').innerHTML = svg)
-  .catch(() => document.getElementById('small-svg-wrapper').textContent = 'Erreur de chargement du petit SVG.');
+// Met à jour les résultats calculés dans le petit SVG
+function updateCalculationResults(p, i) {
+  const { VDC, Cs, F } = getUserInputs();
 
-fetch('/assets/img/chart_EF.svg')
-  .then(res => res.text())
-  .then(svgText => {
-    const wrapper = document.getElementById('svg-wrapper');
-    wrapper.innerHTML = svgText;
-    const svg = wrapper.querySelector('svg');
-    svg.setAttribute('id', 'mysvg');
+  if (p == null || i == null) {
+    document.getElementById('result-1').textContent = '-';
+    document.getElementById('result-2').textContent = '-';
+    document.getElementById('result-3').textContent = '-';
+    return;
+  }
 
-    svg.addEventListener('click', evt => {
-      const pt = svg.createSVGPoint();
-      pt.x = evt.clientX;
-      pt.y = evt.clientY;
-      const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
-      const [xPix, yPix] = [svgPoint.x, svgPoint.y];
+  const omega = 2 * Math.PI * F;
 
-      const r = 0.000531 * xPix - 0.1078;
-      const x = -0.001022 * yPix + 1.0918;
-      const dist = Math.sqrt(r * r + x * x);
+  // Exemple de calculs
+  const energy = 0.5 * Cs * Math.pow(VDC * p, 2);
+  const powerApparent = VDC * i;
+  const freqProd = F * p * i;
 
-      drawDot(svg, xPix, yPix);
+  document.getElementById('result-1').textContent = energy.toExponential(3) + ' J';
+  document.getElementById('result-2').textContent = powerApparent.toFixed(3) + ' W';
+  document.getElementById('result-3').textContent = freqProd.toFixed(3);
+}
 
-      let zone = '-', res = null;
-      if (r < 0 || r > 2 / PI || x < 0 || x > 1) {
-        zone = 'Hors zone';
-      } else {
-        const rFrontier = getFrontierR(x);
-        if (r < rFrontier) {
-          zone = 'ZVS';
-          res = solveZVS(r, x);
-        } else {
-          zone = 'ZCS';
-          res = solveZCS(r, x);
-        }
-      }
+// Charge et affiche les SVG (tu adapteras le chargement réel)
+function loadSmallSVG() {
+  const smallSVGWrapper = document.getElementById('small-svg-wrapper');
+  // Juste un exemple d'un petit SVG simple (remplace par le tien)
+  smallSVGWrapper.insertAdjacentHTML('beforeend', `
+    <svg id="small-svg" width="300" height="150" style="border:1px solid #ccc; background:#eee;">
+      <rect x="10" y="10" width="280" height="130" fill="none" stroke="black" />
+      <text x="20" y="40" font-size="14" fill="black">Petit SVG</text>
+    </svg>
+  `);
+}
 
-      updateInfoPanel(r, x, dist, zone, res);
-      if (res) plotCharts(res);
-    });
-  })
-  .catch(err => {
-    document.getElementById('svg-wrapper').textContent = 'Erreur de chargement du SVG principal.';
-    console.error("Erreur SVG:", err);
+function loadMainSVG() {
+  const wrapper = document.getElementById('svg-wrapper');
+  // Exemple SVG simple - à remplacer par ton SVG principal
+  wrapper.innerHTML = `
+    <svg id="main-svg" width="600" height="300" style="border:1px solid #000;">
+      <rect x="0" y="0" width="600" height="300" fill="lightblue"/>
+    </svg>
+  `;
+}
+
+// Gestion clic sur grand SVG
+function setupMainSVGClick() {
+  const svg = document.getElementById('main-svg');
+  svg.addEventListener('click', evt => {
+    const rect = svg.getBoundingClientRect();
+    const cx = evt.clientX - rect.left;
+    const cy = evt.clientY - rect.top;
+
+    // Conversion coordonnées (à adapter selon ton système)
+    const r = cx / rect.width;
+    const x = cy / rect.height;
+
+    const dist = Math.sqrt(r * r + x * x);
+    let zone = 'Inconnue';
+    let res = null;
+
+    const frontierR = getFrontierR(x);
+
+    if (r < frontierR) {
+      zone = 'ZCS';
+      res = solveZCS(r, x);
+    } else {
+      zone = 'ZVS';
+      res = solveZVS(r, x);
+    }
+
+    updateInfoPanel(r, x, dist, zone, res);
+    drawDot(svg, cx, cy);
+
+    // Mise à jour des calculs dans le petit SVG
+    if (res) updateCalculationResults(res.p, res.i);
+    else updateCalculationResults(null, null);
   });
+}
+
+function init() {
+  loadSmallSVG();
+  loadMainSVG();
+  setupMainSVGClick();
+}
+
+window.onload = init;
 </script>
