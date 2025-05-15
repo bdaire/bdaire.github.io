@@ -106,19 +106,20 @@ title: Research
     </div>
 
     <!-- Colonne 2 : sorties -->
-    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-      <div><strong>R =</strong> <span id="r-phys-inline">-</span></div>
-      <div><strong>L =</strong> <span id="l-phys-inline">-</span></div>
-      <div><strong>I =</strong> <span id="i-phys-inline">-</span></div>
-      <div><strong>P =</strong> <span id="p-phys-inline">-</span></div>
-    </div>
-    
-    <!-- Colonne 3 : calculs supplémentaires -->
 <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+  <div><strong>R =</strong> <span id="r-phys-inline">-</span></div>
+  <div><strong>L =</strong> <span id="l-phys-inline">-</span></div>
   <div><strong>D (%) =</strong> <span id="d-inline">-</span></div>
+  <div><strong>P =</strong> <span id="p-phys-inline">-</span></div>
+</div>
+
+<!-- Colonne 3 : calculs supplémentaires -->
+<div style="display: flex; flex-direction: column; gap: 0.5rem;">
   <div><strong>q =</strong> <span id="q-inline">-</span></div>
   <div><strong>V<sub>cutoff</sub> =</strong> <span id="vcutoff-inline">-</span></div>
+  <div><strong>I =</strong> <span id="i-phys-inline">-</span></div>
 </div>
+
 
   </div>
 
