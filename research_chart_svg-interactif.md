@@ -301,6 +301,46 @@ function plotCharts(res) {
 }
 
 
+options: {
+  responsive: false,
+  layout: {
+    padding: {
+      top: 10,
+      bottom: 10,
+      left: 10,
+      right: 10
+    }
+  },
+  scales: {
+    y: {
+      min: -2,
+      max: 2,
+      ticks: {
+        stepSize: 1,
+        callback: val => val.toString()
+      }
+    },
+    x: {
+      type: 'linear',
+      min: 0,
+      max: 4 * PI,
+      title: {
+        display: showXAxisTitle,
+        text: 'ωt (rad)'
+      },
+      ticks: {
+        stepSize: PI,
+        callback: formatPi
+      }
+    }
+  },
+  plugins: {
+    legend: { display: false }
+  }
+}
+
+
+
       }
     }
   });
