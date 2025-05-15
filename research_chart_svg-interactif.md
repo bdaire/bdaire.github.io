@@ -110,10 +110,10 @@ title: Research
     
   Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case :S</div>
   <div class="chart-block"><canvas id="vs-chart" width="500" height="180"></canvas>
-  <div class="chart-block"><canvas id="ie-chart"></canvas></div>
-  <div class="chart-block"><canvas id="is-chart"></canvas></div>
-  <div class="chart-block"><canvas id="ic-chart"></canvas></div>
-  <div class="chart-block"><canvas id="sin-chart"></canvas></div>
+  <div class="chart-block"><canvas id="ie-chart" width="500" height="180"></canvas>
+  <div class="chart-block"><canvas id="is-chart" width="500" height="180"></canvas>
+  <div class="chart-block"><canvas id="ic-chart" width="500" height="180"></canvas>
+  <div class="chart-block"><canvas id="sin-chart" width="500" height="180"></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
