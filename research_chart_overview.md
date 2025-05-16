@@ -32,7 +32,7 @@ L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations d
   <img src="/assets/img/circuit_EF.svg"
        alt="Onduleur de classe EF"
        style="display: block; margin: 0 auto; width:30vw;">
-  <figcaption style="margin-top: 16px; font-size: 0.9rem; color: #555;">
+  <figcaption style="margin-top: 24px; font-size: 0.9rem; color: #555;">
     Onduleur de classe EF
   </figcaption>
 </figure>
@@ -43,6 +43,7 @@ L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations d
 <!-- SECTION : Utilisation -->
 <!-- =============================== -->
 <h3 id="utilisation">Utilisation</h3>
+<br><br>
 <p>
   L'utilisation de l'abaque est très simple puisqu'elle repose sur l'analyse d'un point de fonctionnement dans un espace d'impédance normalisée (\(r,x\)) où:
 </p>
@@ -80,11 +81,28 @@ x &= X \cdot \omega C_s
   <img src="/assets/img/chart_EF_locus.svg"
        alt="Régions ZVS/ZCS et lieu EF"
        style="display: block; margin: 0 auto; width:30vw;">
-  <figcaption style="margin-top: 16px; font-size: 0.9rem; color: #555;">
+  <figcaption style="margin-top: 24px; font-size: 0.9rem; color: #555;">
     Régions ZVS/ZCS et lieu EF
   </figcaption>
 </figure>
 
+<br><br>
+<p>Par conséquent, il est possible de savoir si l'onduleur fonctionnera en ZVS et/ou en ZCS en connaissant simplement l'impédance de la charge normalisée (i.e. connaissant \(r\) et \(x\). En prime, plusieurs courbes sont présente sur cet abaque:<\p>
+
+<ul style="margin-left: 30px;">
+  <li>Courbes en \(D\)</li>
+  <li>Courbes en \(p\)</li>
+<li>Courbes en v (dans la zone ZCS)</li>
+        <li>Courbes en q (dans la zone ZVS)</li>
+</ul>
+<br><br>
+<p><u><b>Courbes en \(D\)</b></u></p>
+<br><br>
+<p>Les courbes en \(D\) permettent simplement de lire la valeur du rapport cyclique à utiliser pour que l'interrupteur fonctionne effectivement en ZVS et/ou en ZCS selon la région dans laquelle le point de fonctionnement se trouve. A noter que ce rapport cyclique doit nécessairement être considéré pour que l'ensemble des autres paramètres soient valides, l'abaque ayant été construite en considérant que le rapport cyclique lu est effectivement celui utilisé.</p>
+<br><br>
+<p><i>Exemple :</i></p>
+<br><br>
+<p>si je lis \(D=31\%\) alors je devrais utiliser un rapport cyclique de \(31\%\) pour piloter mon interrupteur afin que celui ci fonctionne en ZVS et/ou en ZCS selon la position du fonctionnement considéré</p>
 
 
 <p>
