@@ -11,34 +11,28 @@ title: Research
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
 
+<style>
+  body {
+    font-size: 1.2rem; /* ou 18px, ou 120% */
+  }
+</style>
 
 
-<!-- ============================= -->
-<!-- TABLE DES MATIÈRES (manuelle) -->
-<!-- ============================= -->
-<nav>
-  <h3>Sommaire</h3>
-  <ul>
-    <li><a href="#intro">Introduction</a></li>
-    <li><a href="#utilisation">Théorie de fonctionnement</a></li>
-    <li><a href="#equations">Équations fondamentales</a></li>
-    <li><a href="#exemples">Exemples illustrés</a></li>
-    <li><a href="#conclusion">Conclusion</a></li>
-  </ul>
-</nav>
+
 
 <!-- ====================== -->
 <!-- SECTION : INTRODUCTION -->
 <!-- ====================== -->
 <h3 id="intro">Introduction</h3>
 <p>
+<br><br>
 L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations de dimensionnement de l'onduleur de classe EF dans une seule et même figure et offre une vision d'ensemble du fonctionnement de cet onduleur. 
   
 <figure style="text-align: center; margin: 20px auto;">
   <img src="/assets/img/circuit_EF.svg"
        alt="Onduleur de classe EF"
-       style="display: block; margin: 0 auto; width:40vw;">
-  <figcaption style="margin-top: 8px; font-size: 0.9rem; color: #555;">
+       style="display: block; margin: 0 auto; width:30vw;">
+  <figcaption style="margin-top: 16px; font-size: 0.9rem; color: #555;">
     Onduleur de classe EF
   </figcaption>
 </figure>
@@ -85,8 +79,8 @@ x &= X \cdot \omega C_s
 <figure style="text-align: center; margin: 20px auto;">
   <img src="/assets/img/chart_EF_locus.svg"
        alt="Régions ZVS/ZCS et lieu EF"
-       style="display: block; margin: 0 auto; width:40vw;">
-  <figcaption style="margin-top: 8px; font-size: 0.9rem; color: #555;">
+       style="display: block; margin: 0 auto; width:30vw;">
+  <figcaption style="margin-top: 16px; font-size: 0.9rem; color: #555;">
     Régions ZVS/ZCS et lieu EF
   </figcaption>
 </figure>
