@@ -156,11 +156,12 @@ title: Research
 Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case 😬
     </div>
 
-    <div class="chart-block"><canvas id="vs-chart" width="500" height="170"></canvas></div>
-    <div class="chart-block"><canvas id="ie-chart" width="500" height="170"></canvas></div>
-    <div class="chart-block"><canvas id="is-chart" width="500" height="170"></canvas></div>
-    <div class="chart-block"><canvas id="ic-chart" width="500" height="170"></canvas></div>
-    <div class="chart-block"><canvas id="sin-chart" width="500" height="180"></canvas></div>
+    <div class="chart-block"><canvas id="vs-chart"></canvas></div>
+    <div class="chart-block"><canvas id="ie-chart"></canvas></div>
+    <div class="chart-block"><canvas id="is-chart"></canvas></div>
+    <div class="chart-block"><canvas id="ic-chart"></canvas></div>
+    <div class="chart-block"><canvas id="sin-chart"></canvas></div>
+
   </div>
 </div>
 
@@ -185,6 +186,8 @@ function getFrontierR(xTarget) {
   return frontier[left]?.r || 0;
 }
 
+  
+
 function solveZCS(r, x) {
   for (let j = 0; j < 1000; j++) {
     const theta = (j / 999) * PI;
@@ -203,6 +206,8 @@ function solveZCS(r, x) {
   }
   return null;
 }
+
+  
 
 function solveZVS(r, x) {
   for (let j = 0; j < 5000; j++) {
@@ -285,72 +290,125 @@ function updateInfoPanel(r, x, distance, zone, res) {
   }
 }
 
-
-
-
-for (const [key, { label, color }] of Object.entries(chartParams)) {
-  const canvas = document.getElementById(`${key}-chart`);
-  const ctx = canvas.getContext("2d");
-
+function fixCanvasResolution(canvas) {
   const dpr = window.devicePixelRatio || 1;
+  // Taille CSS effective
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
 
-  const displayWidth = 500;
-  const displayHeight = 180;
+// Appeler cette fonction pour tous les canvas utilisés
+['vs-chart', 'ie-chart', 'is-chart', 'ic-chart', 'sin-chart'].forEach(id => {
+  const canvas = document.getElementById(id);
+  fixCanvasResolution(canvas);
+});
 
-  canvas.style.width = displayWidth + "px";
-  canvas.style.height = displayHeight + "px";
 
-  canvas.width = displayWidth * dpr;
-  canvas.height = displayHeight * dpr;
 
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.scale(dpr, dpr);
+function plotCharts(res) {
+  const canvasIds = ['vs-chart', 'ie-chart', 'is-chart', 'ic-chart', 'sin-chart'];
+  canvasIds.forEach(id => {
+    const canvas = document.getElementById(id);
+    fixCanvasResolution(canvas);
+  });
+  const N = 1000;
+  const theta = res.theta;
+  const phi = res.phi || 0;
+  const i = res.i;
 
-  const config = {
-    type: "bar",
-    data: {
-      labels: data[key].map(d => d.x),
-      datasets: [
-        {
-          label: label,
-          data: data[key].map(d => d.y),
-          backgroundColor: color,
-        },
-      ],
-    },
-    options: {
-      responsive: false,
-      animation: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: {
-          type: 'linear',
-          min: 0,
-          max: 4 * PI,
-          ticks: { stepSize: PI, callback: formatPi },
-          title: { display: key === 'sin', text: 'ωt (rad)' }
-        },
-        y: {
-          min: -2,
-          max: 2,
-          title: { display: true, text: label },
-          ticks: {
-            values: [-2, -1, 0, 1, 2],
-            callback: v => v
-          }
-        }
-      }
+  const data = { vs: [], ie: [], is: [], ic: [], sin: [] };
+
+  for (let k = 0; k <= N; k++) {
+    const wt = (k / N) * 4 * PI;
+    const wtMod = wt % (2 * PI);
+    const sinTerm = Math.sin(wt + phi);
+
+    data.sin.push({ x: wt, y: sinTerm });
+
+    let vsVal = 0;
+    if (wtMod > Math.PI - theta && wtMod <= Math.PI) {
+      vsVal = -i * (Math.cos(phi - theta) + Math.cos(wtMod + phi));
+    } else if (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta) {
+      vsVal = 2;
+    } else if (wtMod > 2 * Math.PI - theta) {
+      vsVal = 2 + i * (Math.cos(phi - theta) - Math.cos(wtMod + phi));
     }
+    data.vs.push({ x: wt, y: 0.98*vsVal });
+
+    data.ie.push({ x: wt, y: (wtMod <= Math.PI - theta || (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta)) ? sinTerm * (wtMod <= Math.PI - theta ? 1 : -1) : 0 });
+    data.ic.push({ x: wt, y: (wtMod > Math.PI - theta && wtMod <= Math.PI || wtMod > 2 * Math.PI - theta) ? sinTerm : 0 });
+    data.is.push({ x: wt, y: (wtMod <= Math.PI - theta) ? 0.98*2 * sinTerm : 0 });
+  }
+
+  const chartParams = {
+    vs: { label: 'vs(ωt) / VDC', color: 'blue' },
+    ie: { label: 'ie(ωt) / I', color: 'red' },
+    is: { label: 'is(ωt) / I', color: 'green' },
+    ic: { label: 'iC(ωt) / I', color: 'orange' },
+    sin: { label: 'i(ωt) / I', color: 'purple' }
   };
 
-  if (window[`${key}Chart`]) {
-    window[`${key}Chart`].data.datasets[0].data = data[key].map(d => d.y);
-    window[`${key}Chart`].update();
-  } else {
-    window[`${key}Chart`] = new Chart(ctx, config);
+  const formatPi = val => {
+    const n = val / PI;
+    const rounded = Math.round(n);
+    return Math.abs(n - rounded) < 0.05 ? (rounded === 0 ? '0' : `${rounded === 1 ? '' : rounded}π`) : '';
+  };
+
+  for (const [key, { label, color }] of Object.entries(chartParams)) {
+    const ctx = document.getElementById(`${key}-chart`).getContext('2d');
+    const config = {
+      type: 'line',
+      data: {
+        datasets: [{
+          label,
+          data: data[key],
+          borderColor: color,
+          borderWidth: 2,
+          pointRadius: 0
+        }]
+      },
+      options: {
+        responsive: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: {
+            type: 'linear',
+            min: 0,
+            max: 4 * PI,
+            ticks: { stepSize: PI, callback: formatPi },
+            title: { display: key === 'sin', text: 'ωt (rad)' }
+          },
+          y: {
+  min: -2,
+  max: 2,
+  title: { display: true, text: label },
+  ticks: {
+    values: [-2, -1, 0, 1, 2],  // ticks forcés
+    callback: function(value) {
+      return value;  // affichage brut
+    }
   }
 }
 
+
+
+
+
+        }
+      }
+    };
+
+    if (window[`${key}Chart`]) {
+      window[`${key}Chart`].data.datasets[0].data = data[key];
+      window[`${key}Chart`].update();
+    } else {
+      window[`${key}Chart`] = new Chart(ctx, config);
+    }
+  }
+}
 
 fetch('/assets/img/circuit_EF.svg')
   .then(res => res.text())
