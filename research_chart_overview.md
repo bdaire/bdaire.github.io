@@ -116,12 +116,10 @@ x &= X \cdot \omega C_s
 <p><u><b>Courbes en \(p\)</b></u></p>
 <br><br>
 <p>Les courbes en \(p\) permettent de de déduire la valeur de la puissance délivrée par l'onduleur lorsque celui-ci fonctionne avec le bon rapport cyclique \(D\) selon la formule suivante:</p>
-<br><br>
 <p style="text-align: center;">
-  \[P=p\cdot\omega C_s\cdot V_{DC}^2
+  \[P=p\cdot\omega\cdot C_s\cdot V_{DC}^2
 \]
 </p>
-<br><br>
 <p><i><u>Exemple :</u></i></p>
 <p><i>si je lis \(p=1.2\%\) et connaissant \(V_{DC}=20\) V, \(F=30\) MHz et \(C_s=200\) pF alors la puissance délivrée par l'onduleur est de \(P=1.2\cdot2\pi\cdot 30\cdot 10^{6}\cdot 200\cdot 10^{-12}\cdot 20^2=18.096\) W</i></p>
 <br><br>
