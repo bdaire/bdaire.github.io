@@ -138,10 +138,6 @@ title: Research
     <div class="info-label">D :</div><div id="d-val">-</div>
     <div class="info-label">q :</div><div id="q-val">-</div>
     <div class="info-label">v :</div><div id="v-val">-</div>
-    <div class="info-label">R :</div><div id="r-phys">-</div>
-    <div class="info-label">L :</div><div id="l-phys">-</div>
-    <div class="info-label">I :</div><div id="i-phys">-</div>
-    
   </div>
 </div>
 
@@ -262,10 +258,6 @@ function updateInfoPanel(r, x, distance, zone, res) {
     const Dpercent = (res.D * 100).toFixed(1) + ' %';
     const Vcutoff = (res.v * 2 * VDC).toFixed(2) + ' V';
 
-    set('r-phys', Rval.toFixed(4) + ' Ω');
-    set('l-phys', Lval.toExponential(2) + ' H');
-    set('i-phys', Ival.toFixed(3) + ' A');
-
     set('r-phys-inline', Rval.toFixed(4) + ' Ω');
     set('l-phys-inline', Lval.toExponential(2) + ' H');
     set('i-phys-inline', Ival.toFixed(3) + ' A');
@@ -275,8 +267,7 @@ function updateInfoPanel(r, x, distance, zone, res) {
     set('q-inline', res.q.toFixed(4));
     set('vcutoff-inline', Vcutoff);
   } else {
-    ['r-phys', 'l-phys', 'i-phys' ,
-     'r-phys-inline', 'l-phys-inline', 'i-phys-inline', 'p-phys-inline',
+    ['r-phys-inline', 'l-phys-inline', 'i-phys-inline', 'p-phys-inline',
      'd-inline', 'q-inline', 'vcutoff-inline'
     ].forEach(id => {
       const el = document.getElementById(id);
