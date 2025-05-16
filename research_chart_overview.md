@@ -37,7 +37,6 @@ L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations d
   </figcaption>
 </figure>
 
-</p>
 
 <!-- =============================== -->
 <!-- SECTION : Utilisation -->
@@ -87,13 +86,13 @@ x &= X \cdot \omega C_s
 </figure>
 
 <br><br>
-<p>Par conséquent, il est possible de savoir si l'onduleur fonctionnera en ZVS et/ou en ZCS en connaissant simplement l'impédance de la charge normalisée (i.e. connaissant \(r\) et \(x\). En prime, plusieurs courbes sont présente sur cet abaque:<\p>
+<p>Par conséquent, il est possible de savoir si l'onduleur fonctionnera en ZVS et/ou en ZCS en connaissant simplement l'impédance de la charge normalisée (i.e. connaissant \(r\) et \(x\). En prime, plusieurs courbes sont présente sur cet abaque:</p>
 
 <ul style="margin-left: 30px;">
   <li>Courbes en \(D\)</li>
   <li>Courbes en \(p\)</li>
-<li>Courbes en v (dans la zone ZCS)</li>
-        <li>Courbes en q (dans la zone ZVS)</li>
+<li>Courbes en \(v\) (dans la zone ZCS)</li>
+        <li>Courbes en \(q\) (dans la zone ZVS)</li>
 </ul>
 <br><br>
 <p><u><b>Courbes en \(D\)</b></u></p>
@@ -103,6 +102,17 @@ x &= X \cdot \omega C_s
 <p><i>Exemple :</i></p>
 <br><br>
 <p>si je lis \(D=31\%\) alors je devrais utiliser un rapport cyclique de \(31\%\) pour piloter mon interrupteur afin que celui ci fonctionne en ZVS et/ou en ZCS selon la position du fonctionnement considéré</p>
+<br><br>
+<div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
+  <figure style="flex: 1; text-align: center;">
+    <img src="/assets/img/circuit_EF.svg" alt="Circuit EF" style="width: 40vw;">
+    <figcaption>Onduleur de classe EF</figcaption>
+  </figure>
+  <figure style="flex: 1; text-align: center;">
+    <img src="/assets/img/chart_EF_locus.svg" alt="Régions ZVS/ZCS" style="width: 40vw;">
+    <figcaption>Régions ZVS/ZCS et lieu EF</figcaption>
+  </figure>
+</div>
 
 
 <p>
