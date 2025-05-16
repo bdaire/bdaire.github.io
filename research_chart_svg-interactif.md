@@ -64,7 +64,8 @@ title: Research
     color: #000;
     margin-bottom: 4rem;
     white-space: pre-line;
-    max-width: 500px;
+    width: 100% !important;
+    height: auto !important;
     border: 2px solid black;
     padding: 0.8rem;
     background-color: #f0f0f0;
@@ -373,16 +374,16 @@ function plotCharts(res) {
             type: 'linear',
             min: 0,
             max: 4 * PI,
-            ticks: { stepSize: PI, callback: formatPi, font:{size: 24} },
-            title: { display: key === 'sin', text: 'ωt (rad)', font:{size: 24} }
+            ticks: { stepSize: PI, callback: formatPi, font:{size: 20} },
+            title: { display: key === 'sin', text: 'ωt (rad)', font:{size: 20} }
           },
           y: {
             min: -2,
             max: 2,
-            title: { display: true, text: label, font:{size: 24} },
+            title: { display: true, text: label, font:{size: 20} },
             ticks: {
               values: [-2, -1, 0, 1, 2],
-              callback: v => v, font:{size: 24}
+              callback: v => v, font:{size: 20}
             }
           }
         }
