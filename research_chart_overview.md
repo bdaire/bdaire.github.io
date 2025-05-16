@@ -31,7 +31,7 @@ L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations d
 <figure style="text-align: center; margin: 20px auto;">
   <img src="/assets/img/circuit_EF.svg"
        alt="Onduleur de classe EF"
-       style="display: block; margin: 0 auto; width:30vw;">
+       style="display: block; margin: 0 auto; width:25vw;">
   <figcaption style="margin-top: 24px; font-size: 0.9rem; color: #555;">
     Onduleur de classe EF
   </figcaption>
@@ -79,7 +79,7 @@ x &= X \cdot \omega C_s
 <figure style="text-align: center; margin: 20px auto;">
   <img src="/assets/img/chart_EF_locus.svg"
        alt="Régions ZVS/ZCS et lieu EF"
-       style="display: block; margin: 0 auto; width:30vw;">
+       style="display: block; margin: 0 auto; width:25vw;">
   <figcaption style="margin-top: 24px; font-size: 0.9rem; color: #555;">
     Régions ZVS/ZCS et lieu EF
   </figcaption>
@@ -104,11 +104,11 @@ x &= X \cdot \omega C_s
 <br><br>
 <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
   <figure style="flex: 1; text-align: center;">
-    <img src="/assets/img/chart_EF_D_ZVS.svg" alt="D_ZVS" style="width: 30vw;">
+    <img src="/assets/img/chart_EF_D_ZVS.svg" alt="D_ZVS" style="width: 25vw;">
     <figcaption>Courbes en \(D\) dans la zone ZVS</figcaption>
   </figure>
   <figure style="flex: 1; text-align: center;">
-    <img src="/assets/img/chart_EF_D_ZCS.svg" alt="D_ZCS" style="width: 30vw;">
+    <img src="/assets/img/chart_EF_D_ZCS.svg" alt="D_ZCS" style="width: 25vw;">
     <figcaption>Courbes en \(D\) dans la zone ZCS</figcaption>
   </figure>
 </div>
