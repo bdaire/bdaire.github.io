@@ -133,16 +133,30 @@ title: Research
   <div style="font-weight: bold; text-decoration: underline; margin-bottom: 10px;">
     Reduced parameters
   </div>
-  
-  <div class="info-label">r :</div><div id="x-val">-</div>
-  <div class="info-label">x :</div><div id="y-val">-</div>
-  <div class="info-label">Zone :</div><div id="zone-val">-</div>
-  <div class="info-label">p :</div><div id="p-val">-</div>
-  <div class="info-label">D :</div><div id="d-val">-</div>
-  <div class="info-label">q :</div><div id="q-val">-</div>
-  <div class="info-label">v :</div><div id="v-val">-</div>
+
+  <div class="info-row">
+    <div class="info-label">r :</div><div id="x-val">-</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">x :</div><div id="y-val">-</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">Zone :</div><div id="zone-val">-</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">p :</div><div id="p-val">-</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">D :</div><div id="d-val">-</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">q :</div><div id="q-val">-</div>
+  </div>
+  <div class="info-row">
+    <div class="info-label">v :</div><div id="v-val">-</div>
+  </div>
 </div>
-</div>
+
 
 
   <div id="right-panel">
