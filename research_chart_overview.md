@@ -50,13 +50,15 @@ L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations d
 <!-- =============================== -->
 <h3 id="utilisation">Utilisation</h3>
 <p>
-  L'utilisation de l'abaque est très simple: elle relit différents paramètres normalisés
+  L'utilisation de l'abaque est très simple puisqu'elle repose sur l'analyse d'un point de fonctionnement dans un espace d'impédance normalisée (\(r,x\)) où:
 </p>
 
 <p style="text-align: center;">
-  \(r=R\cdot\omega C_s\)
+  \(r=R\cdot\omega C_s
+        x=L\omega\cdot\omega C_s\)
 </p>
 
+<p></p>
 
 
 
