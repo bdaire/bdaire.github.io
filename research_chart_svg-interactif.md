@@ -166,10 +166,10 @@ Caution: the results might get a bit off if the resistance r is too low — mean
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
 const PI = Math.PI;
 
+// Précalcul de la frontière
 const frontier = Array.from({ length: 500 }, (_, j) => {
   const theta = (j / 499) * PI;
   const r = (1 / PI) * Math.pow(Math.sin(theta), 2);
@@ -185,8 +185,6 @@ function getFrontierR(xTarget) {
   }
   return frontier[left]?.r || 0;
 }
-
-  
 
 function solveZCS(r, x) {
   for (let j = 0; j < 1000; j++) {
@@ -206,8 +204,6 @@ function solveZCS(r, x) {
   }
   return null;
 }
-
-  
 
 function solveZVS(r, x) {
   for (let j = 0; j < 5000; j++) {
@@ -275,7 +271,6 @@ function updateInfoPanel(r, x, distance, zone, res) {
     set('i-phys-inline', Ival.toFixed(3) + ' A');
     set('p-phys-inline', Pval.toFixed(2) + ' W');
 
-    // Mise à jour des spans existants dans la colonne 3
     set('d-inline', Dpercent);
     set('q-inline', res.q.toFixed(4));
     set('vcutoff-inline', Vcutoff);
@@ -290,9 +285,9 @@ function updateInfoPanel(r, x, distance, zone, res) {
   }
 }
 
+// Fixe la résolution des canvas une fois
 function fixCanvasResolution(canvas) {
   const dpr = window.devicePixelRatio || 1;
-  // Taille CSS effective
   const rect = canvas.getBoundingClientRect();
   canvas.width = rect.width * dpr;
   canvas.height = rect.height * dpr;
@@ -300,20 +295,17 @@ function fixCanvasResolution(canvas) {
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 
-// Appeler cette fonction pour tous les canvas utilisés
-['vs-chart', 'ie-chart', 'is-chart', 'ic-chart', 'sin-chart'].forEach(id => {
-  const canvas = document.getElementById(id);
-  fixCanvasResolution(canvas);
-});
+function setupCanvases() {
+  ['vs-chart', 'ie-chart', 'is-chart', 'ic-chart', 'sin-chart'].forEach(id => {
+    const canvas = document.getElementById(id);
+    if (canvas) fixCanvasResolution(canvas);
+  });
+}
 
-
+// Stockage global des instances Chart.js
+const charts = {};
 
 function plotCharts(res) {
-  const canvasIds = ['vs-chart', 'ie-chart', 'is-chart', 'ic-chart', 'sin-chart'];
-  canvasIds.forEach(id => {
-    const canvas = document.getElementById(id);
-    fixCanvasResolution(canvas);
-  });
   const N = 1000;
   const theta = res.theta;
   const phi = res.phi || 0;
@@ -336,11 +328,11 @@ function plotCharts(res) {
     } else if (wtMod > 2 * Math.PI - theta) {
       vsVal = 2 + i * (Math.cos(phi - theta) - Math.cos(wtMod + phi));
     }
-    data.vs.push({ x: wt, y: 0.98*vsVal });
+    data.vs.push({ x: wt, y: 0.98 * vsVal });
 
     data.ie.push({ x: wt, y: (wtMod <= Math.PI - theta || (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta)) ? sinTerm * (wtMod <= Math.PI - theta ? 1 : -1) : 0 });
     data.ic.push({ x: wt, y: (wtMod > Math.PI - theta && wtMod <= Math.PI || wtMod > 2 * Math.PI - theta) ? sinTerm : 0 });
-    data.is.push({ x: wt, y: (wtMod <= Math.PI - theta) ? 0.98*2 * sinTerm : 0 });
+    data.is.push({ x: wt, y: (wtMod <= Math.PI - theta) ? 0.98 * 2 * sinTerm : 0 });
   }
 
   const chartParams = {
@@ -359,6 +351,7 @@ function plotCharts(res) {
 
   for (const [key, { label, color }] of Object.entries(chartParams)) {
     const ctx = document.getElementById(`${key}-chart`).getContext('2d');
+
     const config = {
       type: 'line',
       data: {
@@ -367,7 +360,9 @@ function plotCharts(res) {
           data: data[key],
           borderColor: color,
           borderWidth: 2,
-          pointRadius: 0
+          pointRadius: 0,
+          fill: false,
+          tension: 0
         }]
       },
       options: {
@@ -382,91 +377,71 @@ function plotCharts(res) {
             title: { display: key === 'sin', text: 'ωt (rad)' }
           },
           y: {
-  min: -2,
-  max: 2,
-  title: { display: true, text: label },
-  ticks: {
-    values: [-2, -1, 0, 1, 2],  // ticks forcés
-    callback: function(value) {
-      return value;  // affichage brut
-    }
-  }
-}
-
-
-
-
-
+            min: -2,
+            max: 2,
+            title: { display: true, text: label },
+            ticks: {
+              values: [-2, -1, 0, 1, 2],
+              callback: v => v
+            }
+          }
         }
       }
     };
 
-    if (window[`${key}Chart`]) {
-      window[`${key}Chart`].data.datasets[0].data = data[key];
-      window[`${key}Chart`].update();
+    if (charts[key]) {
+      charts[key].data.datasets[0].data = data[key];
+      charts[key].update();
     } else {
-      window[`${key}Chart`] = new Chart(ctx, config);
+      charts[key] = new Chart(ctx, config);
     }
   }
 }
 
+// Initialisation : fixer résolution une fois au chargement
+window.addEventListener('load', () => {
+  setupCanvases();
+});
+
+// Chargement des SVG et gestion des clics
 fetch('/assets/img/circuit_EF.svg')
   .then(res => res.text())
   .then(svg => document.getElementById('small-svg-wrapper').innerHTML = svg)
-  .catch(() => document.getElementById('small-svg-wrapper').textContent = 'Erreur de chargement du petit SVG.');
+  .catch(() => document.getElementById('small-svg-wrapper').textContent = 'SVG non disponible');
 
-fetch('/assets/img/chart_EF.svg')
+fetch('/assets/img/circuit_EF.svg')
   .then(res => res.text())
-  .then(svgText => {
-    const wrapper = document.getElementById('svg-wrapper');
-    wrapper.innerHTML = svgText;
-    const svg = wrapper.querySelector('svg');
-    svg.setAttribute('id', 'mysvg');
+  .then(svg => document.getElementById('big-svg-wrapper').innerHTML = svg)
+  .catch(() => document.getElementById('big-svg-wrapper').textContent = 'SVG non disponible');
 
-    // Récupération des champs input
-const FInput = document.getElementById('F-input');
-const CsInput = document.getElementById('Cs-input');
-const VDCInput = document.getElementById('VDC-input');
+document.getElementById('small-svg-wrapper').addEventListener('click', evt => {
+  const svg = evt.currentTarget.querySelector('svg');
+  if (!svg) return;
 
+  const rect = svg.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  const xPix = (evt.clientX - rect.left) * dpr;
+  const yPix = (evt.clientY - rect.top) * dpr;
 
-    svg.addEventListener('click', evt => {
-      const pt = svg.createSVGPoint();
-      pt.x = evt.clientX;
-      pt.y = evt.clientY;
-      const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
-      const [xPix, yPix] = [svgPoint.x, svgPoint.y];
+  const x = xPix / 320;
+  const r = yPix / 170;
 
-      const r = 0.000531 * xPix - 0.1078;
-      const x = -0.001022 * yPix + 1.0918;
-      const dist = Math.sqrt(r * r + x * x);
+  drawDot(svg, xPix, yPix);
 
-      drawDot(svg, xPix, yPix);
+  const frontierR = getFrontierR(x);
+  let zone = '';
+  let res = null;
 
-      // Lire les valeurs des champs
-const F = parseFloat(FInput.value);
-const Cs = parseFloat(CsInput.value);
-const VDC = parseFloat(VDCInput.value);
-console.log('Valeurs utilisateur :', { F, Cs, VDC });
+  if (r > frontierR) {
+    zone = 'ZVS';
+    res = solveZVS(r, x);
+  } else {
+    zone = 'ZCS';
+    res = solveZCS(r, x);
+  }
 
+  updateInfoPanel(r, x, Math.sqrt(Math.pow(xPix - 320, 2) + Math.pow(yPix - 170, 2)), zone, res);
 
-      let zone = 'Hors zone', res = null;
-      if (r >= 0 && r <= 2 / PI && x >= 0 && x <= 1) {
-        const rFrontier = getFrontierR(x);
-        if (r < rFrontier) {
-          zone = 'ZVS';
-          res = solveZVS(r, x);
-        } else {
-          zone = 'ZCS';
-          res = solveZCS(r, x);
-        }
-      }
-
-      updateInfoPanel(r, x, dist, zone, res);
-      if (res) plotCharts(res);
-    });
-  })
-  .catch(err => {
-    document.getElementById('svg-wrapper').textContent = 'Erreur de chargement du SVG principal.';
-    console.error("Erreur SVG:", err);
-  });
+  if (res) plotCharts(res);
+});
 </script>
