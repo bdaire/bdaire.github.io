@@ -37,7 +37,7 @@ L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations d
 <figure style="text-align: center; margin: 20px auto;">
   <img src="/assets/img/circuit_EF.svg"
        alt="Onduleur de classe EF"
-       style="display: block; margin: 0 auto; width=40vw;">
+       style="display: block; margin: 0 auto; width:40vw;">
   <figcaption style="margin-top: 8px; font-size: 0.9rem; color: #555;">
     Onduleur de classe EF
   </figcaption>
@@ -85,7 +85,7 @@ x &= X \cdot \omega C_s
 <figure style="text-align: center; margin: 20px auto;">
   <img src="/assets/img/chart_EF_locus.svg"
        alt="Régions ZVS/ZCS et lieu EF"
-       style="display: block; margin: 0 auto; width=40vw;">
+       style="display: block; margin: 0 auto; width:40vw;">
   <figcaption style="margin-top: 8px; font-size: 0.9rem; color: #555;">
     Régions ZVS/ZCS et lieu EF
   </figcaption>
