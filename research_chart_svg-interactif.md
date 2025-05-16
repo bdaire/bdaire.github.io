@@ -29,7 +29,7 @@ title: Research
   #svg-wrapper, #small-svg-wrapper {
     margin-bottom: 3rem;
     border: none;
-    width: 100%;
+    width: 80%;
   }
 
   svg {
@@ -146,10 +146,7 @@ title: Research
 
 
   <div id="right-panel">
-    <div id="top-text">
-    <div style="grid-column: span 2; font-weight: bold; text-decoration: underline; margin-bottom: 0.5rem;">
-    Welcome to the interactive tool! 
-  </div>
+    <div id="top-text"><div style="grid-column: span 2; font-weight: bold; text-decoration: underline; margin-bottom: 0.5rem;">Welcome to the interactive tool! </div>
 
 1/ Enter the values for VDC, F, and Cs above the circuit
 2/ Click on the chart to set the operating point
