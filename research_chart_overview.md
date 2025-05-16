@@ -31,7 +31,7 @@ L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations d
 <figure style="text-align: center; margin: 20px auto;">
   <img src="/assets/img/circuit_EF.svg"
        alt="Onduleur de classe EF"
-       style="display: block; margin: 0 auto; width:30vw;">
+       style="display: block; margin: 0 auto; width:35vw;">
   <figcaption style="margin-top: 24px; font-size: 0.9rem; color: #555;">
     Onduleur de classe EF
   </figcaption>
