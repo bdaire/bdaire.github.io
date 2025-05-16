@@ -43,10 +43,7 @@ L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations d
 <!-- =============================== -->
 <h3 id="utilisation">Utilisation</h3>
 <br><br>
-<p>
-  L'utilisation de l'abaque est très simple puisqu'elle repose sur l'analyse d'un point de fonctionnement dans un espace d'impédance normalisée (\(r,x\)) où:
-</p>
-
+<p>L'utilisation de l'abaque est très simple puisqu'elle repose sur l'analyse d'un point de fonctionnement dans un espace d'impédance normalisée (\(r,x\)) où:</p>
 <p style="text-align: center;">
   \[
 \left\{
@@ -56,15 +53,12 @@ x &= X \cdot \omega C_s
 \end{aligned}
 \right.
 \]
-
 </p>
 
 <p>Où \(\omega=2\pi F\) est la pulsation associée à la fréquence de découpage de l'onduleur, \(C_s\) est la valeur de la capacité disposée en paralèlle de l'interrupteur du circuit et \(X=L\cdot\omega\) est la réactance de la charge. Autrement dit, est possible de placer le point de fonctionnement de l'onduleur connaissant la valeur de son impédance de charge normalisé par rapport à la réactance associée à \(C_s\).
 </p>
 <br><br>
-<p>
-  L'abaque est découpée en deux grandes parties à savoir :
-</p>
+<p>L'abaque est découpée en deux grandes parties à savoir :</p>
 
 <ul style="margin-left: 30px;">
   <li>La région ZVS à gauche, où l'interrupteur peut fonctionner en ZVS (Zero Voltage Switching) seulement</li>
