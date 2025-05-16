@@ -148,7 +148,7 @@ title: Research
 2/ Click on the chart to set the operating point
 3/ The waveforms will show up on the right, and the physical parameters related to that point will appear below the circuit! It’s magic! 🧙‍♂️
 
-Tip: The VDC and I values above the circuit will help you read the waveforms better
+Tip: The VDC and I values above the circuit will help you read the waveforms better, reduced parameters (r,x,p,D,q,v) obtained by direct reading of the chart are gathered below
 
 Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case 😬
     </div>
