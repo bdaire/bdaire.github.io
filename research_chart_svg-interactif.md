@@ -20,9 +20,10 @@ title: Research
   width: 60%;
   display: flex;
   flex-direction: column;
-  align-items: center; /* ou center selon ton besoin */
-  gap: 0.5rem; /* facultatif, pour espacer les blocs */
+  align-items: center;
+  gap: 0.5rem;
 }
+
 
 
   #svg-wrapper, #small-svg-wrapper {
@@ -52,11 +53,11 @@ title: Research
   }
 
   #right-panel {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
 
   #top-text {
     font-size: 1.2rem;
@@ -72,10 +73,10 @@ title: Research
   }
 
   .chart-block canvas {
-    width: 500px !important;
-    height: 100px;
-    max-width: 100%;
+  width: 100% !important;
+  height: 100px;
   }
+
 
   .dot {
     fill: red;
