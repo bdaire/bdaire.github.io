@@ -39,16 +39,14 @@ title: Research
   }
 
   #info-panel {
-  background: #f9f9f9;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: 0.5rem 1rem;
-  margin-top: 1rem;
-  max-width: 300px; /* optionnel */
-}
-
+    background: #f9f9f9;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+    gap: 0.5rem 1rem;
+    margin-top: 1rem;
+  }
 
   .info-label {
     font-weight: bold;
@@ -132,14 +130,19 @@ title: Research
   <div id="svg-wrapper">Chargement du SVG principal...</div>
 
   <div id="info-panel">
-  <div class="info-label">r :</div><div id="x-val">-</div>
-  <div class="info-label">x :</div><div id="y-val">-</div>
-  <div class="info-label">Zone :</div><div id="zone-val">-</div>
-  <div class="info-label">p :</div><div id="p-val">-</div>
-  <div class="info-label">q :</div><div id="q-val">-</div>
-  <div class="info-label">v :</div><div id="v-val">-</div>
-</div>
-
+    <div class="info-label">r :</div><div id="x-val">-</div>
+    <div class="info-label">x :</div><div id="y-val">-</div>
+    <div class="info-label">Distance à (0,0) :</div><div id="distance">-</div>
+    <div class="info-label">Zone :</div><div id="zone-val">-</div>
+    <div class="info-label">p :</div><div id="p-val">-</div>
+    <div class="info-label">D :</div><div id="d-val">-</div>
+    <div class="info-label">q :</div><div id="q-val">-</div>
+    <div class="info-label">v :</div><div id="v-val">-</div>
+    <div class="info-label">R :</div><div id="r-phys">-</div>
+    <div class="info-label">L :</div><div id="l-phys">-</div>
+    <div class="info-label">I :</div><div id="i-phys">-</div>
+    <div class="info-label">P :</div><div id="p-phys">-</div>
+  </div>
 </div>
 
 
