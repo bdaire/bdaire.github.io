@@ -265,7 +265,6 @@ function updateInfoPanel(r, x, distance, zone, res) {
     set('r-phys', Rval.toFixed(4) + ' Ω');
     set('l-phys', Lval.toExponential(2) + ' H');
     set('i-phys', Ival.toFixed(3) + ' A');
-    set('p-phys', Pval.toFixed(2) + ' W');
 
     set('r-phys-inline', Rval.toFixed(4) + ' Ω');
     set('l-phys-inline', Lval.toExponential(2) + ' H');
@@ -276,7 +275,7 @@ function updateInfoPanel(r, x, distance, zone, res) {
     set('q-inline', res.q.toFixed(4));
     set('vcutoff-inline', Vcutoff);
   } else {
-    ['r-phys', 'l-phys', 'i-phys', 'p-phys',
+    ['r-phys', 'l-phys', 'i-phys' ,
      'r-phys-inline', 'l-phys-inline', 'i-phys-inline', 'p-phys-inline',
      'd-inline', 'q-inline', 'vcutoff-inline'
     ].forEach(id => {
