@@ -54,8 +54,10 @@ L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations d
 </p>
 
 <p style="text-align: center;">
-  \(r=R\cdot\omega C_s
-        x=L\omega\cdot\omega C_s\)
+  \(r=R\cdot\omega C_s\)
+</p>
+<p style="text-align: center;">
+  \(x=L\omega\cdot\omega C_s\)
 </p>
 
 <p></p>
