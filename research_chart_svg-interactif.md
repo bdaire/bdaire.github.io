@@ -129,7 +129,7 @@ title: Research
 
   <div id="svg-wrapper">Chargement du SVG principal...</div>
 
-<div id="info-panel">
+  <div id="info-panel">
   <div style="grid-column: span 2; font-weight: bold; text-decoration: underline; margin-bottom: 0.5rem;">
     Reduced parameters
   </div>
@@ -142,7 +142,7 @@ title: Research
   <div class="info-label">q :</div><div id="q-val">-</div>
   <div class="info-label">v :</div><div id="v-val">-</div>
 </div>
-
+</div>
 
 
   <div id="right-panel">
