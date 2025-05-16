@@ -3,7 +3,7 @@ layout: default
 title: Research
 ---
 
-## Abaque de dimensionnement de l'onduleur de classe EF
+## Classe EF inverter design chart - interactive tool
 
 <br><br>
 <br><br>
