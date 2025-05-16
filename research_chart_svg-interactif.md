@@ -288,102 +288,69 @@ function updateInfoPanel(r, x, distance, zone, res) {
 
 
 
-function plotCharts(res) {
-  const N = 1000;
-  const theta = res.theta;
-  const phi = res.phi || 0;
-  const i = res.i;
+for (const [key, { label, color }] of Object.entries(chartParams)) {
+  const canvas = document.getElementById(`${key}-chart`);
+  const ctx = canvas.getContext("2d");
 
-  const data = { vs: [], ie: [], is: [], ic: [], sin: [] };
+  const dpr = window.devicePixelRatio || 1;
 
-  for (let k = 0; k <= N; k++) {
-    const wt = (k / N) * 4 * PI;
-    const wtMod = wt % (2 * PI);
-    const sinTerm = Math.sin(wt + phi);
+  const displayWidth = 500;
+  const displayHeight = 180;
 
-    data.sin.push({ x: wt, y: sinTerm });
+  canvas.style.width = displayWidth + "px";
+  canvas.style.height = displayHeight + "px";
 
-    let vsVal = 0;
-    if (wtMod > Math.PI - theta && wtMod <= Math.PI) {
-      vsVal = -i * (Math.cos(phi - theta) + Math.cos(wtMod + phi));
-    } else if (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta) {
-      vsVal = 2;
-    } else if (wtMod > 2 * Math.PI - theta) {
-      vsVal = 2 + i * (Math.cos(phi - theta) - Math.cos(wtMod + phi));
-    }
-    data.vs.push({ x: wt, y: 0.98*vsVal });
+  canvas.width = displayWidth * dpr;
+  canvas.height = displayHeight * dpr;
 
-    data.ie.push({ x: wt, y: (wtMod <= Math.PI - theta || (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta)) ? sinTerm * (wtMod <= Math.PI - theta ? 1 : -1) : 0 });
-    data.ic.push({ x: wt, y: (wtMod > Math.PI - theta && wtMod <= Math.PI || wtMod > 2 * Math.PI - theta) ? sinTerm : 0 });
-    data.is.push({ x: wt, y: (wtMod <= Math.PI - theta) ? 0.98*2 * sinTerm : 0 });
-  }
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.scale(dpr, dpr);
 
-  const chartParams = {
-    vs: { label: 'vs(ωt) / VDC', color: 'blue' },
-    ie: { label: 'ie(ωt) / I', color: 'red' },
-    is: { label: 'is(ωt) / I', color: 'green' },
-    ic: { label: 'iC(ωt) / I', color: 'orange' },
-    sin: { label: 'i(ωt) / I', color: 'purple' }
-  };
-
-  const formatPi = val => {
-    const n = val / PI;
-    const rounded = Math.round(n);
-    return Math.abs(n - rounded) < 0.05 ? (rounded === 0 ? '0' : `${rounded === 1 ? '' : rounded}π`) : '';
-  };
-
-  for (const [key, { label, color }] of Object.entries(chartParams)) {
-    const ctx = document.getElementById(`${key}-chart`).getContext('2d');
-    const config = {
-      type: 'line',
-      data: {
-        datasets: [{
-          label,
-          data: data[key],
-          borderColor: color,
-          borderWidth: 2,
-          pointRadius: 0
-        }]
-      },
-      options: {
-        responsive: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: {
-            type: 'linear',
-            min: 0,
-            max: 4 * PI,
-            ticks: { stepSize: PI, callback: formatPi },
-            title: { display: key === 'sin', text: 'ωt (rad)' }
-          },
-          y: {
-  min: -2,
-  max: 2,
-  title: { display: true, text: label },
-  ticks: {
-    values: [-2, -1, 0, 1, 2],  // ticks forcés
-    callback: function(value) {
-      return value;  // affichage brut
-    }
-  }
-}
-
-
-
-
-
+  const config = {
+    type: "bar",
+    data: {
+      labels: data[key].map(d => d.x),
+      datasets: [
+        {
+          label: label,
+          data: data[key].map(d => d.y),
+          backgroundColor: color,
+        },
+      ],
+    },
+    options: {
+      responsive: false,
+      animation: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: {
+          type: 'linear',
+          min: 0,
+          max: 4 * PI,
+          ticks: { stepSize: PI, callback: formatPi },
+          title: { display: key === 'sin', text: 'ωt (rad)' }
+        },
+        y: {
+          min: -2,
+          max: 2,
+          title: { display: true, text: label },
+          ticks: {
+            values: [-2, -1, 0, 1, 2],
+            callback: v => v
+          }
         }
       }
-    };
-
-    if (window[`${key}Chart`]) {
-      window[`${key}Chart`].data.datasets[0].data = data[key];
-      window[`${key}Chart`].update();
-    } else {
-      window[`${key}Chart`] = new Chart(ctx, config);
     }
+  };
+
+  if (window[`${key}Chart`]) {
+    window[`${key}Chart`].data.datasets[0].data = data[key].map(d => d.y);
+    window[`${key}Chart`].update();
+  } else {
+    window[`${key}Chart`] = new Chart(ctx, config);
   }
 }
+
 
 fetch('/assets/img/circuit_EF.svg')
   .then(res => res.text())
