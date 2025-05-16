@@ -74,8 +74,10 @@ title: Research
 
   .chart-block canvas {
   width: 100% !important;
-  height: 100px;
-  }
+  height: auto !important;
+  aspect-ratio: 3 / 1; /* ou 2 / 1 selon ton design */
+}
+
 
 
   .dot {
