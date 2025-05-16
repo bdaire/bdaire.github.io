@@ -32,11 +32,17 @@ title: Research
 <!-- ====================== -->
 <h3 id="intro">Introduction</h3>
 <p>
-  L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations de dimensionnement de l'onduleur de classe EF dans une seule et même figure et offre une vision d'ensemble du fonctionnement de cet onduleur. 
-  <img src="/assets/img/circuit_EF.svg"
-     alt="Onduleur de classe EF"
-     style="display: block; margin: 20px auto; width=30%;">
+L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations de dimensionnement de l'onduleur de classe EF dans une seule et même figure et offre une vision d'ensemble du fonctionnement de cet onduleur. 
   
+<figure style="text-align: center; margin: 20px auto;">
+  <img src="/assets/img/circuit_EF.svg"
+       alt="Onduleur de classe EF"
+       style="display: block; margin: 0 auto; width=30%;">
+  <figcaption style="margin-top: 8px; font-size: 0.9rem; color: #555;">
+    Onduleur de classe EF
+  </figcaption>
+</figure>
+
 </p>
 
 <!-- =============================== -->
@@ -48,9 +54,15 @@ title: Research
 </p>
 
 <!-- Petite image illustrative SVG -->
-<img src="/assets/img/switch_diagram.svg"
-     alt="Schéma de commutation"
-     style="display: block; margin: 20px auto; max-width: 300px;">
+<figure style="text-align: center; margin: 20px auto;">
+  <img src="/assets/img/switch_diagram.svg"
+       alt="Schéma de commutation"
+       style="display: block; margin: 0 auto; max-width: 300px;">
+  <figcaption style="margin-top: 8px; font-size: 0.9rem; color: #555;">
+    Schéma de commutation de l’onduleur
+  </figcaption>
+</figure>
+
 
 <p>
   Ci-dessus : schéma de principe de la commutation dans un onduleur classe EF.
