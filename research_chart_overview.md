@@ -100,8 +100,7 @@ x &= X \cdot \omega C_s
 <p>Les courbes en \(D\) permettent simplement de lire la valeur du rapport cyclique à utiliser pour que l'interrupteur fonctionne effectivement en ZVS et/ou en ZCS selon la région dans laquelle le point de fonctionnement se trouve. A noter que ce rapport cyclique doit nécessairement être considéré pour que l'ensemble des autres paramètres soient valides, l'abaque ayant été construite en considérant que le rapport cyclique lu est effectivement celui utilisé.</p>
 <br><br>
 <p><i>Exemple :</i></p>
-<br><br>
-<p>si je lis \(D=31\%\) alors je devrais utiliser un rapport cyclique de \(31\%\) pour piloter mon interrupteur afin que celui ci fonctionne en ZVS et/ou en ZCS selon la position du fonctionnement considéré</p>
+<p><i>si je lis \(D=31\%\) alors je devrais utiliser un rapport cyclique de \(31\%\) pour piloter mon interrupteur afin que celui ci fonctionne en ZVS et/ou en ZCS selon la position du fonctionnement considéré</i></p>
 <br><br>
 <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
   <figure style="flex: 1; text-align: center;">
