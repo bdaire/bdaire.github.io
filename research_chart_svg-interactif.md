@@ -26,7 +26,13 @@ title: Research
 
 
 
-  #svg-wrapper, #small-svg-wrapper {
+  #svg-wrapper {
+    margin-bottom: 3rem;
+    border: none;
+    width: 100%;
+  }
+
+  #small-svg-wrapper {
     margin-bottom: 3rem;
     border: none;
     width: 80%;
