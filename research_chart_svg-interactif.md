@@ -407,41 +407,60 @@ window.addEventListener('load', () => {
 fetch('/assets/img/circuit_EF.svg')
   .then(res => res.text())
   .then(svg => document.getElementById('small-svg-wrapper').innerHTML = svg)
-  .catch(() => document.getElementById('small-svg-wrapper').textContent = 'SVG non disponible');
+  .catch(() => document.getElementById('small-svg-wrapper').textContent = 'Erreur de chargement du petit SVG.');
 
-fetch('/assets/img/circuit_EF.svg')
+fetch('/assets/img/chart_EF.svg')
   .then(res => res.text())
-  .then(svg => document.getElementById('svg-wrapper').innerHTML = svg)
-  .catch(() => document.getElementById('svg-wrapper').textContent = 'SVG non disponible');
+  .then(svgText => {
+    const wrapper = document.getElementById('svg-wrapper');
+    wrapper.innerHTML = svgText;
+    const svg = wrapper.querySelector('svg');
+    svg.setAttribute('id', 'mysvg');
 
-document.getElementById('small-svg-wrapper').addEventListener('click', evt => {
-  const svg = evt.currentTarget.querySelector('svg');
-  if (!svg) return;
+    // Récupération des champs input
+const FInput = document.getElementById('F-input');
+const CsInput = document.getElementById('Cs-input');
+const VDCInput = document.getElementById('VDC-input');
 
-  const rect = svg.getBoundingClientRect();
-  const dpr = window.devicePixelRatio || 1;
-  const xPix = (evt.clientX - rect.left) * dpr;
-  const yPix = (evt.clientY - rect.top) * dpr;
 
-  const x = xPix / 320;
-  const r = yPix / 170;
+    svg.addEventListener('click', evt => {
+      const pt = svg.createSVGPoint();
+      pt.x = evt.clientX;
+      pt.y = evt.clientY;
+      const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
+      const [xPix, yPix] = [svgPoint.x, svgPoint.y];
 
-  drawDot(svg, xPix, yPix);
+      const r = 0.000531 * xPix - 0.1078;
+      const x = -0.001022 * yPix + 1.0918;
+      const dist = Math.sqrt(r * r + x * x);
 
-  const frontierR = getFrontierR(x);
-  let zone = '';
-  let res = null;
+      drawDot(svg, xPix, yPix);
 
-  if (r > frontierR) {
-    zone = 'ZVS';
-    res = solveZVS(r, x);
-  } else {
-    zone = 'ZCS';
-    res = solveZCS(r, x);
-  }
+      // Lire les valeurs des champs
+const F = parseFloat(FInput.value);
+const Cs = parseFloat(CsInput.value);
+const VDC = parseFloat(VDCInput.value);
+console.log('Valeurs utilisateur :', { F, Cs, VDC });
 
-  updateInfoPanel(r, x, Math.sqrt(Math.pow(xPix - 320, 2) + Math.pow(yPix - 170, 2)), zone, res);
 
-  if (res) plotCharts(res);
-});
+      let zone = 'Hors zone', res = null;
+      if (r >= 0 && r <= 2 / PI && x >= 0 && x <= 1) {
+        const rFrontier = getFrontierR(x);
+        if (r < rFrontier) {
+          zone = 'ZVS';
+          res = solveZVS(r, x);
+        } else {
+          zone = 'ZCS';
+          res = solveZCS(r, x);
+        }
+      }
+
+      updateInfoPanel(r, x, dist, zone, res);
+      if (res) plotCharts(res);
+    });
+  })
+  .catch(err => {
+    document.getElementById('svg-wrapper').textContent = 'Erreur de chargement du SVG principal.';
+    console.error("Erreur SVG:", err);
+  });
 </script>
