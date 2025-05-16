@@ -129,15 +129,19 @@ title: Research
 
   <div id="svg-wrapper">Chargement du SVG principal...</div>
 
-  <div id="info-panel">
-    <div class="info-label">r :</div><div id="x-val">-</div>
-    <div class="info-label">x :</div><div id="y-val">-</div>
-    <div class="info-label">Zone :</div><div id="zone-val">-</div>
-    <div class="info-label">p :</div><div id="p-val">-</div>
-    <div class="info-label">D :</div><div id="d-val">-</div>
-    <div class="info-label">q :</div><div id="q-val">-</div>
-    <div class="info-label">v :</div><div id="v-val">-</div>
+<div id="info-panel">
+  <div style="font-weight: bold; text-decoration: underline; margin-bottom: 10px;">
+    Reduced parameters
   </div>
+  
+  <div class="info-label">r :</div><div id="x-val">-</div>
+  <div class="info-label">x :</div><div id="y-val">-</div>
+  <div class="info-label">Zone :</div><div id="zone-val">-</div>
+  <div class="info-label">p :</div><div id="p-val">-</div>
+  <div class="info-label">D :</div><div id="d-val">-</div>
+  <div class="info-label">q :</div><div id="q-val">-</div>
+  <div class="info-label">v :</div><div id="v-val">-</div>
+</div>
 </div>
 
 
