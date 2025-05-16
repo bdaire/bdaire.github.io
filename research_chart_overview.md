@@ -112,71 +112,20 @@ x &= X \cdot \omega C_s
     <figcaption style="margin-top: 8px;">Courbes en \(D\) dans la zone ZCS</figcaption>
   </figure>
 </div>
-
-
-<p>
-  Ci-dessus : schéma de principe de la commutation dans un onduleur classe EF.
-</p>
-
-<!-- =========================== -->
-<!-- SECTION : ÉQUATIONS MATHÉMATIQUES -->
-<!-- =========================== -->
-<h3 id="equations">Équations fondamentales</h3>
-
-<!-- Équation via MathJax (attention à bien charger MathJax dans le layout) -->
-<p>
-  La fréquence de résonance est donnée par :
-</p>
-
+<br><br>
+<p><u><b>Courbes en \(p\)</b></u></p>
+<br><br>
+<p>Les courbes en \(p\) permettent de de déduire la valeur de la puissance délivrée par l'onduleur lorsque celui-ci fonctionne avec le bon rapport cyclique \(D\) selon la formule suivante:</p>
+<br><br>
 <p style="text-align: center;">
-  \\( f_0 = \frac{1}{2\pi\sqrt{LC}} \\)
+  \[P=p\cdot\omega C_s\cdot V_{DC}^2
+\]
 </p>
+<br><br>
+<p><i>Exemple :</i></p>
+<p><i>si je lis \(p=1.2\%\) et connaissant \(V_{DC}=20\) V, \(F=30\) MHz et \(C_s=200\) pF alors la puissance délivrée par l'onduleur est de \(P=1.2\cdot2\pi\cdot 30\cdot 10^{6}\cdot 200\cdot 10^{-12}\cdot 20^2=18.096\) W</i></p>
+<br><br>
 
-<p>
-  Et la condition de résonance peut aussi s’écrire :
-</p>
-
-<p style="text-align: center;">
-  \\( Z = \sqrt{\frac{L}{C}} \\)
-</p>
-
-<!-- ===================== -->
-<!-- SECTION : TABLEAU -->
-<!-- ===================== -->
-<h3 id="exemples">Exemples illustrés</h3>
-<p>Tableau comparatif pour différents composants :</p>
-
-<table style="width:100%; border-collapse: collapse;">
-  <thead>
-    <tr style="background-color: #f2f2f2;">
-      <th style="border: 1px solid #ccc; padding: 8px;">Composant</th>
-      <th style="border: 1px solid #ccc; padding: 8px;">Valeur</th>
-      <th style="border: 1px solid #ccc; padding: 8px;">Type</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="border: 1px solid #ccc; padding: 8px;">Inductance</td>
-      <td style="border: 1px solid #ccc; padding: 8px;">22 µH</td>
-      <td style="border: 1px solid #ccc; padding: 8px;">Self à air</td>
-    </tr>
-    <tr>
-      <td style="border: 1px solid #ccc; padding: 8px;">Capacité</td>
-      <td style="border: 1px solid #ccc; padding: 8px;">100 nF</td>
-      <td style="border: 1px solid #ccc; padding: 8px;">Céramique</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- ===================== -->
-<!-- SECTION : CONCLUSION -->
-<!-- ===================== -->
-<h3 id="conclusion">Conclusion</h3>
-<p>
-  Le dimensionnement précis de l’onduleur de classe EF nécessite une compréhension fine des équations de résonance et de la sélection des composants.
-  <br><br>
-  L’abaque présenté en début de document constitue un outil utile pour ce processus d’optimisation.
-</p>
 
 <!-- ================================= -->
 <!-- CHARGEMENT DE MATHJAX POUR LES MATHS -->
