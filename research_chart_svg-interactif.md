@@ -373,16 +373,16 @@ function plotCharts(res) {
             type: 'linear',
             min: 0,
             max: 4 * PI,
-            ticks: { stepSize: PI, callback: formatPi, font:{size: 18} },
-            title: { display: key === 'sin', text: 'ωt (rad)', font:{size: 18} }
+            ticks: { stepSize: PI, callback: formatPi, font:{size: 24} },
+            title: { display: key === 'sin', text: 'ωt (rad)', font:{size: 24} }
           },
           y: {
             min: -2,
             max: 2,
-            title: { display: true, text: label, font:{size: 18} },
+            title: { display: true, text: label, font:{size: 24} },
             ticks: {
               values: [-2, -1, 0, 1, 2],
-              callback: v => v
+              callback: v => v, font:{size: 24}
             }
           }
         }
