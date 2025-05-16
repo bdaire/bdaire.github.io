@@ -146,8 +146,9 @@ title: Research
 
 1/ Enter the values for VDC, F, and Cs above the circuit. You can use exponent notation too (e.g., 50e6 Hz for 50 MHz)
 2/ Click on the chart to set the operating point
-3/ The waveforms will show up on the right, and the values for R, L, I, and P related to that point will appear above the circuit! It’s magic! 🧙‍♂️
-(Tip) The VDC and I values above the circuit will help you read the waveforms better
+3/ The waveforms will show up on the right, and the values for R, L, I, P, D, q and Vcutoff related to that point will appear above the circuit! It’s magic! 🧙‍♂️
+
+Tip: The VDC and I values above the circuit will help you read the waveforms better
 
 Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case 😬
     </div>
