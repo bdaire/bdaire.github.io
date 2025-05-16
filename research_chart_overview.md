@@ -99,7 +99,7 @@ x &= X \cdot \omega C_s
 <br><br>
 <p>Les courbes en \(D\) permettent simplement de lire la valeur du rapport cyclique à utiliser pour que l'interrupteur fonctionne effectivement en ZVS et/ou en ZCS selon la région dans laquelle le point de fonctionnement se trouve. A noter que ce rapport cyclique doit nécessairement être considéré pour que l'ensemble des autres paramètres soient valides, l'abaque ayant été construite en considérant que le rapport cyclique lu est effectivement celui utilisé.</p>
 <br><br>
-<p><i>Exemple :</i></p>
+<p><i><u>Exemple :</u></i></p>
 <p><i>si je lis \(D=31\%\) alors je devrais utiliser un rapport cyclique de \(31\%\) pour piloter mon interrupteur afin que celui ci fonctionne en ZVS et/ou en ZCS selon la position du fonctionnement considéré</i></p>
 <br><br>
 <div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
@@ -122,10 +122,20 @@ x &= X \cdot \omega C_s
 \]
 </p>
 <br><br>
-<p><i>Exemple :</i></p>
+<p><i><u>Exemple :</u></i></p>
 <p><i>si je lis \(p=1.2\%\) et connaissant \(V_{DC}=20\) V, \(F=30\) MHz et \(C_s=200\) pF alors la puissance délivrée par l'onduleur est de \(P=1.2\cdot2\pi\cdot 30\cdot 10^{6}\cdot 200\cdot 10^{-12}\cdot 20^2=18.096\) W</i></p>
 <br><br>
-
+<div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/chart_EF_p_ZVS.svg" alt="p_ZVS" style="width: 20vw;">
+    <figcaption style="margin-top: 8px;">Courbes en \(p\) dans la zone ZVS</figcaption>
+  </figure>
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/chart_EF_p_ZCS.svg" alt="p_ZCS" style="width: 20vw;">
+    <figcaption style="margin-top: 8px;">Courbes en \(p\) dans la zone ZCS</figcaption>
+  </figure>
+</div>
+<br><br>
 
 <!-- ================================= -->
 <!-- CHARGEMENT DE MATHJAX POUR LES MATHS -->
