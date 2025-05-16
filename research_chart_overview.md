@@ -73,10 +73,18 @@ x &= X \cdot \omega C_s
   <li>La région ZVS à gauche, où l'interrupteur peut fonctionner en ZVS (Zero Voltage Switching) seulement</li>
   <li>La région ZCS à droite, où l'interrupteur peut fonctionner en ZCS (Zero Current Switching) seulement</li>
 </ul>
+<br><br>
 L'intersection entre ces deux régions (i.e. la ligne en gras) étant le lieu où l'interrupteur peut fonctionner en ZVS et en ZCS de façon simultanée. Nous appelerons cette courbe le <b>lieu EF</b>.
 </p>
 
-
+<figure style="text-align: center; margin: 20px auto;">
+  <img src="/assets/img/chart_EF_locus.svg"
+       alt="Régions ZVS/ZCS et lieu EF"
+       style="display: block; margin: 0 auto; width=80%;">
+  <figcaption style="margin-top: 8px; font-size: 0.9rem; color: #555;">
+    Régions ZVS/ZCS et lieu EF
+  </figcaption>
+</figure>
 
 
 
