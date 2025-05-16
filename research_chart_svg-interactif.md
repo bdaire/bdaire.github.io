@@ -141,7 +141,7 @@ title: Research
     <div class="info-label">R :</div><div id="r-phys">-</div>
     <div class="info-label">L :</div><div id="l-phys">-</div>
     <div class="info-label">I :</div><div id="i-phys">-</div>
-    <div class="info-label">P :</div><div id="p-phys">-</div>
+    
   </div>
 </div>
 
