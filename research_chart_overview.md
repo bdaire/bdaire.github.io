@@ -103,13 +103,13 @@ x &= X \cdot \omega C_s
 <p><i>si je lis \(D=31\%\) alors je devrais utiliser un rapport cyclique de \(31\%\) pour piloter mon interrupteur afin que celui ci fonctionne en ZVS et/ou en ZCS selon la position du fonctionnement considéré</i></p>
 <br><br>
 <div style="display: flex; justify-content: center; gap: 0; margin: 20px 0;">
-  <figure style="flex: 1; text-align: center;">
+  <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/chart_EF_D_ZVS.svg" alt="D_ZVS" style="width: 20vw;">
-    <figcaption>Courbes en \(D\) dans la zone ZVS</figcaption>
+    <figcaption style="margin-top: 8px;">Courbes en \(D\) dans la zone ZVS</figcaption>
   </figure>
-  <figure style="flex: 1; text-align: center;">
+  <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/chart_EF_D_ZCS.svg" alt="D_ZCS" style="width: 20vw;">
-    <figcaption>Courbes en \(D\) dans la zone ZCS</figcaption>
+    <figcaption style="margin-top: 8px;">Courbes en \(D\) dans la zone ZCS</figcaption>
   </figure>
 </div>
 
