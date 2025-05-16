@@ -59,7 +59,7 @@ x &= X \cdot \omega C_s
 
 </p>
 
-<p>Où \(\omega=2\pi F\) est la pulsation associée à la fréquence de découpage de l'onduleur et \(C_s\) est la valeur de la capacité disposée en paralèlle de l'interrupteur du circuit. Autrement dit, est possible de placer le point de fonctionnement de l'onduleur connaissant la valeur de son impédance de charge normalisé par rapport à la réactance associée à \(C_s\).
+<p>Où \(\omega=2\pi F\) est la pulsation associée à la fréquence de découpage de l'onduleur, \(C_s\) est la valeur de la capacité disposée en paralèlle de l'interrupteur du circuit et \(X=L\cdot\omega\) est la réactance de la charge. Autrement dit, est possible de placer le point de fonctionnement de l'onduleur connaissant la valeur de son impédance de charge normalisé par rapport à la réactance associée à \(C_s\).
 </p>
 <br><br>
 <p>
