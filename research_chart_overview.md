@@ -32,9 +32,11 @@ title: Research
 <!-- ====================== -->
 <h3 id="intro">Introduction</h3>
 <p>
-  L’onduleur de classe EF est une topologie utilisée en électronique de puissance, offrant un compromis efficace entre rendement et complexité.
-  <br><br>
-  Ce document vise à présenter les principes de dimensionnement à l’aide d’un abaque ainsi que les équations fondamentales qui gouvernent ce type d’onduleur.
+  L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations de dimensionnement de l'onduleur de classe EF dans une seule et même figure et offre une vision d'ensemble du fonctionnement de cet onduleur. 
+  <img src="/assets/img/circuit_EF.svg"
+     alt="Onduleur de classe EF"
+     style="display: block; margin: 20px auto; width=30%;">
+  
 </p>
 
 <!-- =============================== -->
