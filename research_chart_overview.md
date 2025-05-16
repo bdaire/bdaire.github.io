@@ -105,12 +105,12 @@ x &= X \cdot \omega C_s
 <br><br>
 <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
   <figure style="flex: 1; text-align: center;">
-    <img src="/assets/img/circuit_EF.svg" alt="Circuit EF" style="width: 40vw;">
-    <figcaption>Onduleur de classe EF</figcaption>
+    <img src="/assets/img/chart_EF_locus_ZVS.svg" alt="D_ZVS" style="width: 40vw;">
+    <figcaption>Courbes en \(D\) dans la zone ZVS</figcaption>
   </figure>
   <figure style="flex: 1; text-align: center;">
-    <img src="/assets/img/chart_EF_locus.svg" alt="Régions ZVS/ZCS" style="width: 40vw;">
-    <figcaption>Régions ZVS/ZCS et lieu EF</figcaption>
+    <img src="/assets/img/chart_EF_locus_ZCS.svg" alt="D_ZCS" style="width: 40vw;">
+    <figcaption>Courbes en \(D\) dans la zone ZCS</figcaption>
   </figure>
 </div>
 
