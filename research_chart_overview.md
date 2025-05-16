@@ -104,11 +104,11 @@ x &= X \cdot \omega C_s
 <br><br>
 <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
   <figure style="flex: 1; text-align: center;">
-    <img src="/assets/img/chart_EF_D_ZVS.svg" alt="D_ZVS" style="width: 40vw;">
+    <img src="/assets/img/chart_EF_D_ZVS.svg" alt="D_ZVS" style="width: 30vw;">
     <figcaption>Courbes en \(D\) dans la zone ZVS</figcaption>
   </figure>
   <figure style="flex: 1; text-align: center;">
-    <img src="/assets/img/chart_EF_D_ZCS.svg" alt="D_ZCS" style="width: 40vw;">
+    <img src="/assets/img/chart_EF_D_ZCS.svg" alt="D_ZCS" style="width: 30vw;">
     <figcaption>Courbes en \(D\) dans la zone ZCS</figcaption>
   </figure>
 </div>
