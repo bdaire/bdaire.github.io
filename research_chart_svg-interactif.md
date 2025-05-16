@@ -48,9 +48,20 @@ title: Research
     margin-top: 1rem;
   }
 
-  .info-label {
-    font-weight: bold;
-  }
+#info-panel {
+  padding: 10px;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.info-label {
+  width: 60px;
+  font-weight: bold;
+}
+
 
   #right-panel {
   width: 40%;
