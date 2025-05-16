@@ -6,12 +6,12 @@ title: Research
 <!-- Titre principal (Markdown ou HTML possible) -->
 <h2 style="text-align: center;">Abaque de dimensionnement de l'onduleur de classe EF</h2>
 
-<!-- Image principale -->
-<div style="text-align: center; margin: 40px 0;">
-  <img src="/assets/img/chart_EF.svg"
-       alt="Abaque de dimensionnement pour un onduleur de classe EF"
-       style="max-width: 90%; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-</div>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
 
 <!-- ============================= -->
 <!-- TABLE DES MATIÈRES (manuelle) -->
@@ -20,7 +20,7 @@ title: Research
   <h3>Sommaire</h3>
   <ul>
     <li><a href="#intro">Introduction</a></li>
-    <li><a href="#theorie">Théorie de fonctionnement</a></li>
+    <li><a href="#utilisation">Théorie de fonctionnement</a></li>
     <li><a href="#equations">Équations fondamentales</a></li>
     <li><a href="#exemples">Exemples illustrés</a></li>
     <li><a href="#conclusion">Conclusion</a></li>
@@ -37,7 +37,7 @@ L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations d
 <figure style="text-align: center; margin: 20px auto;">
   <img src="/assets/img/circuit_EF.svg"
        alt="Onduleur de classe EF"
-       style="display: block; margin: 0 auto; width=30%;">
+       style="display: block; margin: 0 auto; width=50%;">
   <figcaption style="margin-top: 8px; font-size: 0.9rem; color: #555;">
     Onduleur de classe EF
   </figcaption>
@@ -46,22 +46,14 @@ L'abaque de dimensionnement de l'onduleur de classe EF regroupe les équations d
 </p>
 
 <!-- =============================== -->
-<!-- SECTION : THÉORIE DE FONCTIONNEMENT -->
+<!-- SECTION : Utilisation -->
 <!-- =============================== -->
-<h3 id="theorie">Théorie de fonctionnement</h3>
+<h3 id="utilisation">Utilisation</h3>
 <p>
-  Le fonctionnement repose sur l’optimisation du point de fonctionnement des transistors MOSFET à travers une charge résonante.
+  L'utilisation de l'abaque est très simple: elle relit différents paramètres normalisés
 </p>
 
-<!-- Petite image illustrative SVG -->
-<figure style="text-align: center; margin: 20px auto;">
-  <img src="/assets/img/switch_diagram.svg"
-       alt="Schéma de commutation"
-       style="display: block; margin: 0 auto; max-width: 300px;">
-  <figcaption style="margin-top: 8px; font-size: 0.9rem; color: #555;">
-    Schéma de commutation de l’onduleur
-  </figcaption>
-</figure>
+
 
 
 <p>
