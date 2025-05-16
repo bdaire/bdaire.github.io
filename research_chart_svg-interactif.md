@@ -48,20 +48,9 @@ title: Research
     margin-top: 1rem;
   }
 
-#info-panel {
-  padding: 10px;
-}
-
-.info-row {
-  display: flex;
-  margin-bottom: 4px;
-}
-
-.info-label {
-  width: 60px;
-  font-weight: bold;
-}
-
+  .info-label {
+    font-weight: bold;
+  }
 
   #right-panel {
   width: 40%;
@@ -141,31 +130,17 @@ title: Research
   <div id="svg-wrapper">Chargement du SVG principal...</div>
 
 <div id="info-panel">
-  <div style="font-weight: bold; text-decoration: underline; margin-bottom: 10px;">
+  <div style="grid-column: span 2; font-weight: bold; text-decoration: underline; margin-bottom: 0.5rem;">
     Reduced parameters
   </div>
 
-  <div class="info-row">
-    <div class="info-label">r :</div><div id="x-val">-</div>
-  </div>
-  <div class="info-row">
-    <div class="info-label">x :</div><div id="y-val">-</div>
-  </div>
-  <div class="info-row">
-    <div class="info-label">Zone :</div><div id="zone-val">-</div>
-  </div>
-  <div class="info-row">
-    <div class="info-label">p :</div><div id="p-val">-</div>
-  </div>
-  <div class="info-row">
-    <div class="info-label">D :</div><div id="d-val">-</div>
-  </div>
-  <div class="info-row">
-    <div class="info-label">q :</div><div id="q-val">-</div>
-  </div>
-  <div class="info-row">
-    <div class="info-label">v :</div><div id="v-val">-</div>
-  </div>
+  <div class="info-label">r :</div><div id="x-val">-</div>
+  <div class="info-label">x :</div><div id="y-val">-</div>
+  <div class="info-label">Zone :</div><div id="zone-val">-</div>
+  <div class="info-label">p :</div><div id="p-val">-</div>
+  <div class="info-label">D :</div><div id="d-val">-</div>
+  <div class="info-label">q :</div><div id="q-val">-</div>
+  <div class="info-label">v :</div><div id="v-val">-</div>
 </div>
 
 
@@ -173,11 +148,10 @@ title: Research
   <div id="right-panel">
     <div id="top-text">Welcome to the interactive tool! 
 
-1/ Enter the values for VDC, F, and Cs below the circuit
+1/ Enter the values for VDC, F, and Cs above the circuit. You can use exponent notation too (e.g., 50e6 Hz for 50 MHz)
 2/ Click on the chart to set the operating point
-3/ The waveforms will show up on the right, and the physical parameters related to that point will appear below the circuit! It’s magic! 🧙‍♂️
-
-Tip: The VDC and I values above the circuit will help you read the waveforms better, reduced parameters (r,x,p,D,q,v) obtained by direct reading of the chart are gathered below
+3/ The waveforms will show up on the right, and the values for R, L, I, and P related to that point will appear above the circuit! It’s magic! 🧙‍♂️
+(Tip) The VDC and I values above the circuit will help you read the waveforms better
 
 Caution: the results might get a bit off if the resistance r is too low — meaning if the operating point is too far to the left because the numerical resolution goes a little bit crazy in that case 😬
     </div>
