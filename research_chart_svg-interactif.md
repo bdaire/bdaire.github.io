@@ -411,8 +411,8 @@ fetch('/assets/img/circuit_EF.svg')
 
 fetch('/assets/img/circuit_EF.svg')
   .then(res => res.text())
-  .then(svg => document.getElementById('big-svg-wrapper').innerHTML = svg)
-  .catch(() => document.getElementById('big-svg-wrapper').textContent = 'SVG non disponible');
+  .then(svg => document.getElementById('svg-wrapper').innerHTML = svg)
+  .catch(() => document.getElementById('svg-wrapper').textContent = 'SVG non disponible');
 
 document.getElementById('small-svg-wrapper').addEventListener('click', evt => {
   const svg = evt.currentTarget.querySelector('svg');
