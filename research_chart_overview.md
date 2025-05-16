@@ -114,7 +114,7 @@ x &= X \cdot \omega C_s
   \[P=p\cdot\omega\cdot C_s\cdot V_{DC}^2
 \]</p>
 <p><i><u>Exemple :</u></i></p>
-<p><i>si je lis \(p=1.2\%\) et connaissant \(V_{DC}=20\) V, \(F=30\) MHz et \(C_s=200\) pF alors la puissance délivrée par l'onduleur est de \(P=1.2\cdot2\pi\cdot 30\cdot 10^{6}\cdot 200\cdot 10^{-12}\cdot 20^2=18.096\) W</i></p>
+<p><i>si je lis \(p=1.2\) et connaissant \(V_{DC}=20\) V, \(F=30\) MHz et \(C_s=200\) pF alors la puissance délivrée par l'onduleur est de \(P=1.2\cdot2\pi\cdot 30\cdot 10^{6}\cdot 200\cdot 10^{-12}\cdot 20^2=18.096\) W</i></p>
 <br><br>
 <div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
