@@ -154,6 +154,7 @@ x &= X \cdot \omega C_s
   \[q=\frac{Q_{inverse}}{Q_{direct}}
 \]</p>
 <p>Par conséqunt, plus la valeur de \(q\) est faible, plus l'onduleur de classe EF se rapproche du lieu EF, où \(q=0\).
+<br><br>
 <p><i><u>Exemple :</u></i></p>
 <p><i>si je lis \(q=0.5\), cela signifie qu'il y a deux fois plus de charges électriques circulant en direct qu'en inverse dans mon interrupteur lorsque celui-ci conduit.</i></p>
 <br><br>
