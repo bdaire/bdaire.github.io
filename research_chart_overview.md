@@ -129,7 +129,7 @@ x &= X \cdot \omega C_s
 <br><br>
 <p><u><b>Courbes en \(v\)</b></u></p>
 <br><br>
-<p>Dans la zone ZCS, Les courbes en \(v\) permettent de prédire la valeur de la tension de coupure \(V_{cutoff}\), tension à laquelle la tnsion de drain sera coupée lors de la mise en conduction du transistor, selon la formule suivante:</p>
+<p>Dans la zone ZCS, la tension aux bornes de l'interrupteur n'est pas égale à 0 lors de la mise en conduction, puisque nous ne travaillons pas en ZVS. Par conséquent, cette tension sera égale à une valeur non nulle que nous appelerons tension de coupure \(V_{cutoff}\). Les courbes en \(v\) permettent de prédire la valeur de \(V_{cutoff}\) selon la formule suivante:</p>
 <p style="text-align: center;">
   \[V_{cutoff}=v\cdot 2\cdot V_{DC}
 \]</p>
