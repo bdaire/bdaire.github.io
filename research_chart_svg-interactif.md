@@ -6,7 +6,6 @@ title: Research
 ## Classe EF inverter design chart - interactive tool
 
 <br><br>
-<br><br>
 
 <style>
   .container {
@@ -34,7 +33,7 @@ title: Research
   }
 
   #small-svg-wrapper {
-    margin-top: 1rem;
+    margin-top: 3rem;
     margin-bottom: 3rem;
     border: none;
     width: 80%;
