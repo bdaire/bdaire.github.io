@@ -136,13 +136,14 @@ x &= X \cdot \omega C_s
 <p><i><u>Exemple :</u></i></p>
 <p><i>si je lis \(v=3\) et connaissant \(V_{DC}=20\) V alors la tension aux bornes de l'interrupteur lors de sa mise en conduction sera de \(V_{cutoff}=3\cdot 2\cdot 20=12\) V</i></p>
 <br><br>
-<div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/chart_EF_v_ZCS.svg" alt="v_ZCS" style="width: 20vw;">
+    <img id="img-gauche" src="/assets/img/chart_EF_v_ZCS.svg" alt="v_ZCS" style="width: 20vw; height: auto; display: block;">
     <figcaption style="margin-top: 8px;">Courbes en \(v\) dans la zone ZCS</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/classe_EF_vs_is_ZCS.drawio.svg" alt="vs_is_ZCS" style="width: 20vw;">
+    <img src="/assets/img/classe_EF_vs_is_ZCS.drawio.svg" alt="vs_is_ZCS"
+         style="height: 100%; width: auto; display: block;">
     <figcaption style="margin-top: 8px;">Allures de \(v_s(\omega t)\) et de \(i_s(\omega t)\)</figcaption>
   </figure>
 </div>
