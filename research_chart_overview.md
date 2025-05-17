@@ -151,7 +151,7 @@ x &= X \cdot \omega C_s
 <br><br>
 <p>Dans la zone ZVS, un courant inverse circule dans l'interrupteur lorsque ce dernier conduit. Nous appelerons \(Q_{inverse}\) le total des charges électriques circulant en inverse et \(Q_{direct}\) le total des charges électriques circulant en direct. Les courbes en \(q\) permettent de prédire le ratio \(Q_{inverse}/Q_{direct}\):</p>
 <p style="text-align: center;">
-  \[q=\frac{Q_{inverse}}{Q_{direct}}
+  \[q=\left|\frac{Q_{inverse}}{Q_{direct}}\right|
 \]</p>
 <p>Par conséqunt, plus la valeur de \(q\) est faible, plus l'onduleur de classe EF se rapproche du lieu EF, où \(q=0\).
 <br><br>
