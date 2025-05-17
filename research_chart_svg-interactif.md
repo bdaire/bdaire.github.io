@@ -213,17 +213,28 @@ function solveZCS(r, x) {
 }
 
 function solveZVS(r, x) {
-  for (let j = 0; j < 5000; j++) {
-    const theta = (j / 4999) * PI;
+  const PI = Math.PI;
+  const jMax = 5000;
+  const kBase = 1000;
+
+  for (let j = 0; j < jMax; j++) {
+    const theta = (j / (jMax - 1)) * PI;
     const phiMin = (theta - PI) / 2;
-    for (let k = 0; k < 1000; k++) {
-      const phi = phiMin + (k / 999) * -phiMin;
+
+    // Adaptation de la résolution : plus theta est proche de PI, plus kMax augmente
+    const thetaFactor = Math.pow(Math.abs(theta - PI) / PI, 0.5); // proche de 0 quand theta ≈ PI
+    const kMax = Math.floor(kBase + (1 - thetaFactor) * 4000); // passe de ~1000 à ~5000
+
+    for (let k = 0; k < kMax; k++) {
+      const phi = phiMin + (k / (kMax - 1)) * -phiMin;
       const sinTh = Math.sin(theta);
       const sinTerm = Math.sin(theta - 2 * phi);
       const rTh = (1 / PI) * sinTh * sinTerm;
       const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
+
       if (Math.abs(rTh - r) < 0.001 && Math.abs(xTh - x) < 0.001) {
         const denom = Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
+        if (denom < 1e-10) continue; // évite les divisions instables
         const p = (2 / PI) * sinTh * sinTerm / denom;
         const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
         const i = Math.sqrt((2 * p) / r);
@@ -234,6 +245,7 @@ function solveZVS(r, x) {
   }
   return null;
 }
+
 
 function drawDot(svg, xPix, yPix) {
   svg.querySelector('.dot')?.remove();
