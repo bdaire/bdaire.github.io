@@ -34,6 +34,7 @@ title: Research
   }
 
   #small-svg-wrapper {
+    margin-top: 1rem;
     margin-bottom: 3rem;
     border: none;
     width: 80%;
