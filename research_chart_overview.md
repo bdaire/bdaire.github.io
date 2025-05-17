@@ -18,14 +18,7 @@ title: Research
 </style>
 
 
-
-
-<!-- ====================== -->
-<!-- SECTION: INTRODUCTION -->
-<!-- ====================== -->
-<h3 id="intro">Introduction</h3>
 <p>
-<br><br>
 The class EF inverter design chart brings together all the key design equations into a single figure, providing a clear overview of how the inverter operates.
   
 <figure style="text-align: center; margin: 20px auto;">
@@ -37,12 +30,6 @@ The class EF inverter design chart brings together all the key design equations 
   </figcaption>
 </figure>
 
-
-<!-- =============================== -->
-<!-- SECTION: Usage -->
-<!-- =============================== -->
-<h3 id="utilisation">Usage</h3>
-<br><br>
 <p>Using the chart is very simple as it relies on analyzing an operating point in a normalized impedance space (\(r,x\)) where:</p>
 <p style="text-align: center;">
   \[
