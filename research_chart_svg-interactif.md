@@ -152,7 +152,7 @@ title: Research
 
 
   <div id="right-panel">
-    <div id="top-text"><div style="grid-column: span 2; font-weight: bold; text-decoration: underline; margin-bottom: 0.5rem;">Welcome to MY interactive tool! </div>      
+    <div id="top-text"><div style="grid-column: span 2; font-weight: bold; text-decoration: underline; margin-bottom: 0.5rem;">Welcome to my interactive tool! </div>      
 1/ Enter the values for VDC, F, and Cs above the circuit
 2/ Click on the chart to set the operating point
 3/ The waveforms will show up on the right, and the values for physical parameters related to that point will appear above the circuit! It’s magic! 🧙‍♂️
@@ -163,8 +163,8 @@ Caution: the results might get a bit off if the resistance r is too low — mean
     </div>
 
     <div class="chart-block"><canvas id="vs-chart"></canvas></div>
-    <div class="chart-block"><canvas id="ie-chart"></canvas></div>
     <div class="chart-block"><canvas id="is-chart"></canvas></div>
+    <div class="chart-block"><canvas id="ie-chart"></canvas></div>
     <div class="chart-block"><canvas id="ic-chart"></canvas></div>
     <div class="chart-block"><canvas id="sin-chart"></canvas></div>
 
