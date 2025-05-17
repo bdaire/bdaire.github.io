@@ -34,7 +34,7 @@ title: Research
    <p>Download the chart in .eps format:</p>
 </div>
 
-<div style="text-align: center; margin-bottom: 60px; margin-top: 30px;">
+<div style="text-align: center; margin-bottom: 60px; margin-top: 30px;"> 
   <a href="/assets/img/chart_EF.eps" download
      style="background-color: #833c64; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold;">
     📄 .eps
