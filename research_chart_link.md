@@ -3,15 +3,14 @@ layout: default
 title: Research
 ---
 
-## Abaque de dimensionnement de l'onduleur de classe EF
+## Class EF inverter design chart - Resources
 
 <br><br>
 <br><br>
 
 <div style="text-align: center">
-   <p>Téléchargement de l'abaque au format .pdf :</p>
+   <p>Download the chart in .pdf format:</p>
 </div>
-
 
 <div style="text-align: center; margin-bottom: 60px; margin-top: 30px;">
   <a href="/assets/pdf/chart_EF.pdf" download
@@ -21,9 +20,8 @@ title: Research
 </div>
 
 <div style="text-align: center">
-   <p>Téléchargement de l'abaque au format .svg :</p>
+   <p>Download the chart in .svg format:</p>
 </div>
-
 
 <div style="text-align: center; margin-bottom: 60px; margin-top: 30px;">
   <a href="/assets/img/chart_EF.svg" download
@@ -32,24 +30,20 @@ title: Research
   </a>
 </div>
 
-
 <div style="text-align: center">
-   <p>Téléchargement de l'abaque au format .eps :</p>
+   <p>Download the chart in .eps format:</p>
 </div>
-
 
 <div style="text-align: center; margin-bottom: 60px; margin-top: 30px;">
   <a href="/assets/img/chart_EF.eps" download
      style="background-color: #833c64; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold;">
-    📄   .eps
+    📄 .eps
   </a>
 </div>
 
-
-
-   <div style="text-align: center">
-      <p>Téléchargement de l'abaque au format .fig (à ouvrir avec Matlab) :</p>
-   </div>
+<div style="text-align: center">
+   <p>Download the chart in .fig format (to open with Matlab):</p>
+</div>
 <div style="text-align: center; margin-bottom: 60px; margin-top: 30px;">
   <a href="/assets/other/chart_EF.fig" download
      style="background-color: #833c64; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold;">
@@ -57,4 +51,4 @@ title: Research
   </a>
 </div>
 
-<p>Besoin d'un autre format ? d'informations complémentaires ? => Me contacter</p>
+<p>Need another format? Additional information? => Contact me</p>
