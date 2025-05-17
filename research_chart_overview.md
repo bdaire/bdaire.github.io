@@ -33,7 +33,7 @@ The class EF inverter design chart brings together all the key design equations 
        alt="EF-Class Inverter"
        style="display: block; margin: 0 auto; width:35vw;">
   <figcaption style="margin-top: 24px; font-size: 0.9rem; color: #555;">
-    EF-Class Inverter
+    Class EF Inverter
   </figcaption>
 </figure>
 
@@ -97,6 +97,7 @@ x &= X \cdot \omega C_s
   \[V_{cutoff} = v \cdot 2 \cdot V_{DC}
 \]</p>
 <p><i><u>Example:</u></i></p>
+<br><br>
 <p><i>If I read \(v=3\) and knowing \(V_{DC} = 20\) V, then the voltage across the switch at turn-on will be \(V_{cutoff} = 3 \cdot 2 \cdot 20 = 120\) V</i></p>
 <br><br>
 <div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
@@ -119,6 +120,7 @@ x &= X \cdot \omega C_s
 <p>Therefore, the lower the value of \(q\), the closer the EF-class inverter operates to the EF locus, where \(q=0\).
 <br><br>
 <p><i><u>Example:</u></i></p>
+<br><br>
 <p><i>If I read \(q=0.5\), it means there is twice as much forward charge flowing as reverse charge in my switch when it conducts.</i></p>
 <br><br>
 <div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
@@ -137,6 +139,7 @@ x &= X \cdot \omega C_s
 <p>The curves in \(D\) simply allow reading the duty cycle value to be used for the switch to actually operate in ZVS and/or ZCS depending on the region where the operating point lies. Note that this duty cycle must be considered for all other parameters to be valid, as the chart is built assuming that the read duty cycle is the one actually used.</p>
 <br><br>
 <p><i><u>Example:</u></i></p>
+<br><br>
 <p><i>If I read \(D=31\%\), then I should use a duty cycle of \(31\%\) to drive my switch so that it operates in ZVS and/or ZCS according to the considered operating point.</i></p>
 <br><br>
 <div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
@@ -157,6 +160,7 @@ x &= X \cdot \omega C_s
   \[P = p \cdot \omega \cdot C_s \cdot V_{DC}^2
 \]</p>
 <p><i><u>Example:</u></i></p>
+<br><br>
 <p><i>If I read \(p=1.2\) and knowing \(V_{DC} = 20\) V, \(F = 30\) MHz, and \(C_s = 200\) pF, then the power delivered by the inverter is \(P = 1.2 \cdot 2\pi \cdot 30 \cdot 10^{6} \cdot 200 \cdot 10^{-12} \cdot 20^2 = 18.096\) W</i></p>
 <br><br>
 <div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
