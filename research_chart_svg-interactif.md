@@ -212,39 +212,49 @@ function solveZCS(r, x) {
   return null;
 }
 
-function solveZVS_LogPhi(r, x) {
-  const N_theta = 5000;
-  const N_phi = 1000;
-  const epsilon = 1e-10; // pour éviter les divisions instables
+function solveZVSPrecise(r, x) {
+  const PI = Math.PI;
+  let bestSolution = null;
+  let minError = Infinity;
 
-  for (let j = 0; j < N_theta; j++) {
-    const theta = (j / (N_theta - 1)) * Math.PI;
-    const phiMin = (theta - Math.PI) / 2;
-    const phiRange = -phiMin;
+  for (let j = 0; j < 5000; j++) {
+    const theta = (j / 4999) * PI;
+    const phiMin = (theta - PI) / 2;
+    const phiMax = 0;
 
-    for (let k = 0; k < N_phi; k++) {
-      // Échantillonnage logarithmique entre phiMin et 0
-      const t = k / (N_phi - 1);
-      const logT = Math.log10(1 + 9 * t); // log transformé entre [0,1]
-      const phi = phiMin + phiRange * (1 - logT); // densité accrue vers phi ≈ 0
+    // Résolution adaptative de phi : plus dense quand phiMin est petit
+    const phiSteps = phiMin < -0.1 ? 1000 : 4000;
 
+    for (let k = 0; k < phiSteps; k++) {
+      const phi = phiMin + (k / (phiSteps - 1)) * (phiMax - phiMin);
       const sinTh = Math.sin(theta);
       const sinTerm = Math.sin(theta - 2 * phi);
-      const rTh = (1 / Math.PI) * sinTh * sinTerm;
-      const xTh = (1 / Math.PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
+      const rTh = (1 / PI) * sinTh * sinTerm;
+      const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
 
-      if (Math.abs(rTh - r) < 0.001 && Math.abs(xTh - x) < 0.001) {
-        const denom = Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2) + epsilon;
-        const p = (2 / Math.PI) * sinTh * sinTerm / denom;
-        const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta) + epsilon);
+      const err = Math.hypot(rTh - r, xTh - x); // sqrt(dx² + dy²)
+
+      if (err < minError) {
+        const denom = Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2) + 1e-10; // évite division par 0
+        const p = (2 / PI) * sinTh * sinTerm / denom;
+
+        const denomQ = 1 + Math.cos(phi - theta);
+        const q = denomQ === 0 ? 1 : (1 - Math.cos(phi)) / (denomQ + 1e-10); // stabilisation
+
         const i = Math.sqrt((2 * p) / r);
-        const D = 0.5 - theta / (2 * Math.PI);
-        return { p, D, q, v: 0, i, theta, phi };
+        const D = 0.5 - theta / (2 * PI);
+
+        bestSolution = { p, D, q, v: 0, i, theta, phi };
+        minError = err;
+
+        if (err < 1e-5) return bestSolution; // Très bonne précision : on peut arrêter là
       }
     }
   }
-  return null;
+
+  return bestSolution;
 }
+
 
 
 function drawDot(svg, xPix, yPix) {
