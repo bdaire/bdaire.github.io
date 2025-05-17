@@ -212,33 +212,33 @@ function solveZCS(r, x) {
   return null;
 }
 
-function solveZVS(r, x) {
-  const PI = Math.PI;
-  const jMax = 5000;
-  const kBase = 1000;
+function solveZVS_LogPhi(r, x) {
+  const N_theta = 5000;
+  const N_phi = 1000;
+  const epsilon = 1e-10; // pour éviter les divisions instables
 
-  for (let j = 0; j < jMax; j++) {
-    const theta = (j / (jMax - 1)) * PI;
-    const phiMin = (theta - PI) / 2;
+  for (let j = 0; j < N_theta; j++) {
+    const theta = (j / (N_theta - 1)) * Math.PI;
+    const phiMin = (theta - Math.PI) / 2;
+    const phiRange = -phiMin;
 
-    // Adaptation de la résolution : plus theta est proche de PI, plus kMax augmente
-    const thetaFactor = Math.pow(Math.abs(theta - PI) / PI, 0.5); // proche de 0 quand theta ≈ PI
-    const kMax = Math.floor(kBase + (1 - thetaFactor) * 4000); // passe de ~1000 à ~5000
+    for (let k = 0; k < N_phi; k++) {
+      // Échantillonnage logarithmique entre phiMin et 0
+      const t = k / (N_phi - 1);
+      const logT = Math.log10(1 + 9 * t); // log transformé entre [0,1]
+      const phi = phiMin + phiRange * (1 - logT); // densité accrue vers phi ≈ 0
 
-    for (let k = 0; k < kMax; k++) {
-      const phi = phiMin + (k / (kMax - 1)) * -phiMin;
       const sinTh = Math.sin(theta);
       const sinTerm = Math.sin(theta - 2 * phi);
-      const rTh = (1 / PI) * sinTh * sinTerm;
-      const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
+      const rTh = (1 / Math.PI) * sinTh * sinTerm;
+      const xTh = (1 / Math.PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
 
       if (Math.abs(rTh - r) < 0.001 && Math.abs(xTh - x) < 0.001) {
-        const denom = Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2);
-        if (denom < 1e-10) continue; // évite les divisions instables
-        const p = (2 / PI) * sinTh * sinTerm / denom;
-        const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta));
+        const denom = Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2) + epsilon;
+        const p = (2 / Math.PI) * sinTh * sinTerm / denom;
+        const q = (1 - Math.cos(phi)) / (1 + Math.cos(phi - theta) + epsilon);
         const i = Math.sqrt((2 * p) / r);
-        const D = 0.5 - theta / (2 * PI);
+        const D = 0.5 - theta / (2 * Math.PI);
         return { p, D, q, v: 0, i, theta, phi };
       }
     }
