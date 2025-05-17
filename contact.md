@@ -3,4 +3,4 @@ layout: default
 title: Contact
 ---
 
-Voici des ressources utiles.
+<p>Me contacter:</p><a href="mailto:baptiste.daire@univ-lyon1.fr">baptiste.daire@univ-lyon1.fr</a>
