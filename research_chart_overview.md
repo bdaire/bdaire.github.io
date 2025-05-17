@@ -138,12 +138,12 @@ x &= X \cdot \omega C_s
 <br><br>
 <div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/chart_EF_p_ZVS.svg" alt="p_ZVS" style="width: 20vw;">
-    <figcaption style="margin-top: 8px;">Courbes en \(p\) dans la zone ZVS</figcaption>
+    <img src="/assets/img/chart_EF_v_ZVS.svg" alt="v_ZCS" style="width: 20vw;">
+    <figcaption style="margin-top: 8px;">Courbes en \(v\) dans la zone ZCS</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/chart_EF_p_ZCS.svg" alt="p_ZCS" style="width: 20vw;">
-    <figcaption style="margin-top: 8px;">Courbes en \(p\) dans la zone ZCS</figcaption>
+    <img src="/assets/img/classe_EF_vs_is_ZCS.drawio.svg" alt="vs_is_ZCS" style="width: 20vw;">
+    <figcaption style="margin-top: 8px;">Allures de \(v_s(\omega t)\) et de \(i_s(\omega t)\)</figcaption>
   </figure>
 </div>
 <br><br>
