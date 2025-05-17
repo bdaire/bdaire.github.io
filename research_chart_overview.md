@@ -31,7 +31,7 @@ The class EF inverter design chart brings together all the key design equations 
 <figure style="text-align: center; margin: 20px auto;">
   <img src="/assets/img/circuit_EF.svg"
        alt="EF-Class Inverter"
-       style="display: block; margin: 0 auto; width:35vw;">
+       style="display: block; margin: 0 auto; width:35vw;"> 
   <figcaption style="margin-top: 24px; font-size: 0.9rem; color: #555;">
     Class EF Inverter
   </figcaption>
