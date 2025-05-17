@@ -69,15 +69,16 @@ x &= X \cdot \omega C_s
   L'intersection entre ces deux régions (i.e. la ligne en gras) étant le lieu où l'interrupteur peut fonctionner en ZVS et en ZCS de façon simultanée. Nous appellerons cette courbe le <b>lieu EF</b>.
 </p>
 
-
-<figure style="text-align: center; margin: 20px auto;">
-  <img src="/assets/img/chart_EF_locus.svg"
-       alt="Régions ZVS/ZCS et lieu EF"
-       style="display: block; margin: 0 auto; width:25vw;">
-  <figcaption style="margin-top: 24px; font-size: 0.9rem; color: #555;">
-    Régions ZVS/ZCS et lieu EF
-  </figcaption>
-</figure>
+<div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/chart_EF_locus.svg" alt="v_ZCS" style="width: 25vw;">
+    <figcaption style="margin-top: 8px;">Régions ZVS/ZCS et lieu EF</figcaption>
+  </figure>
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/classe_EF_vs_is_locus.drawio.svg" alt="vs_is_ZCS" style="width: 25vw;">
+    <figcaption style="margin-top: 8px;">Allures de \(v_s(\omega t)\) et de \(i_s(\omega t)\) sur le lieu EF</figcaption>
+  </figure>
+</div>
 
 <br><br>
 <p>Par conséquent, il est possible de savoir si l'onduleur fonctionnera en ZVS et/ou en ZCS en connaissant simplement l'impédance de la charge normalisée (i.e. connaissant \(r\) et \(x\). En prime, plusieurs courbes sont présente sur cet abaque:</p>
@@ -88,44 +89,6 @@ x &= X \cdot \omega C_s
 <li>Courbes en \(v\) (dans la zone ZCS)</li>
         <li>Courbes en \(q\) (dans la zone ZVS)</li>
 </ul>
-<br><br>
-<p><u><b>Courbes en \(D\)</b></u></p>
-<br><br>
-<p>Les courbes en \(D\) permettent simplement de lire la valeur du rapport cyclique à utiliser pour que l'interrupteur fonctionne effectivement en ZVS et/ou en ZCS selon la région dans laquelle le point de fonctionnement se trouve. A noter que ce rapport cyclique doit nécessairement être considéré pour que l'ensemble des autres paramètres soient valides, l'abaque ayant été construite en considérant que le rapport cyclique lu est effectivement celui utilisé.</p>
-<br><br>
-<p><i><u>Exemple :</u></i></p>
-<p><i>si je lis \(D=31\%\) alors je devrais utiliser un rapport cyclique de \(31\%\) pour piloter mon interrupteur afin que celui ci fonctionne en ZVS et/ou en ZCS selon la position du fonctionnement considéré</i></p>
-<br><br>
-<div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
-  <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/chart_EF_D_ZVS.svg" alt="D_ZVS" style="width: 20vw;">
-    <figcaption style="margin-top: 8px;">Courbes en \(D\) dans la zone ZVS</figcaption>
-  </figure>
-  <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/chart_EF_D_ZCS.svg" alt="D_ZCS" style="width: 20vw;">
-    <figcaption style="margin-top: 8px;">Courbes en \(D\) dans la zone ZCS</figcaption>
-  </figure>
-</div>
-<br><br>
-<p><u><b>Courbes en \(p\)</b></u></p>
-<br><br>
-<p>Les courbes en \(p\) permettent de de déduire la valeur de la puissance délivrée par l'onduleur lorsque celui-ci fonctionne avec le bon rapport cyclique \(D\) selon la formule suivante:</p>
-<p style="text-align: center;">
-  \[P=p\cdot\omega\cdot C_s\cdot V_{DC}^2
-\]</p>
-<p><i><u>Exemple :</u></i></p>
-<p><i>si je lis \(p=1.2\) et connaissant \(V_{DC}=20\) V, \(F=30\) MHz et \(C_s=200\) pF alors la puissance délivrée par l'onduleur est de \(P=1.2\cdot2\pi\cdot 30\cdot 10^{6}\cdot 200\cdot 10^{-12}\cdot 20^2=18.096\) W</i></p>
-<br><br>
-<div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
-  <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/chart_EF_p_ZVS.svg" alt="p_ZVS" style="width: 20vw;">
-    <figcaption style="margin-top: 8px;">Courbes en \(p\) dans la zone ZVS</figcaption>
-  </figure>
-  <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/chart_EF_p_ZCS.svg" alt="p_ZCS" style="width: 20vw;">
-    <figcaption style="margin-top: 8px;">Courbes en \(p\) dans la zone ZCS</figcaption>
-  </figure>
-</div>
 <br><br>
 <p><u><b>Courbes en \(v\)</b></u></p>
 <br><br>
@@ -166,6 +129,44 @@ x &= X \cdot \omega C_s
   <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/classe_EF_vs_is_ZVS.drawio.svg" alt="vs_is_ZVS" style="width: 18vw;">
     <figcaption style="margin-top: 8px;">Allures de \(v_s(\omega t)\) et de \(i_s(\omega t)\)</figcaption>
+  </figure>
+</div>
+<br><br>
+<p><u><b>Courbes en \(D\)</b></u></p>
+<br><br>
+<p>Les courbes en \(D\) permettent simplement de lire la valeur du rapport cyclique à utiliser pour que l'interrupteur fonctionne effectivement en ZVS et/ou en ZCS selon la région dans laquelle le point de fonctionnement se trouve. A noter que ce rapport cyclique doit nécessairement être considéré pour que l'ensemble des autres paramètres soient valides, l'abaque ayant été construite en considérant que le rapport cyclique lu est effectivement celui utilisé.</p>
+<br><br>
+<p><i><u>Exemple :</u></i></p>
+<p><i>si je lis \(D=31\%\) alors je devrais utiliser un rapport cyclique de \(31\%\) pour piloter mon interrupteur afin que celui ci fonctionne en ZVS et/ou en ZCS selon la position du fonctionnement considéré</i></p>
+<br><br>
+<div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/chart_EF_D_ZVS.svg" alt="D_ZVS" style="width: 20vw;">
+    <figcaption style="margin-top: 8px;">Courbes en \(D\) dans la zone ZVS</figcaption>
+  </figure>
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/chart_EF_D_ZCS.svg" alt="D_ZCS" style="width: 20vw;">
+    <figcaption style="margin-top: 8px;">Courbes en \(D\) dans la zone ZCS</figcaption>
+  </figure>
+</div>
+<br><br>
+<p><u><b>Courbes en \(p\)</b></u></p>
+<br><br>
+<p>Les courbes en \(p\) permettent de de déduire la valeur de la puissance délivrée par l'onduleur lorsque celui-ci fonctionne avec le bon rapport cyclique \(D\) selon la formule suivante:</p>
+<p style="text-align: center;">
+  \[P=p\cdot\omega\cdot C_s\cdot V_{DC}^2
+\]</p>
+<p><i><u>Exemple :</u></i></p>
+<p><i>si je lis \(p=1.2\) et connaissant \(V_{DC}=20\) V, \(F=30\) MHz et \(C_s=200\) pF alors la puissance délivrée par l'onduleur est de \(P=1.2\cdot2\pi\cdot 30\cdot 10^{6}\cdot 200\cdot 10^{-12}\cdot 20^2=18.096\) W</i></p>
+<br><br>
+<div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/chart_EF_p_ZVS.svg" alt="p_ZVS" style="width: 20vw;">
+    <figcaption style="margin-top: 8px;">Courbes en \(p\) dans la zone ZVS</figcaption>
+  </figure>
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/chart_EF_p_ZCS.svg" alt="p_ZCS" style="width: 20vw;">
+    <figcaption style="margin-top: 8px;">Courbes en \(p\) dans la zone ZCS</figcaption>
   </figure>
 </div>
 <br><br>
