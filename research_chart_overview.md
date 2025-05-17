@@ -142,7 +142,7 @@ x &= X \cdot \omega C_s
     <figcaption style="margin-top: 8px;">Courbes en \(v\) dans la zone ZCS</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/classe_EF_vs_is_ZCS.drawio.svg" alt="vs_is_ZCS" style="width: 21.5vw;">
+    <img src="/assets/img/classe_EF_vs_is_ZCS.drawio.svg" alt="vs_is_ZCS" style="width: 21.6vw;">
     <figcaption style="margin-top: 8px;">Allures de \(v_s(\omega t)\) et de \(i_s(\omega t)\)</figcaption>
   </figure>
 </div>
@@ -164,7 +164,7 @@ x &= X \cdot \omega C_s
     <figcaption style="margin-top: 8px;">Courbes en \(q\) dans la zone ZVS</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/classe_EF_vs_is_ZVS.drawio.svg" alt="vs_is_ZVS" style="width: 19vw;">
+    <img src="/assets/img/classe_EF_vs_is_ZVS.drawio.svg" alt="vs_is_ZVS" style="width: 18vw;">
     <figcaption style="margin-top: 8px;">Allures de \(v_s(\omega t)\) et de \(i_s(\omega t)\)</figcaption>
   </figure>
 </div>
