@@ -3,8 +3,6 @@ layout: default
 title: Research
 ---
 
-<br><br><br><br>
-
 <!-- Main title (Markdown or HTML possible) -->
 <h2 style="text-align: center;">Class EF inverter design chart - Overview</h2>
 
@@ -19,7 +17,7 @@ title: Research
   }
 </style>
 
-
+<br><br><br><br>
 <p>
 The class EF inverter design chart brings together all the key design equations into a single figure, providing a clear overview of how the inverter operates.
   
