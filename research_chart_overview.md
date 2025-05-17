@@ -90,7 +90,7 @@ x &= X \cdot \omega C_s
   <li>\(q\)-curves (in the ZVS region)</li>
 </ul>
 <br><br>
-<p><u><b>\(v\)-cuves</b></u></p>
+<p><u><b>\(v\)-curves</b></u></p>
 <br><br>
 <p>In the ZCS region, the voltage across the switch is not zero when it turns on, since we are not operating in ZVS. Therefore, this voltage equals a non-zero value which we call the cutoff voltage \(V_{cutoff}\). The \(v\)-curves allow predicting the value of \(V_{cutoff}\) using the following formula:</p>
 <p style="text-align: center;">
