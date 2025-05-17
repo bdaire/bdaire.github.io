@@ -212,7 +212,7 @@ function solveZCS(r, x) {
   return null;
 }
 
-function solveZVSPrecise(r, x) {
+function solveZVS(r, x) {
   const PI = Math.PI;
   let bestSolution = null;
   let minError = Infinity;
