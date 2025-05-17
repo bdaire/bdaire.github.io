@@ -214,41 +214,34 @@ function solveZCS(r, x) {
 
 function solveZVS(r, x) {
   const PI = Math.PI;
-  const invPI = 1 / PI;
   let bestSolution = null;
   let minError = Infinity;
 
-  for (let j = 0; j < 5000; j++) {
-    const theta = (j / 4999) * PI;
-    const cosTheta = Math.cos(theta);
-    const sinTheta = Math.sin(theta);
-
+  const thetaSteps = 1000; // Réduit de 5000 → 1000
+  for (let j = 0; j < thetaSteps; j++) {
+    const theta = (j / (thetaSteps - 1)) * PI;
     const phiMin = (theta - PI) / 2;
     const phiMax = 0;
 
-    // Optimisation adaptative plus fluide
-    const phiSteps = Math.floor(1000 + 3000 * Math.min(1, Math.abs(phiMin) / 0.2));
+    // Étape adaptative : plus fin si proche du centre
+    const phiSteps = phiMin < -0.5 ? 800 : phiMin < -0.2 ? 1500 : 3000;
 
     for (let k = 0; k < phiSteps; k++) {
-      const t = k / (phiSteps - 1);
-      const phi = phiMin + t * (phiMax - phiMin);
-      const cosPhi = Math.cos(phi);
-      const cosPhiTheta = Math.cos(phi - theta);
+      const phi = phiMin + (k / (phiSteps - 1)) * (phiMax - phiMin);
+
+      const sinTh = Math.sin(theta);
       const sinTerm = Math.sin(theta - 2 * phi);
+      const rTh = (1 / PI) * sinTh * sinTerm;
+      const xTh = (1 / PI) * (theta - sinTh * Math.cos(theta - 2 * phi));
 
-      const rTh = invPI * sinTheta * sinTerm;
-      const xTh = invPI * (theta - sinTheta * cosPhiTheta);
-
-      const dx = rTh - r;
-      const dy = xTh - x;
-      const err = dx * dx + dy * dy;
+      const err = Math.hypot(rTh - r, xTh - x);
 
       if (err < minError) {
-        const denom = (cosPhi - cosPhiTheta) ** 2 + 1e-10;
-        const p = (2 * invPI * sinTheta * sinTerm) / denom;
+        const denom = Math.pow(Math.cos(phi) - Math.cos(phi - theta), 2) + 1e-10;
+        const p = (2 / PI) * sinTh * sinTerm / denom;
 
-        const denomQ = 1 + cosPhiTheta;
-        const q = denomQ === 0 ? 1 : (1 - cosPhi) / (denomQ + 1e-10);
+        const denomQ = 1 + Math.cos(phi - theta);
+        const q = denomQ === 0 ? 1 : (1 - Math.cos(phi)) / (denomQ + 1e-10);
 
         const i = Math.sqrt((2 * p) / r);
         const D = 0.5 - theta / (2 * PI);
@@ -256,14 +249,14 @@ function solveZVS(r, x) {
         bestSolution = { p, D, q, v: 0, i, theta, phi };
         minError = err;
 
-        if (err < 1e-10) return bestSolution; // Plus strict car on utilise err²
+        // Tolerance dynamique : stop plus tôt si la solution est très précise
+        if (err < 5e-6) return bestSolution;
       }
     }
   }
 
   return bestSolution;
 }
-
 
 
 
