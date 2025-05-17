@@ -75,7 +75,7 @@ x &= X \cdot \omega C_s
     <figcaption style="margin-top: 8px;">Régions ZVS/ZCS et lieu EF</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/classe_EF_vs_is_locus.drawio.svg" alt="vs_is_ZCS" style="width: 25vw;">
+    <img src="/assets/img/classe_EF_vs_is_locus.drawio.svg" alt="vs_is_ZCS" style="width: 26vw;">
     <figcaption style="margin-top: 8px;">Allures de \(v_s(\omega t)\) et de \(i_s(\omega t)\) sur le lieu EF</figcaption>
   </figure>
 </div>
