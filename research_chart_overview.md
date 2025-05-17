@@ -3,6 +3,8 @@ layout: default
 title: Research
 ---
 
+<br><br><br><br>
+
 <!-- Main title (Markdown or HTML possible) -->
 <h2 style="text-align: center;">Class EF inverter design chart - Overview</h2>
 
