@@ -159,11 +159,11 @@ x &= X \cdot \omega C_s
 <br><br>
 <div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/chart_EF_v_ZCS.svg" alt="v_ZCS" style="width: 20vw;">
-    <figcaption style="margin-top: 8px;">Courbes en \(v\) dans la zone ZCS</figcaption>
+    <img src="/assets/img/chart_EF_q_ZVS.svg" alt="q_ZVS" style="width: 20vw;">
+    <figcaption style="margin-top: 8px;">Courbes en \(q\) dans la zone ZVS</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/classe_EF_vs_is_ZCS.drawio.svg" alt="vs_is_ZCS" style="width: 20vw;">
+    <img src="/assets/img/classe_EF_vs_is_ZVS.drawio.svg" alt="vs_is_ZVS" style="width: 20vw;">
     <figcaption style="margin-top: 8px;">Allures de \(v_s(\omega t)\) et de \(i_s(\omega t)\)</figcaption>
   </figure>
 </div>
