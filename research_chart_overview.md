@@ -4,7 +4,7 @@ title: Research
 ---
 
 <!-- Main title (Markdown or HTML possible) -->
-<h2 style="text-align: center;">Class F inverter design chart - Overview</h2>
+<h2 style="text-align: center;">Class EF inverter design chart - Overview</h2>
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async
@@ -90,9 +90,9 @@ x &= X \cdot \omega C_s
   <li>Curves in \(q\) (in the ZVS zone)</li>
 </ul>
 <br><br>
-<p><u><b>Curves in \(v\)</b></u></p>
+<p><u><b>\(v\)-cuves</b></u></p>
 <br><br>
-<p>In the ZCS zone, the voltage across the switch is not zero when it turns on, since we are not operating in ZVS. Therefore, this voltage equals a non-zero value which we call the cutoff voltage \(V_{cutoff}\). The curves in \(v\) allow predicting the value of \(V_{cutoff}\) using the following formula:</p>
+<p>In the ZCS zone, the voltage across the switch is not zero when it turns on, since we are not operating in ZVS. Therefore, this voltage equals a non-zero value which we call the cutoff voltage \(V_{cutoff}\). The \(v\)-curves allow predicting the value of \(V_{cutoff}\) using the following formula:</p>
 <p style="text-align: center;">
   \[V_{cutoff} = v \cdot 2 \cdot V_{DC}
 \]</p>
@@ -103,21 +103,21 @@ x &= X \cdot \omega C_s
 <div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/chart_EF_v_ZCS.svg" alt="v_ZCS" style="width: 20vw;">
-    <figcaption style="margin-top: 8px;">Curves in \(v\) in the ZCS zone</figcaption>
+    <figcaption style="margin-top: 8px;">\(v\)-curves in the ZCS zone</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/classe_EF_vs_is_ZCS.drawio.svg" alt="vs_is_ZCS" style="width: 21.7vw;">
-    <figcaption style="margin-top: 8px;">Shapes of \(v_s(\omega t)\) and \(i_s(\omega t)\)</figcaption>
+    <figcaption style="margin-top: 8px;">Shapes of \(v_s(\omega t)\) and \(i_s(\omega t)\) in the ZCS region</figcaption>
   </figure>
 </div>
 <br><br>
-<p><u><b>Curves in \(q\)</b></u></p>
+<p><u><b>\(q\)-curves</b></u></p>
 <br><br>
-<p>In the ZVS zone, a reverse current flows in the switch when it is conducting. We call \(Q_{inverse}\) the total reverse charge flowing and \(Q_{direct}\) the total forward charge flowing. The curves in \(q\) allow predicting the ratio \(Q_{inverse}/Q_{direct}\):</p>
+<p>In the ZVS zone, a reverse current flows in the switch when it is conducting. We call \(Q_{inverse}\) the total reverse charge flowing and \(Q_{direct}\) the total forward charge flowing. The \(q\)-curves allow predicting the ratio \(Q_{inverse}/Q_{direct}\):</p>
 <p style="text-align: center;">
   \[q = \left|\frac{Q_{inverse}}{Q_{direct}}\right|
 \]</p>
-<p>Therefore, the lower the value of \(q\), the closer the EF-class inverter operates to the EF locus, where \(q=0\).
+<p>Therefore, the lower the value of \(q\), the closer the class EF inverter operates to the EF locus, where \(q=0\).
 <br><br>
 <p><i><u>Example:</u></i></p>
 <br><br>
@@ -126,17 +126,17 @@ x &= X \cdot \omega C_s
 <div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/chart_EF_q_ZVS.svg" alt="q_ZVS" style="width: 20vw;">
-    <figcaption style="margin-top: 8px;">Curves in \(q\) in the ZVS zone</figcaption>
+    <figcaption style="margin-top: 8px;">\(q\)-curves in the ZVS zone</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/classe_EF_vs_is_ZVS.drawio.svg" alt="vs_is_ZVS" style="width: 18.1vw;">
-    <figcaption style="margin-top: 8px;">Shapes of \(v_s(\omega t)\) and \(i_s(\omega t)\)</figcaption>
+    <figcaption style="margin-top: 8px;">Shapes of \(v_s(\omega t)\) and \(i_s(\omega t)\) in the ZVS region</figcaption>
   </figure>
 </div>
 <br><br>
-<p><u><b>Curves in \(D\)</b></u></p>
+<p><u><b>\(D\)-curves</b></u></p>
 <br><br>
-<p>The curves in \(D\) simply allow reading the duty cycle value to be used for the switch to actually operate in ZVS and/or ZCS depending on the region where the operating point lies. Note that this duty cycle must be considered for all other parameters to be valid, as the chart is built assuming that the read duty cycle is the one actually used.</p>
+<p>The \(D\)-curves simply allow reading the duty cycle value to be used for the switch to actually operate in ZVS and/or ZCS depending on the region where the operating point lies. Note that this duty cycle must be considered for all other parameters to be valid, as the chart is built assuming that the read duty cycle is the one actually used.</p>
 <br><br>
 <p><i><u>Example:</u></i></p>
 <br><br>
@@ -145,17 +145,17 @@ x &= X \cdot \omega C_s
 <div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/chart_EF_D_ZVS.svg" alt="D_ZVS" style="width: 20vw;">
-    <figcaption style="margin-top: 8px;">Curves in \(D\) in the ZVS zone</figcaption>
+    <figcaption style="margin-top: 8px;">\(D\)-curves in the ZVS region</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/chart_EF_D_ZCS.svg" alt="D_ZCS" style="width: 20vw;">
-    <figcaption style="margin-top: 8px;">Curves in \(D\) in the ZCS zone</figcaption>
+    <figcaption style="margin-top: 8px;">\(D\)-curves in the ZCS region</figcaption>
   </figure>
 </div>
 <br><br>
-<p><u><b>Curves in \(p\)</b></u></p>
+<p><u><b>\(p\)-curves</b></u></p>
 <br><br>
-<p>The curves in \(p\) allow deducing the power delivered by the inverter when it operates with the correct duty cycle \(D\) according to the following formula:</p>
+<p>The \(p\)-curves allow deducing the power delivered by the inverter when it operates with the correct duty cycle \(D\) according to the following formula:</p>
 <p style="text-align: center;">
   \[P = p \cdot \omega \cdot C_s \cdot V_{DC}^2
 \]</p>
@@ -166,11 +166,11 @@ x &= X \cdot \omega C_s
 <div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/chart_EF_p_ZVS.svg" alt="p_ZVS" style="width: 20vw;">
-    <figcaption style="margin-top: 8px;">Curves in \(p\) in the ZVS zone</figcaption>
+    <figcaption style="margin-top: 8px;">\(p\)-curves in the ZVS zone</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/chart_EF_p_ZCS.svg" alt="p_ZCS" style="width: 20vw;">
-    <figcaption style="margin-top: 8px;">Curves in \(p\) in the ZCS zone</figcaption>
+    <figcaption style="margin-top: 8px;">\(p\)-curves in the ZCS zone</figcaption>
   </figure>
 </div>
 <br><br>
