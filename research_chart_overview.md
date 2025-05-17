@@ -147,6 +147,27 @@ x &= X \cdot \omega C_s
   </figure>
 </div>
 <br><br>
+<p><u><b>Courbes en \(q\)</b></u></p>
+<br><br>
+<p>Dans la zone ZVS, un courant inverse circule dans l'interrupteur lorsque ce dernier conduit. Nous appelerons \(Q_{inverse}\) le total des charges électriques circulant en inverse et \(Q_{direct}\) le total des charges électriques circulant en direct. Les courbes en \(q\) permettent de prédire le ratio \(Q_{inverse}/Q_{direct}\):</p>
+<p style="text-align: center;">
+  \[q=\frac{Q_{inverse}}{Q_{direct}}
+\]</p>
+<p>Par conséqunt, plus la valeur de \(q\) est faible, plus l'onduleur de classe EF se rapproche du lieu EF, où \(q=0\).
+<p><i><u>Exemple :</u></i></p>
+<p><i>si je lis \(q=0.5\), cela signifie qu'il y a deux fois plus de charges électriques circulant en direct qu'en inverse dans mon interrupteur lorsque celui-ci conduit.</i></p>
+<br><br>
+<div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/chart_EF_v_ZCS.svg" alt="v_ZCS" style="width: 20vw;">
+    <figcaption style="margin-top: 8px;">Courbes en \(v\) dans la zone ZCS</figcaption>
+  </figure>
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/classe_EF_vs_is_ZCS.drawio.svg" alt="vs_is_ZCS" style="width: 20vw;">
+    <figcaption style="margin-top: 8px;">Allures de \(v_s(\omega t)\) et de \(i_s(\omega t)\)</figcaption>
+  </figure>
+</div>
+<br><br>
 
 
 
