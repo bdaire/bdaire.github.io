@@ -21,14 +21,16 @@ title: Research
 <p>
 The class EF inverter design chart brings together all the key design equations into a single figure, providing a clear overview of how the inverter operates.
   
-<figure style="text-align: center; margin: 20px auto;">
-  <img src="/assets/img/circuit_EF.svg"
-       alt="EF-Class Inverter"
-       style="display: block; margin: 0 auto; width:35vw;"> 
-  <figcaption style="margin-top: 24px; font-size: 0.9rem; color: #555;">
-    Class EF Inverter
-  </figcaption>
-</figure>
+<div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/circuit_EF.svg" alt="v_ZCS" style="width: 35vw;">
+    <figcaption style="margin-top: 8px;">Class EF inverter</figcaption>
+  </figure>
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/chart_EF.svg" alt="vs_is_ZCS" style="width: 20vw;">
+    <figcaption style="margin-top: 8px;">Class EF inverter design chart</figcaption>
+  </figure>
+</div>
 
 <p>Using the chart is very simple as it relies on analyzing an operating point in a normalized impedance space (\(r,x\)) where:</p>
 <p style="text-align: center;">
