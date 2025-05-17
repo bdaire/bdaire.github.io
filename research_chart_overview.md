@@ -138,7 +138,7 @@ x &= X \cdot \omega C_s
 <br><br>
 <div style="display: flex; justify-content: center; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/chart_EF_v_ZVS.svg" alt="v_ZCS" style="width: 20vw;">
+    <img src="/assets/img/chart_EF_v_ZCS.svg" alt="v_ZCS" style="width: 20vw;">
     <figcaption style="margin-top: 8px;">Courbes en \(v\) dans la zone ZCS</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
