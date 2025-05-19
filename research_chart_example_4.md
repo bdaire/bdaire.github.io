@@ -80,7 +80,7 @@ title: Research
 <br><br><br><br>
 <p><u>Step 1: Calculating \(L_0\)</u></p>
 <br><br>
-Graphically, the desired operating point is at (0.19, 0.88), which means a shift of +0.40 is needed to bring our operating point onto the EF locus. Therefore, the value of \(L_0\) must satisfy the following relation:
+<p>Graphically, the desired operating point is at (0.19, 0.88), which means a shift of +0.40 is needed to bring our operating point onto the EF locus. Therefore, the value of \(L_0\) must satisfy the following relation:</p>
 <p style="text-align: center;">
   \[
         (L_0\cdot 2\pi\cdot 1\cdot 10^6)\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot10^{-9}=0.40\quad\Rightarrow\quad L_0=5.06\ \mu\text{H}
@@ -89,7 +89,7 @@ Graphically, the desired operating point is at (0.19, 0.88), which means a shift
 <br><br>
 <p><u>Step 2: Reading the new reduced parameters</u></p>
 <br><br>
-The reduced parameters of the new operating point obtained by adding a series inductance \(L_0\) can be obtained by direct graphical reading or using the interactive tool:
+<p>The reduced parameters of the new operating point obtained by adding a series inductance \(L_0\) can be obtained by direct graphical reading or using the interactive tool:</p>
 <p style="text-align: center;">
   \[
 \left\{
@@ -104,7 +104,7 @@ p &\approx 0.14
 <br><br><br><br>
 <p><u>Step 3: Calculating the new power delivered</u></p>
 <br><br>
-The power delivered at the new operating point, obtained by adding the series inductance \(L_0\), can be calculated as:
+<p>The power delivered at the new operating point, obtained by adding the series inductance \(L_0\), can be calculated as:</p>
 <p style="text-align: center;">
   \[
 P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
