@@ -62,7 +62,7 @@ x &= (37\cdot 10^{-9}\cdot 2\pi F)\cdot 2\pi F\cdot 150\cdot 10^{-12}=0.20
   \[
 \left\{
 \begin{aligned}
-D &\approx 33.2\ \%  \\
+D &\approx 33.3\ \%  \\
 p &\approx 1.9 
 \end{aligned}
 \right.
