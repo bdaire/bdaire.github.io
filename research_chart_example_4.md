@@ -40,7 +40,7 @@ title: Research
     <figcaption style="margin-top: 8px;">Modification proposée</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-        <img src="/assets/img/EF_example/example_EF_chart_4_L.svg" alt="Example_4_chart_L" style="width: 30vw; max-width: 100%; height: auto;">
+        <img src="/assets/img/EF_example/EF_example_chart_4_L.svg" alt="Example_4_chart_L" style="width: 30vw; max-width: 100%; height: auto;">
     <figcaption style="margin-top: 8px;">Translation du point de fonctionnement dans l'abaque</figcaption>
   </figure>
 </div>
