@@ -28,7 +28,7 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
   <li>Quelle sera la puissance délivrée par l'onduleur à la charge?</li>
 </ul>
 <figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/EF_example/example_EF_circuit_3.svg" alt="Example_3_circuit" style="width: 25vw; max-width: 100%; height: auto;">
+  <img src="/assets/img/EF_example/example_EF_circuit_3_p.svg" alt="Example_3_circuit" style="width: 25vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">Onduleur étudié</figcaption>
 </figure>
 <br><br>
@@ -45,6 +45,10 @@ L &= \frac{R_p^2\cdot 2\pi\cdot F\cdot L_p}{\sqrt(R_p^2+(2\pi\cdot F\cdot L_p)^2
 \]
 </p>
 <p>Ces deux formules pouvant très facilement être déduite en exprimant l'impédance équivalente de la charge $R_pL_p$ parallèle lorsque observée à la fréquence de découpage du circuit. Par conséquent, le circuit étudié peut très simplement se ramener aux cas précédent. Il suffit alors de dérouler les étapes suivies dans les examples 1 et 2 afin de prédire le fonctionnement de l'onduleur à l'aide de labaque de dimensionnement.</p>
+<figure style="margin: 0; padding: 0; text-align: center;">
+  <img src="/assets/img/EF_example/example_EF_circuit_3_s.svg" alt="Example_3_circuit" style="width: 25vw; max-width: 100%; height: auto;">
+  <figcaption style="margin-top: 8px;">Schéma équivalent de l'onduleur étudié</figcaption>
+</figure>
 <br><br>
 <p><u>Etape 2: Calcul des coordonnées réduites</u></p>
 <p>On calcul simplement les coordonnées réduites (\(r,x\)) de la façon suivante:</p>
@@ -61,7 +65,7 @@ x &= (6.02\cdot 10^{-6}\cdot 2\pi\cdot 1\cdot 10^6)\cdot 2\pi\cdot 1\cdot 10^6\c
 <p><u>Etape 3: Identification du point de fonctionnement dans l'abaque</u></p>
 <p>On identifie simplement le point (0.53,0.88) dans l'abaque</p>
 <figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/EF_example/EF_example_chart_2.svg" alt="Example_3_chart" style="width: 35vw; max-width: 100%; height: auto;">
+  <img src="/assets/img/EF_example/EF_example_chart_3.svg" alt="Example_3_chart" style="width: 35vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">Position du point de fonctionnement dans l'abaque</figcaption>
 </figure>
 <br><br>
