@@ -19,6 +19,19 @@ title: Research
 
 <br><br><br><br>
 
+<p><u><b>Example 1</b></u></p>
+<br><br>
+Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-dessous:
+<ul style="margin-left: 30px;">
+  <li>Quel rapoort cyclique \(D\) doit être utilisé pour piloter l'interrupteur?</li>
+  <li>L'interrupteur en ZVS et/ou en ZCS/li>
+  <li>Quelle sera la puissance délivrée par l'onduleur à la charge?</li>
+</ul>
+<figure style="margin: 0; padding: 0; text-align: center;">
+  <img src="/assets/img/EF_example/example_EF_circuit_1.svg" alt="Onduleur étudié" style="width: 35vw; max-width: 100%; height: auto;">
+  <figcaption style="margin-top: 8px;">Onduleur étudié</figcaption>
+</figure>
+
 
 
 <!-- ================================= -->
