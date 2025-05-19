@@ -68,6 +68,13 @@ p &\approx 1.9
 \right.
 \]
 </p>
+<p><u>Etape 4: Dénormalisation des paramètres réduits</u></p>
+<p>On dénormalise en toute simplicité le paramètre \(p\) pour trouver la valeur de la puissance délivrée par l'onduleur, la valeur du rapport cyclique \(D\) à utiliser pour piloter l'interrupteur n'ayant pas à être dénormalisée (\(D=33.3\ \%\)):</p>
+<p style="text-align: center;">
+  \[
+P=1.9\cdot 2\pi 30\cdot 10^6\cdot 150\cdot 10^-{12}\cdot 100^2=537\ \text{W}
+\]
+</p>
 
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
