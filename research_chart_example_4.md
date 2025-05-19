@@ -96,7 +96,7 @@ P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
       padding: 20px;
       width: 90vw; /* prend toute la largeur */
       box-sizing: border-box; /* pour inclure le padding dans la largeur */
-      border: 2px solid #eee; /* bordure grise */
+      border: 2px solid #000; /* bordure noire */
     }
   </style>
 </head>
