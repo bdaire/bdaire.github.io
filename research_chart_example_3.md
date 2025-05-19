@@ -19,7 +19,7 @@ title: Research
 
 <br><br><br><br>
 
-<p><u><b>Example 2</b></u></p>
+<p><u><b>Example 3</b></u></p>
 <br><br>
 Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-dessous:
 <ul style="margin-left: 30px;">
