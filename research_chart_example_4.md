@@ -22,7 +22,7 @@ title: Research
 <p><u><b>Example 4</b></u></p>
 <br><br>
 <p>Dans cet exemple, nous repartons cas étudié précédement dans l'exemple 3, dont les résultats principaux sont rappelés sur les figures ci-dessous:</p>
-<div style="display: flex; justify-content: center; align-items: flex-end; gap: 16px; margin: 20px 0;">
+<div style="display: flex; justify-content: center; align-items: flex; gap: 16px; margin: 20px 0;">
     <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/EF_example/example_EF_circuit_3_p.svg" alt="Example_3_circuit" style="width: 30vw; max-width: 100%; height: auto;">
     <figcaption style="margin-top: 8px;">Onduleur étudié</figcaption>
