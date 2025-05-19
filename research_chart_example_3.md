@@ -63,7 +63,7 @@ x &= (6.02\cdot 10^{-6}\cdot 2\pi\cdot 1\cdot 10^6)\cdot 2\pi\cdot 1\cdot 10^6\c
 \]
 </p>
 <p><u>Etape 3: Identification du point de fonctionnement dans l'abaque</u></p>
-<p>On identifie simplement le point (0.53,0.88) dans l'abaque</p>
+<p>On identifie simplement le point (0.19,0.48) dans l'abaque</p>
 <figure style="margin: 0; padding: 0; text-align: center;">
   <img src="/assets/img/EF_example/EF_example_chart_3.svg" alt="Example_3_chart" style="width: 35vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">Position du point de fonctionnement dans l'abaque</figcaption>
