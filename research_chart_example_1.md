@@ -50,7 +50,7 @@ x &= (37\cdot 10^{-9}\cdot 2\pi\cdot 30\cdot 10^6)\cdot 2\pi\cdot 30\cdot 10^6\c
     <figcaption style="margin-top: 8px;">Position du point de fonctionnement dans l'abaque</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="assets/img/EF_example/classe_EF_vs_is_locus_example.drawio.svg" alt="Example_1_vs_is" style="width: 30vw; max-width: 100%; height: auto;">
+    <img src="assets/img/EF_example/classe_EF_vs_is_locus_example.drawio.svg" alt="Example_1_vs_is" style="width: 25vw; max-width: 100%; height: auto;">
     <figcaption style="margin-top: 8px;">allure schématique de \(v_s(\omega t)\) et \(i_s(\omega t)\)</figcaption>
   </figure>
 </div>
