@@ -57,8 +57,8 @@ L &= \frac{R_p^2\cdot 2\pi\cdot F\cdot L_p}{R_p^2+(2\pi\cdot F\cdot L_p)^2}=6.03
   \[
 \left\{
 \begin{aligned}
-r &= 15.44\cdot 2\pi\cdot 1\cdot 10^6 \cdot 2\cdot 10^{-9}=0.19 \\
-x &= (6.02\cdot 10^{-6}\cdot 2\pi\cdot 1\cdot 10^6)\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}=0.48
+r &= 15.16\cdot 2\pi\cdot 1\cdot 10^6 \cdot 2\cdot 10^{-9}=0.19 \\
+x &= (6.03\cdot 10^{-6}\cdot 2\pi\cdot 1\cdot 10^6)\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}=0.48
 \end{aligned}
 \right.
 \]
