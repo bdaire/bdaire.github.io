@@ -1,4 +1,4 @@
-<aside style="width: 200px; background: #eee; padding: 15px; font-family: Arial, sans-serif;">
+<aside style="width: 200px; background: #eee; padding: 15px; font-family: Arial, sans-serif; position: relative;">
   <style>
     .menu-item {
       position: relative;
@@ -11,6 +11,7 @@
       text-decoration: none;
       font-weight: bold;
       padding: 8px;
+      cursor: pointer;
     }
 
     .menu-link:hover {
@@ -39,16 +40,39 @@
       background: #ddd;
     }
 
-    .menu-item:hover .submenu {
+    .menu-item:hover > .submenu {
+      display: block;
+    }
+
+    .submenu-item {
+      position: relative;
+    }
+
+    .submenu .submenu {
+      top: 0;
+      left: 100%;
+    }
+
+    .submenu-item:hover > .submenu {
       display: block;
     }
   </style>
 
   <div class="menu-item">
-    <a href="#" class="menu-link">Class EF inverter design chart ▸</a>
+    <span class="menu-link">Class EF inverter design chart ▸</span>
     <div class="submenu">
       <a href="/research_chart_overview.html">Overview</a>
-      <a href="/research_chart_example.html">Examples</a>
+
+      <!-- Sous-menu à deux niveaux -->
+      <div class="submenu-item">
+        <span class="menu-link">Examples ▸</span>
+        <div class="submenu">
+          <a href="/research_chart_example_1.html">Example 1</a>
+          <a href="/research_chart_example_2.html">Example 2</a>
+          <a href="/research_chart_example_3.html">Example 3</a>
+        </div>
+      </div>
+
       <a href="/research_chart_svg-interactif.html">Interactive tool</a>
       <a href="/research_chart_link.html">Ressources</a>
     </div>
