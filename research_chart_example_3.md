@@ -38,8 +38,8 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
   \[
 \left\{
 \begin{aligned}
-R &= \frac{R_p\cdot(2\pi\cdot F\cdot L_p)^2}{\sqrt{R_p^2+(2\pi\cdot F\cdot L_p)^2}}=15.44\ \Omega \\
-L &= \frac{R_p^2\cdot 2\pi\cdot F\cdot L_p}{\sqrt{R_p^2+(2\pi\cdot F\cdot L_p)^2}}=6.02\ \mu\text{H}
+R &= \frac{R_p\cdot(2\pi\cdot F\cdot L_p)^2}{R_p^2+(2\pi\cdot F\cdot L_p)^2}=15.19\ \Omega \\
+L &= \frac{R_p^2\cdot 2\pi\cdot F\cdot L_p}{R_p^2+(2\pi\cdot F\cdot L_p)^2}=6.03\ \mu\text{H}
 \end{aligned}
 \right.
 \]
