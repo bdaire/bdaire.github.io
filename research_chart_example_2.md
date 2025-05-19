@@ -33,6 +33,7 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
 </figure>
 <br><br>
 <p><u>Etape 1: Calcul des coordonnées réduites</u></p>
+<br><br>
 <p>On calcul simplement les coordonnées réduites (\(r,x\)) de la façon suivante:</p>
 <p style="text-align: center;">
   \[
@@ -45,6 +46,7 @@ x &= (4.3\cdot 10^{-9}\cdot 2\pi\cdot 0.8\cdot 10^9)\cdot 2\pi\cdot 0.8\cdot 10^
 \]
 </p>
 <p><u>Etape 2: Identification du point de fonctionnement dans l'abaque</u></p>
+<br><br>
 <p>On identifie simplement le point (0.53,0.88) dans l'abaque</p>
 <div style="display: flex; justify-content: center; align-items: flex-end; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
@@ -58,6 +60,7 @@ x &= (4.3\cdot 10^{-9}\cdot 2\pi\cdot 0.8\cdot 10^9)\cdot 2\pi\cdot 0.8\cdot 10^
 </div>
 <br><br>
 <p><u>Etape 3: Lecture des paramètres réduits</u></p>
+<br><br>
 <p>Premier constat: le point de fonctionnement est situé dans la région ZCS. Par conséquent, l'interrupteur fonctionnera en ZCS seulement (donc \(q=0\)). Pour déduire le rapport cyclique à utiliser, la puissance délivrée par l'onduleur ainsi que la valeur de la tension aux bornes de l'interrupteur lors de sa mise en conduction, il suffit de lire la valeur de \(D\), \(p\) et \(v\) à l'aide des courbes respectives sur l'abaque:</p>
 <p style="text-align: center;">
   \[
@@ -71,6 +74,7 @@ v &\approx 0.25
 \]
 </p>
 <p><u>Etape 4: Dénormalisation des paramètres réduits</u></p>
+<br><br>
 <p>On dénormalise en toute simplicité les paramètre \(p\) et \(v\) pour trouver la valeur de la puissance délivrée par l'onduleur et la tension aux bornes de l'interrupteur lors de sa mise en conduction, la valeur du rapport cyclique \(D\) à utiliser pour piloter l'interrupteur n'ayant pas à être dénormalisée (\(D=14.0\ \%\)):</p>
 <p style="text-align: center;">
   \[
