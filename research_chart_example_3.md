@@ -33,7 +33,7 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
 </figure>
 <br><br>
 <p><u>Etape 1: Trouver le circuit équivalent série</u></p>
-<p>Contrairement aux cas précédents, la charge présentée à l'onduleur étudié n'est pas constituée d'une mise en série d'une inductance et d'une résistance mais est constituée d'une inductance $L=650$ nH disposée en parallèle d'une résistance \(R_p=15\ \Omega\) ce qui complexifie légèrement les choses. Par conséquent, la première étape de notre étude consiste à exprimer cette charge \(R_pL_p\) sous la forme d'une chargé équivalente \(RL\) série où \(R\) et \(L\) sont donnés par:</p>
+<p>Contrairement aux cas précédents, la charge présentée à l'onduleur étudié n'est pas constituée d'une mise en série d'une inductance et d'une résistance mais est constituée d'une inductance \(L=650\) nH disposée en parallèle d'une résistance \(R_p=15\ \Omega\) ce qui complexifie légèrement les choses. Par conséquent, la première étape de notre étude consiste à exprimer cette charge \(R_pL_p\) sous la forme d'une chargé équivalente \(RL\) série où \(R\) et \(L\) sont donnés par:</p>
 <p style="text-align: center;">
   \[
 \left\{
