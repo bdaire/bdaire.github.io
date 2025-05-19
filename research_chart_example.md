@@ -54,8 +54,8 @@ x &= (37\cdot 10^{-9}\cdot 2\pi F)\cdot 2\pi F\cdot 150\cdot 10^{-12}=0.20
 <p><u>Etape 3: Lecture des paramètres réduits</u></p>
 <p>Premier constat: le point de fonctionnement est situé sur le lieu EF. L'interrupteur fonctionnera donc simultanément en ZVS et en ZCS. Pour déduire le rapport cyclique et la puissance délivrée par l'onduleur, il suffit de lire la valeur de \(D\) et \(p\) à l'aide des courbes respectives sur l'abaque. Pour y parvenir, deux options:</p>
 <ul style="margin-left: 30px;">
-  <li>Soit vous pouvez directement lire ces valeurs graphiquement, avec vos yeux (des versions vectorielles de l'abaque sont téléchargeables dans l'onglets 'Ressources'</li>
-  <li>Soit vous pouvez utiliser mon outil interactif accessibles dans l'onglet à gauche, il vous suffira simplement de cliquer sur le point de fonctionnement et de lire les paramètres réduits en bas de la page</li>
+  <li>Soit vous pouvez directement lire ces valeurs graphiquement, avec vos yeux 👀 (des versions vectorielles de l'abaque sont téléchargeables dans l'onglets 'Ressources'</li>
+  <li>Soit vous pouvez utiliser mon outil interactif accessibles dans l'onglet à gauche 🤓, il vous suffira simplement de cliquer sur le point de fonctionnement et de lire les paramètres réduits en bas de la page</li>
 </ul>
 <p>Peu importe la méthode chosiie, vous devez trouver quelque chose qui ressemble à ça:</p>
 <p style="text-align: center;">
