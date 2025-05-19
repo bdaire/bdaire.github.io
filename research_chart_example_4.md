@@ -85,7 +85,6 @@ P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
 \]
 </p>
 
-
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -94,7 +93,7 @@ P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
     .encadre-gris {
       background-color: #f0f0f0; /* gris clair */
       padding: 20px;
-      width: 90vw; /* prend toute la largeur */
+      width: 90vw; /* prend presque toute la largeur */
       box-sizing: border-box; /* pour inclure le padding dans la largeur */
       border: 2px solid #000; /* bordure noire */
     }
@@ -103,21 +102,26 @@ P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
         
 <body>
 
+  <h1>A vous de jouer</h1> <!-- Titre visible sur la page -->
+
   <div class="encadre-gris">
     Montrer qu'en ajoutant un condensateur \(C_0=5.5\) nF en lieu et place de l'inductance \(L_0\), il est possible de retrouver un point de fonctionnement pour lequel l'interrupteur travaillera simultanément en ZVS et en ZCS et pour lequel:
-        <p style="text-align: center;">
-  \[
-\left\{
-\begin{aligned}
-D=36.1\ \%  \\
-P=90.9\ \text{W}
-\end{aligned}
-\right.
-\]
-</p>
+    
+    <p style="text-align: center;">
+      \[
+      \left\{
+      \begin{aligned}
+      D=36.1\ \%  \\
+      P=90.9\ \text{W}
+      \end{aligned}
+      \right.
+      \]
+    </p>
   </div>
 
 </body>
+
+
 
         
 <!-- ================================= -->
