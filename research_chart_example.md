@@ -28,7 +28,7 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
   <li>Quelle sera la puissance délivrée par l'onduleur à la charge?</li>
 </ul>
 <figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/EF_example/example_EF_circuit_1.svg" alt="Onduleur étudié" style="width: 25vw; max-width: 100%; height: auto;">
+  <img src="/assets/img/EF_example/example_EF_circuit_1.svg" alt="OExample_1_circuit" style="width: 25vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">Onduleur étudié</figcaption>
 </figure>
 <br><br>
@@ -39,12 +39,19 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
 \left\{
 \begin{aligned}
 r &= 8.5\cdot 2\pi F\cdot 150\cdot 10^{-12}=0.24 \\
-x &= (37\cdot 10^{-9}\cdot 2\pi F)\cdot 2\pi F\cdot 150\cdot 10^{-12}=0.197
+x &= (37\cdot 10^{-9}\cdot 2\pi F)\cdot 2\pi F\cdot 150\cdot 10^{-12}=0.20
 \end{aligned}
 \right.
 \]
 </p>
-
+<p><u>Etape 2: Identification du point de fonctionnement dans l'abaque</u></p>
+<p>On identifie simplement le point (0.24,0.20) dans l'abaque</p>
+<figure style="margin: 0; padding: 0; text-align: center;">
+  <img src="/assets/img/EF_example/examplePosition du point de fonctionnement (0.24,0.20) dans l'abaque</figcaption>
+</figure>
+<br><br>
+<p><u>Etape 3: Lecture des paramètres réduits</u></p>
+<p></p>
 
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
