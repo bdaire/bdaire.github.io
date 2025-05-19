@@ -99,7 +99,7 @@ P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
     }
   </style>
 </head>
-        
+<br><br>
 <body>
 
   <h1>A vous de jouer</h1> <!-- Titre visible sur la page -->
