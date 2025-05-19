@@ -45,6 +45,9 @@ x &= (37\cdot 10^{-9}\cdot 2\pi\cdot 30\cdot 10^6)\cdot 2\pi\cdot 30\cdot 10^6\c
 \right.
 \]
 </p>
+<p><u>Etape 2: Identification du point de fonctionnement dans l'abaque</u></p>
+<br><br>
+<p>On identifie simplement le point (0.24,0.20) dans l'abaque</p>
 <div style="display: flex; justify-content: center; align-items: flex-end; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/EF_example/EF_example_chart_1.svg" alt="Example_1_chart" style="width: 35vw; max-width: 100%; height: auto;">
