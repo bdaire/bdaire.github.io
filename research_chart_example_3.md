@@ -31,7 +31,7 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
   <img src="/assets/img/EF_example/example_EF_circuit_3_p.svg" alt="Example_3_circuit" style="width: 30vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">Onduleur étudié</figcaption>
 </figure>
-<br><br>
+<br><br><br><br>
 <p><u>Etape 1: Trouver le circuit équivalent série</u></p>
 <br><br>
 <p>Contrairement aux cas précédents, la charge présentée à l'onduleur étudié n'est pas constituée d'une mise en série d'une inductance et d'une résistance mais est constituée d'une inductance \(L=650\) nH disposée en parallèle d'une résistance \(R_p=15\ \Omega\) ce qui complexifie légèrement les choses. Par conséquent, la première étape de notre étude consiste à exprimer cette charge \(R_pL_p\) sous la forme d'une chargé équivalente \(RL\) série où \(R\) et \(L\) sont donnés par:</p>
@@ -51,7 +51,7 @@ L &= \frac{R_p^2\cdot 2\pi\cdot F\cdot L_p}{R_p^2+(2\pi\cdot F\cdot L_p)^2}=6.03
   <img src="/assets/img/EF_example/example_EF_circuit_3_s.svg" alt="Example_3_circuit" style="width: 30vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">Schéma équivalent de l'onduleur étudié</figcaption>
 </figure>
-<br><br>
+<br><br><br><br>
 <p><u>Etape 2: Calcul des coordonnées réduites</u></p>
 <br><br>
 <p>On calcul simplement les coordonnées réduites (\(r,x\)) de la façon suivante:</p>
@@ -65,6 +65,7 @@ x &= (6.03\cdot 10^{-6}\cdot 2\pi\cdot 1\cdot 10^6)\cdot 2\pi\cdot 1\cdot 10^6\c
 \right.
 \]
 </p>
+<br><br>
 <p><u>Etape 3: Identification du point de fonctionnement dans l'abaque</u></p>
 <br><br>
 <p>On identifie simplement le point (0.19,0.48) dans l'abaque</p>
@@ -78,7 +79,7 @@ x &= (6.03\cdot 10^{-6}\cdot 2\pi\cdot 1\cdot 10^6)\cdot 2\pi\cdot 1\cdot 10^6\c
     <figcaption style="margin-top: 8px;">allure schématique de \(v_s(\omega t)\) et \(i_s(\omega t)\)</figcaption>
   </figure>
 </div>
-<br><br>
+<br><br><br><br>
 <p><u>Etape 4: Lecture des paramètres réduits</u></p>
 <br><br>
 <p>Premier constat: le point de fonctionnement est situé dans la région ZVS. Par conséquent, l'interrupteur fonctionnera en ZCS seulement (donc \(v=0\)). Pour déduire le rapport cyclique à utiliser, la puissance délivrée par l'onduleur ainsi que le ratio \(q\), il suffit de lire la valeur de \(D\), \(p\) et \(q\) à l'aide des courbes respectives sur l'abaque:</p>
@@ -93,6 +94,7 @@ q &\approx 0.24
 \right.
 \]
 </p>
+<br><br>
 <p><u>Etape 5: Dénormalisation des paramètres réduits</u></p>
 <br><br>
 <p>On dénormalise en toute simplicité le paramètre \(p\) pour trouver la valeur de la puissance délivrée par l'onduleur, la valeur du rapport cyclique \(D\) à utiliser pour piloter l'interrupteur ainsi que la valeur du ratio \(q\) n'ayant pas à être dénormalisés (\(D=14.0\ \%\) et \(q=0.24\)):</p>
