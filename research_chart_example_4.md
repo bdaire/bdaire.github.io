@@ -70,7 +70,6 @@ p &\approx 0.14
 \end{aligned}
 \right.
 \]
-<\p>
 <p>Pour rappel, et puisque l'onduleur fonctionne en ZVS et en ZCS, les facteurs \(v\) et \(q=0\) sont nuls</p>
 <p><u>Etape 2: Lecture des nouveaux paramètres réduits</u></p>
 Les paramètres réduits du nouveau point de fonctionnement obtenu par l'ajout d'une réactance série \(L_0\) peuvent être obtenus par lecture graphique directe ou en utilisant l'outil intéractif:
@@ -78,7 +77,6 @@ Les paramètres réduits du nouveau point de fonctionnement obtenu par l'ajout d
   \[
 P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
 \]
-<\p>
 
         
 <!-- ================================= -->
