@@ -31,7 +31,7 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
   <img src="/assets/img/EF_example/example_EF_circuit_1.svg" alt="Example_1_circuit" style="width: 30vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">Onduleur étudié</figcaption>
 </figure>
-<br><br>
+<br><br><br><br>
 <p><u>Etape 1: Calcul des coordonnées réduites</u></p>
 <br><br>
 <p>On calcul simplement les coordonnées réduites (\(r,x\)) de la façon suivante:</p>
@@ -45,6 +45,7 @@ x &= (37\cdot 10^{-9}\cdot 2\pi\cdot 30\cdot 10^6)\cdot 2\pi\cdot 30\cdot 10^6\c
 \right.
 \]
 </p>
+<br><br>
 <p><u>Etape 2: Identification du point de fonctionnement dans l'abaque</u></p>
 <br><br>
 <p>On identifie simplement le point (0.24,0.20) dans l'abaque</p>
@@ -77,6 +78,7 @@ p &\approx 1.9
 \right.
 \]
 </p>
+<br><br>
 <p><u>Etape 4: Dénormalisation des paramètres réduits</u></p>
 <br><br>
 <p>On dénormalise en toute simplicité le paramètre \(p\) pour trouver la valeur de la puissance délivrée par l'onduleur, la valeur du rapport cyclique \(D\) à utiliser pour piloter l'interrupteur n'ayant pas à être dénormalisée (\(D=33.3\ \%\)):</p>
