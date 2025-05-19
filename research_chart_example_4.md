@@ -17,6 +17,29 @@ title: Research
   }
 </style>
 
+.encadre-gris {
+  background-color: #f0f0f0;
+  padding: 30px 20px 20px 20px;
+  width: 100%; /* ou max-width si tu veux */
+  box-sizing: border-box;
+  border: 2px solid #000;
+  position: relative;
+  margin: 40px 0; /* remplace margin sur body */
+}
+
+.titre-integré {
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  background-color: white;
+  padding: 4px 12px;
+  font-weight: bold;
+  border: 1px solid #000;
+  border-radius: 8px;
+  font-size: 1.1em;
+}
+
+
 <br><br><br><br>
 
 <p><u><b>Example 4</b></u></p>
@@ -85,6 +108,22 @@ P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
 \]
 </p>
 <br><br>
+<div class="encadre-gris">
+  <div class="titre-integré">Your Turn</div>
+
+  Show that by adding a capacitor \(C_0=5.5\) nF instead of the inductance \(L_0\), it is possible to find an operating point where the switch will operate simultaneously in ZVS and ZCS and where:
+
+  <p style="text-align: center;">
+    \[
+    \left\{
+    \begin{aligned}
+    D=36.1\ \%  \\
+    P=90.9\ \text{W}
+    \end{aligned}
+    \right.
+    \]
+  </p>
+</div>
 
 
 
