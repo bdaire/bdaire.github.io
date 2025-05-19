@@ -47,7 +47,7 @@ x &= (37\cdot 10^{-9}\cdot 2\pi F)\cdot 2\pi F\cdot 150\cdot 10^{-12}=0.20
 <p><u>Etape 2: Identification du point de fonctionnement dans l'abaque</u></p>
 <p>On identifie simplement le point (0.24,0.20) dans l'abaque</p>
 <figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/EF_example/EF_example_chart_1.svg" alt="Example_1_chart" style="width: 25vw; max-width: 100%; height: auto;">
+  <img src="/assets/img/EF_example/EF_example_chart_1.svg" alt="Example_1_chart" style="width: 35vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">Position du point de fonctionnement dans l'abaque</figcaption>
 </figure>
 <br><br>
