@@ -51,7 +51,7 @@ Ainsi, en choisissant la bonne valeur de \(L_0\), il est possible de déplacer l
   <li>Quelle sera le rapport cyclique \(D\) à utiliser pour s'assurer que l'onduleur fonctionne effectivement en ZVS et en ZCS?</li>
   <li>Quelle sera la puissance délivrée par l'onduleur modifié?</li>
 </ul>
-<br><br>
+<br><br><br><br>
 <p><u>Etape 1: Calcul de \(L_0\)</u></p>
 <br><br>
 Graphiquement, on trouve que le point de fonctionnement désiré se trouve en (0.19,0.88) ce qui signifie qu'une translation de +0.40 est nécessaire pour amener notre point de fonctionnement sur le lieu EF. Par conséquent, la valeur de \(L_0\) doit simplement vérifier la relation suivante:
@@ -60,6 +60,7 @@ Graphiquement, on trouve que le point de fonctionnement désiré se trouve en (0
         (L_0\cdot 2\pi\cdot 1\cdot 10^6)\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot10^{-9}=0.40\quad\Rightarrow\quad L_0=5.06\ \mu\text{H}
 \]
 </p>
+<br><br>
 <p><u>Etape 2: Lecture des nouveaux paramètres réduits</u></p>
 <br><br>
 Les paramètres réduits du nouveau point de fonctionnement obtenu par l'ajout d'une réactance série \(L_0\) peuvent être obtenus par lecture graphique directe ou en utilisant l'outil intéractif:
@@ -74,7 +75,7 @@ p &\approx 0.14
 \]
 </p>
 <p>Pour rappel, et puisque l'onduleur fonctionne en ZVS et en ZCS, les facteurs \(v\) et \(q=0\) sont nuls</p>
-<br><br>
+<br><br><br><br>
 <p><u>Etape 3: Lecture des nouveaux paramètres réduits</u></p>
 <br><br>
 Les paramètres réduits du nouveau point de fonctionnement obtenu par l'ajout d'une réactance série \(L_0\) peuvent être obtenus par lecture graphique directe ou en utilisant l'outil intéractif:
