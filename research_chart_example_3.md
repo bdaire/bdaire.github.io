@@ -45,6 +45,7 @@ L &= \frac{R_p^2\cdot 2\pi\cdot F\cdot L_p}{\sqrt{R_p^2+(2\pi\cdot F\cdot L_p)^2
 \]
 </p>
 <p>Ces deux formules pouvant très facilement être déduite en exprimant l'impédance équivalente de la charge $R_pL_p$ parallèle lorsque observée à la fréquence de découpage du circuit. Par conséquent, le circuit étudié peut très simplement se ramener aux cas précédent. Il suffit alors de dérouler les étapes suivies dans les examples 1 et 2 afin de prédire le fonctionnement de l'onduleur à l'aide de labaque de dimensionnement.</p>
+<br><br>
 <figure style="margin: 0; padding: 0; text-align: center;">
   <img src="/assets/img/EF_example/example_EF_circuit_3_s.svg" alt="Example_3_circuit" style="width: 30vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">Schéma équivalent de l'onduleur étudié</figcaption>
