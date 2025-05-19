@@ -113,7 +113,7 @@ P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
 <br><br>
 <div class="encadre-gris">
   <div class="titre-integré">Your Turn</div>
-
+<br><br>
   Show that by adding a capacitor \(C_0=5.5\) nF instead of the inductance \(L_0\), it is possible to find an operating point where the switch will operate simultaneously in ZVS and ZCS and where:
 
   <p style="text-align: center;">
