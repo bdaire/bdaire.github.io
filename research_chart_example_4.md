@@ -15,29 +15,32 @@ title: Research
   body {
     font-size: 1.2rem; /* or 18px, or 120% */
   }
+
+  .encadre-gris {
+    background-color: #f0f0f0;
+    padding: 30px 20px 20px 20px;
+    width: 80%;
+    box-sizing: border-box;
+    border: 2px solid #000;
+    position: relative;
+    margin: 40px auto; /* centré horizontalement */
+  }
+
+  .titre-integré {
+    position: absolute;
+    top: -14px;
+    left: 20px;
+    background-color: white;
+    padding: 4px 12px;
+    font-weight: bold;
+    border: 1px solid #000;
+    border-radius: 8px;
+    font-size: 1.1em;
+  }
 </style>
 
-.encadre-gris {
-  background-color: #f0f0f0;
-  padding: 30px 20px 20px 20px;
-  width: 100%; /* ou max-width si tu veux */
-  box-sizing: border-box;
-  border: 2px solid #000;
-  position: relative;
-  margin: 40px 0; /* remplace margin sur body */
-}
 
-.titre-integré {
-  position: absolute;
-  top: -14px;
-  left: 20px;
-  background-color: white;
-  padding: 4px 12px;
-  font-weight: bold;
-  border: 1px solid #000;
-  border-radius: 8px;
-  font-size: 1.1em;
-}
+
 
 
 <br><br><br><br>
