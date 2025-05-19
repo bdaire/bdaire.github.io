@@ -18,6 +18,10 @@
       background-color: #ddd;
     }
 
+    .submenu-title {
+      font-weight: normal; /* Ce lien ne sera pas en gras */
+    }
+
     .submenu {
       display: none;
       position: absolute;
@@ -63,17 +67,15 @@
     <div class="submenu">
       <a href="/research_chart_overview.html">Overview</a>
 
-      <!-- Sous-menu à deux niveaux -->
+      <!-- Sous-menu à deux niveaux avec titre non gras -->
       <div class="submenu-item">
-      <div class="menu-link no-bold">Examples ▸</div>
-      <div class="submenu">
-      <a href="#">Example 1</a>
-      <a href="#">Example 2</a>
-      <a href="#">Example 3</a>
+        <span class="menu-link submenu-title">Examples ▸</span>
+        <div class="submenu">
+          <a href="research_chart_example_1.html">Example 1</a>
+          <a href="research_chart_example_2.html">Example 2</a>
+          <a href="research_chart_example_3.html">Example 3</a>
+        </div>
       </div>
-    </div>
-
-
 
       <a href="/research_chart_svg-interactif.html">Interactive tool</a>
       <a href="/research_chart_link.html">Ressources</a>
