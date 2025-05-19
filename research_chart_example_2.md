@@ -28,7 +28,7 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
   <li>Quelle sera la puissance délivrée par l'onduleur à la charge?</li>
 </ul>
 <figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/EF_example/example_EF_circuit_2.svg" alt="Example_2_circuit" style="width: 25vw; max-width: 100%; height: auto;">
+  <img src="/assets/img/EF_example/example_EF_circuit_2.svg" alt="Example_2_circuit" style="width: 30vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">Onduleur étudié</figcaption>
 </figure>
 <br><br>
@@ -46,10 +46,16 @@ x &= (4.3\cdot 10^{-9}\cdot 2\pi\cdot 0.8\cdot 10^9)\cdot 2\pi\cdot 0.8\cdot 10^
 </p>
 <p><u>Etape 2: Identification du point de fonctionnement dans l'abaque</u></p>
 <p>On identifie simplement le point (0.53,0.88) dans l'abaque</p>
-<figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/EF_example/EF_example_chart_2.svg" alt="Example_2_chart" style="width: 35vw; max-width: 100%; height: auto;">
-  <figcaption style="margin-top: 8px;">Position du point de fonctionnement dans l'abaque</figcaption>
-</figure>
+<div style="display: flex; justify-content: center; align-items: flex-end; gap: 16px; margin: 20px 0;">
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/EF_example/EF_example_chart_2.svg" alt="Example_2_chart" style="width: 35vw; max-width: 100%; height: auto;">
+    <figcaption style="margin-top: 8px;">Position du point de fonctionnement dans l'abaque</figcaption>
+  </figure>
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="assets/img/EF_example/classe_EF_vs_is_ZCS_example.drawio.svg" alt="Example_2_vs_is" style="width: 25vw; max-width: 100%; height: auto;">
+    <figcaption style="margin-top: 8px;">allure schématique de \(v_s(\omega t)\) et \(i_s(\omega t)\)</figcaption>
+  </figure>
+</div>
 <br><br>
 <p><u>Etape 3: Lecture des paramètres réduits</u></p>
 <p>Premier constat: le point de fonctionnement est situé dans la région ZCS. Par conséquent, l'interrupteur fonctionnera en ZCS seulement (donc \(q=0\)). Pour déduire le rapport cyclique à utiliser, la puissance délivrée par l'onduleur ainsi que la valeur de la tension aux bornes de l'interrupteur lors de sa mise en conduction, il suffit de lire la valeur de \(D\), \(p\) et \(v\) à l'aide des courbes respectives sur l'abaque:</p>
