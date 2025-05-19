@@ -85,7 +85,7 @@ P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
 \]
 </p>
 
-<!DOCTYPE html>
+
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -94,12 +94,13 @@ P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
     .encadre-gris {
       background-color: #f0f0f0; /* gris clair */
       padding: 20px;
-      width: 100%; /* prend toute la largeur */
+      width: 90vw; /* prend toute la largeur */
       box-sizing: border-box; /* pour inclure le padding dans la largeur */
-      border: 1px solid #ccc; /* bordure grise */
+      border: 2px solid #eee; /* bordure grise */
     }
   </style>
 </head>
+        
 <body>
 
   <div class="encadre-gris">
@@ -117,7 +118,6 @@ P=90.9\ \text{W}
   </div>
 
 </body>
-</html>
 
         
 <!-- ================================= -->
