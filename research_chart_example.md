@@ -38,8 +38,8 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
   \[
 \left\{
 \begin{aligned}
-r &= 8.5\cdot 2\pi F\cdot 150\cdot 10^{-12}=0.24 \\
-x &= (37\cdot 10^{-9}\cdot 2\pi F)\cdot 2\pi F\cdot 150\cdot 10^{-12}=0.20
+r &= 8.5\cdot 2\pi\cdot 30\cdot 10^6 \cdot 150\cdot 10^{-12}=0.24 \\
+x &= (37\cdot 10^{-9}\cdot 2\pi\cdot 30\cdot 10^6)\cdot 2\pi\cdot 30\cdot 10^6\cdot 150\cdot 10^{-12}=0.20
 \end{aligned}
 \right.
 \]
@@ -72,7 +72,7 @@ p &\approx 1.9
 <p>On dénormalise en toute simplicité le paramètre \(p\) pour trouver la valeur de la puissance délivrée par l'onduleur, la valeur du rapport cyclique \(D\) à utiliser pour piloter l'interrupteur n'ayant pas à être dénormalisée (\(D=33.3\ \%\)):</p>
 <p style="text-align: center;">
   \[
-P=1.9\cdot 2\pi 30\cdot 10^6\cdot 150\cdot 10^-{12}\cdot 100^2=537\ \text{W}
+P=1.9\cdot 2\pi\cdot 30\cdot 10^6\cdot 150\cdot 10^-{12}\cdot 100^2=537\ \text{W}
 \]
 </p>
 
