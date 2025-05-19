@@ -96,13 +96,14 @@ P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
     }
 
     .encadre-gris {
-      background-color: #f0f0f0;
-      padding: 30px 20px 20px 20px;
-      width: 100vw;
-      box-sizing: border-box;
-      border: 2px solid #000;
-      position: relative;
-    }
+          background-color: #f0f0f0;
+          padding: 30px 20px 20px 20px;
+          width: 100%; /* au lieu de 100vw */
+          box-sizing: border-box;
+          border: 2px solid #000;
+          position: relative;
+        }
+
 
     .titre-integré {
       position: absolute;
