@@ -59,7 +59,7 @@ title: Research
   </figure>
 </div>
 <br><br>
-<p>Since the operating point is located in the ZVS zone, only ZVS is reached, which can, a priori, negatively affect the overall inverter operation (because ZCS is not achieved in this case). To address this issue, we add an inductance in series with the parallel load \(R_pL_p\), which will shift the operating point upwards, as shown below.</p>
+<p>Since the operating point is located in the ZVS zone, only ZVS is reached, which can, a priori, negatively affect the overall inverter operation (because ZCS is not achieved in this case). To address this issue, we add a \(L_0\) inductance in series with the parallel load \(R_pL_p\), which will shift the operating point upwards, as shown below.</p>
 <div style="display: flex; justify-content: center; align-items: center; gap: 16px; margin: 20px 0;">
     <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/EF_example/example_EF_circuit_4_L.svg" alt="Example_4_circuit_L" style="width: 35vw; max-width: 100%; height: auto;">
