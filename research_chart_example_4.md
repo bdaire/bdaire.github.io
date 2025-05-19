@@ -89,7 +89,7 @@ Graphically, the desired operating point is at (0.19, 0.88), which means a shift
 <br><br>
 <p><u>Step 2: Reading the new reduced parameters</u></p>
 <br><br>
-The reduced parameters of the new operating point obtained by adding a series reactance \(L_0\) can be obtained by direct graphical reading or using the interactive tool:
+The reduced parameters of the new operating point obtained by adding a series inductance \(L_0\) can be obtained by direct graphical reading or using the interactive tool:
 <p style="text-align: center;">
   \[
 \left\{
@@ -104,7 +104,7 @@ p &\approx 0.14
 <br><br><br><br>
 <p><u>Step 3: Calculating the new power delivered</u></p>
 <br><br>
-The power delivered at the new operating point, obtained by adding the series reactance \(L_0\), can be calculated as:
+The power delivered at the new operating point, obtained by adding the series inductance \(L_0\), can be calculated as:
 <p style="text-align: center;">
   \[
 P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
