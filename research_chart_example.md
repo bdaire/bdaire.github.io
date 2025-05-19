@@ -101,7 +101,7 @@ x &= (4.3\cdot 10^{-9}\cdot 2\pi\cdot 0.8\cdot 10^9)\cdot 2\pi\cdot 0.8\cdot 10^
 \right.
 \]
 </p>
-<p><u>Etape 3: Identification du point de fonctionnement dans l'abaque</u></p>
+<p><u>Etape 2: Identification du point de fonctionnement dans l'abaque</u></p>
 <p>On identifie simplement le point (0.53,0.88) dans l'abaque</p>
 <figure style="margin: 0; padding: 0; text-align: center;">
   <img src="/assets/img/EF_example/EF_example_chart_2.svg" alt="Example_2_chart" style="width: 35vw; max-width: 100%; height: auto;">
@@ -127,8 +127,8 @@ v &\approx 0.25
   \[
 \left\{
 \begin{aligned}
-P=0.22\cdot 2\pi\cdot 0.8\cdot 10^9\cdot 8.1\cdot 10^{-12}\cdot 28^2=7.02\ \text{W}  \\
-V_\text{cutoff}=0.25\cdot 2\cdot 28=14\ \text{V}
+P&=0.22\cdot 2\pi\cdot 0.8\cdot 10^9\cdot 8.1\cdot 10^{-12}\cdot 28^2=7.02\ \text{W}  \\
+V_\text{cutoff}&=0.25\cdot 2\cdot 28=14\ \text{V}
 \end{aligned}
 \right.
 \]
