@@ -4,7 +4,7 @@ title: Research
 ---
 
 <!-- Main title (Markdown or HTML possible) -->
-<h2 style="text-align: center;">Class EF inverter design chart - Examples</h2>
+<h2 style="text-align: center;">Class EF Inverter Design Chart - Examples</h2>
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async
@@ -21,49 +21,49 @@ title: Research
 
 <p><u><b>Example 4</b></u></p>
 <br><br>
-<p>Dans cet exemple, nous repartons cas étudié précédement dans l'exemple 3, dont les résultats principaux sont rappelés sur les figures ci-dessous:</p>
+<p>In this example, we revisit the case studied previously in Example 3, with the main results recalled in the figures below:</p>
 <div style="display: flex; justify-content: center; align-items: center; gap: 16px; margin: 20px 0;">
     <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/EF_example/example_EF_circuit_3_p.svg" alt="Example_3_circuit" style="width: 30vw; max-width: 100%; height: auto;">
-    <figcaption style="margin-top: 8px;">Onduleur étudié</figcaption>
+    <figcaption style="margin-top: 8px;">Studied inverter</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/EF_example/EF_example_chart_3.svg" alt="Example_3_chart" style="width: 35vw; max-width: 100%; height: auto;">
-    <figcaption style="margin-top: 8px;">Position du point de fonctionnement dans l'abaque</figcaption>
+    <figcaption style="margin-top: 8px;">Operating point position on the chart</figcaption>
   </figure>
 </div>
 <br><br>
-<p>Puisque le point de fonctionnement est situé dans la zone ZVS, seul le ZVS est atteint, ce qui peu, à rpiori, porte préjudice au fonctionnement global de l'onduleur (puisque le ZCS n'est pas atteint dans ce cas de figure). Pour remédir à ce problème, nous ajoutons une inductance en série avec la charge \(R_pL_p\) parallèle, ce qui va avoir pour effet de translater le point de fonctionnement vers le haut, comme indiqué ci-dessous.</p>
+<p>Since the operating point is located in the ZVS zone, only ZVS is reached, which can, a priori, negatively affect the overall inverter operation (because ZCS is not achieved in this case). To address this issue, we add an inductance in series with the parallel load \(R_pL_p\), which will shift the operating point upwards, as shown below.</p>
 <div style="display: flex; justify-content: center; align-items: center; gap: 16px; margin: 20px 0;">
     <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/EF_example/example_EF_circuit_4_L.svg" alt="Example_4_circuit_L" style="width: 35vw; max-width: 100%; height: auto;">
-    <figcaption style="margin-top: 8px;">Modification proposée</figcaption>
+    <figcaption style="margin-top: 8px;">Proposed modification</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
         <img src="/assets/img/EF_example/EF_example_chart_4_L.svg" alt="Example_4_chart_L" style="width: 30vw; max-width: 100%; height: auto;">
-    <figcaption style="margin-top: 8px;">Translation du point de fonctionnement dans l'abaque</figcaption>
+    <figcaption style="margin-top: 8px;">Operating point shift on the chart</figcaption>
   </figure>
 </div>
 <br><br>
-Ainsi, en choisissant la bonne valeur de \(L_0\), il est possible de déplacer le point de fonctionnement de façon à ce celui soit situé sur le lieu EF, de façon à ce que l'interrupteur fonctionne simultanément en ZVS et en ZCS. Les questions suivantes se posent alors naturellement:
+<p>By choosing the right value for \(L_0\), it is possible to move the operating point so that it lies on the EF locus, allowing the switch to operate simultaneously in ZVS and ZCS. The following questions naturally arise:</p>
 <ul style="margin-left: 30px;">
-  <li>Quelle valeur de \(L_0\) choisir?</li>
-  <li>Quelle sera le rapport cyclique \(D\) à utiliser pour s'assurer que l'onduleur fonctionne effectivement en ZVS et en ZCS?</li>
-  <li>Quelle sera la puissance délivrée par l'onduleur modifié?</li>
+  <li>What value of \(L_0\) should be chosen?</li>
+  <li>What duty cycle \(D\) should be used to ensure the inverter effectively operates in both ZVS and ZCS?</li>
+  <li>What will be the power delivered by the modified inverter?</li>
 </ul>
 <br><br><br><br>
-<p><u>Etape 1: Calcul de \(L_0\)</u></p>
+<p><u>Step 1: Calculating \(L_0\)</u></p>
 <br><br>
-Graphiquement, on trouve que le point de fonctionnement désiré se trouve en (0.19,0.88) ce qui signifie qu'une translation de +0.40 est nécessaire pour amener notre point de fonctionnement sur le lieu EF. Par conséquent, la valeur de \(L_0\) doit simplement vérifier la relation suivante:
+Graphically, the desired operating point is at (0.19, 0.88), which means a shift of +0.40 is needed to bring our operating point onto the EF locus. Therefore, the value of \(L_0\) must satisfy the following relation:
 <p style="text-align: center;">
   \[
         (L_0\cdot 2\pi\cdot 1\cdot 10^6)\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot10^{-9}=0.40\quad\Rightarrow\quad L_0=5.06\ \mu\text{H}
 \]
 </p>
 <br><br>
-<p><u>Etape 2: Lecture des nouveaux paramètres réduits</u></p>
+<p><u>Step 2: Reading the new reduced parameters</u></p>
 <br><br>
-Les paramètres réduits du nouveau point de fonctionnement obtenu par l'ajout d'une réactance série \(L_0\) peuvent être obtenus par lecture graphique directe ou en utilisant l'outil intéractif:
+The reduced parameters of the new operating point obtained by adding a series reactance \(L_0\) can be obtained by direct graphical reading or using the interactive tool:
 <p style="text-align: center;">
   \[
 \left\{
@@ -74,21 +74,21 @@ p &\approx 0.14
 \right.
 \]
 </p>
-<p>Pour rappel, et puisque l'onduleur fonctionne en ZVS et en ZCS, les facteurs \(v\) et \(q=0\) sont nuls</p>
+<p>As a reminder, since the inverter operates in both ZVS and ZCS, the factors \(v\) and \(q=0\) are zero</p>
 <br><br><br><br>
-<p><u>Etape 3: Lecture des nouveaux paramètres réduits</u></p>
+<p><u>Step 3: Calculating the new power delivered</u></p>
 <br><br>
-Les paramètres réduits du nouveau point de fonctionnement obtenu par l'ajout d'une réactance série \(L_0\) peuvent être obtenus par lecture graphique directe ou en utilisant l'outil intéractif:
+The power delivered at the new operating point, obtained by adding the series reactance \(L_0\), can be calculated as:
 <p style="text-align: center;">
   \[
 P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
 \]
 </p>
 <br><br>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>A vous de jouer</title>
+  <title>Your Turn</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -106,7 +106,7 @@ P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
 
     .titre-integré {
       position: absolute;
-      top: -14px; /* décale vers le haut */
+      top: -14px; /* shift upwards */
       left: 20px;
       background-color: white;
       padding: 4px 12px;
@@ -121,9 +121,9 @@ P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
 <body>
 
   <div class="encadre-gris">
-    <div class="titre-integré">À vous de jouer</div>
+    <div class="titre-integré">Your Turn</div>
 
-    Montrer qu'en ajoutant un condensateur \(C_0=5.5\) nF en lieu et place de l'inductance \(L_0\), il est possible de retrouver un point de fonctionnement pour lequel l'interrupteur travaillera simultanément en ZVS et en ZCS et pour lequel:
+    Show that by adding a capacitor \(C_0=5.5\) nF instead of the inductance \(L_0\), it is possible to find an operating point where the switch will operate simultaneously in ZVS and ZCS and where:
 
     <p style="text-align: center;">
       \[
