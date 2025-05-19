@@ -4,7 +4,7 @@ title: Research
 ---
 
 <!-- Main title (Markdown or HTML possible) -->
-<h2 style="text-align: center;">Class EF inverter design chart - Examples</h2>
+<h2 style="text-align: center;">Class EF inverter design chart - Example 1</h2>
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async
@@ -29,7 +29,7 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
 </ul>
 <figure style="margin: 0; padding: 0; text-align: center;">
   <img src="/assets/img/EF_example/example_EF_circuit_1.svg" alt="Example_1_circuit" style="width: 25vw; max-width: 100%; height: auto;">
-  <figcaption style="margin-top: 8px;">Onduleur étudi</figcaption>
+  <figcaption style="margin-top: 8px;">Onduleur étudié</figcaption>
 </figure>
 <br><br>
 <p><u>Etape 1: Calcul des coordonnées réduites</u></p>
