@@ -29,7 +29,7 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
 </ul>
 <figure style="margin: 0; padding: 0; text-align: center;">
   <img src="/assets/img/EF_example/example_EF_circuit_1.svg" alt="Example_1_circuit" style="width: 25vw; max-width: 100%; height: auto;">
-  <figcaption style="margin-top: 8px;">Onduleur étudié &mdash Exemple 1</figcaption>
+  <figcaption style="margin-top: 8px;">Onduleur étudi</figcaption>
 </figure>
 <br><br>
 <p><u>Etape 1: Calcul des coordonnées réduites</u></p>
@@ -48,7 +48,7 @@ x &= (37\cdot 10^{-9}\cdot 2\pi\cdot 30\cdot 10^6)\cdot 2\pi\cdot 30\cdot 10^6\c
 <p>On identifie simplement le point (0.24,0.20) dans l'abaque</p>
 <figure style="margin: 0; padding: 0; text-align: center;">
   <img src="/assets/img/EF_example/EF_example_chart_1.svg" alt="Example_1_chart" style="width: 35vw; max-width: 100%; height: auto;">
-  <figcaption style="margin-top: 8px;">Position du point de fonctionnement dans l'abaque &mdash Exemple 1</figcaption>
+  <figcaption style="margin-top: 8px;">Position du point de fonctionnement dans l'abaque</figcaption>
 </figure>
 <br><br>
 <p><u>Etape 3: Lecture des paramètres réduits</u></p>
@@ -86,7 +86,7 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
 </ul>
 <figure style="margin: 0; padding: 0; text-align: center;">
   <img src="/assets/img/EF_example/example_EF_circuit_2.svg" alt="Example_2_circuit" style="width: 25vw; max-width: 100%; height: auto;">
-  <figcaption style="margin-top: 8px;">Onduleur étudié &mdash Exemple 2</figcaption>
+  <figcaption style="margin-top: 8px;">Onduleur étudié</figcaption>
 </figure>
 <br><br>
 <p><u>Etape 1: Calcul des coordonnées réduites</u></p>
@@ -105,7 +105,7 @@ x &= (4.3\cdot 10^{-9}\cdot 2\pi\cdot 0.8\cdot 10^9)\cdot 2\pi\cdot 0.8\cdot 10^
 <p>On identifie simplement le point (0.53,0.88) dans l'abaque</p>
 <figure style="margin: 0; padding: 0; text-align: center;">
   <img src="/assets/img/EF_example/EF_example_chart_2.svg" alt="Example_2_chart" style="width: 35vw; max-width: 100%; height: auto;">
-  <figcaption style="margin-top: 8px;">Position du point de fonctionnement dans l'abaque &mdash Exemple 2</figcaption>
+  <figcaption style="margin-top: 8px;">Position du point de fonctionnement dans l'abaque</figcaption>
 </figure>
 <br><br>
 <p><u>Etape 3: Lecture des paramètres réduits</u></p>
