@@ -28,9 +28,21 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
   <li>Quelle sera la puissance délivrée par l'onduleur à la charge?</li>
 </ul>
 <figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/EF_example/example_EF_circuit_1.svg" alt="Onduleur étudié" style="width: 35vw; max-width: 100%; height: auto;">
+  <img src="/assets/img/EF_example/example_EF_circuit_1.svg" alt="Onduleur étudié" style="width: 25vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">Onduleur étudié</figcaption>
 </figure>
+<p><u>Etape 1: Calcul des coordonnées réduites</u></p>
+<p>On calcul simplement les coordonnées réduites (\(r,x\)) de la façon suivante:</p>
+<p style="text-align: center;">
+  \[
+\left\{
+\begin{aligned}
+r &= 8.5\cdot 2\pi F\150\cdot 10^{-12} \\
+x &= 37\cdot 10^{-9}\cdot 2\pi F\cdot 2\pi F\150\cdot 10^{-12}
+\end{aligned}
+\right.
+\]
+</p>
 
 
 
