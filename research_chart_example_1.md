@@ -21,7 +21,7 @@ title: Research
 
 <p><u><b>Example 1</b></u></p>
 <br><br>
-Here, we want to analyze the operation of the EF class inverter shown below:
+Here, we want to analyze the operation of the class EF inverter shown below:
 <ul style="margin-left: 30px;">
   <li>What duty cycle \(D\) should be used to drive the switch?</li>
   <li>Does the switch operate in ZVS and/or ZCS?</li>
@@ -29,7 +29,7 @@ Here, we want to analyze the operation of the EF class inverter shown below:
 </ul>
 <figure style="margin: 0; padding: 0; text-align: center;">
   <img src="/assets/img/EF_example/example_EF_circuit_1.svg" alt="Example_1_circuit" style="width: 30vw; max-width: 100%; height: auto;">
-  <figcaption style="margin-top: 8px;">Studied inverter</figcaption>
+  <figcaption style="margin-top: 8px;">Studied EF inverter</figcaption>
 </figure>
 <br><br><br><br>
 <p><u>Step 1: Calculate the normalized coordinates</u></p>
