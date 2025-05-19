@@ -24,11 +24,11 @@ title: Research
 Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-dessous:
 <ul style="margin-left: 30px;">
   <li>Quel rapoort cyclique \(D\) doit être utilisé pour piloter l'interrupteur?</li>
-  <li>L'interrupteur en ZVS et/ou en ZCS/li>
+  <li>L'interrupteur en ZVS et/ou en ZCS</li>
   <li>Quelle sera la puissance délivrée par l'onduleur à la charge?</li>
 </ul>
 <figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/EF_example/example_EF_circuit_1.svg" alt="OExample_1_circuit" style="width: 25vw; max-width: 100%; height: auto;">
+  <img src="/assets/img/EF_example/example_EF_circuit_1.svg" alt="Example_1_circuit" style="width: 25vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">Onduleur étudié</figcaption>
 </figure>
 <br><br>
@@ -47,11 +47,27 @@ x &= (37\cdot 10^{-9}\cdot 2\pi F)\cdot 2\pi F\cdot 150\cdot 10^{-12}=0.20
 <p><u>Etape 2: Identification du point de fonctionnement dans l'abaque</u></p>
 <p>On identifie simplement le point (0.24,0.20) dans l'abaque</p>
 <figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/EF_example/examplePosition du point de fonctionnement (0.24,0.20) dans l'abaque</figcaption>
+  <img src="/assets/img/EF_example/EF_example_chart_1.svg" alt="Example_1_chart" style="width: 25vw; max-width: 100%; height: auto;">
+  <figcaption style="margin-top: 8px;">Position du point de fonctionnement dans l'abaque</figcaption>
 </figure>
 <br><br>
 <p><u>Etape 3: Lecture des paramètres réduits</u></p>
-<p></p>
+<p>Premier constat: le point de fonctionnement est situé sur le lieu EF. L'interrupteur fonctionnera donc simultanément en ZVS et en ZCS. Pour déduire le rapport cyclique et la puissance délivrée par l'onduleur, il suffit de lire la valeur de \(D\) et \(p\) à l'aide des courbes respectives sur l'abaque. Pour y parvenir, deux options:</p>
+<ul style="margin-left: 30px;">
+  <li>Soit vous pouvez directement lire ces valeurs graphiquement, avec vos yeux (des versions vectorielles de l'abaque sont téléchargeables dans l'onglets 'Ressources'</li>
+  <li>Soit vous pouvez utiliser mon outil interactif accessibles dans l'onglet à gauche, il vous suffira simplement de cliquer sur le point de fonctionnement et de lire les paramètres réduits en bas de la page</li>
+</ul>
+<p>Peu importe la méthode chosiie, vous devez trouver quelque chose qui ressemble à ça:</p>
+<p style="text-align: center;">
+  \[
+\left\{
+\begin{aligned}
+D &\approx 33.2\ \%  \\
+p &\approx 1.9 
+\end{aligned}
+\right.
+\]
+</p>
 
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
