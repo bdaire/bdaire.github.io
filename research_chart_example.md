@@ -39,7 +39,7 @@ Nous cherchons ici à analyser le fonctionnement de l'onduleur de classe EF ci-d
 \left\{
 \begin{aligned}
 r &= 8.5\cdot 2\pi F\cdot 150\cdot 10^{-12}=0.24 \\
-x &= 37\cdot 10^{-9}\cdot 2\pi F\cdot 2\pi F\cdot 150\cdot 10^{-12}=0.197
+x &= (37\cdot 10^{-9}\cdot 2\pi F)\cdot 2\pi F\cdot 150\cdot 10^{-12}=0.197
 \end{aligned}
 \right.
 \]
