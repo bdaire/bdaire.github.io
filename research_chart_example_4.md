@@ -84,7 +84,7 @@ Les paramètres réduits du nouveau point de fonctionnement obtenu par l'ajout d
 P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
 \]
 </p>
-
+<br><br>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -136,6 +136,7 @@ P=0.14\cdot 2\pi\cdot 1\cdot 10^6\cdot 2\cdot 10^{-9}\cdot 50^2=4.4\ \text{W}
       \]
     </p>
   </div>
+  </body>
 
 
 
