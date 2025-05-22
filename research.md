@@ -3,4 +3,4 @@ layout: default
 title: Research
 ---
 
-Liste des résultats issus des recherches menées
+Here’s a list of results from my research so far — I’ll keep adding to this section as my work progress.
