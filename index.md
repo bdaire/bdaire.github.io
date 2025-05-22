@@ -3,4 +3,4 @@ layout: default
 title: Accueil
 ---
 
-Bienvenue sur mon site, ceci est un essai
+Welcome to my personal site (still a work in progress).
