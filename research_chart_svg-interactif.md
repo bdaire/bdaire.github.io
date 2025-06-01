@@ -205,12 +205,14 @@ function solveZCS(r, x) {
       const i = 4 / denom;
       const p = (8 * r) / (denom * denom);
       const D = 0.5 - theta / (2 * PI);
-      const v = 1 + 2 * (Math.cos(theta) - 1) / denom;
+      let v = 1 + 2 * (Math.cos(theta) - 1) / denom;
+      if (v < 0) v = 0;
       return { p, D, q: 0, v, i, theta, phi: 0 };
     }
   }
   return null;
 }
+
 
 function solveZVS(r, x) {
   const PI = Math.PI;
