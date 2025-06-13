@@ -81,7 +81,7 @@ v &\approx 0.25
 \left\{
 \begin{aligned}
 &P=0.22\cdot 2\pi\cdot 0.8\cdot 10^9\cdot 8.1\cdot 10^{-12}\cdot 28^2=7.02\ \text{W}  \\
-&V_\text{cutoff}=0.25\cdot 2\cdot 28=14\ \text{V}
+&V_0=0.25\cdot 2\cdot 28=14\ \text{V}
 \end{aligned}
 \right.
 \]
