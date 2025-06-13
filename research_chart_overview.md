@@ -81,12 +81,12 @@ x &= X \cdot \omega C_s
 <br><br>
 <p><u><b>\(v\)-curves</b></u></p>
 <br><br>
-<p>In the ZCS region, the voltage across the switch is not zero when it turns on, since we are not operating in ZVS. Therefore, this voltage equals a non-zero value which we call the cutoff voltage \(V_{cutoff}\). The \(v\)-curves allow predicting the value of \(V_{cutoff}\) using the following formula:</p>
+<p>In the ZCS region, the voltage across the switch is not zero when it turns on, since we are not operating in ZVS. Therefore, this voltage equals a non-zero value \(V_{0}\). The \(v\)-curves allow predicting the value of \(V_{0}\) using the following formula:</p>
 <p style="text-align: center;">
-  \[V_{cutoff} = v \cdot 2 \cdot V_{DC}
+  \[V_{0} = v \cdot 2 \cdot V_{DC}
 \]</p>
 <p><i><u>Example:</u></i></p>
-<p><i>If I read \(v=3\) and knowing \(V_{DC} = 20\) V, then the voltage across the switch at turn-on will be \(V_{cutoff} = 3 \cdot 2 \cdot 20 = 120\) V</i></p>
+<p><i>If I read \(v=0.3\) and knowing \(V_{DC} = 20\) V, then the voltage across the switch at turn-on will be \(V_{0} = 0.3 \cdot 2 \cdot 20 = 12\) V</i></p>
 <br><br>
 <div style="display: flex; justify-content: center; align-items: flex-end; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
