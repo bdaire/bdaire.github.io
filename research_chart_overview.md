@@ -64,7 +64,7 @@ x &= X \cdot \omega C_s
     <figcaption style="margin-top: 8px;">ZVS/ZCS regions and EF locus</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/EF_example/classe_EF_vs_is_locus_example.drawio.svg" alt="vs_is_ZCS" style="width: 26vw;">
+    <img src="/assets/img/EF_example/classe_EF_vs_is_locus_example.drawio.svg" alt="vs_is_ZCS" style="width: 23vw;">
     <figcaption style="margin-top: 8px;">Shapes of \(v_s(\omega t)\) and \(i_s(\omega t)\) on the EF locus</figcaption>
   </figure>
 </div>
@@ -94,7 +94,7 @@ x &= X \cdot \omega C_s
     <figcaption style="margin-top: 8px;">\(v\)-curves in the ZCS region</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/EF_example/classe_EF_vs_is_ZCS_example.drawio.svg" alt="vs_is_ZCS" style="width: 21.7vw;">
+    <img src="/assets/img/EF_example/classe_EF_vs_is_ZCS_example.drawio.svg" alt="vs_is_ZCS" style="width: 20vw;">
     <figcaption style="margin-top: 8px;">Shapes of \(v_s(\omega t)\) and \(i_s(\omega t)\) in the ZCS region</figcaption>
   </figure>
 </div>
