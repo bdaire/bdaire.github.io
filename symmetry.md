@@ -32,6 +32,12 @@ title: Research
 \right.
 \]
 </p>
+<p>Figure 4 provides a graphical overview of the symmetry property.</p>
+figure style="margin: 0; padding: 0; text-align: center;">
+  <img src="/assets/img/SEC/symmetry_chart.svg" alt="SEC_symmetry_chart" style="width: 30vw; max-width: 100%; height: auto;">
+  <figcaption style="margin-top: 8px;">A graphival overview of the property of symmetry</figcaption>
+</figure>
+<br><br>
 
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
