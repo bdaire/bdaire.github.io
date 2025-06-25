@@ -4,7 +4,7 @@ title: Research
 ---
 
 <!-- Main title (Markdown or HTML possible) -->
-<h2 style="text-align: center;">Class EF Inverter Design Chart - Examples</h2>
+<h2 style="text-align: center;">Symmetric Even Capacitive converter - Property of symmetry</h2>
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async
@@ -19,7 +19,7 @@ title: Research
 
 <br><br><br><br>
 
-THE PROPERTY OF SYMMETRY
+<p>La propriété de symmetry est extrêmement simple à appréhender puisqu'elle traduit simplement la forme elliptique du lieu EF dans l'abaque de dimensionnement: for any ZVS/ZdVS operating point 'A' located on the EF locus, with known reduced parameters \( r_A \), \( x_A \), \( p_A \), and \( D_A \), another ZVS/ZdVS operating point 'B' can be found on the EF locus whose reduced parameters satisfy:</p>
 
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
