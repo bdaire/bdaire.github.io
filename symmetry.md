@@ -51,6 +51,9 @@ title: Research
 \right.
 \]
 </p>
+<p>This specific case can be seen either as an exception to the property of symmetry or as an operating point 'A' confused with its dual operating point 'B'.</p>
+
+
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
 <!-- (place in the layout if you want globally) -->
