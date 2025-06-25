@@ -19,17 +19,15 @@ title: Research
 
 <br><br><br><br>
 
-<p>The symmetry property is straightforward to grasp, as it directly reflects the elliptical shape of the EF locus in the design chart (see 'Class EF inverter design chart' tab):</p>
-<br></br>
-<p>for any ZVS/ZdVS operating point 'A' located on the EF locus, with known reduced parameters \( r_A \), \( x_A \), \( p_A \), and \( D_A \), another ZVS/ZdVS operating point 'B' can be found on the EF locus whose reduced parameters satisfy:</p>
+<p>The symmetry property is straightforward to grasp, as it directly reflects the elliptical shape of the EF locus in the design chart (see 'Class EF inverter design chart' tab): for any ZVS/ZdVS operating point 'A' located on the EF locus, with known reduced parameters \( r_A \), \( x_A \), \( p_A \), and \( D_A \), another ZVS/ZdVS operating point 'B' can be found on the EF locus whose reduced parameters satisfy:</p>
 <p style="text-align: center;">
   \[
 \left\{
 \begin{aligned}
-r_A &= r_B \\
-x_A+x_B &= 1 \\
-D_A + D_B &=\frac{1}{2}\\
-p_A\cdot p_B&=\left(\frac{2}{\pi}\right)^2
+&r_A = r_B \\
+&x_A+x_B = 1 \\
+&D_A + D_B =\frac{1}{2}\\
+&p_A\cdot p_B=\left(\frac{2}{\pi}\right)^2
 \end{aligned}
 \right.
 \]
