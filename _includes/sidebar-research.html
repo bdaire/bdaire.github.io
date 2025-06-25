@@ -1,5 +1,37 @@
-<aside style="width: 200px; background: #eee; padding: 15px; font-family: Arial, sans-serif; position: relative;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu avec contenu</title>
   <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .page {
+      display: flex;
+    }
+
+    aside {
+      width: 200px;
+      background: #eee;
+      padding: 15px;
+    }
+
+    main {
+      flex: 1;
+      padding: 20px;
+    }
+
+    header {
+      background: #333;
+      color: white;
+      padding: 15px 20px;
+    }
+
+    /* Menu styles */
     .menu-item {
       position: relative;
       margin-bottom: 10px;
@@ -19,7 +51,7 @@
     }
 
     .submenu-title {
-      font-weight: normal; /* Ce lien ne sera pas en gras */
+      font-weight: normal;
     }
 
     .submenu {
@@ -61,37 +93,54 @@
       display: block;
     }
   </style>
+</head>
+<body>
 
-  <!-- Premier onglet -->
-  <div class="menu-item">
-    <span class="menu-link">Class EF inverter design chart ▸</span>
-    <div class="submenu">
-      <a href="/research_chart_overview.html">Overview</a>
+  <!-- En-tête -->
+  <header>
+    <h1>Titre de ma page</h1>
+  </header>
 
-      <div class="submenu-item">
-        <span class="menu-link submenu-title">Examples ▸</span>
+  <!-- Corps de la page : menu + contenu -->
+  <div class="page">
+    <aside>
+      <!-- Premier onglet -->
+      <div class="menu-item">
+        <span class="menu-link">Class EF inverter design chart ▸</span>
         <div class="submenu">
-          <a href="research_chart_example_1.html">Example 1</a>
-          <a href="research_chart_example_2.html">Example 2</a>
-          <a href="research_chart_example_3.html">Example 3</a>
-          <a href="research_chart_example_4.html">Example 4</a>
+          <a href="/research_chart_overview.html">Overview</a>
+
+          <div class="submenu-item">
+            <span class="menu-link submenu-title">Examples ▸</span>
+            <div class="submenu">
+              <a href="research_chart_example_1.html">Example 1</a>
+              <a href="research_chart_example_2.html">Example 2</a>
+              <a href="research_chart_example_3.html">Example 3</a>
+              <a href="research_chart_example_4.html">Example 4</a>
+            </div>
+          </div>
+
+          <a href="/research_chart_svg-interactif.html">Interactive tool</a>
+          <a href="/research_chart_link.html">Ressources</a>
         </div>
       </div>
 
-      <a href="/research_chart_svg-interactif.html">Interactive tool</a>
-      <a href="/research_chart_link.html">Ressources</a>
-    </div>
-  </div>
+      <!-- Deuxième onglet -->
+      <div class="menu-item">
+        <span class="menu-link">SEC converter ▸</span>
+        <div class="submenu">
+          <a href="/property of symmetry.html">The property of symmetry</a>
+        </div>
+        <div class="submenu">
+          <a href="/SEC.html">Construction of the SEC converter</a>
+        </div>
+      </div>
+    </aside>
 
-  <!-- Deuxième onglet -->
-  <div class="menu-item">
-    <span class="menu-link">SEC converter ▸</span>
-    <div class="submenu">
-        <a href="/property of symmetry.html">The property of symmetry</a>
-      </div>
-    <div class="submenu">
-        <a href="/SEC.html">Construction of the SEC converter</a>
-      </div>
-    </div>
+    <main>
+      <h2>Bienvenue sur ma page</h2>
+      <p>Voici le contenu principal de la page, à côté du menu.</p>
+    </main>
   </div>
-</aside>
+</body>
+</html>
