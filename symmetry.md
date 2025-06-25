@@ -32,9 +32,10 @@ title: Research
 \right.
 \]
 </p>
-<p>Figure 4 provides a graphical overview of the symmetry property.</p>
+<p>The figure below provides a graphical overview of the symmetry property.</p>
+<br><br>
 <figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/SEC/symmetry_chart.svg" alt="SEC_symmetry_chart" style="width: 50vw; max-width: 100%; height: auto;">
+  <img src="/assets/img/SEC/symmetry_chart.svg" alt="SEC_symmetry_chart" style="width: 60vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">A graphival overview of the property of symmetry</figcaption>
 </figure>
 <br><br>
@@ -45,7 +46,7 @@ title: Research
 \begin{aligned}
 &r_A = \frac{1}{\pi} \\
 &x_A = \frac{1}{2} \\
-&D_A =25\%\\
+&D_A = \frac{1}{4} \\
 &p_A=\frac{2}{\pi}
 \end{aligned}
 \right.
