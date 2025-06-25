@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menu avec contenu</title>
+  <title>Ma page</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
     }
 
-    .page {
+    .container {
       display: flex;
     }
 
@@ -21,17 +21,11 @@
     }
 
     main {
-      flex: 1;
+      flex-grow: 1;
       padding: 20px;
     }
 
-    header {
-      background: #333;
-      color: white;
-      padding: 15px 20px;
-    }
-
-    /* Menu styles */
+    /* Menu styles (reprise de ton style) */
     .menu-item {
       position: relative;
       margin-bottom: 10px;
@@ -96,15 +90,9 @@
 </head>
 <body>
 
-  <!-- En-tête -->
-  <header>
-    <h1>Titre de ma page</h1>
-  </header>
-
-  <!-- Corps de la page : menu + contenu -->
-  <div class="page">
+  <div class="container">
+    <!-- Menu latéral -->
     <aside>
-      <!-- Premier onglet -->
       <div class="menu-item">
         <span class="menu-link">Class EF inverter design chart ▸</span>
         <div class="submenu">
@@ -125,7 +113,6 @@
         </div>
       </div>
 
-      <!-- Deuxième onglet -->
       <div class="menu-item">
         <span class="menu-link">SEC converter ▸</span>
         <div class="submenu">
@@ -137,10 +124,12 @@
       </div>
     </aside>
 
+    <!-- Contenu principal -->
     <main>
-      <h2>Bienvenue sur ma page</h2>
-      <p>Voici le contenu principal de la page, à côté du menu.</p>
+      <h2>Contenu principal</h2>
+      <p>Ici s'affiche le contenu de ta page à droite du menu déroulant.</p>
     </main>
   </div>
+
 </body>
 </html>
