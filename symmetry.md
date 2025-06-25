@@ -33,12 +33,24 @@ title: Research
 \]
 </p>
 <p>Figure 4 provides a graphical overview of the symmetry property.</p>
-figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/SEC/symmetry_chart.svg" alt="SEC_symmetry_chart" style="width: 30vw; max-width: 100%; height: auto;">
+<figure style="margin: 0; padding: 0; text-align: center;">
+  <img src="/assets/img/SEC/symmetry_chart.svg" alt="SEC_symmetry_chart" style="width: 50vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">A graphival overview of the property of symmetry</figcaption>
 </figure>
 <br><br>
-
+<p>Note that an exception to this property can be found, namely the operating point whose reduced parameters verify:</p>
+<p style="text-align: center;">
+  \[
+\left\{
+\begin{aligned}
+&r_A = \frac{1}{\pi} \\
+&x_A = \frac{1}{2} \\
+&D_A =25\%\\
+&p_A=\frac{2}{\pi}
+\end{aligned}
+\right.
+\]
+</p>
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
 <!-- (place in the layout if you want globally) -->
