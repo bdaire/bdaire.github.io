@@ -1,31 +1,5 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ma page</title>
+<aside style="width: 200px; background: #eee; padding: 15px; font-family: Arial, sans-serif; position: relative;">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    .container {
-      display: flex;
-    }
-
-    aside {
-      width: 200px;
-      background: #eee;
-      padding: 15px;
-    }
-
-    main {
-      flex-grow: 1;
-      padding: 20px;
-    }
-
-    /* Menu styles (reprise de ton style) */
     .menu-item {
       position: relative;
       margin-bottom: 10px;
@@ -45,7 +19,7 @@
     }
 
     .submenu-title {
-      font-weight: normal;
+      font-weight: normal; /* Ce lien ne sera pas en gras */
     }
 
     .submenu {
@@ -87,49 +61,46 @@
       display: block;
     }
   </style>
-</head>
-<body>
 
-  <div class="container">
-    <!-- Menu latéral -->
-    <aside>
-      <div class="menu-item">
-        <span class="menu-link">Class EF inverter design chart ▸</span>
+  <div class="menu-item">
+    <span class="menu-link">Class EF inverter design chart ▸</span>
+    <div class="submenu">
+      <a href="/research_chart_overview.html">Overview</a>
+
+      <!-- Sous-menu à deux niveaux avec titre non gras -->
+      <div class="submenu-item">
+        <span class="menu-link submenu-title">Examples ▸</span>
         <div class="submenu">
-          <a href="/research_chart_overview.html">Overview</a>
-
-          <div class="submenu-item">
-            <span class="menu-link submenu-title">Examples ▸</span>
-            <div class="submenu">
-              <a href="research_chart_example_1.html">Example 1</a>
-              <a href="research_chart_example_2.html">Example 2</a>
-              <a href="research_chart_example_3.html">Example 3</a>
-              <a href="research_chart_example_4.html">Example 4</a>
-            </div>
-          </div>
-
-          <a href="/research_chart_svg-interactif.html">Interactive tool</a>
-          <a href="/research_chart_link.html">Ressources</a>
+          <a href="research_chart_example_1.html">Example 1</a>
+          <a href="research_chart_example_2.html">Example 2</a>
+          <a href="research_chart_example_3.html">Example 3</a>
+          <a href="research_chart_example_4.html">Example 4</a>
         </div>
       </div>
 
-      <div class="menu-item">
-        <span class="menu-link">SEC converter ▸</span>
-        <div class="submenu">
-          <a href="/property of symmetry.html">The property of symmetry</a>
-        </div>
-        <div class="submenu">
-          <a href="/SEC.html">Construction of the SEC converter</a>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Contenu principal -->
-    <main>
-      <h2>Contenu principal</h2>
-      <p>Ici s'affiche le contenu de ta page à droite du menu déroulant.</p>
-    </main>
+      <a href="/research_chart_svg-interactif.html">Interactive tool</a>
+      <a href="/research_chart_link.html">Ressources</a>
+    </div>
   </div>
 
-</body>
-</html>
+  <div class="menu-item">
+    <span class="menu-link">Class EF inverter design chart ▸</span>
+    <div class="submenu">
+      <a href="/research_chart_overview.html">Overview</a>
+
+      <!-- Sous-menu à deux niveaux avec titre non gras -->
+      <div class="submenu-item">
+        <span class="menu-link submenu-title">Examples ▸</span>
+        <div class="submenu">
+          <a href="research_chart_example_1.html">Example 1</a>
+          <a href="research_chart_example_2.html">Example 2</a>
+          <a href="research_chart_example_3.html">Example 3</a>
+          <a href="research_chart_example_4.html">Example 4</a>
+        </div>
+      </div>
+
+      <a href="/research_chart_svg-interactif.html">Interactive tool</a>
+      <a href="/research_chart_link.html">Ressources</a>
+    </div>
+  </div>
+</aside>
