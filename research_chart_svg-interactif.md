@@ -127,7 +127,7 @@ title: Research
 <!-- Colonne 3 : calculs supplémentaires -->
 <div style="display: flex; flex-direction: column; gap: 0.5rem;">
   <div><strong>q =</strong> <span id="q-inline">-</span></div>
-  <div><strong>V<sub>cutoff</sub> =</strong> <span id="vcutoff-inline">-</span></div>
+  <div><strong>V<sub>0</sub> =</strong> <span id="vcutoff-inline">-</span></div>
   <div><strong>I =</strong> <span id="i-phys-inline">-</span></div>
 </div>
 
