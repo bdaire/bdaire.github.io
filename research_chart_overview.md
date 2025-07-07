@@ -101,9 +101,9 @@ x &= X \cdot \omega C_s
 <br><br>
 <p><u><b>\(q\)-curves</b></u></p>
 <br><br>
-<p>In the ZVS region, a reverse current flows in the switch when it is conducting. We call \(Q_{inverse}\) the total reverse charge flowing and \(Q_{direct}\) the total forward charge flowing. The \(q\)-curves allow predicting the ratio \(Q_{inverse}/Q_{direct}\):</p>
+<p>In the ZVS region, a reverse current flows in the switch when it is conducting. We call \(Q_{inverse}\) the total reverse charge flowing and \(Q_{direct}\) the total forward charge flowing. The \(q\)-curves allow predicting the ratio \(Q_\text{reverse}/Q_\text{direct}\):</p>
 <p style="text-align: center;">
-  \[q = \left|\frac{Q_{inverse}}{Q_{direct}}\right|
+  \[q = \left|\frac{Q_\text{reverse}}{Q_\text{direct}}\right|
 \]</p>
 <p>Therefore, the lower the value of \(q\), the closer the class EF inverter operates to the EF locus, where \(q=0\).
 <br><br>
