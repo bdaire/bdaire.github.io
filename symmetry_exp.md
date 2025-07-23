@@ -43,7 +43,17 @@ title: Research
       <td>\(C_1\)</td>
       <td>470 pF</td>
       <td>M100B471JT200XT</td>
-    </tr>      
+    </tr>  
+    <tr>
+      <td>Switch</td>
+      <td></td>
+      <td>GS61008B</td>
+    </tr>
+    <tr>
+      <td>\(C_s\)</td>
+      <td>385 pF</td>
+      <td>Parasitic capacitance of the switch</td>
+    </tr>
   </tbody>
 </table>
 
