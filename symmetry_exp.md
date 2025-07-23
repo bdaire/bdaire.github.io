@@ -19,6 +19,15 @@ title: Research
 
 <br><br><br><br>
 
+<p>Ici, nous souhaitons présenter une expérience mettant en évidence cette propriété de symétrie de l'onduleur de classe EF. Pour y parvenir, nous implémentons un onduleur de classe EF telle que présentée sur la figure 1 opérant à 15 MHz sous une tension d'entrée continue de \(V_{DC}=25\) V</p>
+<br><br>
+<figure style="margin: 0; padding: 0; text-align: center;">
+  <img src="/assets/img/circuit_EF.svg" alt="circuit_EF" style="width: 40vw; max-width: 100%; height: auto;">
+  <figcaption style="margin-top: 8px;">Basic circuit of the class EF inverter</figcaption>
+</figure>
+<br><br>
+
+
   <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/picture/sym_1.svg" alt="pct_sym_1" style="width: 25vw;">
@@ -29,42 +38,6 @@ title: Research
     <figcaption style="margin-top: 8px;">An other picture</figcaption>
   </figure>
 </div>
-
-
-<p>The symmetry property is straightforward to grasp, as it directly reflects the elliptical shape of the EF locus in the design chart (see 'Class EF inverter design chart' tab): for any operating point 'A' located on the EF locus, with known reduced parameters \( r_A \), \( x_A \), \( p_A \), and \( D_A \), another operating point 'B' can be found on the EF locus whose reduced parameters satisfy:</p>
-<p style="text-align: center;">
-  \[
-\left\{
-\begin{aligned}
-&r_A = r_B \\
-&x_A+x_B = 1 \\
-&D_A + D_B =\frac{1}{2}\\
-&p_A\cdot p_B=\left(\frac{2}{\pi}\right)^2
-\end{aligned}
-\right.
-\]
-</p>
-<p>The figure below provides a graphical overview of the symmetry property.</p>
-<br><br>
-<figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/SEC/symmetry_chart.svg" alt="SEC_symmetry_chart" style="width: 60vw; max-width: 100%; height: auto;">
-  <figcaption style="margin-top: 8px;">A graphical overview of the property of symmetry</figcaption>
-</figure>
-<br><br>
-<p>Note that an exception to this property can be found, namely the operating point whose reduced parameters verify:</p>
-<p style="text-align: center;">
-  \[
-\left\{
-\begin{aligned}
-&r_A = \frac{1}{\pi} \\
-&x_A = \frac{1}{2} \\
-&D_A = \frac{1}{4} \\
-&p_A=\frac{2}{\pi}
-\end{aligned}
-\right.
-\]
-</p>
-<p>This specific case can be seen either as an exception to the property of symmetry or as an operating point 'A' confused with its dual operating point 'B'.</p>
 
 
 <!-- ================================= -->
