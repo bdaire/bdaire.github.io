@@ -21,7 +21,12 @@ title: Research
 
 <p>Ici, nous souhaitons présenter une expérience mettant en évidence cette propriété de symétrie de l'onduleur de classe EF. Pour y parvenir, nous implémentons un onduleur de classe EF tel que présentée sur la figure 1 opérant à 15 MHz sous une tension d'entrée continue de \(V_{DC}=25\) V avec les composants suivants:</p>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
-  <table style="border-collapse: collapse; border: 1px solid #aaa; text-align: center;">
+
+<figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/circuit_EF.svg" alt="circuit_EF" style="width: 40vw; max-width: 100%; height: auto;">
+    <figcaption style="margin-top: 8px;">Basic circuit of the class EF inverter</figcaption>
+  </figure>
+  <table style="border-collapse: collapse; border: 1px solid #aaa; text-align: center; transform: translateY(-16px);">
     <thead>
       <tr>
         <th style="border: 1px solid #aaa; padding: 8px 12px;">Nom</th>
@@ -57,11 +62,6 @@ title: Research
       </tr>
     </tbody>
   </table>
-
-  <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/circuit_EF.svg" alt="circuit_EF" style="width: 40vw; max-width: 100%; height: auto;">
-    <figcaption style="margin-top: 8px;">Basic circuit of the class EF inverter</figcaption>
-  </figure>
 </div>
 <p>2 photos du convertisseur sont présentée ci-dessous. A noter que le set-up présenté ici est exactement le même que celui utilisé lors de l'expérience et présenté sur la vidéo ci-après.</p>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
