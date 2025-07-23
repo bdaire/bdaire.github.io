@@ -19,13 +19,13 @@ title: Research
 
 <br><br><br><br>
 
-  <div style="display: flex; justify-content: center; align-items: flex-end; gap: 16px; margin: 20px 0;">
+  <div style="display: flex; justify-content: center; align-items: flex-end; gap: 0px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_1.svg" alt="v_ZCS" style="width: 20vw;">
+    <img src="/assets/img/picture/sym_1.svg" alt="v_ZCS" style="width: 25vw;">
     <figcaption style="margin-top: 8px;">Class EF inverter</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_2.svg" alt="vs_is_ZCS" style="width: 20vw;">
+    <img src="/assets/img/picture/sym_2.svg" alt="vs_is_ZCS" style="width: 25vw;">
     <figcaption style="margin-top: 8px;">Class EF inverter design chart</figcaption>
   </figure>
 </div>
