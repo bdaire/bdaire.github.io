@@ -39,6 +39,11 @@ title: Research
       <td>5 \(\Omega\)</td>
       <td>MP9100-5.00-1%</td>
     </tr>
+    <tr>
+      <td>\(C_1\)</td>
+      <td>470 pF</td>
+      <td>M100B471JT200XT</td>
+    </tr>      
   </tbody>
 </table>
 
