@@ -24,20 +24,20 @@ title: Research
   <thead>
     <tr>
       <th>Nom</th>
-      <th>Âge</th>
-      <th>Ville</th>
+      <th>Valeur</th>
+      <th>Référence du composant</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Alice</td>
-      <td>30</td>
-      <td>Paris</td>
+      <td>\(L+L_1\)</td>
+      <td>??</td>
+      <td>AWG16</td>
     </tr>
     <tr>
-      <td>Bob</td>
-      <td>25</td>
-      <td>Lyon</td>
+      <td>\(R\)</td>
+      <td>5 \(\Omega\)</td>
+      <td>MP9100-5.00-1%</td>
     </tr>
   </tbody>
 </table>
