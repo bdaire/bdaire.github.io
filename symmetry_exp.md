@@ -26,7 +26,7 @@ title: Research
   <figcaption style="margin-top: 8px;">Basic circuit of the class EF inverter</figcaption>
 </figure>
 <br><br>
-
+<p>L'onduleur réalisé est présenté sur les photos ci-dessous. Notons l'absence de ligne quart d'onde, cette dernière ayant été remplacée par des éléments discrets reproduisant son comportement pour trois harmoniques seulement [1]. On parle alors d'un onduleur de classe \(\Phi_2\) [2].</p>
 
   <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
@@ -38,6 +38,8 @@ title: Research
     <figcaption style="margin-top: 8px;">An other picture</figcaption>
   </figure>
 </div>
+<br><br>
+L'inductance \(L+L_1\) consiste en un seul et même enroulement fait de fil AWG16. En compressant ou en étirant cet enroulement, il est possible de faire varier la valeur de cette inductance \(L+L_1\):
 
 
 <!-- ================================= -->
