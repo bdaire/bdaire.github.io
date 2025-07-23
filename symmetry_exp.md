@@ -39,8 +39,12 @@ title: Research
   </figure>
 </div>
 <br><br>
-L'inductance \(L+L_1\) consiste en un seul et même enroulement fait de fil AWG16. En compressant ou en étirant cet enroulement, il est possible de faire varier la valeur de cette inductance \(L+L_1\):
-
+<p>L'inductance \(L+L_1\) consiste en un seul et même enroulement fait de fil AWG16. En compressant ou en étirant cet enroulement, il est possible de faire varier la valeur de cette inductance \(L+L_1\):</p>
+<ul style="margin-left: 30px;">
+  <li>Lorsque l'on étire cette inductance, sa valeur diminue.</li>
+  <li>Lorsqu'on la compresse, sa valeur augmenter.</li>
+</ul>
+<p>En supposant que la valeur de la résistance \(R\) placée en aval est indépendante de la valeur de \(L+L_1\), compresser ou étirer notre inductance revient à déplacer notre point de fonctionnement le long d'un axe vertical dans l'abaque. Cette opération est présentée sur la figure 2.</p>
 
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
