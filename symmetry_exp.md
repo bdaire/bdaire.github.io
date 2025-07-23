@@ -19,7 +19,29 @@ title: Research
 
 <br><br><br><br>
 
-<p>Ici, nous souhaitons présenter une expérience mettant en évidence cette propriété de symétrie de l'onduleur de classe EF. Pour y parvenir, nous implémentons un onduleur de classe EF telle que présentée sur la figure 1 opérant à 15 MHz sous une tension d'entrée continue de \(V_{DC}=25\) V</p>
+<p>Ici, nous souhaitons présenter une expérience mettant en évidence cette propriété de symétrie de l'onduleur de classe EF. Pour y parvenir, nous implémentons un onduleur de classe EF telle que présentée sur la figure 1 opérant à 15 MHz sous une tension d'entrée continue de \(V_{DC}=25\) V avec les composants suivants:</p>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Âge</th>
+      <th>Ville</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alice</td>
+      <td>30</td>
+      <td>Paris</td>
+    </tr>
+    <tr>
+      <td>Bob</td>
+      <td>25</td>
+      <td>Lyon</td>
+    </tr>
+  </tbody>
+</table>
+
 <br><br>
 <figure style="margin: 0; padding: 0; text-align: center;">
   <img src="/assets/img/circuit_EF.svg" alt="circuit_EF" style="width: 40vw; max-width: 100%; height: auto;">
@@ -42,7 +64,7 @@ title: Research
 <p>L'inductance \(L+L_1\) consiste en un seul et même enroulement fait de fil AWG16. En compressant ou en étirant cet enroulement, il est possible de faire varier la valeur de cette inductance \(L+L_1\):</p>
 <ul style="margin-left: 30px;">
   <li>Lorsque l'on étire cette inductance, sa valeur diminue.</li>
-  <li>Lorsqu'on la compresse, sa valeur augmenter.</li>
+  <li>Lorsqu'on la compresse, sa valeur augmente.</li>
 </ul>
 <p>En supposant que la valeur de la résistance \(R\) placée en aval est indépendante de la valeur de \(L+L_1\), compresser ou étirer notre inductance revient à déplacer notre point de fonctionnement le long d'un axe vertical dans l'abaque. Cette opération est présentée sur la figure 2.</p>
 
