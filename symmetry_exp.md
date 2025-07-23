@@ -20,7 +20,7 @@ title: Research
 <br><br><br><br>
 
 <p>Ici, nous souhaitons présenter une expérience mettant en évidence cette propriété de symétrie de l'onduleur de classe EF. Pour y parvenir, nous implémentons un onduleur de classe EF tel que présentée sur la figure 1 opérant à 15 MHz sous une tension d'entrée continue de \(V_{DC}=25\) V avec les composants suivants:</p>
-<div style="display: flex; justify-content: center; align-items: flex-start; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
+<div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
   <table style="border-collapse: collapse; border: 1px solid #aaa; text-align: center;">
     <thead>
       <tr>
