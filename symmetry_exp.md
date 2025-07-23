@@ -75,6 +75,8 @@ title: Research
   </figure>
 </div>
 <br><br>
+<p>La valeur de \(R\) est ici de 5 \(\Omega\) ce qui, compte tenu des valeurs de \(F=15\) MHz et \(C_s=385\) pF, conduit à la valeur suivante de \(r\):
+
 <p>L'inductance \(L+L_1\) consiste en un seul et même enroulement fait de fil AWG16. En compressant ou en étirant cet enroulement, il est possible de faire varier la valeur de cette inductance \(L+L_1\):</p>
 <ul style="margin-left: 30px;">
   <li>Lorsque l'on étire cette inductance, sa valeur diminue.</li>
