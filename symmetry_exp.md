@@ -21,12 +21,12 @@ title: Research
 
   <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_1.svg" alt="v_ZCS" style="width: 25vw;">
-    <figcaption style="margin-top: 8px;">Class EF inverter</figcaption>
+    <img src="/assets/img/picture/sym_1.svg" alt="pct_sym_1" style="width: 25vw;">
+    <figcaption style="margin-top: 8px;">Picture of the inverter</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_2.svg" alt="vs_is_ZCS" style="width: 25vw;">
-    <figcaption style="margin-top: 8px;">Class EF inverter design chart</figcaption>
+    <img src="/assets/img/picture/sym_2.svg" alt="pct_sym_2" style="width: 25vw;">
+    <figcaption style="margin-top: 8px;">An other picture</figcaption>
   </figure>
 </div>
 
