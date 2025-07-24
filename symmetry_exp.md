@@ -75,18 +75,22 @@ title: Research
   </figure>
 </div>
 <br><br>
-<p>La valeur de \(R\) est ici de 5 \(\Omega\) ce qui, compte tenu des valeurs de \(F=15\) MHz et \(C_s=385\) pF, conduit à la valeur suivante de \(r\):
-<p style="text-align: center;">
-  \[
-        r=R\cdot\omega C_s=5\cdot 2\cdot\pi\cdot\left(15\cdot 10^6\right)\cdot\left(385\cdot 10^{-12}\right)=0.181
-\]
-</p>
 <p>L'inductance \(L+L_1\), quant à elle, consiste en un seul et même enroulement fait de fil AWG16. En compressant ou en étirant cet enroulement, il est possible de faire varier la valeur de cette inductance \(L+L_1\):</p>
 <ul style="margin-left: 30px;">
   <li>Lorsque l'on étire cette inductance, sa valeur diminue.</li>
   <li>Lorsqu'on la compresse, sa valeur augmente.</li>
 </ul>
-<p>En supposant que la valeur de la résistance \(R\) placée en aval est indépendante de la valeur de \(L+L_1\), compresser ou étirer notre inductance revient à déplacer notre point de fonctionnement le long d'un axe vertical \(r=0.181\) dans l'abaque. Cette opération est présentée sur la figure 2.</p>
+<p>En supposant que la valeur de la résistance \(R\) placée en aval est indépendante de la valeur de \(L+L_1\), compresser ou étirer notre inductance revient à déplacer notre point de fonctionnement le long d'un axe vertical dans l'abaque.</p>
+
+<!-- Intégration vidéo responsive -->
+<div style="text-align: center; margin: 40px 0;">
+  <video controls style="max-width: 90%; height: auto;">
+    <source src="/assets/video/symmetry.mp4" type="video/mp4">
+    Votre navigateur ne supporte pas la lecture de vidéo.
+  </video>
+  <p style="margin-top: 8px;">Vidéo de l'expérience</p>
+</div>
+
 
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
