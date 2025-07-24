@@ -93,9 +93,19 @@ title: Research
   <p style="margin-top: 8px;">Vidéo de l'expérience</p>
 </div>
 <br><br>
-<p>Ci-dessous, deux photos issues de notre expérience pour les deux points de fonctionnement A et B:</p>
+<p>Ci-dessous, deux photos annotées issues de notre expérience pour les deux points de fonctionnement A et B:</p>
 <br><br>
-
+<div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/picture/sym_opt_A.svg" alt="pct_sym_1" style="width: 25vw;">
+    <figcaption style="margin-top: 8px;">Picture of the inverter</figcaption>
+  </figure>
+  <figure style="margin: 0; padding: 0; text-align: center;">
+    <img src="/assets/img/picture/sym_opt_B.svg" alt="pct_sym_2" style="width: 25vw;">
+    <figcaption style="margin-top: 8px;">An other picture</figcaption>
+  </figure>
+</div>
+<br><br>
 
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
