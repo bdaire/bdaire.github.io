@@ -63,6 +63,7 @@ title: Research
     </tbody>
   </table>
 </div>
+<br><br>
 <p>2 photos du convertisseur sont présentée ci-dessous. A noter que le set-up présenté ici est exactement le même que celui utilisé lors de l'expérience et présenté sur la vidéo ci-après.</p>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
