@@ -85,7 +85,7 @@ title: Research
 <!-- Intégration vidéo responsive -->
 <div style="text-align: center; margin: 40px 0;">
   <video controls style="max-width: 90%; height: auto;">
-    <source src="/assets/video/symmetry.mp4" type="video/mp4">
+    <source src="assets/video/symmetry.mp4" type="video/mp4">
     Votre navigateur ne supporte pas la lecture de vidéo.
   </video>
   <p style="margin-top: 8px;">Vidéo de l'expérience</p>
