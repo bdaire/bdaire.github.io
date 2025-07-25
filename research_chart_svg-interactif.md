@@ -505,3 +505,11 @@ console.log('Valeurs utilisateur :', { F, Cs, VDC });
     console.error("Erreur SVG:", err);
   });
 </script>
+
+<!-- ================================= -->
+<!-- MATHJAX LOADING FOR MATH -->
+<!-- (place in the layout if you want globally) -->
+<!-- ================================= -->
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
