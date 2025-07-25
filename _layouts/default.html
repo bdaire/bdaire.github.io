@@ -1,7 +1,7 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>{{ page.title }}</title>
   <style>
     * {
@@ -16,18 +16,28 @@
     }
 
     header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
       background: #833c64;
       color: white;
       padding: 20px 0 10px 0;
       font-size: 24px;
       text-align: center;
+      z-index: 1000;
     }
 
     nav.topnav {
+      position: fixed;
+      top: 60px; /* hauteur approximative du header */
+      left: 0;
+      width: 100%;
       background: #580b39;
-      padding: 10px;
-      display: flex;
-      justify-content: center;
+      padding: 10px 0;
+      text-align: center;
+      z-index: 999;
+      /* plus de flex ici */
     }
 
     nav.topnav a {
@@ -35,10 +45,12 @@
       margin: 0 15px;
       text-decoration: none;
       font-weight: bold;
+      display: inline-block;
     }
 
     .container {
       display: flex;
+      margin-top: 110px; /* espace pour header + nav fixes */
     }
 
     aside {
@@ -87,7 +99,5 @@
       {{ content }}
     </main>
   </div>
-
-
 </body>
 </html>
