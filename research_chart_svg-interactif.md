@@ -3,12 +3,9 @@ layout: default
 title: Research
 ---
 
-<!-- Main title -->
 <h2 style="text-align: center;">Class EF inverter design chart - Interactive tool</h2>
 
-<!-- Wrapper pour isoler styles et contenu -->
 <div class="interactive-body">
-
   <style>
     .interactive-body {
       font-size: 1.2rem;
@@ -17,36 +14,55 @@ title: Research
 
     .interactive-body .container {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: row;
       gap: 2rem;
-      margin-top: 2rem;
       align-items: flex-start;
+      flex-wrap: wrap;
     }
 
     .interactive-body #left-panel {
       width: 60%;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
+      gap: 1.5rem;
     }
 
     .interactive-body #right-panel {
       width: 40%;
       display: flex;
       flex-direction: column;
+      gap: 2rem;
     }
 
-    .interactive-body #svg-wrapper,
-    .interactive-body #small-svg-wrapper {
-      margin: 2rem 0;
+    .interactive-body #top-text {
+      font-size: 1.1rem;
+      background-color: #f0f0f0;
+      padding: 1rem;
+      border: 2px solid black;
+      border-radius: 8px;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+      white-space: pre-line;
+    }
+
+    .interactive-body .chart-block {
       width: 100%;
     }
 
-    .interactive-body svg {
-      display: block;
-      width: 100%;
-      height: auto;
+    .interactive-body .chart-block canvas {
+      width: 100% !important;
+      height: auto !important;
+      aspect-ratio: 3 / 1;
+    }
+
+    .interactive-body #input-vars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      background: #fafafa;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      max-width: 600px;
     }
 
     .interactive-body #info-panel {
@@ -56,29 +72,16 @@ title: Research
       display: grid;
       grid-template-columns: repeat(2, minmax(150px, 1fr));
       gap: 0.5rem 1rem;
-      margin-top: 1rem;
     }
 
     .interactive-body .info-label {
       font-weight: bold;
     }
 
-    .interactive-body #top-text {
-      font-size: 1.2rem;
-      color: #000;
-      margin-bottom: 2rem;
-      white-space: pre-line;
-      padding: 0.8rem;
-      background-color: #f0f0f0;
-      border-radius: 8px;
-      border: 2px solid black;
-      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .interactive-body .chart-block canvas {
-      width: 100% !important;
-      height: auto !important;
-      aspect-ratio: 3 / 1;
+    .interactive-body svg {
+      display: block;
+      width: 100%;
+      height: auto;
     }
 
     .interactive-body .dot {
@@ -86,60 +89,48 @@ title: Research
       stroke: black;
       stroke-width: 1px;
     }
-
-    .interactive-body #input-vars {
-      margin-bottom: 1.5rem;
-      border: 1px solid #ccc;
-      padding: 1rem;
-      border-radius: 6px;
-      max-width: 600px;
-      background: #fafafa;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1rem;
-    }
   </style>
 
   <div class="container">
+    <!-- LEFT SIDE -->
     <div id="left-panel">
       <div id="small-svg-wrapper">Chargement du petit SVG...</div>
 
       <div id="input-vars">
-        <!-- Entrées -->
+        <!-- Inputs -->
         <div>
-          <div><label for="F-input"><strong>F (Hz) :</strong></label>
-            <input id="F-input" type="number" step="any" value="15e6" style="width: 80px;">
-          </div>
-          <div><label for="Cs-input"><strong>Cs (F) :</strong></label>
-            <input id="Cs-input" type="number" step="any" value="385e-12" style="width: 80px;">
-          </div>
-          <div><label for="VDC-input"><strong>VDC (V) :</strong></label>
-            <input id="VDC-input" type="number" step="any" value="25" style="width: 80px;">
-          </div>
+          <label><strong>F (Hz):</strong></label><br>
+          <input id="F-input" type="number" value="15e6" style="width: 80px;">
+        </div>
+        <div>
+          <label><strong>Cs (F):</strong></label><br>
+          <input id="Cs-input" type="number" value="385e-12" style="width: 80px;">
+        </div>
+        <div>
+          <label><strong>VDC (V):</strong></label><br>
+          <input id="VDC-input" type="number" value="25" style="width: 80px;">
         </div>
 
-        <!-- Sorties -->
+        <!-- Outputs -->
         <div>
-          <div><strong>R =</strong> <span id="r-phys-inline">-</span></div>
-          <div><strong>L =</strong> <span id="l-phys-inline">-</span></div>
-          <div><strong>D (%) =</strong> <span id="d-inline">-</span></div>
-          <div><strong>P =</strong> <span id="p-phys-inline">-</span></div>
+          <strong>R =</strong> <span id="r-phys-inline">-</span><br>
+          <strong>L =</strong> <span id="l-phys-inline">-</span><br>
+          <strong>D (%) =</strong> <span id="d-inline">-</span><br>
+          <strong>P =</strong> <span id="p-phys-inline">-</span>
         </div>
 
-        <!-- Calculs supplémentaires -->
+        <!-- Extra -->
         <div>
-          <div><strong>q =</strong> <span id="q-inline">-</span></div>
-          <div><strong>V<sub>0</sub> =</strong> <span id="vcutoff-inline">-</span></div>
-          <div><strong>I =</strong> <span id="i-phys-inline">-</span></div>
+          <strong>q =</strong> <span id="q-inline">-</span><br>
+          <strong>V<sub>0</sub> =</strong> <span id="vcutoff-inline">-</span><br>
+          <strong>I =</strong> <span id="i-phys-inline">-</span>
         </div>
       </div>
 
       <div id="svg-wrapper">Chargement du SVG principal...</div>
 
       <div id="info-panel">
-        <div style="grid-column: span 2; font-weight: bold; text-decoration: underline;">
-          Reduced parameters
-        </div>
+        <div style="grid-column: span 2; font-weight: bold; text-decoration: underline;">Reduced parameters</div>
         <div class="info-label">r :</div><div id="x-val">-</div>
         <div class="info-label">x :</div><div id="y-val">-</div>
         <div class="info-label">Zone :</div><div id="zone-val">-</div>
@@ -150,9 +141,10 @@ title: Research
       </div>
     </div>
 
+    <!-- RIGHT SIDE -->
     <div id="right-panel">
       <div id="top-text">
-        <strong>Welcome to my interactive tool!</strong>
+<strong>Welcome to my interactive tool!</strong>
 
 1/ Enter the values for VDC, F, and Cs above the circuit  
 2/ Click on the chart to set the operating point  
@@ -170,16 +162,15 @@ Tip: The VDC and I values above the circuit will help you read the waveforms bet
       <div class="chart-block"><canvas id="sin-chart"></canvas></div>
     </div>
   </div>
-
 </div>
 
-<!-- Scripts externes -->
+<!-- Scripts -->
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script id="MathJax-script" async
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-<!-- Script interactif JS (placer ici ou dans un .js séparé) -->
+<!-- Ton script interactif JS ici -->
 <script>
 const PI = Math.PI;
 
