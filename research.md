@@ -15,8 +15,6 @@ title: Research
   }
 </style>
 
-<br><br><br><br>
-
 <p>Here’s a list of results from my research so far — I’ll keep adding to this section as my work progress.</p>
 
 
