@@ -8,7 +8,7 @@ title: Research
 <div class="interactive-body">
   <style>
     .interactive-body {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       margin-top: 3rem;
     }
 
