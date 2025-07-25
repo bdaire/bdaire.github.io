@@ -8,30 +8,29 @@ title: Research
 <div class="interactive-body">
   <style>
     .interactive-body {
-      font-size: 1.2rem;
-      margin-top: 4rem;
+      font-size: 1.1rem;
+      margin-top: 3rem;
     }
 
     .interactive-body .container {
       display: flex;
-      flex-direction: row;
       gap: 2rem;
       align-items: flex-start;
-      flex-wrap: wrap;
     }
 
-    .interactive-body #left-panel {
-      width: 60%;
+    .interactive-body #left-panel,
+    .interactive-body #right-panel {
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
     }
 
+    .interactive-body #left-panel {
+      width: 60%;
+    }
+
     .interactive-body #right-panel {
       width: 40%;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
     }
 
     .interactive-body #top-text {
@@ -40,8 +39,8 @@ title: Research
       padding: 1rem;
       border: 2px solid black;
       border-radius: 8px;
-      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
       white-space: pre-line;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
     }
 
     .interactive-body .chart-block {
@@ -62,7 +61,7 @@ title: Research
       padding: 1rem;
       border: 1px solid #ccc;
       border-radius: 6px;
-      max-width: 600px;
+      max-width: 100%;
     }
 
     .interactive-body #info-panel {
@@ -92,7 +91,7 @@ title: Research
   </style>
 
   <div class="container">
-    <!-- LEFT SIDE -->
+    <!-- COLONNE DE GAUCHE -->
     <div id="left-panel">
       <div id="small-svg-wrapper">Chargement du petit SVG...</div>
 
@@ -141,7 +140,7 @@ title: Research
       </div>
     </div>
 
-    <!-- RIGHT SIDE -->
+    <!-- COLONNE DE DROITE -->
     <div id="right-panel">
       <div id="top-text">
 <strong>Welcome to my interactive tool!</strong>
@@ -170,7 +169,7 @@ Tip: The VDC and I values above the circuit will help you read the waveforms bet
 <script id="MathJax-script" async
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-<!-- Ton script interactif JS ici -->
+<!-- Ton script interactif ici -->
 <script>
 const PI = Math.PI;
 
