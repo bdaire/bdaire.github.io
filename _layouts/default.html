@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -13,46 +13,31 @@
     body {
       font-family: Arial, sans-serif;
       background: #f9f9f9;
-      display: flex;
     }
 
-    .sidebar-fixed {
-      width: 200px;
+    header {
       background: #833c64;
       color: white;
-      height: 100vh;
-      position: fixed;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 30px;
-    }
-
-    .sidebar-fixed h1 {
+      padding: 20px 0 10px 0;
       font-size: 24px;
-      margin-bottom: 40px;
       text-align: center;
     }
 
     nav.topnav {
+      background: #580b39;
+      padding: 10px;
       display: flex;
-      flex-direction: column;
-      gap: 20px;
+      justify-content: center;
     }
 
     nav.topnav a {
       color: white;
+      margin: 0 15px;
       text-decoration: none;
       font-weight: bold;
     }
 
-    nav.topnav a:hover {
-      text-decoration: underline;
-    }
-
     .container {
-      margin-left: 200px; /* laisser la place à la sidebar fixe */
-      flex: 1;
       display: flex;
     }
 
@@ -81,18 +66,14 @@
   </style>
 </head>
 <body>
+  {% include header.html %}
 
-  <!-- Barre latérale fixe avec titre + menu -->
-  <div class="sidebar-fixed">
-    <h1>Mon Site</h1>
-    <nav class="topnav">
-      <a href="/">Accueil</a>
-      <a href="/research.html">Research</a>
-      <a href="/contact.html">Contacts</a>
-    </nav>
-  </div>
+  <nav class="topnav">
+    <a href="/">Accueil</a>
+    <a href="/research.html">Research</a>
+    <a href="/contact.html">Contacts</a>
+  </nav>
 
-  <!-- Contenu principal -->
   <div class="container">
     {% if page.title == "Research" %}
       {% include sidebar-research.html %}
@@ -106,6 +87,7 @@
       {{ content }}
     </main>
   </div>
+
 
 </body>
 </html>
