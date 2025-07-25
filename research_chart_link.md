@@ -3,10 +3,22 @@ layout: default
 title: Research
 ---
 
-## Class EF inverter design chart - Resources
+<!-- Main title (Markdown or HTML possible) -->
+<h2 style="text-align: center;">Class EF inverter design chart - Ressources</h2>
 
-<br><br>
-<br><br>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+<style>
+  body {
+    font-size: 1.2rem; /* or 18px, or 120% */
+  }
+</style>
+
+<br><br><br><br>
+
 
 <div style="text-align: center">
    <p>Download the chart in .pdf format:</p>
