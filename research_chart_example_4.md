@@ -13,7 +13,7 @@ title: Research
 
 <style>
   body {
-    font-size: 1.2rem; /* or 18px, or 120% */
+    font-size: 1rem; /* or 18px, or 120% */
   }
 
   .encadre-gris {
