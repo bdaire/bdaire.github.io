@@ -19,7 +19,7 @@ title: Research
 
 <br><br><br><br>
 
-<p>Ici, nous souhaitons présenter une expérience mettant en évidence cette propriété de symétrie de l'onduleur de classe EF. Pour y parvenir, nous implémentons un onduleur de classe EF tel que présentée sur la figure 1 opérant à 15 MHz sous une tension d'entrée continue de \(V_{DC}=25\) V avec les composants suivants:</p>
+<pHere, we aim to present an experiment that highlights the symmetry property of the class-EF inverter. To this end, we implement a class-EF inverter, as shown in Figure 1, operating at 15 MHz with a DC input voltage of \(V_{DC}=25\) V using the following components:</p>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 32px; margin: 20px 0;">
 
 <figure style="margin: 0; padding: 0; text-align: center;">
@@ -29,16 +29,16 @@ title: Research
   <table style="border-collapse: collapse; border: 1px solid #aaa; text-align: center; transform: translateY(-32px);">
     <thead>
       <tr>
-        <th style="border: 1px solid #aaa; padding: 8px 12px;">Nom</th>
-        <th style="border: 1px solid #aaa; padding: 8px 12px;">Valeur</th>
-        <th style="border: 1px solid #aaa; padding: 8px 12px;">Référence du composant</th>
+        <th style="border: 1px solid #aaa; padding: 8px 12px;">Name</th>
+        <th style="border: 1px solid #aaa; padding: 8px 12px;">Value</th>
+        <th style="border: 1px solid #aaa; padding: 8px 12px;">Reference</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">\(L+L_1\)</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">??</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">AWG16</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">homemade, AWG16 wire</td>
       </tr>
       <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">\(R\)</td>
@@ -64,25 +64,25 @@ title: Research
   </table>
 </div>
 <br><br>
-<p>2 photos du convertisseur sont présentée ci-dessous. A noter que le set-up présenté ici est exactement le même que celui utilisé lors de l'expérience et présenté sur la vidéo ci-après.</p>
+<p>Two photos of the converter are shown below. It is worth noting that the setup presented here is exactly the same as the one used during the experiment and shown in the video below.</p>
 <br><br>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_1.svg" alt="pct_sym_1" style="width: 25vw;">
-    <figcaption style="margin-top: 8px;">Picture of the inverter</figcaption>
+    <img src="/assets/img/picture/sym_1.svg" alt="pct_sym_1" style="width: 30vw;">
+    <figcaption style="margin-top: 8px;">A picture of the inverter</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_2.svg" alt="pct_sym_2" style="width: 25vw;">
-    <figcaption style="margin-top: 8px;">An other picture</figcaption>
+    <img src="/assets/img/picture/sym_2.svg" alt="pct_sym_2" style="width: 30vw;">
+    <figcaption style="margin-top: 8px;">An other picture of the inverter</figcaption>
   </figure>
 </div>
 <br><br>
-<p>L'inductance \(L+L_1\), quant à elle, consiste en un seul et même enroulement fait de fil AWG16. En compressant ou en étirant cet enroulement, il est possible de faire varier la valeur de cette inductance \(L+L_1\):</p>
+<p>The inductor \(L+L_1\) consists of a single coil made from AWG16 wire. By compressing or stretching this coil, the inductance value \(L+L_1\):</p>
 <ul style="margin-left: 30px;">
-  <li>Lorsque l'on étire cette inductance, sa valeur diminue.</li>
-  <li>Lorsqu'on la compresse, sa valeur augmente.</li>
+  <li>Stretching the inductor decreases its value</li>
+  <li>Compressing it increases its value</li>
 </ul>
-<p>En supposant que la valeur de la résistance \(R\) placée en aval est indépendante de la valeur de \(L+L_1\), compresser ou étirer notre inductance revient à déplacer notre point de fonctionnement le long d'un axe vertical dans l'abaque.</p>
+<p>Assuming that the value of the downstream resistor \(R\) is independent of the inductance \(L+L_1\), compressing or stretching the inductor effectively shifts the operating point vertically along the chart. This allows for a direct observation of the symmetry property in action. The video below provides a detailed overview of the experiment.</p>
 
 <!-- Intégration vidéo responsive -->
 <div style="text-align: center; margin: 40px 0;">
@@ -90,19 +90,19 @@ title: Research
     <source src="/assets/video/symmetry.mp4" type="video/mp4">
     Votre navigateur ne supporte pas la lecture de vidéo.
   </video>
-  <p style="margin-top: 8px;">Vidéo de l'expérience</p>
+  <p style="margin-top: 8px;">Video of the experiment</p>
 </div>
 <br><br>
-<p>Ci-dessous, deux photos annotées issues de notre expérience pour les deux points de fonctionnement A et B:</p>
+<p>Below are two annotated photos from our experiment, corresponding to operating points A and B:</p>
 <br><br>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_opt_A.svg" alt="pct_sym_1" style="width: 25vw;">
-    <figcaption style="margin-top: 8px;">Picture of the inverter</figcaption>
+    <img src="/assets/img/picture/sym_opt_A.svg" alt="pct_sym_1" style="width: 30vw;">
+    <figcaption style="margin-top: 8px;">Screenshot of the experiment (operating point A)</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_opt_B.svg" alt="pct_sym_2" style="width: 25vw;">
-    <figcaption style="margin-top: 8px;">An other picture</figcaption>
+    <img src="/assets/img/picture/sym_opt_B.svg" alt="pct_sym_2" style="width: 30vw;">
+    <figcaption style="margin-top: 8px;">Screenshot of the experiment (operating point B)</figcaption>
   </figure>
 </div>
 <br><br>
