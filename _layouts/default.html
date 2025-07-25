@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <title>{{ page.title }}</title>
   <style>
+    /* Force la scrollbar verticale toujours visible pour éviter décalage horizontal */
+    html {
+      overflow-y: scroll;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -37,7 +42,7 @@
       padding: 10px 0;
       text-align: center;
       z-index: 999;
-      /* plus de flex ici */
+      /* suppression de flex */
     }
 
     nav.topnav a {
@@ -90,7 +95,7 @@
     {% if page.title == "Research" %}
       {% include sidebar-research.html %}
     {% elsif page.title == "Contact" %}
-      {% include sidebar.html %}
+      {% include sidebar-contact.html %}
     {% else %}
       {% include sidebar.html %}
     {% endif %}
