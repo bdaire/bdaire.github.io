@@ -3,7 +3,7 @@ layout: default
 title: Research
 ---
 
-## Classe EF inverter design chart - interactive tool
+<h2 style="text-align: center;">Class EF inverter design chart - Interactive tool</h2>
 
 <br><br>
 
