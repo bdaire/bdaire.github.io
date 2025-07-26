@@ -118,7 +118,7 @@ title: Research
         D_B+D_A=51.5\ \%\ \approx \frac{1}{2}
 \]
 </p>
-<p>Finally, the product of the two reduced powers \(p_a\) and \(p_B\) measured at operating points A and B is <b>approximately</b> equal to \(2/\pi)^2\), which roughly illustrates a third equation of our symmetry property:</p>
+<p>Finally, the product of the two reduced powers \(p_a\) and \(p_B\) measured at operating points A and B is <b>approximately</b> equal to \((2/\pi)^2\), which roughly illustrates a third equation of our symmetry property:</p>
 <p style="text-align: center;">
   \[
         p_A\cdot p_B=\left(\frac{P_A}{\omega\cdot C_s\cdot V_{DC}^2}\cdot\frac{P_B}{\omega\cdot C_s\cdot V_{DC}^2}\right)=0.63\approx\left(\frac{2}{\pi}\right)^2\ (=0.41)
