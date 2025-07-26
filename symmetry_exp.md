@@ -126,10 +126,10 @@ title: Research
 </p>
 <p>Why this discrepancy?</p>
 <ul style="margin-left: 30px;"> 
-        <li>The analytical developments related to this symmetry property were carried out assuming unity efficiency.</li> 
+        <li>The analytical developments related to the property of symmetry were carried out assuming unity efficiency.</li> 
         <li>The equipment used to measure the power absorbed by the inverter is not highly precise.</li> 
         <li>In practice, the resistance \(R\) of our circuit varies slightly when the geometry of the inductor is modified.</li> </ul>
-It should be noted, however, that the equations of this symmetry property have been validated through circuit simulations.
+It should be noted, however, that the equations of this property have been validated through circuit simulations.
 
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
