@@ -106,6 +106,8 @@ title: Research
   </figure>
 </div>
 <br><br>
+<p>Avec les informations contenues sur ces deux images, il nous est possible d'illustrer 3 des 4 équations de la propriété de symmétrie. En premier lieu, et comme clairement présenté dans la vidéo, la résistance de charge \(R\) ne change, de même que la fréquence de découpage \(F=15\) MHz du circuit, ni la capacité \(C_s=385\) pF. Par conséquent la valeur de la résistance réduite est identique pour les deux points de fonctionnement A et B:</p>
+
 
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
