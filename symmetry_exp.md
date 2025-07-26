@@ -109,7 +109,7 @@ title: Research
 <p>Avec les informations contenues sur ces deux images, il nous est possible d'illustrer 3 des 4 équations de la propriété de symmétrie. En premier lieu, et comme clairement présenté dans la vidéo, la résistance de charge \(R\) ne change, de même que la fréquence de découpage \(F=15\) MHz du circuit, ni la capacité \(C_s=385\) pF. Par conséquent la valeur de la résistance réduite est identique pour les deux points de fonctionnement A et B, ce qui valide la première équation de symétrie:</p>
 <p style="text-align: center;">
   \[
-        r_A=r_B=R\cdot\omega C_s
+        r_A=r_B=R\cdot\omega\cdot C_s
 \]
 </p>
 <p>En second lieu, les rapports cycliques utilisés pour les deux points de fonctionnement A et B, obtenus par mesure du temps de conduction du transistor, sont égaux à 35.5 %, respectivement 16 %, ce qui valide approximativement une seconde équation de la propriété de symétrie:</p>
@@ -118,7 +118,12 @@ title: Research
         D_B+D_A=51.5\ \%\ \approx \frac{1}{2}
 \]
 </p>
-
+<p>Enfin, le produit des deux puissances réduites \(p_A\) et \(p_B\) obtenues pour les deux points de fonctionnement A et B est à <b>peu près</b> égal (2/\(pi\))^2, ce qui illustre approximativement une troisième équation de notre propriété de symétrie:</p>
+<p style="text-align: center;">
+  \[
+        p_A\cdot p_B=\left(\frac{P_A}{\omega\cdot C_s\cdot V_{DC}^2}\cdot\frac{P_B}{\omega\cdot C_s\cdot V_{DC}^2}\right)=0.63\approx\left(\frac{2}{\pi}\right)^2\ (=0.41)
+\]
+</p>
 
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
