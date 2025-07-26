@@ -115,7 +115,7 @@ title: Research
 <p>Secondly, the duty cycles for operating points A and B, determined by measuring the transistor conduction time, are 35.5 % and 16 %, respectively. This approximately validates a second equation of the property of symmetry:</p>
 <p style="text-align: center;">
   \[
-        D_B+D_A=51.5\ \%\ \approx \frac{1}{2}
+        D_A+D_B=51.5\ \%\ \approx \frac{1}{2}
 \]
 </p>
 <p>Finally, the product of the two reduced powers \(p_a\) and \(p_B\) measured at operating points A and B is <b>approximately</b> equal to \((2/\pi)^2\), which roughly illustrates a third equation of our property of symmetry:</p>
