@@ -77,7 +77,7 @@ title: Research
   </figure>
 </div>
 <br><br>
-<p>The inductor \(L+L_1\) consists of a single coil made from AWG16 wire. By compressing or stretching this coil, the inductance value \(L+L_1\):</p>
+<p>The inductor \(L+L_1\) consists of a single coil made from AWG16 wire. By compressing or stretching this coil, the inductance value \(L+L_1\) can be modified:</p>
 <ul style="margin-left: 30px;">
   <li>Stretching the inductor decreases its value</li>
   <li>Compressing it increases its value</li>
