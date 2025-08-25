@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Décompte ❤️</title>
+  <title>Décompte 💛💛</title>
   <style>
     body {
       display: flex;
@@ -38,11 +38,10 @@
   </style>
 </head>
 <body>
-  <h2>On se revoit dans :</h2>
+  <h2>💛💛 On se revoit dans : 💛💛</h2>
   <div id="countdown">-- jours, -- heures, -- minutes, -- secondes</div>
 
   <script>
-    // 🗓️ Date cible : mercredi 10 septembre 2025 à 19h00
     const targetDate = new Date("2025-09-10T19:00:00");
 
     function updateCountdown() {
@@ -50,7 +49,7 @@
       const diff = targetDate - now;
 
       if (diff <= 0) {
-        document.getElementById("countdown").innerHTML = "<span class='expired'>C'est maintenant ❤️</span>";
+        document.getElementById("countdown").innerHTML = "<span class='expired'>C'est maintenant 💛💛</span>";
         clearInterval(timer);
         return;
       }
@@ -60,7 +59,6 @@
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-      // Format lisible en français
       const format = 
         days + " jours, " +
         String(hours).padStart(2, '0') + " heures, " +
@@ -70,7 +68,6 @@
       document.getElementById("countdown").innerText = format;
     }
 
-    // Mise à jour chaque seconde
     updateCountdown();
     const timer = setInterval(updateCountdown, 1000);
   </script>
