@@ -68,11 +68,11 @@ title: Research
 <br><br>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_1.svg" alt="pct_sym_1" style="width: 45vw;">
+    <img src="/assets/img/picture/sym_1.svg" alt="pct_sym_1" style="width: 40vw;">
     <figcaption style="margin-top: 8px;">A picture of the inverter</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_2.svg" alt="pct_sym_2" style="width: 45vw;">
+    <img src="/assets/img/picture/sym_2.svg" alt="pct_sym_2" style="width: 40vw;">
     <figcaption style="margin-top: 8px;">An other picture of the inverter</figcaption>
   </figure>
 </div>
@@ -97,11 +97,11 @@ title: Research
 <br><br>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_opt_A.svg" alt="pct_sym_1" style="width: 45vw;">
+    <img src="/assets/img/picture/sym_opt_A.svg" alt="pct_sym_1" style="width: 40vw;">
     <figcaption style="margin-top: 8px;">Screenshot of the experiment (operating point A)</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_opt_B.svg" alt="pct_sym_2" style="width: 45vw;">
+    <img src="/assets/img/picture/sym_opt_B.svg" alt="pct_sym_2" style="width: 40vw;">
     <figcaption style="margin-top: 8px;">Screenshot of the experiment (operating point B)</figcaption>
   </figure>
 </div>
