@@ -51,6 +51,43 @@ title: Research
 <script>
 const PI = Math.PI;
 let charts = {};
+let runIndex = 0; // compteur pour tracer plusieurs runs
+
+function initCharts() {
+  const formatPi = val => {
+    const n = val / PI;
+    const rounded = Math.round(n);
+    return Math.abs(n - rounded) < 0.05 ? (rounded === 0 ? '0' : `${rounded === 1 ? '' : rounded}π`) : '';
+  };
+
+  charts.vs = new Chart(document.getElementById('vs-chart').getContext('2d'), {
+    type:'line',
+    data:{datasets: []}, // vide au départ
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{legend:{display:true}},
+      scales:{
+        x:{type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'}},
+        y:{min:-2,max:2,title:{display:true,text:'Voltage (a.u.)'}}
+      }
+    }
+  });
+
+  charts.currents = new Chart(document.getElementById('currents-chart').getContext('2d'), {
+    type:'line',
+    data:{datasets: []}, // vide au départ
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{legend:{display:true}},
+      scales:{
+        x:{type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'}},
+        y:{min:-2,max:2,title:{display:true,text:'Current (a.u.)'}}
+      }
+    }
+  });
+}
 
 function plotCharts(theta) {
   const N = 1000;
@@ -89,7 +126,7 @@ function plotCharts(theta) {
     } else if (wtMod >= 2 * PI - theta) {
       vs2Val = 2;
     }
-    data.vs2.push({x: wt, y: 0.98 * vs2Val}); // tu peux changer la forme d’onde
+    data.vs2.push({x: wt, y: 0.98 * vs2Val});
 
     // Courants
     const ie1Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0;
@@ -106,7 +143,6 @@ function plotCharts(theta) {
     data.is2.push({x: wt, y: is2Val});
   }
 
-  // Paramètres pour Chart.js
   const chartParams = {
     vs1: {label:'vs1/VDC', color:'blue'},
     vs2: {label:'vs2/Vout', color:'green'},
@@ -118,77 +154,40 @@ function plotCharts(theta) {
     ic2: {label:'ic2/I', color:'cyan'}
   };
 
-  const formatPi = val => {
-    const n = val / PI;
-    const rounded = Math.round(n);
-    return Math.abs(n - rounded) < 0.05 ? (rounded === 0 ? '0' : `${rounded === 1 ? '' : rounded}π`) : '';
-  };
+  runIndex++;
 
-  // Graphique VS (haut)
-  const vsDatasets = ['vs1','vs2'].map(key => ({
-    label: chartParams[key].label,
-    data: data[key],
-    borderColor: chartParams[key].color,
-    borderWidth: 2,
-    pointRadius:0,
-    fill:false,
-    tension:0
-  }));
-  // Inverser ordre pour légende : vs1 au-dessus de vs2
-  vsDatasets.reverse();
-
-  if(!charts.vs){
-    charts.vs = new Chart(document.getElementById('vs-chart').getContext('2d'), {
-      type:'line',
-      data:{datasets: vsDatasets},
-      options:{
-        responsive:true,
-        maintainAspectRatio:false,
-        plugins:{legend:{display:true}},
-        scales:{
-          x:{type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'}},
-          y:{min:-2,max:2,title:{display:true,text:'Voltage (a.u.)'}}
-        }
-      }
+  // Ajouter nouvelles courbes au graphique VS
+  ['vs1','vs2'].forEach(key=>{
+    charts.vs.data.datasets.push({
+      label: `${chartParams[key].label} (θ=${theta.toFixed(2)})`,
+      data: data[key],
+      borderColor: chartParams[key].color,
+      borderWidth: 2,
+      pointRadius: 0,
+      fill: false,
+      tension: 0
     });
-  } else {
-    charts.vs.data.datasets = vsDatasets;
-    charts.vs.update();
-  }
+  });
 
-  // Graphique courants (bas)
-  const currentsKeys = ['ic1','ie1','is1','ic2','ie2','is2']; // 1 au-dessus de 2
-  const currentsDatasets = currentsKeys.map(key => ({
-    label: chartParams[key].label,
-    data: data[key],
-    borderColor: chartParams[key].color,
-    borderWidth:2,
-    pointRadius:0,
-    fill:false,
-    tension:0
-  }));
-
-  if(!charts.currents){
-    charts.currents = new Chart(document.getElementById('currents-chart').getContext('2d'), {
-      type:'line',
-      data:{datasets: currentsDatasets},
-      options:{
-        responsive:true,
-        maintainAspectRatio:false,
-        plugins:{legend:{display:true}},
-        scales:{
-          x:{type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'}},
-          y:{min:-2,max:2,title:{display:true,text:'Current (a.u.)'}}
-        }
-      }
+  // Ajouter nouvelles courbes au graphique Courants
+  ['ic1','ie1','is1','ic2','ie2','is2'].forEach(key=>{
+    charts.currents.data.datasets.push({
+      label: `${chartParams[key].label} (θ=${theta.toFixed(2)})`,
+      data: data[key],
+      borderColor: chartParams[key].color,
+      borderWidth: 2,
+      pointRadius: 0,
+      fill: false,
+      tension: 0
     });
-  } else {
-    charts.currents.data.datasets = currentsDatasets;
-    charts.currents.update();
-  }
+  });
+
+  charts.vs.update();
+  charts.currents.update();
 }
 
-// Initial plot
+// Initialisation
+initCharts();
 plotCharts(0.5);
 
 // Slider theta
