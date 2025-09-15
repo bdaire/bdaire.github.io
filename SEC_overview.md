@@ -38,7 +38,7 @@ title: Research
     #charts-container {
       display: flex;
       flex-direction: column;
-      height: 400px; /* <--- hauteur totale configurable ici */
+      height: 200px; /* <--- hauteur totale configurable ici */
       gap: 1rem;
     }
 
