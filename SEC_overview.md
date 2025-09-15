@@ -11,8 +11,8 @@ title: Research
     .interactive-body .container { display: flex; gap: 2rem; align-items: flex-start; }
 
     #left-panel, #right-panel { display: flex; flex-direction: column; gap: 1rem; }
-    #left-panel { width: 40%; }
-    #right-panel { width: 60%; }
+    #left-panel { width: 50%; }
+    #right-panel { width: 50%; }
 
     #left-panel object { width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; }
 
