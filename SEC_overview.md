@@ -84,7 +84,6 @@ title: Research
         borderColor: ds.color,
         borderWidth: 2,
         fill: false,
-        yAxisID: ds.yAxis || 'y'
       }))
     };
 
@@ -97,31 +96,21 @@ title: Research
         scales: {
           x: { title: { display: true, text: 'Time (a.u.)' } },
           y: {
-            type: 'linear',
-            display: true,
-            position: 'left',
-            title: { display: true, text: 'Voltage / Current (a.u.)' }
-          },
-          y1: {
-            type: 'linear',
-            display: true,
-            position: 'right',
-            title: { display: true, text: 'Second scale (optional)' },
-            grid: { drawOnChartArea: false } // pour éviter le chevauchement
+            title: { display: true, text: 'Amplitude' }
           }
         }
       }
     });
   }
 
-  // Initialisation des graphes avec 2 grandeurs chacun
+  // Initialisation des graphes avec 2 grandeurs chacun, même axe Y
   createWaveformMultiple('voltages', [
-    { label: 'V_s', color: 'blue', scale: 1, yAxis: 'y' },
-    { label: 'V_out', color: 'green', scale: 0.8, yAxis: 'y1' }
+    { label: 'V_s', color: 'blue', scale: 1 },
+    { label: 'V_out', color: 'green', scale: 0.8 }
   ]);
 
   createWaveformMultiple('currents', [
-    { label: 'I_s', color: 'red', scale: 1, yAxis: 'y' },
-    { label: 'I_out', color: 'orange', scale: 0.5, yAxis: 'y1' }
+    { label: 'I_s', color: 'red', scale: 1 },
+    { label: 'I_out', color: 'orange', scale: 0.5 }
   ]);
 </script>
