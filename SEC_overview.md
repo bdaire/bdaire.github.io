@@ -34,16 +34,16 @@ title: Research
       border-radius: 6px;
     }
 
-    /* Conteneur pour 4 graphes */
+    /* Conteneur pour 2 graphes */
     #charts-container {
       display: flex;
       flex-direction: column;
-      height: 200px; /* <--- hauteur totale configurable ici */
+      height: 400px; /* hauteur totale configurable */
       gap: 1rem;
     }
 
     #charts-container .chart-block {
-      flex: 1; /* chaque graphique prend 1/4 */
+      flex: 1;
     }
 
     #charts-container canvas {
@@ -63,8 +63,8 @@ title: Research
     <!-- Colonne droite : 2 graphiques -->
     <div id="right-panel">
       <div id="charts-container">
-        <div class="chart-block"><canvas id="waveform1"></canvas></div>
-        <div class="chart-block"><canvas id="waveform2"></canvas></div>
+        <div class="chart-block"><canvas id="voltages"></canvas></div>
+        <div class="chart-block"><canvas id="currents"></canvas></div>
       </div>
     </div>
   </div>
@@ -72,33 +72,56 @@ title: Research
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  function createWaveform(canvasId, label, color) {
+  function createWaveformMultiple(canvasId, datasets) {
     const ctx = document.getElementById(canvasId).getContext('2d');
-    const data = {
-      labels: Array.from({ length: 200 }, (_, i) => i / 20),
-      datasets: [{
-        label,
-        data: Array.from({ length: 200 }, (_, i) => Math.sin(i / 10 + Math.random()*0.2)),
-        borderColor: color,
+    const labels = Array.from({ length: 200 }, (_, i) => i / 20);
+
+    const chartData = {
+      labels: labels,
+      datasets: datasets.map(ds => ({
+        label: ds.label,
+        data: labels.map((_, i) => Math.sin(i / 10 + Math.random() * 0.2) * ds.scale),
+        borderColor: ds.color,
         borderWidth: 2,
         fill: false,
-      }]
+        yAxisID: ds.yAxis || 'y'
+      }))
     };
+
     new Chart(ctx, {
       type: 'line',
-      data: data,
+      data: chartData,
       options: {
         responsive: true,
         maintainAspectRatio: false,
         scales: {
           x: { title: { display: true, text: 'Time (a.u.)' } },
-          y: { title: { display: true, text: label } }
+          y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            title: { display: true, text: 'Voltage / Current (a.u.)' }
+          },
+          y1: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            title: { display: true, text: 'Second scale (optional)' },
+            grid: { drawOnChartArea: false } // pour éviter le chevauchement
+          }
         }
       }
     });
   }
 
-  // Initialisation
-  createWaveform('waveform1', 'V_s', 'blue');
-  createWaveform('waveform2', 'I_s', 'red');
+  // Initialisation des graphes avec 2 grandeurs chacun
+  createWaveformMultiple('voltages', [
+    { label: 'V_s', color: 'blue', scale: 1, yAxis: 'y' },
+    { label: 'V_out', color: 'green', scale: 0.8, yAxis: 'y1' }
+  ]);
+
+  createWaveformMultiple('currents', [
+    { label: 'I_s', color: 'red', scale: 1, yAxis: 'y' },
+    { label: 'I_out', color: 'orange', scale: 0.5, yAxis: 'y1' }
+  ]);
 </script>
