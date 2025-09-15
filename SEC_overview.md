@@ -3,13 +3,13 @@ layout: default
 title: Research
 ---
 
-<h2 style="text-align: center;">Class EF inverter – Simplified Interactive Tool</h2>
+<h2 style="text-align: center;">Class EF inverter – Interactive Tool (4 Waveforms)</h2>
 
 <div class="interactive-body">
   <style>
     .interactive-body {
       font-size: 1rem;
-      margin-top: 3rem;
+      margin-top: 2rem;
     }
 
     .interactive-body .container {
@@ -18,66 +18,69 @@ title: Research
       align-items: flex-start;
     }
 
-    .interactive-body #left-panel,
-    .interactive-body #right-panel {
+    #left-panel, #right-panel {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1rem;
     }
 
-    .interactive-body #left-panel {
-      width: 50%;
-    }
+    #left-panel { width: 50%; }
+    #right-panel { width: 50%; }
 
-    .interactive-body #right-panel {
-      width: 50%;
-    }
-
-    .interactive-body svg {
-      display: block;
+    #left-panel svg, #left-panel object {
       width: 100%;
       height: auto;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
 
-    .interactive-body .chart-block {
-      width: 100%;
+    /* Conteneur pour 4 graphes */
+    #charts-container {
+      display: flex;
+      flex-direction: column;
+      height: 800px; /* <--- hauteur totale configurable ici */
+      gap: 1rem;
     }
 
-    .interactive-body .chart-block canvas {
+    #charts-container .chart-block {
+      flex: 1; /* chaque graphique prend 1/4 */
+    }
+
+    #charts-container canvas {
       width: 100% !important;
-      height: auto !important;
-      aspect-ratio: 3 / 2;
+      height: 100% !important;
     }
   </style>
 
   <div class="container">
-    <!-- COLONNE GAUCHE -->
+    <!-- Colonne gauche : SVG -->
     <div id="left-panel">
       <object type="image/svg+xml" data="/assets/img/sec_circuit.svg">
         Votre navigateur ne supporte pas l’affichage du SVG.
       </object>
     </div>
 
-    <!-- COLONNE DROITE -->
+    <!-- Colonne droite : 4 graphiques -->
     <div id="right-panel">
-      <div class="chart-block"><canvas id="waveform1"></canvas></div>
-      <div class="chart-block"><canvas id="waveform2"></canvas></div>
+      <div id="charts-container">
+        <div class="chart-block"><canvas id="waveform1"></canvas></div>
+        <div class="chart-block"><canvas id="waveform2"></canvas></div>
+        <div class="chart-block"><canvas id="waveform3"></canvas></div>
+        <div class="chart-block"><canvas id="waveform4"></canvas></div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
-  // Exemple de tracé dynamique – tu peux adapter selon tes calculs
   function createWaveform(canvasId, label, color) {
     const ctx = document.getElementById(canvasId).getContext('2d');
     const data = {
       labels: Array.from({ length: 200 }, (_, i) => i / 20),
       datasets: [{
-        label: label,
-        data: Array.from({ length: 200 }, (_, i) => Math.sin(i / 10)),
+        label,
+        data: Array.from({ length: 200 }, (_, i) => Math.sin(i / 10 + Math.random()*0.2)),
         borderColor: color,
         borderWidth: 2,
         fill: false,
@@ -97,7 +100,9 @@ title: Research
     });
   }
 
-  // Initialisation des deux formes d’onde
-  createWaveform('waveform1', 'Voltage (V)', 'blue');
-  createWaveform('waveform2', 'Current (A)', 'red');
+  // Initialisation
+  createWaveform('waveform1', 'V_s', 'blue');
+  createWaveform('waveform2', 'I_s', 'red');
+  createWaveform('waveform3', 'V_c', 'green');
+  createWaveform('waveform4', 'I_c', 'orange');
 </script>
