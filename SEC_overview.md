@@ -68,29 +68,41 @@ function plotCharts(theta) {
     const wtMod = wt % (2 * PI);
     const sinTerm = Math.sin(wt);
 
-    // vs1 et vs2 (ici mêmes valeurs pour l’exemple)
-    let vsVal = 0;
+    // vs1 
+    let vs1Val = 0;
     if (wtMod > PI - theta && wtMod <= PI) {
-      vsVal = -i * (1 + Math.cos(wtMod));
+      vs1Val = -i * (Math.cos(theta) + Math.cos(wtMod));
     } else if (wtMod > PI && wtMod <= 2 * PI - theta) {
-      vsVal = 2;
+      vs1Val = 2;
     } else if (wtMod > 2 * PI - theta) {
-      vsVal = 2 + i * (1 - Math.cos(wtMod));
+      vs1Val = 2 + i * (Math.cos(theta) - Math.cos(wtMod));
     }
-    data.vs1.push({x: wt, y: 0.98 * vsVal});
-    data.vs2.push({x: wt, y: 0.98 * vsVal}); // tu peux changer la forme d’onde
+    data.vs1.push({x: wt, y: 0.98 * vs1Val});
+
+    // vs2 
+    let vs2Val = 0;
+    if (wtMod > PI - theta && wtMod <= PI) {
+      vs2Val = -i * (Math.cos(theta) + Math.cos(wtMod));
+    } else if (wtMod > PI && wtMod <= 2 * PI - theta) {
+      vs2Val = 2;
+    } else if (wtMod > 2 * PI - theta) {
+      vs2Val = 2 + i * (Math.cos(theta) - Math.cos(wtMod));
+    }
+    data.vs2.push({x: wt, y: 0.98 * vs2Val}); // tu peux changer la forme d’onde
 
     // Courants
-    const ieVal = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0;
-    const icVal = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm : 0;
-    const isVal = (wtMod <= PI - theta) ? 0.98 * 2 * sinTerm : 0;
-
-    data.ie1.push({x: wt, y: ieVal});
-    data.ie2.push({x: wt, y: ieVal});
-    data.ic1.push({x: wt, y: icVal});
-    data.ic2.push({x: wt, y: icVal});
-    data.is1.push({x: wt, y: isVal});
-    data.is2.push({x: wt, y: isVal});
+    const ie1Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0;
+    const ic1Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm : 0;
+    const is1Val = (wtMod <= PI - theta) ? 0.98 * 2 * sinTerm : 0;
+    const ie2Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0;
+    const ic2Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm : 0;
+    const is2Val = (wtMod <= PI - theta) ? 0.98 * 2 * sinTerm : 0;
+    data.ie1.push({x: wt, y: ie1Val});
+    data.ie2.push({x: wt, y: ie2Val});
+    data.ic1.push({x: wt, y: ic1Val});
+    data.ic2.push({x: wt, y: ic2Val});
+    data.is1.push({x: wt, y: is1Val});
+    data.is2.push({x: wt, y: is2Val});
   }
 
   // Paramètres pour Chart.js
