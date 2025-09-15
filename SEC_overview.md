@@ -108,14 +108,14 @@ function plotCharts(theta) {
 
   // Paramètres pour Chart.js
   const chartParams = {
-    vs1: {label:'vs1', color:'blue'},
-    vs2: {label:'vs2', color:'green'},
-    ie1: {label:'ie1', color:'red'},
-    ie2: {label:'ie2', color:'orange'},
-    is1: {label:'is1', color:'purple'},
-    is2: {label:'is2', color:'pink'},
-    ic1: {label:'ic1', color:'brown'},
-    ic2: {label:'ic2', color:'cyan'}
+    vs1: {label:'vs1/VDC', color:'blue'},
+    vs2: {label:'vs2/Vout', color:'green'},
+    ie1: {label:'ie1/I', color:'red'},
+    ie2: {label:'ie2/I', color:'orange'},
+    is1: {label:'is1/I', color:'purple'},
+    is2: {label:'is2/I', color:'pink'},
+    ic1: {label:'ic1/I', color:'brown'},
+    ic2: {label:'ic2/I', color:'cyan'}
   };
 
   const formatPi = val => {
