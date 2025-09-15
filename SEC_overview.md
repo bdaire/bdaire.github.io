@@ -121,7 +121,7 @@ function plotCharts(theta) {
   const formatPi = val => {
     const n = val / PI;
     const rounded = Math.round(n);
-    return Math.abs(n - rounded) < 0.05 ? (rounded === 0 ? '0' : ${rounded === 1 ? '' : rounded}π) : '';
+    return Math.abs(n - rounded) < 0.05 ? (rounded === 0 ? '0' : `${rounded === 1 ? '' : rounded}π`): '';
   };
 
   // Graphique VS (haut)
