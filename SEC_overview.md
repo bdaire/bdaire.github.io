@@ -62,7 +62,7 @@ const chartParams = {
 
 // Nombre de points réduit pour fluidité
 const N_POINTS = 500;
-const VDC = 2; // Valeur fixe de VDC
+const VDC = 1; // Valeur fixe de VDC
 
 // Génération des données
 function generateData(theta) {
