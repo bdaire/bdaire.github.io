@@ -61,8 +61,9 @@ function plotCharts(theta) {
     ic1: [], ic2: []
   };
 
-  const i = 2 / (1 - Math.cos(theta));
-
+  const i1 = 2 / (1 - Math.cos(theta));
+  const i2 = 2 / (1 - Math.cos(PI - theta));
+  
   for (let k = 0; k <= N; k++) {
     const wt = (k / N) * 4 * PI;
     const wtMod = wt % (2 * PI);
@@ -71,20 +72,20 @@ function plotCharts(theta) {
     // vs1 
     let vs1Val = 0;
     if (wtMod > PI - theta && wtMod <= PI) {
-      vs1Val = -i * (Math.cos(theta) + Math.cos(wtMod));
+      vs1Val = -i1 * (Math.cos(theta) + Math.cos(wtMod));
     } else if (wtMod > PI && wtMod <= 2 * PI - theta) {
       vs1Val = 2;
     } else if (wtMod > 2 * PI - theta) {
-      vs1Val = 2 + i * (Math.cos(theta) - Math.cos(wtMod));
+      vs1Val = 2 + i1 * (Math.cos(theta) - Math.cos(wtMod));
     }
     data.vs1.push({x: wt, y: 0.98 * vs1Val});
 
     // vs2 
     let vs2Val = 0;
     if (wtMod > 0 && wtMod <= PI - theta) {
-      vs2Val = i * (Math.cos(pi-theta) - Math.cos(wtMod));
+      vs2Val = i2 * (Math.cos(pi-theta) - Math.cos(wtMod));
     } else if (wtMod > PI && wtMod < 2 * PI - theta) {
-      vs2Val = 2 - i * (Math.cos(wtMod) + Math.cos(pi-theta));
+      vs2Val = 2 - i2 * (Math.cos(wtMod) + Math.cos(pi-theta));
     } else if (wtMod > 2 * PI-theta) {
       vs2Val = 2;
     }
