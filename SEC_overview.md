@@ -47,7 +47,7 @@ title: Research
 <script>
 const PI = Math.PI;
 let charts = {}; // instances Chart.js
-let phi = 0.2;
+let phi = 0;
 let iValue = 1;
 
 function plotCharts(res) {
