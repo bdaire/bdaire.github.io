@@ -66,14 +66,15 @@ function plotCharts(theta) {
 
     // VS
     let vsVal = 0;
-    if (wtMod > PI - theta && wtMod <= PI) {
-      vsVal = -i * (1 + Math.cos(wtMod));
-    } else if (wtMod > PI && wtMod <= 2 * PI - theta) {
+    if (wtMod > Math.PI - theta && wtMod <= Math.PI) {
+      vsVal = -i * (Math.cos(theta) + Math.cos(wtMod));
+    } else if (wtMod > Math.PI && wtMod <= 2 * Math.PI - theta) {
       vsVal = 2;
-    } else if (wtMod > 2 * PI - theta) {
-      vsVal = 2 + i * (1 - Math.cos(wtMod));
+    } else if (wtMod > 2 * Math.PI - theta) {
+      vsVal = 2 + i * (Math.cos(theta) - Math.cos(wtMod));
     }
     data.vs.push({ x: wt, y: 0.98 * vsVal });
+
 
     // Courants
     data.ie.push({ x: wt, y: (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2 * PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0 });
