@@ -82,9 +82,9 @@ function plotCharts(theta) {
     // vs2 
     let vs2Val = 0;
     if (wtMod > 0 && wtMod <= PI - theta) {
-      vs2Val = i * (Math.cos(theta) - Math.cos(wtMod));
+      vs2Val = i * (Math.cos(pi-theta) - Math.cos(wtMod));
     } else if (wtMod > PI && wtMod < 2 * PI - theta) {
-      vs2Val = 2 - i * (Math.cos(wtMod) + Math.cos(theta));
+      vs2Val = 2 - i * (Math.cos(wtMod) + Math.cos(pi-theta));
     } else if (wtMod > 2 * PI-theta) {
       vs2Val = 2;
     }
