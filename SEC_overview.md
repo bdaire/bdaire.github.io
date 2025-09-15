@@ -13,23 +13,32 @@ title: Research
     #left-panel { width: 50%; }
     #right-panel { width: 50%; }
     #left-panel svg, #left-panel object { width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; }
+
     #charts-container { display: flex; flex-direction: column; height: 400px; gap: 1rem; }
     #charts-container .chart-block { flex: 1; }
     #charts-container canvas { width: 100% !important; height: 100% !important; }
+
+    /* Curseur theta */
+    #theta-container { margin-bottom: 1rem; text-align: center; }
+    #theta-value { font-weight: bold; margin-left: 0.5rem; }
   </style>
 
-  <div class="container">
-    <div id="left-panel">
-      <object type="image/svg+xml" data="/assets/img/sec_circuit.svg">
-        Votre navigateur ne supporte pas l’affichage du SVG.
-      </object>
+  <div id="left-panel">
+    <!-- Curseur theta au-dessus du SVG -->
+    <div id="theta-container">
+      <label for="theta-slider">θ = <span id="theta-value">0.5</span> rad</label><br>
+      <input type="range" id="theta-slider" min="0" max="3.14" step="0.01" value="0.5">
     </div>
 
-    <div id="right-panel">
-      <div id="charts-container">
-        <div class="chart-block"><canvas id="vs-chart"></canvas></div>
-        <div class="chart-block"><canvas id="currents-chart"></canvas></div>
-      </div>
+    <object type="image/svg+xml" data="/assets/img/sec_circuit.svg">
+      Votre navigateur ne supporte pas l’affichage du SVG.
+    </object>
+  </div>
+
+  <div id="right-panel">
+    <div id="charts-container">
+      <div class="chart-block"><canvas id="vs-chart"></canvas></div>
+      <div class="chart-block"><canvas id="currents-chart"></canvas></div>
     </div>
   </div>
 </div>
@@ -37,7 +46,9 @@ title: Research
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 const PI = Math.PI;
-let charts = {}; // pour stocker les instances Chart.js
+let charts = {}; // instances Chart.js
+let phi = 0.2;
+let iValue = 1;
 
 function plotCharts(res) {
   const N = 1000;
@@ -52,7 +63,6 @@ function plotCharts(res) {
     const wtMod = wt % (2 * PI);
     const sinTerm = Math.sin(wt + phi);
 
-    // VS
     let vsVal = 0;
     if (wtMod > PI - theta && wtMod <= PI) {
       vsVal = -i * (Math.cos(phi - theta) + Math.cos(wtMod + phi));
@@ -63,13 +73,11 @@ function plotCharts(res) {
     }
     data.vs.push({ x: wt, y: 0.98 * vsVal });
 
-    // Courants
     data.ie.push({ x: wt, y: (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2 * PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0 });
     data.ic.push({ x: wt, y: (wtMod > PI - theta && wtMod <= PI || wtMod > 2 * PI - theta) ? sinTerm : 0 });
     data.is.push({ x: wt, y: (wtMod <= PI - theta) ? 0.98 * 2 * sinTerm : 0 });
   }
 
-  // Paramètres pour les graphes
   const chartParams = {
     vs: { label: 'vs(ωt) / VDC', color: 'blue' },
     ie: { label: 'ie(ωt) / I', color: 'red' },
@@ -83,7 +91,7 @@ function plotCharts(res) {
     return Math.abs(n - rounded) < 0.05 ? (rounded === 0 ? '0' : `${rounded === 1 ? '' : rounded}π`) : '';
   };
 
-  // Graphique du haut : vs
+  // Graphique vs
   if (!charts.vs) {
     charts.vs = new Chart(document.getElementById('vs-chart').getContext('2d'), {
       type: 'line',
@@ -93,7 +101,7 @@ function plotCharts(res) {
         maintainAspectRatio: false,
         plugins: { legend: { display: true } },
         scales: {
-          x: { type: 'linear', min: 0, max: 4*PI, ticks: { stepSize: PI, callback: formatPi } , title:{display:true,text:'ωt (rad)'}},
+          x: { type: 'linear', min: 0, max: 4*PI, ticks: { stepSize: PI, callback: formatPi }, title:{display:true,text:'ωt (rad)'} },
           y: { min: -2, max: 2, title:{display:true,text:chartParams.vs.label} }
         }
       }
@@ -103,7 +111,7 @@ function plotCharts(res) {
     charts.vs.update();
   }
 
-  // Graphique du bas : ic, ie, is
+  // Graphique courants
   const currentsDatasets = ['ic','ie','is'].map(key => ({
     label: chartParams[key].label,
     data: data[key],
@@ -134,6 +142,16 @@ function plotCharts(res) {
   }
 }
 
-// Exemple d'appel
-plotCharts({ theta: 0.5, phi: 0.2, i: 1 });
+// Initial plot
+plotCharts({ theta: 0.5, phi: phi, i: iValue });
+
+// Slider interaction
+const thetaSlider = document.getElementById('theta-slider');
+const thetaValueLabel = document.getElementById('theta-value');
+
+thetaSlider.addEventListener('input', () => {
+  const theta = parseFloat(thetaSlider.value);
+  thetaValueLabel.textContent = theta.toFixed(2);
+  plotCharts({ theta: theta, phi: phi, i: iValue });
+});
 </script>
