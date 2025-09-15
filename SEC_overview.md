@@ -52,7 +52,18 @@ title: Research
 const PI = Math.PI;
 let charts = {};
 
-function plotCharts(theta) {
+const chartParams = {
+  vs1: {label:'vs1/VDC', color:'blue'},
+  vs2: {label:'vs2/Vout', color:'green'},
+  ie1: {label:'ie1/I', color:'red'},
+  ie2: {label:'ie2/I', color:'orange'},
+  is1: {label:'is1/I', color:'purple'},
+  is2: {label:'is2/I', color:'pink'},
+  ic1: {label:'ic1/I', color:'brown'},
+  ic2: {label:'ic2/I', color:'cyan'}
+};
+
+function generateData(theta) {
   const N = 1000;
   const data = {
     vs1: [], vs2: [],
@@ -89,7 +100,7 @@ function plotCharts(theta) {
     } else if (wtMod >= 2 * PI - theta) {
       vs2Val = 2;
     }
-    data.vs2.push({x: wt, y: 0.98 * vs2Val}); // tu peux changer la forme d’onde
+    data.vs2.push({x: wt, y: 0.98 * vs2Val});
 
     // Courants
     const ie1Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0;
@@ -106,25 +117,19 @@ function plotCharts(theta) {
     data.is2.push({x: wt, y: is2Val});
   }
 
-  // Paramètres pour Chart.js
-  const chartParams = {
-    vs1: {label:'vs1/VDC', color:'blue'},
-    vs2: {label:'vs2/Vout', color:'green'},
-    ie1: {label:'ie1/I', color:'red'},
-    ie2: {label:'ie2/I', color:'orange'},
-    is1: {label:'is1/I', color:'purple'},
-    is2: {label:'is2/I', color:'pink'},
-    ic1: {label:'ic1/I', color:'brown'},
-    ic2: {label:'ic2/I', color:'cyan'}
-  };
+  return data;
+}
 
+function initCharts(theta) {
   const formatPi = val => {
     const n = val / PI;
     const rounded = Math.round(n);
     return Math.abs(n - rounded) < 0.05 ? (rounded === 0 ? '0' : `${rounded === 1 ? '' : rounded}π`): '';
   };
 
-  // Graphique VS (haut)
+  const data = generateData(theta);
+
+  // VS chart
   const vsDatasets = ['vs1','vs2'].map(key => ({
     label: chartParams[key].label,
     data: data[key],
@@ -133,31 +138,24 @@ function plotCharts(theta) {
     pointRadius:0,
     fill:false,
     tension:0
-  }));
-  // Inverser ordre pour légende : vs1 au-dessus de vs2
-  vsDatasets.reverse();
+  })).reverse();
 
-  if(!charts.vs){
-    charts.vs = new Chart(document.getElementById('vs-chart').getContext('2d'), {
-      type:'line',
-      data:{datasets: vsDatasets},
-      options:{
-        responsive:true,
-        maintainAspectRatio:false,
-        plugins:{legend:{display:true}},
-        scales:{
-          x:{type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'}},
-          y:{min:-2,max:2,title:{display:true,text:'Voltage (a.u.)'}}
-        }
+  charts.vs = new Chart(document.getElementById('vs-chart').getContext('2d'), {
+    type:'line',
+    data:{datasets: vsDatasets},
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{legend:{display:true}},
+      scales:{
+        x:{type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'}},
+        y:{min:-2,max:2,title:{display:true,text:'Voltage (a.u.)'}}
       }
-    });
-  } else {
-    charts.vs.data.datasets = vsDatasets;
-    charts.vs.update();
-  }
+    }
+  });
 
-  // Graphique courants (bas)
-  const currentsKeys = ['ic1','ie1','is1','ic2','ie2','is2']; // 1 au-dessus de 2
+  // Currents chart
+  const currentsKeys = ['ic1','ie1','is1','ic2','ie2','is2'];
   const currentsDatasets = currentsKeys.map(key => ({
     label: chartParams[key].label,
     data: data[key],
@@ -168,28 +166,41 @@ function plotCharts(theta) {
     tension:0
   }));
 
-  if(!charts.currents){
-    charts.currents = new Chart(document.getElementById('currents-chart').getContext('2d'), {
-      type:'line',
-      data:{datasets: currentsDatasets},
-      options:{
-        responsive:true,
-        maintainAspectRatio:false,
-        plugins:{legend:{display:true}},
-        scales:{
-          x:{type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'}},
-          y:{min:-2,max:2,title:{display:true,text:'Current (a.u.)'}}
-        }
+  charts.currents = new Chart(document.getElementById('currents-chart').getContext('2d'), {
+    type:'line',
+    data:{datasets: currentsDatasets},
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{legend:{display:true}},
+      scales:{
+        x:{type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'}},
+        y:{min:-2,max:2,title:{display:true,text:'Current (a.u.)'}}
       }
-    });
-  } else {
-    charts.currents.data.datasets = currentsDatasets;
-    charts.currents.update();
-  }
+    }
+  });
+}
+
+function updateCharts(theta) {
+  const data = generateData(theta);
+
+  // mettre à jour uniquement les data des datasets existants
+  charts.vs.data.datasets.forEach(ds => {
+    const key = Object.keys(chartParams).find(k => chartParams[k].label === ds.label);
+    if (key) ds.data = data[key];
+  });
+
+  charts.currents.data.datasets.forEach(ds => {
+    const key = Object.keys(chartParams).find(k => chartParams[k].label === ds.label);
+    if (key) ds.data = data[key];
+  });
+
+  charts.vs.update();
+  charts.currents.update();
 }
 
 // Initial plot
-plotCharts(0.5);
+initCharts(0.5);
 
 // Slider theta
 const thetaSlider = document.getElementById('theta-slider');
@@ -197,6 +208,6 @@ const thetaValueLabel = document.getElementById('theta-value');
 thetaSlider.addEventListener('input', ()=>{
   const theta = parseFloat(thetaSlider.value);
   thetaValueLabel.textContent = theta.toFixed(2);
-  plotCharts(theta);
+  updateCharts(theta);
 });
 </script>
