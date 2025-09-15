@@ -26,7 +26,6 @@ title: Research
   </style>
 
   <div class="container">
-    <!-- Colonne gauche : slider + SVG -->
     <div id="left-panel">
       <div id="theta-container">
         <label for="theta-slider">θ = <span id="theta-value">0.5</span> rad</label><br>
@@ -37,7 +36,6 @@ title: Research
       </object>
     </div>
 
-    <!-- Colonne droite : graphiques -->
     <div id="right-panel">
       <div id="charts-container">
         <div class="chart-block"><canvas id="vs-chart"></canvas></div>
@@ -51,7 +49,6 @@ title: Research
 <script>
 const PI = Math.PI;
 let charts = {};
-
 const chartParams = {
   vs1: {label:'vs1/VDC', color:'blue'},
   vs2: {label:'vs2/Vout', color:'green'},
@@ -63,43 +60,32 @@ const chartParams = {
   ic2: {label:'ic2/I', color:'cyan'}
 };
 
-function generateData(theta) {
-  const N = 1000;
-  const data = {
-    vs1: [], vs2: [],
-    ie1: [], ie2: [],
-    is1: [], is2: [],
-    ic1: [], ic2: []
-  };
+// Nombre de points réduit pour fluidité
+const N_POINTS = 500;
 
+// Génération des données
+function generateData(theta) {
+  const data = { vs1: [], vs2: [], ie1: [], ie2: [], is1: [], is2: [], ic1: [], ic2: [] };
   const i1 = 2 / (1 - Math.cos(theta));
   const i2 = 2 / (1 - Math.cos(PI - theta));
-  
-  for (let k = 0; k <= N; k++) {
-    const wt = (k / N) * 4 * PI;
+
+  for (let k = 0; k <= N_POINTS; k++) {
+    const wt = (k / N_POINTS) * 4 * PI;
     const wtMod = wt % (2 * PI);
     const sinTerm = Math.sin(wt);
 
-    // vs1 
+    // vs1
     let vs1Val = 0;
-    if (wtMod > PI - theta && wtMod <= PI) {
-      vs1Val = -i1 * (Math.cos(theta) + Math.cos(wtMod));
-    } else if (wtMod > PI && wtMod <= 2 * PI - theta) {
-      vs1Val = 2;
-    } else if (wtMod > 2 * PI - theta) {
-      vs1Val = 2 + i1 * (Math.cos(theta) - Math.cos(wtMod));
-    }
+    if (wtMod > PI - theta && wtMod <= PI) vs1Val = -i1 * (Math.cos(theta) + Math.cos(wtMod));
+    else if (wtMod > PI && wtMod <= 2 * PI - theta) vs1Val = 2;
+    else if (wtMod > 2 * PI - theta) vs1Val = 2 + i1 * (Math.cos(theta) - Math.cos(wtMod));
     data.vs1.push({x: wt, y: 0.98 * vs1Val});
 
-    // vs2 
+    // vs2
     let vs2Val = 0;
-    if (wtMod >= 0 && wtMod <= PI - theta) {
-      vs2Val = -i2 * (Math.cos(PI - theta) - Math.cos(wtMod));
-    } else if (wtMod > PI && wtMod < 2 * PI - theta) {
-      vs2Val = 2 + i2 * (Math.cos(wtMod) + Math.cos(PI - theta));
-    } else if (wtMod >= 2 * PI - theta) {
-      vs2Val = 2;
-    }
+    if (wtMod >= 0 && wtMod <= PI - theta) vs2Val = -i2 * (Math.cos(PI - theta) - Math.cos(wtMod));
+    else if (wtMod > PI && wtMod < 2 * PI - theta) vs2Val = 2 + i2 * (Math.cos(wtMod) + Math.cos(PI - theta));
+    else if (wtMod >= 2 * PI - theta) vs2Val = 2;
     data.vs2.push({x: wt, y: 0.98 * vs2Val});
 
     // Courants
@@ -120,6 +106,7 @@ function generateData(theta) {
   return data;
 }
 
+// Initialisation des graphiques
 function initCharts(theta) {
   const formatPi = val => {
     const n = val / PI;
@@ -129,85 +116,89 @@ function initCharts(theta) {
 
   const data = generateData(theta);
 
-  // VS chart
   const vsDatasets = ['vs1','vs2'].map(key => ({
     label: chartParams[key].label,
     data: data[key],
     borderColor: chartParams[key].color,
     borderWidth: 2,
-    pointRadius:0,
-    fill:false,
-    tension:0
+    pointRadius: 0,
+    fill: false,
+    tension: 0
   })).reverse();
 
   charts.vs = new Chart(document.getElementById('vs-chart').getContext('2d'), {
-    type:'line',
-    data:{datasets: vsDatasets},
-    options:{
-      responsive:true,
-      maintainAspectRatio:false,
-      plugins:{legend:{display:true}},
-      scales:{
-        x:{type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'}},
-        y:{min:-2,max:2,title:{display:true,text:'Voltage (a.u.)'}}
+    type: 'line',
+    data: { datasets: vsDatasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 100 }, // transition rapide
+      plugins: { legend: { display: true } },
+      scales: {
+        x: { type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'} },
+        y: { min:-2, max:2, title:{display:true,text:'Voltage (a.u.)'} }
       }
     }
   });
 
-  // Currents chart
   const currentsKeys = ['ic1','ie1','is1','ic2','ie2','is2'];
   const currentsDatasets = currentsKeys.map(key => ({
     label: chartParams[key].label,
     data: data[key],
     borderColor: chartParams[key].color,
-    borderWidth:2,
-    pointRadius:0,
-    fill:false,
-    tension:0
+    borderWidth: 2,
+    pointRadius: 0,
+    fill: false,
+    tension: 0
   }));
 
   charts.currents = new Chart(document.getElementById('currents-chart').getContext('2d'), {
-    type:'line',
-    data:{datasets: currentsDatasets},
-    options:{
-      responsive:true,
-      maintainAspectRatio:false,
-      plugins:{legend:{display:true}},
-      scales:{
-        x:{type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'}},
-        y:{min:-2,max:2,title:{display:true,text:'Current (a.u.)'}}
+    type: 'line',
+    data: { datasets: currentsDatasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 100 },
+      plugins: { legend: { display: true } },
+      scales: {
+        x: { type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'} },
+        y: { min:-2, max:2, title:{display:true,text:'Current (a.u.)'} }
       }
     }
   });
 }
 
+// Mise à jour des données sans recréer les datasets
 function updateCharts(theta) {
   const data = generateData(theta);
 
-  // mettre à jour uniquement les data des datasets existants
   charts.vs.data.datasets.forEach(ds => {
     const key = Object.keys(chartParams).find(k => chartParams[k].label === ds.label);
     if (key) ds.data = data[key];
   });
-
   charts.currents.data.datasets.forEach(ds => {
     const key = Object.keys(chartParams).find(k => chartParams[k].label === ds.label);
     if (key) ds.data = data[key];
   });
 
-  charts.vs.update();
-  charts.currents.update();
+  charts.vs.update('none');       // update rapide
+  charts.currents.update('none');
 }
 
-// Initial plot
-initCharts(0.5);
-
-// Slider theta
+// Récupérer theta depuis localStorage
 const thetaSlider = document.getElementById('theta-slider');
 const thetaValueLabel = document.getElementById('theta-value');
+let thetaInitial = parseFloat(localStorage.getItem('theta') || '0.5');
+thetaSlider.value = thetaInitial;
+thetaValueLabel.textContent = thetaInitial.toFixed(2);
+
+initCharts(thetaInitial);
+
+// Slider listener
 thetaSlider.addEventListener('input', ()=>{
   const theta = parseFloat(thetaSlider.value);
   thetaValueLabel.textContent = theta.toFixed(2);
+  localStorage.setItem('theta', theta); // sauvegarder valeur
   updateCharts(theta);
 });
 </script>
