@@ -20,16 +20,16 @@ title: Research
     #charts-container .chart-block { flex: 1; }
     #charts-container canvas { width: 100% !important; height: 100% !important; }
 
-    /* Curseur theta */
-    #theta-container { margin-bottom: 1rem; text-align: center; }
-    #theta-value { font-weight: bold; margin-left: 0.5rem; }
+    /* Curseur Vout */
+    #vout-container { margin-bottom: 1rem; text-align: center; }
+    #vout-value { font-weight: bold; margin-left: 0.5rem; }
   </style>
 
   <div class="container">
     <div id="left-panel">
-      <div id="theta-container">
-        <label for="theta-slider">θ = <span id="theta-value">0.5</span> rad</label><br>
-        <input type="range" id="theta-slider" min="0.01" max="3.14" step="0.01" value="0.5">
+      <div id="vout-container">
+        <label for="vout-slider">Vout / VDC = <span id="vout-value">1.0</span></label><br>
+        <input type="range" id="vout-slider" min="0.1" max="5" step="0.01" value="1">
       </div>
       <object type="image/svg+xml" data="/assets/img/sec_circuit.svg">
         Votre navigateur ne supporte pas l’affichage du SVG.
@@ -62,6 +62,7 @@ const chartParams = {
 
 // Nombre de points réduit pour fluidité
 const N_POINTS = 500;
+const VDC = 2; // Valeur fixe de VDC
 
 // Génération des données
 function generateData(theta) {
@@ -132,7 +133,7 @@ function initCharts(theta) {
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      animation: { duration: 100 }, // transition rapide
+      animation: { duration: 100 },
       plugins: { legend: { display: true } },
       scales: {
         x: { type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'} },
@@ -181,24 +182,25 @@ function updateCharts(theta) {
     if (key) ds.data = data[key];
   });
 
-  charts.vs.update('none');       // update rapide
+  charts.vs.update('none');
   charts.currents.update('none');
 }
 
-// Récupérer theta depuis localStorage
-const thetaSlider = document.getElementById('theta-slider');
-const thetaValueLabel = document.getElementById('theta-value');
-let thetaInitial = parseFloat(localStorage.getItem('theta') || '0.5');
-thetaSlider.value = thetaInitial;
-thetaValueLabel.textContent = thetaInitial.toFixed(2);
+// Slider Vout/VDC
+const voutSlider = document.getElementById('vout-slider');
+const voutValueLabel = document.getElementById('vout-value');
+let VoutInitial = parseFloat(localStorage.getItem('Vout') || '1.0');
+voutSlider.value = VoutInitial;
+voutValueLabel.textContent = VoutInitial.toFixed(2);
 
+let thetaInitial = 2 * Math.atan(Math.sqrt(VDC / VoutInitial));
 initCharts(thetaInitial);
 
-// Slider listener
-thetaSlider.addEventListener('input', ()=>{
-  const theta = parseFloat(thetaSlider.value);
-  thetaValueLabel.textContent = theta.toFixed(2);
-  localStorage.setItem('theta', theta); // sauvegarder valeur
+voutSlider.addEventListener('input', ()=>{
+  const Vout = parseFloat(voutSlider.value);
+  voutValueLabel.textContent = Vout.toFixed(2);
+  localStorage.setItem('Vout', Vout);
+
+  const theta = 2 * Math.atan(VDC / Vout);
   updateCharts(theta);
 });
-</script>
