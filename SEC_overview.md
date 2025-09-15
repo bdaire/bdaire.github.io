@@ -30,7 +30,7 @@ title: Research
     <div id="left-panel">
       <div id="theta-container">
         <label for="theta-slider">θ = <span id="theta-value">0.5</span> rad</label><br>
-        <input type="range" id="theta-slider" min="0" max="3.14" step="0.01" value="0.5">
+        <input type="range" id="theta-slider" min="0.01" max="3.14" step="0.01" value="0.5">
       </div>
       <object type="image/svg+xml" data="/assets/img/sec_circuit.svg">
         Votre navigateur ne supporte pas l’affichage du SVG.
@@ -51,11 +51,13 @@ title: Research
 <script>
 const PI = Math.PI;
 let charts = {};
-let iValue = 1; // courant nominal
 
 function plotCharts(theta) {
   const N = 1000;
   const data = { vs: [], ie: [], is: [], ic: [] };
+
+  // Calcul automatique de i
+  const i = 2 / (1 - Math.cos(theta));
 
   for (let k = 0; k <= N; k++) {
     const wt = (k / N) * 4 * PI;
@@ -65,11 +67,11 @@ function plotCharts(theta) {
     // VS
     let vsVal = 0;
     if (wtMod > PI - theta && wtMod <= PI) {
-      vsVal = -iValue * (1 + Math.cos(wtMod));
+      vsVal = -i * (1 + Math.cos(wtMod));
     } else if (wtMod > PI && wtMod <= 2 * PI - theta) {
       vsVal = 2;
     } else if (wtMod > 2 * PI - theta) {
-      vsVal = 2 + iValue * (1 - Math.cos(wtMod));
+      vsVal = 2 + i * (1 - Math.cos(wtMod));
     }
     data.vs.push({ x: wt, y: 0.98 * vsVal });
 
