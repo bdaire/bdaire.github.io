@@ -81,12 +81,12 @@ function plotCharts(theta) {
 
     // vs2 
     let vs2Val = 0;
-    if (wtMod > PI - theta && wtMod <= PI) {
-      vs2Val = -i * (Math.cos(theta) + Math.cos(wtMod));
-    } else if (wtMod > PI && wtMod <= 2 * PI - theta) {
+    if (wtMod > 0 && wtMod <= PI - theta) {
+      vs2Val = i * (Math.cos(theta) + Math.cos(wtMod));
+    } else if (wtMod > PI && wtMod < 2 * PI - theta) {
+      vs2Val = 2 - i * (Math.cos(theta) + Math.cos(wtMod));
+    } else if (wtMod > 2 * PI-theta) {
       vs2Val = 2;
-    } else if (wtMod > 2 * PI - theta) {
-      vs2Val = 2 + i * (Math.cos(theta) - Math.cos(wtMod));
     }
     data.vs2.push({x: wt, y: 0.98 * vs2Val}); // tu peux changer la forme d’onde
 
