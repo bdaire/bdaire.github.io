@@ -96,7 +96,7 @@ function plotCharts(theta) {
     const ic1Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm : 0;
     const is1Val = (wtMod <= PI - theta) ? 0.98 * 2 * sinTerm : 0;
     const ie2Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm * (wtMod <= PI ? 1 : -1) : 0; 
-    const ic2Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? -sinTerm : 0; 
+    const ic2Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm : 0; 
     const is2Val = (wtMod <= PI && wtMod > PI - theta) ? 0.98 * 2 * sinTerm : 0; 
     data.ie1.push({x: wt, y: ie1Val});
     data.ie2.push({x: wt, y: ie2Val});
