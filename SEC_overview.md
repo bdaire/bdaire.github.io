@@ -12,11 +12,12 @@ title: Research
 
     /* Curseur Vout plus large */
     #vout-slider {
-      width: 100%;        /* occupe toute la largeur du panneau gauche */
-      height: 16px;       /* rend le slider plus visible */
-      accent-color: #007bff; /* couleur du curseur */
-      border-radius: 8px; /* arrondi des bords */
+    width: 100%;        /* occupe toute la largeur du panneau gauche */
+    height: 16px;       /* rend le slider plus visible */
+    accent-color: #007bff; /* couleur du curseur */
+    border-radius: 8px; /* arrondi des bords */
     }
+
 
     #left-panel, #right-panel { display: flex; flex-direction: column; gap: 1rem; }
     #left-panel { width: 50%; }
@@ -31,21 +32,6 @@ title: Research
     /* Curseur Vout */
     #vout-container { margin-bottom: 1rem; text-align: center; }
     #vout-value { font-weight: bold; margin-left: 0.5rem; }
-
-    /* Légendes personnalisées */
-    .legend-line span {
-      display: inline-block;
-      margin: 0 0.5rem;
-      font-size: 0.9rem;
-      vertical-align: middle;
-    }
-    .legend-line span .legend-color {
-      width: 12px;
-      height: 12px;
-      display: inline-block;
-      margin-right: 0.3rem;
-      vertical-align: middle;
-    }
   </style>
 
   <div class="container">
@@ -62,10 +48,7 @@ title: Research
     <div id="right-panel">
       <div id="charts-container">
         <div class="chart-block"><canvas id="vs-chart"></canvas></div>
-        <div class="chart-block">
-          <canvas id="currents-chart"></canvas>
-          <div id="currents-legend" style="text-align:center; margin-top:0.5rem;"></div>
-        </div>
+        <div class="chart-block"><canvas id="currents-chart"></canvas></div>
       </div>
     </div>
   </div>
@@ -90,6 +73,7 @@ const chartParams = {
 const N_POINTS = 500;
 const VDC = 1; // Valeur fixe de VDC
 
+// Génération des données
 function generateData(theta) {
   const data = { vs1: [], vs2: [], ie1: [], ie2: [], is1: [], is2: [], ic1: [], ic2: [] };
   const i1 = 2 / (1 - Math.cos(theta));
@@ -100,25 +84,27 @@ function generateData(theta) {
     const wtMod = wt % (2 * PI);
     const sinTerm = Math.sin(wt);
 
+    // vs1
     let vs1Val = 0;
     if (wtMod > PI - theta && wtMod <= PI) vs1Val = -i1 * (Math.cos(theta) + Math.cos(wtMod));
     else if (wtMod > PI && wtMod <= 2 * PI - theta) vs1Val = 2;
     else if (wtMod > 2 * PI - theta) vs1Val = 2 + i1 * (Math.cos(theta) - Math.cos(wtMod));
     data.vs1.push({x: wt, y: 0.98 * vs1Val});
 
+    // vs2
     let vs2Val = 0;
     if (wtMod >= 0 && wtMod <= PI - theta) vs2Val = -i2 * (Math.cos(PI - theta) - Math.cos(wtMod));
     else if (wtMod > PI && wtMod < 2 * PI - theta) vs2Val = 2 + i2 * (Math.cos(wtMod) + Math.cos(PI - theta));
     else if (wtMod >= 2 * PI - theta) vs2Val = 2;
-    data.vs2.push({x: wt, y: 0.98 * vs2Val});
+    data.vs2.push({x: wt, y: -0.98 * vs2Val});
 
+    // Courants
     const ie1Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0;
     const ic1Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm : 0;
     const is1Val = (wtMod <= PI - theta) ? 0.98 * 2 * sinTerm : 0;
     const ie2Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm * (wtMod <= PI ? 1 : -1) : 0; 
     const ic2Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm : 0; 
     const is2Val = (wtMod <= PI && wtMod > PI - theta) ? 0.98 * 2 * sinTerm : 0; 
-
     data.ie1.push({x: wt, y: ie1Val});
     data.ie2.push({x: wt, y: ie2Val});
     data.ic1.push({x: wt, y: ic1Val});
@@ -130,6 +116,7 @@ function generateData(theta) {
   return data;
 }
 
+// Initialisation des graphiques
 function initCharts(theta) {
   const formatPi = val => {
     const n = val / PI;
@@ -182,39 +169,16 @@ function initCharts(theta) {
       responsive: true,
       maintainAspectRatio: false,
       animation: { duration: 100 },
-      plugins: { legend: { display: false } }, // on utilisera legend HTML
+      plugins: { legend: { display: true } },
       scales: {
         x: { type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'} },
         y: { min:-2, max:2, title:{display:true,text:'Current (a.u.)'} }
       }
     }
   });
-
-  generateCurrentsLegend();
 }
 
-// Génération de légende HTML sur deux lignes
-function generateCurrentsLegend() {
-  const line1Keys = ['is1','ie1','ic1'];
-  const line2Keys = ['is2','ie2','ic2'];
-
-  function createLegendLine(keys) {
-    return keys.map(key => {
-      const color = chartParams[key].color;
-      const label = chartParams[key].label;
-      return `<span>
-                <span class="legend-color" style="background-color:${color};"></span>
-                ${label}
-              </span>`;
-    }).join('');
-  }
-
-  document.getElementById('currents-legend').innerHTML =
-    `<div class="legend-line">${createLegendLine(line1Keys)}</div>
-     <div class="legend-line">${createLegendLine(line2Keys)}</div>`;
-}
-
-// Mise à jour des données
+// Mise à jour des données sans recréer les datasets
 function updateCharts(theta) {
   const data = generateData(theta);
 
@@ -249,4 +213,3 @@ voutSlider.addEventListener('input', ()=>{
   const theta = 2 * Math.atan(Math.sqrt(VDC / Vout));
   updateCharts(theta);
 });
-</script>
