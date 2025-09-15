@@ -38,7 +38,7 @@ title: Research
     #charts-container {
       display: flex;
       flex-direction: column;
-      height: 800px; /* <--- hauteur totale configurable ici */
+      height: 400px; /* <--- hauteur totale configurable ici */
       gap: 1rem;
     }
 
@@ -60,13 +60,11 @@ title: Research
       </object>
     </div>
 
-    <!-- Colonne droite : 4 graphiques -->
+    <!-- Colonne droite : 2 graphiques -->
     <div id="right-panel">
       <div id="charts-container">
         <div class="chart-block"><canvas id="waveform1"></canvas></div>
         <div class="chart-block"><canvas id="waveform2"></canvas></div>
-        <div class="chart-block"><canvas id="waveform3"></canvas></div>
-        <div class="chart-block"><canvas id="waveform4"></canvas></div>
       </div>
     </div>
   </div>
@@ -103,6 +101,4 @@ title: Research
   // Initialisation
   createWaveform('waveform1', 'V_s', 'blue');
   createWaveform('waveform2', 'I_s', 'red');
-  createWaveform('waveform3', 'V_c', 'green');
-  createWaveform('waveform4', 'I_c', 'orange');
 </script>
