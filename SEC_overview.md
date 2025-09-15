@@ -10,6 +10,15 @@ title: Research
     .interactive-body { font-size: 1rem; margin-top: 2rem; }
     .interactive-body .container { display: flex; gap: 2rem; align-items: flex-start; }
 
+    /* Curseur Vout plus large */
+    #vout-slider {
+    width: 100%;        /* occupe toute la largeur du panneau gauche */
+    height: 16px;       /* rend le slider plus visible */
+    accent-color: #007bff; /* couleur du curseur */
+    border-radius: 8px; /* arrondi des bords */
+    }
+
+
     #left-panel, #right-panel { display: flex; flex-direction: column; gap: 1rem; }
     #left-panel { width: 50%; }
     #right-panel { width: 50%; }
@@ -29,7 +38,7 @@ title: Research
     <div id="left-panel">
       <div id="vout-container">
         <label for="vout-slider">Vout / VDC = <span id="vout-value">1.0</span></label><br>
-        <input type="range" id="vout-slider" min="0.1" max="5" step="0.01" value="1">
+        <input type="range" id="vout-slider" min="0.1" max="10" step="0.01" value="1">
       </div>
       <object type="image/svg+xml" data="/assets/img/sec_circuit.svg">
         Votre navigateur ne supporte pas l’affichage du SVG.
@@ -201,6 +210,6 @@ voutSlider.addEventListener('input', ()=>{
   voutValueLabel.textContent = Vout.toFixed(2);
   localStorage.setItem('Vout', Vout);
 
-  const theta = 2 * Math.atan(VDC / Vout);
+  const theta = 2 * Math.atan(Math.sqrt(VDC / Vout));
   updateCharts(theta);
 });
