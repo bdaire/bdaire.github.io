@@ -9,10 +9,12 @@ title: Research
   <style>
     .interactive-body { font-size: 1rem; margin-top: 2rem; }
     .interactive-body .container { display: flex; gap: 2rem; align-items: flex-start; }
+
     #left-panel, #right-panel { display: flex; flex-direction: column; gap: 1rem; }
-    #left-panel { width: 50%; }
-    #right-panel { width: 50%; }
-    #left-panel svg, #left-panel object { width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; }
+    #left-panel { width: 40%; }
+    #right-panel { width: 60%; }
+
+    #left-panel object { width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; }
 
     #charts-container { display: flex; flex-direction: column; height: 400px; gap: 1rem; }
     #charts-container .chart-block { flex: 1; }
@@ -23,22 +25,24 @@ title: Research
     #theta-value { font-weight: bold; margin-left: 0.5rem; }
   </style>
 
-  <div id="left-panel">
-    <!-- Curseur theta au-dessus du SVG -->
-    <div id="theta-container">
-      <label for="theta-slider">θ = <span id="theta-value">0.5</span> rad</label><br>
-      <input type="range" id="theta-slider" min="0" max="3.14" step="0.01" value="0.5">
+  <div class="container">
+    <!-- Colonne gauche : slider + SVG -->
+    <div id="left-panel">
+      <div id="theta-container">
+        <label for="theta-slider">θ = <span id="theta-value">0.5</span> rad</label><br>
+        <input type="range" id="theta-slider" min="0" max="3.14" step="0.01" value="0.5">
+      </div>
+      <object type="image/svg+xml" data="/assets/img/sec_circuit.svg">
+        Votre navigateur ne supporte pas l’affichage du SVG.
+      </object>
     </div>
 
-    <object type="image/svg+xml" data="/assets/img/sec_circuit.svg">
-      Votre navigateur ne supporte pas l’affichage du SVG.
-    </object>
-  </div>
-
-  <div id="right-panel">
-    <div id="charts-container">
-      <div class="chart-block"><canvas id="vs-chart"></canvas></div>
-      <div class="chart-block"><canvas id="currents-chart"></canvas></div>
+    <!-- Colonne droite : graphiques -->
+    <div id="right-panel">
+      <div id="charts-container">
+        <div class="chart-block"><canvas id="vs-chart"></canvas></div>
+        <div class="chart-block"><canvas id="currents-chart"></canvas></div>
+      </div>
     </div>
   </div>
 </div>
@@ -46,33 +50,30 @@ title: Research
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 const PI = Math.PI;
-let charts = {}; // instances Chart.js
-let phi = 0;
-let iValue = 1;
+let charts = {};
+let iValue = 1; // courant nominal
 
-function plotCharts(res) {
+function plotCharts(theta) {
   const N = 1000;
-  const theta = res.theta;
-  const phi = res.phi || 0;
-  const i = res.i;
-
   const data = { vs: [], ie: [], is: [], ic: [] };
 
   for (let k = 0; k <= N; k++) {
     const wt = (k / N) * 4 * PI;
     const wtMod = wt % (2 * PI);
-    const sinTerm = Math.sin(wt + phi);
+    const sinTerm = Math.sin(wt);
 
+    // VS
     let vsVal = 0;
     if (wtMod > PI - theta && wtMod <= PI) {
-      vsVal = -i * (Math.cos(phi - theta) + Math.cos(wtMod + phi));
+      vsVal = -iValue * (1 + Math.cos(wtMod));
     } else if (wtMod > PI && wtMod <= 2 * PI - theta) {
       vsVal = 2;
     } else if (wtMod > 2 * PI - theta) {
-      vsVal = 2 + i * (Math.cos(phi - theta) - Math.cos(wtMod + phi));
+      vsVal = 2 + iValue * (1 - Math.cos(wtMod));
     }
     data.vs.push({ x: wt, y: 0.98 * vsVal });
 
+    // Courants
     data.ie.push({ x: wt, y: (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2 * PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0 });
     data.ic.push({ x: wt, y: (wtMod > PI - theta && wtMod <= PI || wtMod > 2 * PI - theta) ? sinTerm : 0 });
     data.is.push({ x: wt, y: (wtMod <= PI - theta) ? 0.98 * 2 * sinTerm : 0 });
@@ -91,7 +92,7 @@ function plotCharts(res) {
     return Math.abs(n - rounded) < 0.05 ? (rounded === 0 ? '0' : `${rounded === 1 ? '' : rounded}π`) : '';
   };
 
-  // Graphique vs
+  // Graphique VS
   if (!charts.vs) {
     charts.vs = new Chart(document.getElementById('vs-chart').getContext('2d'), {
       type: 'line',
@@ -143,15 +144,13 @@ function plotCharts(res) {
 }
 
 // Initial plot
-plotCharts({ theta: 0.5, phi: phi, i: iValue });
+plotCharts(0.5);
 
-// Slider interaction
+// Slider theta
 const thetaSlider = document.getElementById('theta-slider');
 const thetaValueLabel = document.getElementById('theta-value');
-
 thetaSlider.addEventListener('input', () => {
   const theta = parseFloat(thetaSlider.value);
   thetaValueLabel.textContent = theta.toFixed(2);
-  plotCharts({ theta: theta, phi: phi, i: iValue });
+  plotCharts(theta);
 });
-</script>
