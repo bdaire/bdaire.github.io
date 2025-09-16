@@ -36,6 +36,7 @@ title: Research
   <div class="container">
     <div id="left-panel">
       <div class="intro-text" style="margin-bottom: 1rem; font-size: 1rem; line-height: 1.5;">
+        <br><br>
         <p>
           1/ Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, 
           provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:
