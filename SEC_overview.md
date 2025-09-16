@@ -25,7 +25,7 @@ title: Research
 
     #left-panel object { width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; }
 
-    #charts-container { display: flex; flex-direction: column; height: 400px; gap: 1rem; }
+    #charts-container { display: flex; flex-direction: column; height: 350px; gap: 1rem; }
     #charts-container .chart-block { flex: 1; }
     #charts-container canvas { width: 100% !important; height: 100% !important; }
 
