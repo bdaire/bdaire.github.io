@@ -172,7 +172,7 @@ function initCharts(theta) {
       plugins: { legend: { display: true } },
       scales: {
         x: { type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'} },
-        y: { min:-2, max:2, title:{display:true,text:'Current (a.u.)'} }
+        y: { min:-2, max:2, title:{display:false} }
       }
     }
   });
