@@ -71,7 +71,7 @@ title: Research
   </table>
 </div>
 <br><br>
-<p>Note that the DC input voltage source was decoupled using two CKG57NX7R2E105M500JH ceramic capacitors and two CB037E0104KBA film capacitors. Similarly, the load was decoupled using two CKG57NX7R2E105M500JH ceramic capacitors and two CB047G0104JBC film capacitors.</p> 
+<p>Note that the DC input voltage source was decoupled using two CKG57NX7R2E105M500JH ceramic capacitors and two CB037E0104KBA film capacitors. Similarly, the load was decoupled using two CKG57NX7R2E105M500JH ceramic capacitors and two CB047G0104JBC film capacitors. (In a moment of desperation, we added 2 × 180 pF of 100B181JTN1000XC100 silicon RF capacitors at the output, as shown in the video, hoping to attenuate high-frequency disturbances—without any significant effect.) </p> 
 <br><br>
 <p>Two photos of the converter are shown below. It is worth noting that the setup presented here is exactly the same as the one used during the experiment and shown in the video below.</p>
 <br><br>
