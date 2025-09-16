@@ -19,7 +19,7 @@ title: Research
 
 <br><br><br><br>
 
-<p>Here, we aim to present an experiment that highlights the symmetry property of the class-EF inverter. To this end, we implement a class-EF inverter, as shown in Figure 1, operating at 15 MHz with a DC input voltage of \(V_{DC}=25\) V using the following components:</p>
+<p>Here, we aim to present an experiment that highlights the symmetry property of the class-EF inverter. To this end, we implement a class-EF inverter, as shown below, operating at 15 MHz with a DC input voltage of \(V_{DC}=25\) V using the following components:</p>
 <br><br>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 32px; margin: 20px 0;">
 <figure style="margin: 0; padding: 0; text-align: center;">
