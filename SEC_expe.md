@@ -64,7 +64,7 @@ title: Research
         <td style="border: 1px solid #aaa; padding: 8px 12px;">\(C_d\)</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">385 pF</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">
-          Junction capacitance of the diode (25 pF)<br>+ 360 pF
+          Junction capacitance of the diode (25 pF)<br>+ 2 x 100B181JTN1000XC100 (360 pF)
         </td>
       </tr>
     </tbody>
