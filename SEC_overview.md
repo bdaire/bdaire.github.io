@@ -5,6 +5,8 @@ title: Research
 
 <h2 style="text-align: center;">Symmetric Even Capacitive converter - The SEC converter</h2>
 
+<br><br><br><br>
+
 <div class="interactive-body">
   <style>
     .interactive-body { font-size: 1rem; margin-top: 2rem; }
