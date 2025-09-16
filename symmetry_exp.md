@@ -48,7 +48,7 @@ title: Research
       <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">\(C_1\)</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">470 pF</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">M100B471JT200XT</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">100B471JT200XT</td>
       </tr>  
       <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">Switch</td>
