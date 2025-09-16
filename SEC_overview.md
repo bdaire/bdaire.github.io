@@ -63,7 +63,7 @@ const chartParams = {
   vd: {label:'vd/Vout', color:'green'},
   ie1: {label:'ie1/I', color:'red'},
   ie2: {label:'ie2/I', color:'orange'},
-  is1: {label:'is1/I', color:'purple'},
+  is: {label:'is/I', color:'purple'},
   id: {label:'id/I', color:'pink'},
   ic1: {label:'ic1/I', color:'brown'},
   ic2: {label:'ic2/I', color:'cyan'}
@@ -75,7 +75,7 @@ const VDC = 1; // Valeur fixe de VDC
 
 // Génération des données
 function generateData(theta) {
-  const data = { vs: [], vd: [], ie1: [], ie2: [], is1: [], id: [], ic1: [], ic2: [] };
+  const data = { vs: [], vd: [], ie1: [], ie2: [], is: [], id: [], ic1: [], ic2: [] };
   const i1 = 2 / (1 - Math.cos(theta));
   const i2 = 2 / (1 - Math.cos(PI - theta));
 
@@ -101,7 +101,7 @@ function generateData(theta) {
     // Courants
     const ie1Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0;
     const ic1Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm : 0;
-    const is1Val = (wtMod <= PI - theta) ? 0.99 * 2 * sinTerm : 0;
+    const isVal = (wtMod <= PI - theta) ? 0.99 * 2 * sinTerm : 0;
     const ie2Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm * (wtMod <= PI ? 1 : -1) : 0; 
     const ic2Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm : 0; 
     const idVal = (wtMod <= PI && wtMod > PI - theta) ? 0.99 * 2 * sinTerm : 0; 
@@ -109,7 +109,7 @@ function generateData(theta) {
     data.ie2.push({x: wt, y: ie2Val});
     data.ic1.push({x: wt, y: ic1Val});
     data.ic2.push({x: wt, y: ic2Val});
-    data.is1.push({x: wt, y: is1Val});
+    data.is.push({x: wt, y: isVal});
     data.id.push({x: wt, y: idVal});
   }
 
@@ -151,7 +151,7 @@ function initCharts(theta) {
     }
   });
 
-  const currentsKeys = ['ic1','ie1','is1','ic2','ie2','id'];
+  const currentsKeys = ['ic1','ie1','is','ic2','ie2','id'];
   const currentsDatasets = currentsKeys.map(key => ({
     label: chartParams[key].label,
     data: data[key],
