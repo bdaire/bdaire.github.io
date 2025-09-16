@@ -47,9 +47,10 @@ title: Research
     </div>
 
   <!-- SVG -->
-  <object type="image/svg+xml" data="/assets/img/schema_SEC.svg">
-    Votre navigateur ne supporte pas l’affichage du SVG.
-  </object>
+<figure style="margin: 0; padding: 0; text-align: center;">
+  <img src="/assets/img/schema_SEC.svg" alt="Example_3_circuit" style="width: 30vw; max-width: 100%; height: auto;">
+  <figcaption style="margin-top: 8px;">Studied EF inverter</figcaption>
+</figure>
 
   <!-- Texte en dessous du SVG -->
   <div class="svg-text-bottom">
