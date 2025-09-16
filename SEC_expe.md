@@ -75,21 +75,15 @@ title: Research
 <br><br>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_1.svg" alt="pct_sym_1" style="width: 40vw;">
-    <figcaption style="margin-top: 8px;">A picture of the inverter</figcaption>
+    <img src="/assets/img/SEC/SEC_picture_1.svg" alt="pct_sec_1" style="width: 40vw;">
+    <figcaption style="margin-top: 8px;">A picture of the S𝔼C converter</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_2.svg" alt="pct_sym_2" style="width: 40vw;">
-    <figcaption style="margin-top: 8px;">An other picture of the inverter</figcaption>
+    <img src="/assets/img/SEC/SEC_picture_2.svg" alt="pct_sec_2" style="width: 40vw;">
+    <figcaption style="margin-top: 8px;">An picture of the S𝔼C converter during experiment</figcaption>
   </figure>
 </div>
 <br><br>
-<p>The inductor \(L+L_1\) consists of a single coil made from AWG16 wire. By compressing or stretching this coil, the inductance value \(L+L_1\) can be modified:</p>
-<ul style="margin-left: 30px;">
-  <li>Stretching the inductor decreases its value</li>
-  <li>Compressing it increases its value</li>
-</ul>
-<p>Assuming that the value of the downstream resistor \(R\) is independent of the inductance \(L+L_1\), compressing or stretching the inductor effectively shifts the operating point vertically along the chart. This allows for a direct observation of the symmetry property in action. The video below provides a detailed overview of the experiment.</p>
 
 <!-- Intégration vidéo responsive -->
 <div style="text-align: center; margin: 40px 0;">
