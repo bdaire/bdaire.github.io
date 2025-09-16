@@ -10,7 +10,6 @@ title: Research
     .interactive-body { font-size: 1rem; margin-top: 2rem; }
     .interactive-body .container { display: flex; gap: 2rem; align-items: flex-start; }
 
-    /* Curseur Vout plus large */
     #vout-slider {
       width: 100%;
       height: 16px;
@@ -28,9 +27,25 @@ title: Research
     #charts-container .chart-block { flex: 1; }
     #charts-container canvas { width: 100% !important; height: 100% !important; }
 
-    /* Curseur Vout */
     #vout-container { margin-bottom: 1rem; text-align: center; }
     #vout-value { font-weight: bold; margin-left: 0.5rem; }
+
+    .custom-legend {
+      text-align: left;
+      margin-top: 5px;
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .custom-legend-row { display: flex; gap: 10px; }
+    .custom-legend-box {
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      margin-right: 3px;
+      vertical-align: middle;
+    }
   </style>
 
   <div class="container">
@@ -46,8 +61,14 @@ title: Research
 
     <div id="right-panel">
       <div id="charts-container">
-        <div class="chart-block"><canvas id="vs-chart"></canvas></div>
-        <div class="chart-block"><canvas id="currents-chart"></canvas></div>
+        <div class="chart-block">
+          <canvas id="vs-chart"></canvas>
+          <div id="vs-legend" class="custom-legend"></div>
+        </div>
+        <div class="chart-block">
+          <canvas id="currents-chart"></canvas>
+          <div id="currents-legend" class="custom-legend"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -71,7 +92,6 @@ const chartParams = {
 const N_POINTS = 500;
 const VDC = 1;
 
-// Génération des données
 function generateData(theta) {
   const data = { vs: [], vd: [], ie1: [], ie2: [], is: [], id: [], ic1: [], ic2: [] };
   const i1 = 2 / (1 - Math.cos(theta));
@@ -107,23 +127,30 @@ function generateData(theta) {
     data.is.push({x: wt, y: isVal});
     data.id.push({x: wt, y: idVal});
   }
-
   return data;
 }
 
-// Fonction pour créer les légendes en 2 lignes tout en gardant les couleurs
-function generateTwoLineLabels(chart, splitIndex) {
-  const original = Chart.defaults.plugins.legend.labels.generateLabels;
-  const labels = original(chart);
-
-  const firstRow = labels.slice(0, splitIndex);
-  const secondRow = labels.slice(splitIndex);
-
-  // Retourner chaque élément séparément pour conserver les couleurs
-  return [...firstRow, ...secondRow];
+// Crée une légende HTML personnalisée
+function createCustomLegend(chart, containerId, split) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  const labels = chart.data.datasets.map(ds => ({label: ds.label, color: ds.borderColor}));
+  for (let i = 0; i < labels.length; i += split) {
+    const row = document.createElement('div');
+    row.className = 'custom-legend-row';
+    labels.slice(i, i + split).forEach(l => {
+      const item = document.createElement('div');
+      const colorBox = document.createElement('span');
+      colorBox.className = 'custom-legend-box';
+      colorBox.style.backgroundColor = l.color;
+      item.appendChild(colorBox);
+      item.appendChild(document.createTextNode(l.label));
+      row.appendChild(item);
+    });
+    container.appendChild(row);
+  }
 }
 
-// Initialisation des graphiques
 function initCharts(theta) {
   const formatPi = val => {
     const n = val / PI;
@@ -133,7 +160,6 @@ function initCharts(theta) {
 
   const data = generateData(theta);
 
-  // === Graphe VS ===
   const vsDatasets = ['vs','vd'].map(key => ({
     label: chartParams[key].label,
     data: data[key],
@@ -151,18 +177,7 @@ function initCharts(theta) {
       responsive: true,
       maintainAspectRatio: false,
       animation: { duration: 100 },
-      plugins: {
-        legend: {
-          display: true,
-          position: 'bottom',
-          align: 'start',
-          labels: {
-            boxWidth: 20,
-            padding: 10,
-            generateLabels: chart => generateTwoLineLabels(chart, 1) // 1+1 pour vs
-          }
-        }
-      },
+      plugins: { legend: { display: false } }, // Légende désactivée
       scales: {
         x: { type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'} },
         y: { min:-2, max:2, title:{display:false} }
@@ -170,7 +185,6 @@ function initCharts(theta) {
     }
   });
 
-  // === Graphe Courants ===
   const currentsKeys = ['ic1','ie1','is','ic2','ie2','id'];
   const currentsDatasets = currentsKeys.map(key => ({
     label: chartParams[key].label,
@@ -189,30 +203,21 @@ function initCharts(theta) {
       responsive: true,
       maintainAspectRatio: false,
       animation: { duration: 100 },
-      plugins: {
-        legend: {
-          display: true,
-          position: 'bottom',
-          align: 'start',
-          labels: {
-            boxWidth: 20,
-            padding: 10,
-            generateLabels: chart => generateTwoLineLabels(chart, 3) // 3+3 pour currents
-          }
-        }
-      },
+      plugins: { legend: { display: false } }, // Légende désactivée
       scales: {
         x: { type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'} },
         y: { min:-2, max:2, title:{display:false} }
       }
     }
   });
+
+  // Crée légendes HTML
+  createCustomLegend(charts.vs, 'vs-legend', 1);       // 1+1 pour vs
+  createCustomLegend(charts.currents, 'currents-legend', 3); // 3+3 pour courants
 }
 
-// Mise à jour des données
 function updateCharts(theta) {
   const data = generateData(theta);
-
   charts.vs.data.datasets.forEach(ds => {
     const key = Object.keys(chartParams).find(k => chartParams[k].label === ds.label);
     if (key) ds.data = data[key];
@@ -221,9 +226,11 @@ function updateCharts(theta) {
     const key = Object.keys(chartParams).find(k => chartParams[k].label === ds.label);
     if (key) ds.data = data[key];
   });
-
   charts.vs.update('none');
   charts.currents.update('none');
+  // Mise à jour légende HTML
+  createCustomLegend(charts.vs, 'vs-legend', 1);
+  createCustomLegend(charts.currents, 'currents-legend', 3);
 }
 
 // Slider Vout/VDC
@@ -240,7 +247,6 @@ voutSlider.addEventListener('input', ()=>{
   const Vout = parseFloat(voutSlider.value);
   voutValueLabel.textContent = Vout.toFixed(2);
   localStorage.setItem('Vout', Vout);
-
   const theta = 2 * Math.atan(Math.sqrt(VDC / Vout));
   updateCharts(theta);
 });
