@@ -12,12 +12,11 @@ title: Research
 
     /* Curseur Vout plus large */
     #vout-slider {
-    width: 100%;        /* occupe toute la largeur du panneau gauche */
-    height: 16px;       /* rend le slider plus visible */
-    accent-color: #007bff; /* couleur du curseur */
-    border-radius: 8px; /* arrondi des bords */
+      width: 100%;        /* occupe toute la largeur du panneau gauche */
+      height: 16px;       /* rend le slider plus visible */
+      accent-color: #007bff; /* couleur du curseur */
+      border-radius: 8px; /* arrondi des bords */
     }
-
 
     #left-panel, #right-panel { display: flex; flex-direction: column; gap: 1rem; }
     #left-panel { width: 50%; }
@@ -126,6 +125,7 @@ function initCharts(theta) {
 
   const data = generateData(theta);
 
+  // === Graphe VS ===
   const vsDatasets = ['vs','vd'].map(key => ({
     label: chartParams[key].label,
     data: data[key],
@@ -143,7 +143,27 @@ function initCharts(theta) {
       responsive: true,
       maintainAspectRatio: false,
       animation: { duration: 100 },
-      plugins: { legend: { display: true } },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'bottom',
+          align: 'start',
+          labels: {
+            boxWidth: 20,
+            padding: 10,
+            generateLabels: function(chart) {
+              const original = Chart.overrides.line.plugins.legend.labels.generateLabels;
+              const labels = original(chart);
+              const firstRow = labels.slice(0, 1);
+              const secondRow = labels.slice(1);
+              if (secondRow.length > 0) {
+                secondRow[0].text = '\n' + secondRow[0].text;
+              }
+              return [...firstRow, ...secondRow];
+            }
+          }
+        }
+      },
       scales: {
         x: { type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'} },
         y: { min:-2, max:2, title:{display:false} }
@@ -151,6 +171,7 @@ function initCharts(theta) {
     }
   });
 
+  // === Graphe Courants ===
   const currentsKeys = ['ic1','ie1','is','ic2','ie2','id'];
   const currentsDatasets = currentsKeys.map(key => ({
     label: chartParams[key].label,
@@ -169,7 +190,27 @@ function initCharts(theta) {
       responsive: true,
       maintainAspectRatio: false,
       animation: { duration: 100 },
-      plugins: { legend: { display: true } },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'bottom',
+          align: 'start',
+          labels: {
+            boxWidth: 20,
+            padding: 10,
+            generateLabels: function(chart) {
+              const original = Chart.overrides.line.plugins.legend.labels.generateLabels;
+              const labels = original(chart);
+              const firstRow = labels.slice(0, 3);
+              const secondRow = labels.slice(3);
+              if (secondRow.length > 0) {
+                secondRow[0].text = '\n' + secondRow[0].text;
+              }
+              return [...firstRow, ...secondRow];
+            }
+          }
+        }
+      },
       scales: {
         x: { type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'} },
         y: { min:-2, max:2, title:{display:false} }
@@ -213,3 +254,4 @@ voutSlider.addEventListener('input', ()=>{
   const theta = 2 * Math.atan(Math.sqrt(VDC / Vout));
   updateCharts(theta);
 });
+</script>
