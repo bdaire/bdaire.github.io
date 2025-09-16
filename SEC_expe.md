@@ -71,6 +71,8 @@ title: Research
   </table>
 </div>
 <br><br>
+<p>Note that the DC input voltage source was decoupled using two CKG57NX7R2E105M500JH ceramic capacitors and two CB037E0104KBA film capacitors. Similarly, the load was decoupled using two CKG57NX7R2E105M500JH ceramic capacitors and two CB047G0104JBC film capacitors.</p> 
+<br><br>
 <p>Two photos of the converter are shown below. It is worth noting that the setup presented here is exactly the same as the one used during the experiment and shown in the video below.</p>
 <br><br>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
