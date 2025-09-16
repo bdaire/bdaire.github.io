@@ -7,19 +7,18 @@ title: Research
 
 <br><br><br><br>
 
+<!-- Charger KaTeX -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body);"></script>
+
 <div class="interactive-body">
   <style>
     .interactive-body { font-size: 1rem; margin-top: 2rem; }
     .interactive-body .container { display: flex; gap: 2rem; align-items: flex-start; }
 
-    /* Curseur Vout plus large */
-    #vout-slider {
-    width: 100%;        /* occupe toute la largeur du panneau gauche */
-    height: 16px;       /* rend le slider plus visible */
-    accent-color: #007bff; /* couleur du curseur */
-    border-radius: 8px; /* arrondi des bords */
-    }
-
+    #vout-slider { width: 100%; height: 16px; accent-color: #007bff; border-radius: 8px; }
 
     #left-panel, #right-panel { display: flex; flex-direction: column; gap: 1rem; }
     #left-panel { width: 50%; }
@@ -31,61 +30,43 @@ title: Research
     #charts-container .chart-block { flex: 1; }
     #charts-container canvas { width: 100% !important; height: 100% !important; }
 
-    /* Curseur Vout */
     #vout-container { margin-bottom: 1rem; text-align: center; }
     #vout-value { font-weight: bold; margin-left: 0.5rem; }
   </style>
 
   <div class="container">
     <div id="left-panel">
-  
-  <!-- Texte explicatif numéroté -->
-  <div class="intro-text" style="margin-bottom: 1rem; font-size: 1rem; line-height: 1.5;">
-    <p>
-      1/ Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:
-    </p>
-    <p style="text-align: center;">
-      \[
-      D = \frac{V_{out}}{V_{DC}}
-      \]
-    </p>
+      <div class="intro-text" style="margin-bottom: 1rem; font-size: 1rem; line-height: 1.5;">
+        <p>
+          1/ Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, 
+          provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:
+        </p>
+        <p style="text-align: center;">D = \frac{V_{out}}{V_{DC}}</p>
 
-    <p>
-      2/ It inherently operates as a voltage-controlled current source, with the output power of the converter given by, which allows us to rewrite the output current as follows:
-    </p>
-    <p style="text-align: center;">
-      \[
-      P_{out} = V_{out} \cdot I_{out}
-      \]
-    </p>
-    <p style="text-align: center;">
-      \[
-      I_{out} = \frac{P_{out}}{V_{out}}
-      \]
-    </p>
-  </div>
+        <p>
+          2/ It inherently operates as a voltage-controlled current source, with the output power of the converter given by, 
+          which allows us to rewrite the output current as follows:
+        </p>
+        <p style="text-align: center;">P_{out} = V_{out} \cdot I_{out}</p>
+        <p style="text-align: center;">I_{out} = \frac{P_{out}}{V_{out}}</p>
+      </div>
 
+      <!-- curseur theta -->
+      <div id="vout-container">
+        <label for="vout-slider">Vout / VDC = <span id="vout-value">1.0</span></label><br>
+        <input type="range" id="vout-slider" min="0.01" max="10" step="0.01" value="1">
+      </div>
 
+      <!-- SVG -->
+      <figure style="margin: 0; padding: 0; text-align: center;">
+        <img src="/assets/img/SEC/schema_SEC.svg" alt="Example_3_circuit" style="width: 40vw; max-width: 100%; height: auto;">
+        <figcaption style="margin-top: 8px;">Electrical diagram of the SEC converter</figcaption>
+      </figure>
 
-
-
- <!-- curseur theta -->
-    <div id="vout-container">
-    <label for="vout-slider">Vout / VDC = <span id="vout-value">1.0</span></label><br>
-    <input type="range" id="vout-slider" min="0.01" max="10" step="0.01" value="1">
+      <div class="svg-text-bottom">
+        <p style="text-align: center;">Ce schéma illustre la topologie du convertisseur</p>
+      </div>
     </div>
-    
-  <!-- SVG -->
-<figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/SEC/schema_SEC.svg" alt="Example_3_circuit" style="width: 40vw; max-width: 100%; height: auto;">
-  <figcaption style="margin-top: 8px;">Electrical diagram of the SEC converter</figcaption>
-</figure>
-
-  <!-- Texte en dessous du SVG -->
-  <div class="svg-text-bottom">
-    <p style="text-align: center;">Ce schéma illustre la topologie du convertisseur</p>
-  </div>
-</div>
 
     <div id="right-panel">
       <div id="charts-container">
@@ -111,11 +92,9 @@ const chartParams = {
   ic2: {label:'ic2/I', color:'cyan'}
 };
 
-// Nombre de points réduit pour fluidité
 const N_POINTS = 500;
-const VDC = 1; // Valeur fixe de VDC
+const VDC = 1;
 
-// Génération des données
 function generateData(theta) {
   const data = { vs: [], vd: [], ie1: [], ie2: [], is: [], id: [], ic1: [], ic2: [] };
   const i1 = 2 / (1 - Math.cos(theta));
@@ -126,21 +105,18 @@ function generateData(theta) {
     const wtMod = wt % (2 * PI);
     const sinTerm = Math.sin(wt);
 
-    // vs
     let vsVal = 0;
     if (wtMod > PI - theta && wtMod <= PI) vsVal = -i1 * (Math.cos(theta) + Math.cos(wtMod));
     else if (wtMod > PI && wtMod <= 2 * PI - theta) vsVal = 2;
     else if (wtMod > 2 * PI - theta) vsVal = 2 + i1 * (Math.cos(theta) - Math.cos(wtMod));
     data.vs.push({x: wt, y: 0.99 * vsVal});
 
-    // vd
     let vdVal = 0;
     if (wtMod >= 0 && wtMod <= PI - theta) vdVal = -i2 * (Math.cos(PI - theta) - Math.cos(wtMod));
     else if (wtMod > PI && wtMod < 2 * PI - theta) vdVal = 2 + i2 * (Math.cos(wtMod) + Math.cos(PI - theta));
     else if (wtMod >= 2 * PI - theta) vdVal = 2;
     data.vd.push({x: wt, y: 0.99 * vdVal});
 
-    // Courants
     const ie1Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0;
     const ic1Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm : 0;
     const isVal = (wtMod <= PI - theta) ? 0.99 * 2 * sinTerm : 0;
@@ -158,7 +134,6 @@ function generateData(theta) {
   return data;
 }
 
-// Initialisation des graphiques
 function initCharts(theta) {
   const formatPi = val => {
     const n = val / PI;
@@ -220,7 +195,6 @@ function initCharts(theta) {
   });
 }
 
-// Mise à jour des données sans recréer les datasets
 function updateCharts(theta) {
   const data = generateData(theta);
 
@@ -237,7 +211,6 @@ function updateCharts(theta) {
   charts.currents.update('none');
 }
 
-// Slider Vout/VDC
 const voutSlider = document.getElementById('vout-slider');
 const voutValueLabel = document.getElementById('vout-value');
 let VoutInitial = parseFloat(localStorage.getItem('Vout') || '1.0');
@@ -255,3 +228,4 @@ voutSlider.addEventListener('input', ()=>{
   const theta = 2 * Math.atan(Math.sqrt(VDC / Vout));
   updateCharts(theta);
 });
+</script>
