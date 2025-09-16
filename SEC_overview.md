@@ -38,7 +38,7 @@ title: Research
       <div class="intro-text" style="margin-bottom: 1rem; font-size: 1rem; line-height: 1.5;">
         <br><br>
         <p>
-          The SEC converter is shown in the circuit diagram below
+          The Symmetric 𝔼ven Capacitive converter is shown in the circuit diagram below
         </p>
         <br><br>
         <p>
