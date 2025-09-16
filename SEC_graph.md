@@ -21,11 +21,15 @@ title: Research
     justify-content: center;
     align-items: center;
     margin: 40px 0;
-    background: #ccc; /* gris clair pour les bandes */
+    background: #ccc; /* gris clair pour les bandes latérales */
+    max-width: 1000px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .side-band {
-    flex: 0 0 80px; /* largeur réduite des bandes */
+    flex: 0 0 50px; /* largeur des bandes */
     background: #ccc;
   }
 
@@ -34,14 +38,15 @@ title: Research
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #222; /* fond foncé derrière la vidéo */
-    padding: 10px;
+    background: transparent; /* pas de fond foncé */
+    padding: 0; /* supprimer le padding */
   }
 
   video {
     height: 70vh;
     width: auto;
     max-width: 100%;
+    display: block; /* supprime les petits espaces inline */
   }
 
   figcaption {
@@ -63,17 +68,17 @@ title: Research
 
 <!-- Intégration vidéo avec bandes latérales -->
 <figure style="display:flex; flex-direction:column; align-items:center; margin:40px 0;">
-  <div class="video-container" style="display:flex; max-width:1000px; width:100%; background:#ccc;">
-    <div class="side-band" style="flex:0 0 50px; background:#ccc;"></div>
-    <div class="video-wrapper" style="flex:1; background:#222; display:flex; justify-content:center; align-items:center; padding:10px;">
-      <video controls style="height:70vh; width:auto; max-width:100%;" title="Graphical construction of the SEC converter">
+  <div class="video-container">
+    <div class="side-band"></div>
+    <div class="video-wrapper">
+      <video controls title="Graphical construction of the SEC converter">
         <source src="/assets/video/Symmetry_SEC.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>
-    <div class="side-band" style="flex:0 0 50px; background:#ccc;"></div>
+    <div class="side-band"></div>
   </div>
-  <figcaption style="text-align:center; margin-top:8px; font-size:0.95rem;">
+  <figcaption>
     Graphical construction of the SEC converter using the class EF inverter design chart
   </figcaption>
 </figure>
