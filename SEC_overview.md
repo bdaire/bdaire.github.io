@@ -36,19 +36,21 @@ title: Research
 
   <div class="container">
     <div id="left-panel">
-    <div id="vout-container">
-    <label for="vout-slider">Vout / VDC = <span id="vout-value">1.0</span></label><br>
-    <input type="range" id="vout-slider" min="0.01" max="10" step="0.01" value="1">
-    </div>
   
     <!-- Texte au-dessus du SVG -->
     <div class="svg-text-top">
       <p style="text-align: center;">Schéma du convertisseur SEC</p>
     </div>
 
+ <!-- curseur theta -->
+    <div id="vout-container">
+    <label for="vout-slider">Vout / VDC = <span id="vout-value">1.0</span></label><br>
+    <input type="range" id="vout-slider" min="0.01" max="10" step="0.01" value="1">
+    </div>
+    
   <!-- SVG -->
 <figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/SEC/schema_SEC.svg" alt="Example_3_circuit" style="width: 30vw; max-width: 100%; height: auto;">
+  <img src="/assets/img/SEC/schema_SEC.svg" alt="Example_3_circuit" style="width: 40vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">Studied EF inverter</figcaption>
 </figure>
 
