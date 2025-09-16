@@ -42,7 +42,7 @@ title: Research
         </p>
         <p style="text-align: center;">
 $$
-D = \frac{V_{out}}{V_{DC}}
+D = \frac{1}{\pi}\cdot\atan\left(\sqrt{\frac{V_{out}}{V_{DC}}}\right)
 $$
         </p>
 
