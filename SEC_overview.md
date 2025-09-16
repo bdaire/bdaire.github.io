@@ -36,14 +36,26 @@ title: Research
 
   <div class="container">
     <div id="left-panel">
-      <div id="vout-container">
-        <label for="vout-slider">Vout / VDC = <span id="vout-value">1.0</span></label><br>
-        <input type="range" id="vout-slider" min="0.01" max="10" step="0.01" value="1">
-      </div>
-      <object type="image/svg+xml" data="/assets/img/sec_circuit.svg">
-        Votre navigateur ne supporte pas l’affichage du SVG.
-      </object>
+    <div id="vout-container">
+    <label for="vout-slider">Vout / VDC = <span id="vout-value">1.0</span></label><br>
+    <input type="range" id="vout-slider" min="0.01" max="10" step="0.01" value="1">
     </div>
+  
+    <!-- Texte au-dessus du SVG -->
+    <div class="svg-text-top">
+      <p style="text-align: center;">Schéma du convertisseur SEC</p>
+    </div>
+
+  <!-- SVG -->
+  <object type="image/svg+xml" data="/assets/img/sec_circuit.svg">
+    Votre navigateur ne supporte pas l’affichage du SVG.
+  </object>
+
+  <!-- Texte en dessous du SVG -->
+  <div class="svg-text-bottom">
+    <p style="text-align: center;">Ce schéma illustre la topologie du convertisseur</p>
+  </div>
+</div>
 
     <div id="right-panel">
       <div id="charts-container">
