@@ -3,7 +3,7 @@ layout: default
 title: Research
 ---
 
-<h2 style="text-align: center;">Class EF inverter – Interactive Tool</h2>
+<h2 style="text-align: center;">Symmetric Even Capacitive converter - The SEC converter</h2>
 
 <div class="interactive-body">
   <style>
