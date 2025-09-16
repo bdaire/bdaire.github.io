@@ -75,7 +75,7 @@ title: Research
 <br><br>
 <p>In our case, and given the setup parameters, we can calculate the theoretical value of the DC output current as:</p>
 <p style="text-align: center;">
-  \[<i_{out}(\omega t)>=\frac{P}{V_{out}}=\frac{2}{\pi}\cdot\omega\cdot C_s\cdot V_{DC}=\frac{2}{\pi}\cdot2\pi\cdot 15e^6\cdot 385e^{-12}\cdot 25=0.58\text{ A}
+  \[<i_{out}(\omega t)>=\frac{2}{\pi}\cdot\omega\cdot C_s\cdot V_{DC}=\frac{2}{\pi}\cdot2\pi\cdot 15e^6\cdot 385e^{-12}\cdot 25=0.58\text{ A}
 \]
 </p>
 <p>Two photos of the converter are shown below. It is worth noting that the setup presented here is exactly the same as the one used during the experiment and shown in the video below.</p>
