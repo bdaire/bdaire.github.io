@@ -60,7 +60,7 @@ title: Research
       <!-- SVG -->
       <figure style="margin: 0; padding: 0; text-align: center;">
         <img src="/assets/img/SEC/schema_SEC.svg" alt="Example_3_circuit" style="width: 45vw; max-width: 100%; height: auto;">
-        <figcaption style="margin-top: 8px;">Electrical diagram of the SEC converter</figcaption>
+        <figcaption style="margin-top: 8px;">Electrical diagram of the S𝔼C converter</figcaption>
       </figure>
 
       <div class="svg-text-bottom">
