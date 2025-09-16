@@ -76,11 +76,11 @@ title: Research
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
   <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/SEC/SEC_picture_1.svg" alt="pct_sec_1" style="width: 40vw;">
-    <figcaption style="margin-top: 8px;">A picture of the S𝔼C converter</figcaption>
+    <figcaption style="margin-top: 8px;">A picture of the S𝔼C converter, with annotation</figcaption>
   </figure>
   <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/SEC/SEC_picture_2.svg" alt="pct_sec_2" style="width: 40vw;">
-    <figcaption style="margin-top: 8px;">An picture of the S𝔼C converter during experiment</figcaption>
+    <figcaption style="margin-top: 8px;">An other picture of the S𝔼C converter, during experiment</figcaption>
   </figure>
 </div>
 <br><br>
@@ -88,7 +88,7 @@ title: Research
 <!-- Intégration vidéo responsive -->
 <div style="text-align: center; margin: 40px 0;">
     <video controls style="width: 80vw; height: auto;">
-    <source src="/assets/video/symmetry.mp4" type="video/mp4">
+    <source src="/assets/video/SEC.mp4" type="video/mp4">
     Votre navigateur ne supporte pas la lecture de vidéo.
   </video>
   <p style="margin-top: 8px;">Video of the experiment</p>
