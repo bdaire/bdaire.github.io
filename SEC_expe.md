@@ -19,12 +19,12 @@ title: Research
 
 <br><br><br><br>
 
-<p>Ici nous souhaitons fournir une démonstration expérimentale d'un convertisseur SEC operating at 15 MHz with a DC input voltage of \(V_{DC}=25\) V using the following components. </p>
+<p>Here, we aim to provide an experimental demonstration of a Symmetric 𝔼ven Capacitive converter operating at 15 MHz with a DC input voltage of \(V_{DC}=25\) V using the components listed in the table below. </p>
 <br><br>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 32px; margin: 20px 0;">
 <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/EF_sym.svg" alt="circuit_EF" style="width: 35vw; max-width: 100%; height: auto;">
-    <figcaption style="margin-top: 8px;">Basic circuit of the class EF inverter</figcaption>
+    <img src="/assets/img/SEC_schema_epure.svg" alt="circuit_SEC" style="width: 35vw; max-width: 100%; height: auto;">
+    <figcaption style="margin-top: 8px;">Basic circuit of the S𝔼C converter</figcaption>
   </figure>
   <table style="border-collapse: collapse; border: 1px solid #aaa; text-align: center; transform: translateY(-32px);">
     <thead>
@@ -36,18 +36,13 @@ title: Research
     </thead>
     <tbody>
       <tr>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">\(L+L_1\)</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">??</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">\(L_1+1/\omega^2C_s\)</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">400 nH</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">homemade, AWG16 wire</td>
       </tr>
       <tr>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">\(R\)</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">5 \(\Omega\)</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">MP9100-5.00-1%</td>
-      </tr>
-      <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">\(C_1\)</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">470 pF</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">1000 pF</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">M100B471JT200XT</td>
       </tr>  
       <tr>
@@ -56,9 +51,19 @@ title: Research
         <td style="border: 1px solid #aaa; padding: 8px 12px;">GS61008B</td>
       </tr>
       <tr>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">Diode</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;"></td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">IDD06SG60CXTMA2</td>
+      </tr>
+      <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">\(C_s\)</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">385 pF</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">Parasitic capacitance of the switch</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">\(C_d\)</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">385 pF</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">Junction capacitance of the diode (25 pF) + 360 pF</td>
       </tr>
     </tbody>
   </table>
