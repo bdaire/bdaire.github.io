@@ -45,21 +45,18 @@ title: Research
       <li>
         Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:
         <div style="text-align: center; margin-top: 0.5rem; margin-bottom: 0.5rem;">
-          <script type="math/tex; mode=display">
-            D = \frac{V_{out}}{V_{DC}}
-          </script>
+          $$ D = \frac{V_{out}}{V_{DC}} $$
         </div>
       </li>
       <li>
         It inherently operates as a voltage-controlled current source, with the output power of the converter given by:
         <div style="text-align: center; margin-top: 0.5rem; margin-bottom: 0.5rem;">
-          <script type="math/tex; mode=display">
-            P_{out} = V_{out} \cdot I_{out}, \quad I_{out} = \frac{P_{out}}{V_{out}}
-          </script>
+          $$ P_{out} = V_{out} \cdot I_{out}, \quad I_{out} = \frac{P_{out}}{V_{out}} $$
         </div>
       </li>
     </ul>
   </div>
+
 
 
  <!-- curseur theta -->
