@@ -21,7 +21,7 @@ title: Research
 
 <!-- Intégration vidéo responsive -->
 <div style="text-align: center; margin: 40px 0;">
-    <video controls style="width: auto; height: 80 vh;">
+    <video controls style="width: auto; height: 60 vh;">
     <source src="/assets/video/Symmetry_SEC.mp4" type="video/mp4">
     Votre navigateur ne supporte pas la lecture de vidéo.
   </video>
