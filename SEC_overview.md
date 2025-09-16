@@ -3,7 +3,7 @@ layout: default
 title: Research
 ---
 
-<h2 style="text-align: center;">Symmetric Even Capacitive converter - The SEC converter</h2>
+<h2 style="text-align: center;">Symmetric 𝔼ven Capacitive converter - The SEC converter</h2>
 
 <br><br><br><br>
 
@@ -49,6 +49,7 @@ title: Research
           You can also uncheck certain quantities by clicking on the legends to make the plots easier to read 🤓
         </p>
       </div>
+      <br><br>
 
       <!-- curseur theta -->
       <div id="vout-container">
@@ -64,6 +65,9 @@ title: Research
 
       <div class="svg-text-bottom">
         <br><br>
+        <p>
+        The S𝔼C converter is a DC/DC converter with two main features:
+        </p>
         <p>
           1/ Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, 
           provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:
