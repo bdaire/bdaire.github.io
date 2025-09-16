@@ -23,7 +23,7 @@ title: Research
 <br><br>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 32px; margin: 20px 0;">
 <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/SEC/SEC_schema_epure.svg" alt="circuit_SEC" style="width: 35vw; max-width: 100%; height: auto;">
+    <img src="/assets/img/SEC/schema_sec_epure.svg" alt="circuit_SEC" style="width: 35vw; max-width: 100%; height: auto;">
     <figcaption style="margin-top: 8px;">Basic circuit of the S𝔼C converter</figcaption>
   </figure>
   <table style="border-collapse: collapse; border: 1px solid #aaa; text-align: center; transform: translateY(-32px);">
