@@ -19,7 +19,15 @@ title: Research
 
 <br><br><br><br>
 
-<p>Coming soon...</p>
+<!-- Intégration vidéo responsive -->
+<div style="text-align: center; margin: 40px 0;">
+    <video controls style="width: 80vw; height: auto;">
+    <source src="/assets/video/Symmetry_SEC.mp4" type="video/mp4">
+    Votre navigateur ne supporte pas la lecture de vidéo.
+  </video>
+  <p style="margin-top: 8px;">Graphical construction of the SEC converter using the class EF inverter design chart</p>
+</div>
+<br><br>
 
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
