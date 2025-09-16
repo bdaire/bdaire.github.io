@@ -59,12 +59,12 @@ title: Research
 const PI = Math.PI;
 let charts = {};
 const chartParams = {
-  vs1: {label:'vs1/VDC', color:'blue'},
-  vs2: {label:'vs2/Vout', color:'green'},
+  vs: {label:'vs/VDC', color:'blue'},
+  vd: {label:'vd/Vout', color:'green'},
   ie1: {label:'ie1/I', color:'red'},
   ie2: {label:'ie2/I', color:'orange'},
   is1: {label:'is1/I', color:'purple'},
-  is2: {label:'is2/I', color:'pink'},
+  id: {label:'id/I', color:'pink'},
   ic1: {label:'ic1/I', color:'brown'},
   ic2: {label:'ic2/I', color:'cyan'}
 };
@@ -75,7 +75,7 @@ const VDC = 1; // Valeur fixe de VDC
 
 // Génération des données
 function generateData(theta) {
-  const data = { vs1: [], vs2: [], ie1: [], ie2: [], is1: [], is2: [], ic1: [], ic2: [] };
+  const data = { vs: [], vd: [], ie1: [], ie2: [], is1: [], id: [], ic1: [], ic2: [] };
   const i1 = 2 / (1 - Math.cos(theta));
   const i2 = 2 / (1 - Math.cos(PI - theta));
 
@@ -84,19 +84,19 @@ function generateData(theta) {
     const wtMod = wt % (2 * PI);
     const sinTerm = Math.sin(wt);
 
-    // vs1
-    let vs1Val = 0;
-    if (wtMod > PI - theta && wtMod <= PI) vs1Val = -i1 * (Math.cos(theta) + Math.cos(wtMod));
-    else if (wtMod > PI && wtMod <= 2 * PI - theta) vs1Val = 2;
-    else if (wtMod > 2 * PI - theta) vs1Val = 2 + i1 * (Math.cos(theta) - Math.cos(wtMod));
-    data.vs1.push({x: wt, y: 0.98 * vs1Val});
+    // vs
+    let vsVal = 0;
+    if (wtMod > PI - theta && wtMod <= PI) vsVal = -i1 * (Math.cos(theta) + Math.cos(wtMod));
+    else if (wtMod > PI && wtMod <= 2 * PI - theta) vsVal = 2;
+    else if (wtMod > 2 * PI - theta) vsVal = 2 + i1 * (Math.cos(theta) - Math.cos(wtMod));
+    data.vs.push({x: wt, y: 0.98 * vsVal});
 
-    // vs2
-    let vs2Val = 0;
-    if (wtMod >= 0 && wtMod <= PI - theta) vs2Val = -i2 * (Math.cos(PI - theta) - Math.cos(wtMod));
-    else if (wtMod > PI && wtMod < 2 * PI - theta) vs2Val = 2 + i2 * (Math.cos(wtMod) + Math.cos(PI - theta));
-    else if (wtMod >= 2 * PI - theta) vs2Val = 2;
-    data.vs2.push({x: wt, y: 0.98 * vs2Val});
+    // vd
+    let vdVal = 0;
+    if (wtMod >= 0 && wtMod <= PI - theta) vdVal = -i2 * (Math.cos(PI - theta) - Math.cos(wtMod));
+    else if (wtMod > PI && wtMod < 2 * PI - theta) vdVal = 2 + i2 * (Math.cos(wtMod) + Math.cos(PI - theta));
+    else if (wtMod >= 2 * PI - theta) vdVal = 2;
+    data.vd.push({x: wt, y: 0.98 * vdVal});
 
     // Courants
     const ie1Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0;
@@ -104,13 +104,13 @@ function generateData(theta) {
     const is1Val = (wtMod <= PI - theta) ? 0.98 * 2 * sinTerm : 0;
     const ie2Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm * (wtMod <= PI ? 1 : -1) : 0; 
     const ic2Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm : 0; 
-    const is2Val = (wtMod <= PI && wtMod > PI - theta) ? 0.98 * 2 * sinTerm : 0; 
+    const idVal = (wtMod <= PI && wtMod > PI - theta) ? 0.98 * 2 * sinTerm : 0; 
     data.ie1.push({x: wt, y: ie1Val});
     data.ie2.push({x: wt, y: ie2Val});
     data.ic1.push({x: wt, y: ic1Val});
     data.ic2.push({x: wt, y: ic2Val});
     data.is1.push({x: wt, y: is1Val});
-    data.is2.push({x: wt, y: is2Val});
+    data.id.push({x: wt, y: idVal});
   }
 
   return data;
@@ -126,7 +126,7 @@ function initCharts(theta) {
 
   const data = generateData(theta);
 
-  const vsDatasets = ['vs1','vs2'].map(key => ({
+  const vsDatasets = ['vs','vd'].map(key => ({
     label: chartParams[key].label,
     data: data[key],
     borderColor: chartParams[key].color,
@@ -151,7 +151,7 @@ function initCharts(theta) {
     }
   });
 
-  const currentsKeys = ['ic1','ie1','is1','ic2','ie2','is2'];
+  const currentsKeys = ['ic1','ie1','is1','ic2','ie2','id'];
   const currentsDatasets = currentsKeys.map(key => ({
     label: chartParams[key].label,
     data: data[key],
