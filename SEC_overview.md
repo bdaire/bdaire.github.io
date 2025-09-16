@@ -152,7 +152,7 @@ function initCharts(theta) {
             boxWidth: 20,
             padding: 10,
             generateLabels: function(chart) {
-              const original = Chart.overrides.line.plugins.legend.labels.generateLabels;
+              const original = Chart.defaults.plugins.legend.labels.generateLabels;
               const labels = original(chart);
               const firstRow = labels.slice(0, 1);
               const secondRow = labels.slice(1);
@@ -199,7 +199,7 @@ function initCharts(theta) {
             boxWidth: 20,
             padding: 10,
             generateLabels: function(chart) {
-              const original = Chart.overrides.line.plugins.legend.labels.generateLabels;
+              const original = Chart.defaults.plugins.legend.labels.generateLabels;
               const labels = original(chart);
               const firstRow = labels.slice(0, 3);
               const secondRow = labels.slice(3);
