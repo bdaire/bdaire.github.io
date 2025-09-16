@@ -70,7 +70,25 @@ $$
       </figure>
 
       <div class="svg-text-bottom">
-        <p style="text-align: center;">Ce schéma illustre la topologie du convertisseur</p>
+        <br><br>
+        <p>
+          1/ Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, 
+          provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:
+        </p>
+        <p style="text-align: center;">
+$$
+D = \frac{1}{\pi}\cdot\arctan\left(\sqrt{\frac{V_{out}}{V_{DC}}}\right)
+$$
+        </p>
+
+        <p>
+          2/ It inherently operates as a voltage-controlled current source, with the output power of the converter given by:
+        </p>
+        <p style="text-align: center;">
+$$
+P = \frac{2}{\pi}\cdot\omega\cdot C_s\cdot V_{out} \cdot V_{DC}
+$$
+        </p>
       </div>
     </div>
 
