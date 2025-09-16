@@ -89,22 +89,22 @@ function generateData(theta) {
     if (wtMod > PI - theta && wtMod <= PI) vsVal = -i1 * (Math.cos(theta) + Math.cos(wtMod));
     else if (wtMod > PI && wtMod <= 2 * PI - theta) vsVal = 2;
     else if (wtMod > 2 * PI - theta) vsVal = 2 + i1 * (Math.cos(theta) - Math.cos(wtMod));
-    data.vs.push({x: wt, y: 0.98 * vsVal});
+    data.vs.push({x: wt, y: 0.99 * vsVal});
 
     // vd
     let vdVal = 0;
     if (wtMod >= 0 && wtMod <= PI - theta) vdVal = -i2 * (Math.cos(PI - theta) - Math.cos(wtMod));
     else if (wtMod > PI && wtMod < 2 * PI - theta) vdVal = 2 + i2 * (Math.cos(wtMod) + Math.cos(PI - theta));
     else if (wtMod >= 2 * PI - theta) vdVal = 2;
-    data.vd.push({x: wt, y: 0.98 * vdVal});
+    data.vd.push({x: wt, y: 0.99 * vdVal});
 
     // Courants
     const ie1Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0;
     const ic1Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm : 0;
-    const is1Val = (wtMod <= PI - theta) ? 0.98 * 2 * sinTerm : 0;
+    const is1Val = (wtMod <= PI - theta) ? 0.99 * 2 * sinTerm : 0;
     const ie2Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm * (wtMod <= PI ? 1 : -1) : 0; 
     const ic2Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm : 0; 
-    const idVal = (wtMod <= PI && wtMod > PI - theta) ? 0.98 * 2 * sinTerm : 0; 
+    const idVal = (wtMod <= PI && wtMod > PI - theta) ? 0.99 * 2 * sinTerm : 0; 
     data.ie1.push({x: wt, y: ie1Val});
     data.ie2.push({x: wt, y: ie2Val});
     data.ic1.push({x: wt, y: ic1Val});
