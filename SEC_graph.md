@@ -28,11 +28,14 @@ title: Research
 <br><br>
 
 <!-- Intégration vidéo responsive -->
-<div style="display: flex; justify-content: center; background: #222; padding: 0; margin: 40px 0;">
+<div style="display: flex; justify-content: center; background: #222; margin: 40px 0;">
+  <div style="flex: 0 0 200px; background: #222;"></div> <!-- bande gauche -->
+  
   <video controls style="height: 80vh; width: auto; max-width: 100%;">
     <source src="/assets/video/Symmetry_SEC.mp4" type="video/mp4">
-    Votre navigateur ne supporte pas la lecture de vidéo.
   </video>
+  
+  <div style="flex: 0 0 200px; background: #222;"></div> <!-- bande droite -->
   <p style="margin-top: 8px;">Graphical construction of the SEC converter using the class EF inverter design chart</p>
 </div>
 
