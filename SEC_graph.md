@@ -17,7 +17,14 @@ title: Research
   }
 </style>
 
-<br><br><br><br>
+<br><br>
+
+<p>The video below presents a graphical construction of the SEC converter using the EF-class inverter sizing chart. It focuses on three key points:</p>
+<ul style="margin-left: 30px;">
+  <li>Plotting the input impedance of the EF-class rectifier</li>
+  <li>Shifting this impedance upwards by adding a series inductor</li>
+  <li>Applying the symmetry property to express the power delivered by the converter</li>
+</ul>
 
 <!-- Intégration vidéo responsive -->
 <div style="text-align: center; margin: 40px 0;">
