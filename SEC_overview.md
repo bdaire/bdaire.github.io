@@ -10,12 +10,14 @@ title: Research
     .interactive-body { font-size: 1rem; margin-top: 2rem; }
     .interactive-body .container { display: flex; gap: 2rem; align-items: flex-start; }
 
+    /* Curseur Vout plus large */
     #vout-slider {
-      width: 100%;
-      height: 16px;
-      accent-color: #007bff;
-      border-radius: 8px;
+    width: 100%;        /* occupe toute la largeur du panneau gauche */
+    height: 16px;       /* rend le slider plus visible */
+    accent-color: #007bff; /* couleur du curseur */
+    border-radius: 8px; /* arrondi des bords */
     }
+
 
     #left-panel, #right-panel { display: flex; flex-direction: column; gap: 1rem; }
     #left-panel { width: 50%; }
@@ -23,43 +25,13 @@ title: Research
 
     #left-panel object { width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; }
 
-#charts-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem; /* espace entre les deux blocs */
-}
+    #charts-container { display: flex; flex-direction: column; height: 400px; gap: 1rem; }
+    #charts-container .chart-block { flex: 1; }
+    #charts-container canvas { width: 100% !important; height: 100% !important; }
 
-#charts-container .chart-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#charts-container canvas {
-  width: 100% !important;
-  max-height: 200px; /* chaque graphe a ~200px */
-}
-
-
+    /* Curseur Vout */
     #vout-container { margin-bottom: 1rem; text-align: center; }
     #vout-value { font-weight: bold; margin-left: 0.5rem; }
-
-    .custom-legend {
-      text-align: left;
-      margin-top: 5px;
-      font-size: 0.9rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .custom-legend-row { display: flex; gap: 10px; }
-    .custom-legend-box {
-      width: 12px;
-      height: 12px;
-      display: inline-block;
-      margin-right: 3px;
-      vertical-align: middle;
-    }
   </style>
 
   <div class="container">
@@ -75,14 +47,8 @@ title: Research
 
     <div id="right-panel">
       <div id="charts-container">
-        <div class="chart-block">
-          <canvas id="vs-chart"></canvas>
-          <div id="vs-legend" class="custom-legend"></div>
-        </div>
-        <div class="chart-block">
-          <canvas id="currents-chart"></canvas>
-          <div id="currents-legend" class="custom-legend"></div>
-        </div>
+        <div class="chart-block"><canvas id="vs-chart"></canvas></div>
+        <div class="chart-block"><canvas id="currents-chart"></canvas></div>
       </div>
     </div>
   </div>
@@ -103,9 +69,11 @@ const chartParams = {
   ic2: {label:'ic2/I', color:'cyan'}
 };
 
+// Nombre de points réduit pour fluidité
 const N_POINTS = 500;
-const VDC = 1;
+const VDC = 1; // Valeur fixe de VDC
 
+// Génération des données
 function generateData(theta) {
   const data = { vs: [], vd: [], ie1: [], ie2: [], is: [], id: [], ic1: [], ic2: [] };
   const i1 = 2 / (1 - Math.cos(theta));
@@ -116,18 +84,21 @@ function generateData(theta) {
     const wtMod = wt % (2 * PI);
     const sinTerm = Math.sin(wt);
 
+    // vs
     let vsVal = 0;
     if (wtMod > PI - theta && wtMod <= PI) vsVal = -i1 * (Math.cos(theta) + Math.cos(wtMod));
     else if (wtMod > PI && wtMod <= 2 * PI - theta) vsVal = 2;
     else if (wtMod > 2 * PI - theta) vsVal = 2 + i1 * (Math.cos(theta) - Math.cos(wtMod));
     data.vs.push({x: wt, y: 0.99 * vsVal});
 
+    // vd
     let vdVal = 0;
     if (wtMod >= 0 && wtMod <= PI - theta) vdVal = -i2 * (Math.cos(PI - theta) - Math.cos(wtMod));
     else if (wtMod > PI && wtMod < 2 * PI - theta) vdVal = 2 + i2 * (Math.cos(wtMod) + Math.cos(PI - theta));
     else if (wtMod >= 2 * PI - theta) vdVal = 2;
     data.vd.push({x: wt, y: 0.99 * vdVal});
 
+    // Courants
     const ie1Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0;
     const ic1Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm : 0;
     const isVal = (wtMod <= PI - theta) ? 0.99 * 2 * sinTerm : 0;
@@ -141,30 +112,11 @@ function generateData(theta) {
     data.is.push({x: wt, y: isVal});
     data.id.push({x: wt, y: idVal});
   }
+
   return data;
 }
 
-// Crée une légende HTML personnalisée
-function createCustomLegend(chart, containerId, split) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = '';
-  const labels = chart.data.datasets.map(ds => ({label: ds.label, color: ds.borderColor}));
-  for (let i = 0; i < labels.length; i += split) {
-    const row = document.createElement('div');
-    row.className = 'custom-legend-row';
-    labels.slice(i, i + split).forEach(l => {
-      const item = document.createElement('div');
-      const colorBox = document.createElement('span');
-      colorBox.className = 'custom-legend-box';
-      colorBox.style.backgroundColor = l.color;
-      item.appendChild(colorBox);
-      item.appendChild(document.createTextNode(l.label));
-      row.appendChild(item);
-    });
-    container.appendChild(row);
-  }
-}
-
+// Initialisation des graphiques
 function initCharts(theta) {
   const formatPi = val => {
     const n = val / PI;
@@ -182,7 +134,7 @@ function initCharts(theta) {
     pointRadius: 0,
     fill: false,
     tension: 0
-  }));
+  })).reverse();
 
   charts.vs = new Chart(document.getElementById('vs-chart').getContext('2d'), {
     type: 'line',
@@ -191,7 +143,7 @@ function initCharts(theta) {
       responsive: true,
       maintainAspectRatio: false,
       animation: { duration: 100 },
-      plugins: { legend: { display: false } }, // Légende désactivée
+      plugins: { legend: { display: true } },
       scales: {
         x: { type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'} },
         y: { min:-2, max:2, title:{display:false} }
@@ -217,21 +169,19 @@ function initCharts(theta) {
       responsive: true,
       maintainAspectRatio: false,
       animation: { duration: 100 },
-      plugins: { legend: { display: false } }, // Légende désactivée
+      plugins: { legend: { display: true } },
       scales: {
         x: { type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'} },
         y: { min:-2, max:2, title:{display:false} }
       }
     }
   });
-
-  // Crée légendes HTML
-  createCustomLegend(charts.vs, 'vs-legend', 1);       // 1+1 pour vs
-  createCustomLegend(charts.currents, 'currents-legend', 3); // 3+3 pour courants
 }
 
+// Mise à jour des données sans recréer les datasets
 function updateCharts(theta) {
   const data = generateData(theta);
+
   charts.vs.data.datasets.forEach(ds => {
     const key = Object.keys(chartParams).find(k => chartParams[k].label === ds.label);
     if (key) ds.data = data[key];
@@ -240,11 +190,9 @@ function updateCharts(theta) {
     const key = Object.keys(chartParams).find(k => chartParams[k].label === ds.label);
     if (key) ds.data = data[key];
   });
+
   charts.vs.update('none');
   charts.currents.update('none');
-  // Mise à jour légende HTML
-  createCustomLegend(charts.vs, 'vs-legend', 1);
-  createCustomLegend(charts.currents, 'currents-legend', 3);
 }
 
 // Slider Vout/VDC
@@ -261,7 +209,7 @@ voutSlider.addEventListener('input', ()=>{
   const Vout = parseFloat(voutSlider.value);
   voutValueLabel.textContent = Vout.toFixed(2);
   localStorage.setItem('Vout', Vout);
+
   const theta = 2 * Math.atan(Math.sqrt(VDC / Vout));
   updateCharts(theta);
 });
-</script>
