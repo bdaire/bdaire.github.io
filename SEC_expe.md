@@ -100,43 +100,6 @@ title: Research
   <p style="margin-top: 8px;">Video of the experiment</p>
 </div>
 <br><br>
-<p>Below are two annotated photos from our experiment, corresponding to operating points A and B:</p>
-<br><br>
-<div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
-  <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_opt_A.svg" alt="pct_sym_1" style="width: 40vw;">
-    <figcaption style="margin-top: 8px;">Screenshot of the experiment (operating point A)</figcaption>
-  </figure>
-  <figure style="margin: 0; padding: 0; text-align: center;">
-    <img src="/assets/img/picture/sym_opt_B.svg" alt="pct_sym_2" style="width: 40vw;">
-    <figcaption style="margin-top: 8px;">Screenshot of the experiment (operating point B)</figcaption>
-  </figure>
-</div>
-<br><br>
-<p>Using the information from these two images, we can illustrate three of the four equations related to the symmetry property. First, as clearly shown in the video, the load resistance \(R\), the circuit switching frequency \(F=15\) MHz, and the capacitance \(C_s=385\) pF remain unchanged. Therefore, the reduced resistance value is identical for operating points A and B, validating a first equation of our property of symmetry:</p>
-<p style="text-align: center;">
-  \[
-        r_A=r_B=R\cdot\omega\cdot C_s
-\]
-</p>
-<p>Secondly, the duty cycles for operating points A and B, determined by measuring the transistor conduction time, are 35.5 % and 16 %, respectively. This approximately validates a second equation of the property of symmetry:</p>
-<p style="text-align: center;">
-  \[
-        D_A+D_B=51.5\ \%\ \approx \frac{1}{2}
-\]
-</p>
-<p>Finally, the product of the two reduced powers \(p_a\) and \(p_B\) measured at operating points A and B is <b>approximately</b> equal to \((2/\pi)^2\), which roughly illustrates a third equation of our property of symmetry:</p>
-<p style="text-align: center;">
-  \[
-        p_A\cdot p_B=\left(\frac{P_A}{\omega\cdot C_s\cdot V_{DC}^2}\right)\cdot\left(\frac{P_B}{\omega\cdot C_s\cdot V_{DC}^2}\right)=0.63\approx\left(\frac{2}{\pi}\right)^2\ (=0.41)
-\]
-</p>
-<p>Why this discrepancy?</p>
-<ul style="margin-left: 30px;"> 
-        <li>The analytical developments related to the property of symmetry were carried out assuming unity efficiency.</li> 
-        <li>The equipment used to measure the power absorbed by the inverter is not highly precise.</li> 
-        <li>In practice, the resistance \(R\) of our circuit varies slightly when the geometry of the inductor is modified.</li> </ul>
-It should be noted, however, that the equations of this property have been validated through circuit simulations.
 
 <!-- ================================= -->
 <!-- MATHJAX LOADING FOR MATH -->
