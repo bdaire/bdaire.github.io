@@ -48,7 +48,7 @@ title: Research
 
   <!-- SVG -->
 <figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/schema_SEC.svg" alt="Example_3_circuit" style="width: 30vw; max-width: 100%; height: auto;">
+  <img src="/assets/img/SEC/schema_SEC.svg" alt="Example_3_circuit" style="width: 30vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">Studied EF inverter</figcaption>
 </figure>
 
