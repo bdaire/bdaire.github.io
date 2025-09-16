@@ -12,10 +12,10 @@ title: Research
 
     /* Curseur Vout plus large */
     #vout-slider {
-      width: 100%;        /* occupe toute la largeur du panneau gauche */
-      height: 16px;       /* rend le slider plus visible */
-      accent-color: #007bff; /* couleur du curseur */
-      border-radius: 8px; /* arrondi des bords */
+      width: 100%;
+      height: 16px;
+      accent-color: #007bff;
+      border-radius: 8px;
     }
 
     #left-panel, #right-panel { display: flex; flex-direction: column; gap: 1rem; }
@@ -68,9 +68,8 @@ const chartParams = {
   ic2: {label:'ic2/I', color:'cyan'}
 };
 
-// Nombre de points réduit pour fluidité
 const N_POINTS = 500;
-const VDC = 1; // Valeur fixe de VDC
+const VDC = 1;
 
 // Génération des données
 function generateData(theta) {
@@ -83,21 +82,18 @@ function generateData(theta) {
     const wtMod = wt % (2 * PI);
     const sinTerm = Math.sin(wt);
 
-    // vs
     let vsVal = 0;
     if (wtMod > PI - theta && wtMod <= PI) vsVal = -i1 * (Math.cos(theta) + Math.cos(wtMod));
     else if (wtMod > PI && wtMod <= 2 * PI - theta) vsVal = 2;
     else if (wtMod > 2 * PI - theta) vsVal = 2 + i1 * (Math.cos(theta) - Math.cos(wtMod));
     data.vs.push({x: wt, y: 0.99 * vsVal});
 
-    // vd
     let vdVal = 0;
     if (wtMod >= 0 && wtMod <= PI - theta) vdVal = -i2 * (Math.cos(PI - theta) - Math.cos(wtMod));
     else if (wtMod > PI && wtMod < 2 * PI - theta) vdVal = 2 + i2 * (Math.cos(wtMod) + Math.cos(PI - theta));
     else if (wtMod >= 2 * PI - theta) vdVal = 2;
     data.vd.push({x: wt, y: 0.99 * vdVal});
 
-    // Courants
     const ie1Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0;
     const ic1Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm : 0;
     const isVal = (wtMod <= PI - theta) ? 0.99 * 2 * sinTerm : 0;
@@ -113,6 +109,18 @@ function generateData(theta) {
   }
 
   return data;
+}
+
+// Fonction pour créer les légendes en 2 lignes tout en gardant les couleurs
+function generateTwoLineLabels(chart, splitIndex) {
+  const original = Chart.defaults.plugins.legend.labels.generateLabels;
+  const labels = original(chart);
+
+  const firstRow = labels.slice(0, splitIndex);
+  const secondRow = labels.slice(splitIndex);
+
+  // Retourner chaque élément séparément pour conserver les couleurs
+  return [...firstRow, ...secondRow];
 }
 
 // Initialisation des graphiques
@@ -134,7 +142,7 @@ function initCharts(theta) {
     pointRadius: 0,
     fill: false,
     tension: 0
-  })).reverse();
+  }));
 
   charts.vs = new Chart(document.getElementById('vs-chart').getContext('2d'), {
     type: 'line',
@@ -151,16 +159,7 @@ function initCharts(theta) {
           labels: {
             boxWidth: 20,
             padding: 10,
-            generateLabels: function(chart) {
-              const original = Chart.defaults.plugins.legend.labels.generateLabels;
-              const labels = original(chart);
-              const firstRow = labels.slice(0, 1);
-              const secondRow = labels.slice(1);
-              if (secondRow.length > 0) {
-                secondRow[0].text = '\n' + secondRow[0].text;
-              }
-              return [...firstRow, ...secondRow];
-            }
+            generateLabels: chart => generateTwoLineLabels(chart, 1) // 1+1 pour vs
           }
         }
       },
@@ -198,16 +197,7 @@ function initCharts(theta) {
           labels: {
             boxWidth: 20,
             padding: 10,
-            generateLabels: function(chart) {
-              const original = Chart.defaults.plugins.legend.labels.generateLabels;
-              const labels = original(chart);
-              const firstRow = labels.slice(0, 3);
-              const secondRow = labels.slice(3);
-              if (secondRow.length > 0) {
-                secondRow[0].text = '\n' + secondRow[0].text;
-              }
-              return [...firstRow, ...secondRow];
-            }
+            generateLabels: chart => generateTwoLineLabels(chart, 3) // 3+3 pour currents
           }
         }
       },
@@ -219,7 +209,7 @@ function initCharts(theta) {
   });
 }
 
-// Mise à jour des données sans recréer les datasets
+// Mise à jour des données
 function updateCharts(theta) {
   const data = generateData(theta);
 
