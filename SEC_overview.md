@@ -7,11 +7,10 @@ title: Research
 
 <br><br><br><br>
 
-<!-- Charger KaTeX -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body);"></script>
+<!-- Charger MathJax -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <div class="interactive-body">
   <style>
@@ -41,14 +40,26 @@ title: Research
           1/ Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, 
           provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:
         </p>
-        <p style="text-align: center;">D = \frac{V_{out}}{V_{DC}}</p>
+        <p style="text-align: center;">
+$$
+D = \frac{V_{out}}{V_{DC}}
+$$
+        </p>
 
         <p>
           2/ It inherently operates as a voltage-controlled current source, with the output power of the converter given by, 
           which allows us to rewrite the output current as follows:
         </p>
-        <p style="text-align: center;">P_{out} = V_{out} \cdot I_{out}</p>
-        <p style="text-align: center;">I_{out} = \frac{P_{out}}{V_{out}}</p>
+        <p style="text-align: center;">
+$$
+P_{out} = V_{out} \cdot I_{out}
+$$
+        </p>
+        <p style="text-align: center;">
+$$
+I_{out} = \frac{P_{out}}{V_{out}}
+$$
+        </p>
       </div>
 
       <!-- curseur theta -->
