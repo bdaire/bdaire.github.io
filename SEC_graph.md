@@ -62,18 +62,18 @@ title: Research
 <br><br>
 
 <!-- Intégration vidéo avec bandes latérales -->
-<figure>
-  <div class="video-container">
-    <div class="side-band"></div>
-    <div class="video-wrapper">
-      <video controls title="Graphical construction of the SEC converter">
+<figure style="display:flex; flex-direction:column; align-items:center; margin:40px 0;">
+  <div class="video-container" style="display:flex; max-width:1000px; width:100%; background:#ccc;">
+    <div class="side-band" style="flex:0 0 50px; background:#ccc;"></div>
+    <div class="video-wrapper" style="flex:1; background:#222; display:flex; justify-content:center; align-items:center; padding:10px;">
+      <video controls style="height:70vh; width:auto; max-width:100%;" title="Graphical construction of the SEC converter">
         <source src="/assets/video/Symmetry_SEC.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>
-    <div class="side-band"></div>
+    <div class="side-band" style="flex:0 0 50px; background:#ccc;"></div>
   </div>
-  <figcaption>
+  <figcaption style="text-align:center; margin-top:8px; font-size:0.95rem;">
     Graphical construction of the SEC converter using the class EF inverter design chart
   </figcaption>
 </figure>
