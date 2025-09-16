@@ -3,7 +3,8 @@ layout: default
 title: Research
 ---
 
-<h2>Symmetric 𝔼ven Capacitive converter - The S𝔼C converter</h2>
+<!-- Main title -->
+<h2 style="text-align: center;">Symmetric 𝔼ven Capacitive converter - The S𝔼C converter</h2>
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async
@@ -35,6 +36,8 @@ title: Research
     max-width: 800px;
   }
 </style>
+
+<br><br><br><br>
 
 <p>The video below presents a graphical construction of the SEC converter using the EF-class inverter sizing chart. It focuses on three key points:</p>
 <ul>
