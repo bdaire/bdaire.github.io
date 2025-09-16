@@ -3,7 +3,7 @@ layout: default
 title: Research
 ---
 
-<h2 style="text-align: center;">Symmetric 𝔼ven Capacitive converter - The S𝔼C converter</h2>
+<h2>Symmetric 𝔼ven Capacitive converter - The S𝔼C converter</h2>
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async
@@ -13,28 +13,26 @@ title: Research
 <style>
   body {
     font-size: 1rem;
-    text-align: center;
+    /* pas de text-align global */
   }
 
   video {
-    height: 80vh;   /* hauteur de la vidéo */
-    width: auto;    /* largeur automatique pour garder le ratio */
+    height: 80vh;    /* hauteur de la vidéo */
+    width: auto;     /* largeur automatique pour garder le ratio */
     max-width: 100%; /* s'adapte à l'écran */
     display: block;
-    margin: 0 auto; /* centrer horizontalement */
+    margin: 0 auto;  /* centre uniquement la vidéo */
   }
 
   figcaption {
-    text-align: center;
+    text-align: center; /* caption centré sous la vidéo seulement */
     margin-top: 8px;
     font-size: 0.95rem;
   }
 
   ul {
-    text-align: left;
-    margin: 20px auto;
+    margin-left: 30px;
     max-width: 800px;
-    padding-left: 30px;
   }
 </style>
 
