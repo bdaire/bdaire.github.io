@@ -47,7 +47,7 @@ title: Research
     </div>
 
   <!-- SVG -->
-  <object type="image/svg+xml" data="/assets/img/sec_circuit.svg">
+  <object type="image/svg+xml" data="/assets/img/schema_SEC.svg">
     Votre navigateur ne supporte pas l’affichage du SVG.
   </object>
 
