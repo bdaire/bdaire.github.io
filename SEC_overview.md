@@ -66,8 +66,9 @@ title: Research
       <div class="svg-text-bottom">
         <br><br>
         <p>
-        The S𝔼C converter is a DC/DC converter with two main features:
+        The Symmetric 𝔼ven Capacitive converter is a DC/DC converter with two main features:
         </p>
+        <br><br>
         <p>
           1/ Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, 
           provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:
