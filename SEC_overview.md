@@ -23,9 +23,23 @@ title: Research
 
     #left-panel object { width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; }
 
-    #charts-container { display: flex; flex-direction: column; height: 400px; gap: 1rem; }
-    #charts-container .chart-block { flex: 1; }
-    #charts-container canvas { width: 100% !important; height: 100% !important; }
+#charts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* espace entre les deux blocs */
+}
+
+#charts-container .chart-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#charts-container canvas {
+  width: 100% !important;
+  max-height: 200px; /* chaque graphe a ~200px */
+}
+
 
     #vout-container { margin-bottom: 1rem; text-align: center; }
     #vout-value { font-weight: bold; margin-left: 0.5rem; }
