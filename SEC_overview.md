@@ -17,7 +17,7 @@ title: Research
     .interactive-body { font-size: 1rem; margin-top: 2rem; }
     .interactive-body .container { display: flex; gap: 2rem; align-items: flex-start; }
 
-    #vout-slider { width: 100%; height: 16px; accent-color: #580e37; border-radius: 8px; }
+    #vout-slider { width: 100%; height: 16px; accent-color: #833d62; border-radius: 8px; }
 
     #left-panel, #right-panel { display: flex; flex-direction: column; gap: 1rem; }
     #left-panel { width: 50%; }
