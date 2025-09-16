@@ -37,21 +37,20 @@ title: Research
   <div class="container">
     <div id="left-panel">
   
-    <!-- Texte au-dessus du SVG -->
-      <div class="intro-text" style="margin-bottom: 1rem;">
-    <p>The SEC converter is a DC/DC converter with two main features:</p>
-    <ul>
-      <li>Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:</li>
+      <!-- Bloc texte en haut à gauche -->
+  <div class="intro-text" style="margin-bottom: 1rem;">
+    <ul style="padding-left: 1.2rem;">
       <li>
-        <p style="text-align: center;">\( D = \frac{V_{out}}{V_{DC}} \) </p>
+        Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:
+        <div style="text-align: center; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+          \[ D = \frac{V_{out}}{V_{DC}} \]
+        </div>
       </li>
-      <li>It inherently operates as a voltage-controlled current source, with the output power of the converter given by:</li>
       <li>
-        <p style="text-align: center;">\( P_{out} = V_{out} \cdot I_{out} \)</p>
-      </li>
-      <li>Which allows us to rewrite the output current as follows:</li>
-      <li>
-        <p style="text-align: center;">\( I_{out} = \frac{P_{out}}{V_{out}} \)</p>
+        It inherently operates as a voltage-controlled current source, with the output power of the converter given by:
+        <div style="text-align: center; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+          \[ P_{out} = V_{out} \cdot I_{out}, \quad I_{out} = \frac{P_{out}}{V_{out}} \]
+        </div>
       </li>
     </ul>
   </div>
