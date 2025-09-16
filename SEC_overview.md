@@ -47,8 +47,7 @@ $$
         </p>
 
         <p>
-          2/ It inherently operates as a voltage-controlled current source, with the output power of the converter given by, 
-          which allows us to rewrite the output current as follows:
+          2/ It inherently operates as a voltage-controlled current source, with the output power of the converter given by:
         </p>
         <p style="text-align: center;">
 $$
