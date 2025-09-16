@@ -39,9 +39,9 @@ title: Research
 
 <br><br><br><br>
 
-<p>The video below presents a graphical construction of the SEC converter using the EF-class inverter sizing chart. It focuses on three key points:</p>
+<p>The video below presents a graphical construction of the Symmetric 𝔼ven Capacitive converter using the class EF inverter design chart. It focuses on three key points:</p>
 <ul>
-  <li>Plotting the input impedance of the EF-class rectifier</li>
+  <li>Plotting the input impedance of the class EF rectifier</li>
   <li>Shifting this impedance upwards by adding a series inductor</li>
   <li>Applying the symmetry property to express the power delivered by the converter</li>
 </ul>
@@ -52,6 +52,6 @@ title: Research
     Your browser does not support the video tag.
   </video>
   <figcaption>
-    Graphical construction of the SEC converter using the class EF inverter design chart
+    Graphical construction of the S𝔼C converter using the class EF inverter design chart
   </figcaption>
 </figure>
