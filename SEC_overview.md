@@ -38,9 +38,23 @@ title: Research
     <div id="left-panel">
   
     <!-- Texte au-dessus du SVG -->
-    <div class="svg-text-top">
-      <p style="text-align: center;">Schéma du convertisseur SEC</p>
-    </div>
+      <div class="intro-text" style="margin-bottom: 1rem;">
+    <p>The SEC converter is a DC/DC converter with two main features:</p>
+    <ul>
+      <li>Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:</li>
+      <li>
+        <p style="text-align: center;">\( D = \frac{V_{out}}{V_{DC}} \) </p>
+      </li>
+      <li>It inherently operates as a voltage-controlled current source, with the output power of the converter given by:</li>
+      <li>
+        <p style="text-align: center;">\( P_{out} = V_{out} \cdot I_{out} \)</p>
+      </li>
+      <li>Which allows us to rewrite the output current as follows:</li>
+      <li>
+        <p style="text-align: center;">\( I_{out} = \frac{P_{out}}{V_{out}} \)</p>
+      </li>
+    </ul>
+  </div>
 
  <!-- curseur theta -->
     <div id="vout-container">
