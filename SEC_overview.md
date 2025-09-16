@@ -64,13 +64,13 @@ title: Research
       </figure>
 
       <div class="svg-text-bottom">
-        <br><br>
+        <br><br><br><br>
         <p>
         The Symmetric 𝔼ven Capacitive converter is a DC/DC converter with two main features:
         </p>
         <br><br>
         <p>
-          1/ Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, 
+          <b>1/ Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio</b>, 
           provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:
         </p>
         <p style="text-align: center;">
@@ -80,7 +80,7 @@ title: Research
         </p>
 
         <p>
-          2/ It inherently operates as a voltage-controlled current source, with the output power of the converter given by:
+          <b>2/ It inherently operates as a voltage-controlled current source</b>, with the output power of the converter given by:
         </p>
         <p style="text-align: center;">
           $$
