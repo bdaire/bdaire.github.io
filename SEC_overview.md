@@ -39,23 +39,24 @@ title: Research
   <div class="container">
     <div id="left-panel">
   
-  <!-- Bloc texte avec 2 bullets points uniquement -->
-  <div class="intro-text" style="margin-bottom: 1rem;">
-    <ul style="padding-left: 1.2rem;">
-      <li>Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:</li>
-      <li>It inherently operates as a voltage-controlled current source, with the output power of the converter given by, which allows us to rewrite the output current as follows:</li>
-    </ul>
-  </div>
+  <!-- Texte explicatif numéroté -->
+  <div class="intro-text" style="margin-bottom: 1rem; font-size: 1rem; line-height: 1.5;">
+    <p>
+      1/ Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:
+    </p>
+    <p style="text-align: center; margin: 0.5rem 0;">
+      $$ D = \frac{V_{out}}{V_{DC}} $$
+    </p>
 
-  <!-- Équations centrées et séparées -->
-  <div style="text-align: center; margin-bottom: 0.5rem;">
-    $$ D = \frac{V_{out}}{V_{DC}} $$
-  </div>
-  <div style="text-align: center; margin-bottom: 0.5rem;">
-    $$ P_{out} = V_{out} \cdot I_{out} $$
-  </div>
-  <div style="text-align: center; margin-bottom: 1rem;">
-    $$ I_{out} = \frac{P_{out}}{V_{out}} $$
+    <p>
+      2/ It inherently operates as a voltage-controlled current source, with the output power of the converter given by, which allows us to rewrite the output current as follows:
+    </p>
+    <p style="text-align: center; margin: 0.5rem 0;">
+      $$ P_{out} = V_{out} \cdot I_{out} $$
+    </p>
+    <p style="text-align: center; margin: 0.5rem 1rem;">
+      $$ I_{out} = \frac{P_{out}}{V_{out}} $$
+    </p>
   </div>
 
 
