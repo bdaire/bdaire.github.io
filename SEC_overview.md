@@ -38,22 +38,15 @@ title: Research
       <div class="intro-text" style="margin-bottom: 1rem; font-size: 1rem; line-height: 1.5;">
         <br><br>
         <p>
-          1/ Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio, 
-          provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:
+          The SEC converter is shown in the circuit diagram below
         </p>
-        <p style="text-align: center;">
-$$
-D = \frac{1}{\pi}\cdot\arctan\left(\sqrt{\frac{V_{out}}{V_{DC}}}\right)
-$$
-        </p>
-
+        <br><br>
         <p>
-          2/ It inherently operates as a voltage-controlled current source, with the output power of the converter given by:
+          Feel free to move the slider to set the Vout/VDC ratio and observe the corresponding waveforms in the timing diagrams on the right 👉👉👉
         </p>
-        <p style="text-align: center;">
-$$
-P = \frac{2}{\pi}\cdot\omega\cdot C_s\cdot V_{out} \cdot V_{DC}
-$$
+        <br><br>
+        <p>
+          You can also uncheck certain quantities by clicking on the legends to make the plots easier to read 🤓
         </p>
       </div>
 
@@ -76,18 +69,18 @@ $$
           provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:
         </p>
         <p style="text-align: center;">
-$$
-D = \frac{1}{\pi}\cdot\arctan\left(\sqrt{\frac{V_{out}}{V_{DC}}}\right)
-$$
+          $$
+          D = \frac{1}{\pi}\cdot\arctan\left(\sqrt{\frac{V_{out}}{V_{DC}}}\right)
+          $$
         </p>
 
         <p>
           2/ It inherently operates as a voltage-controlled current source, with the output power of the converter given by:
         </p>
         <p style="text-align: center;">
-$$
-P = \frac{2}{\pi}\cdot\omega\cdot C_s\cdot V_{out} \cdot V_{DC}
-$$
+          $$
+          P = \frac{2}{\pi}\cdot\omega\cdot C_s\cdot V_{out} \cdot V_{DC}
+          $$
         </p>
       </div>
     </div>
