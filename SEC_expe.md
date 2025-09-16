@@ -78,7 +78,6 @@ title: Research
   \[\frac{P}{V_{out}}=\frac{2}{\pi}\cdot\omega\cdot C_s\cdot V_{DC}=\frac{2}{\pi}\cdot2\pi\cdot 15e^6\cdot 385e^{-12}\cdot 25=0.58\text{ A}
 \]
 </p>
-<br><br>
 <p>Two photos of the converter are shown below. It is worth noting that the setup presented here is exactly the same as the one used during the experiment and shown in the video below.</p>
 <br><br>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 16px; margin: 20px 0;">
