@@ -3,7 +3,7 @@ layout: default
 title: Research
 ---
 
-<!-- Main title (Markdown or HTML possible) -->
+<!-- Main title -->
 <h2 style="text-align: center;">Symmetric 𝔼ven Capacitive converter - The S𝔼C converter</h2>
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -13,20 +13,40 @@ title: Research
 
 <style>
   body {
-    font-size: 1rem; /* or 18px, or 120% */
+    font-size: 1rem;
   }
-  figure {
+
+  .video-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    background: #222;
     margin: 40px 0;
-    padding: 20px;
+    background: #ccc; /* gris clair pour les bandes */
   }
+
+  .side-band {
+    flex: 0 0 80px; /* largeur réduite des bandes */
+    background: #ccc;
+  }
+
+  .video-wrapper {
+    flex: 0 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #222; /* fond foncé derrière la vidéo */
+    padding: 10px;
+  }
+
+  video {
+    height: 70vh;
+    width: auto;
+    max-width: 100%;
+  }
+
   figcaption {
     text-align: center;
     margin-top: 8px;
-    color: white;
     font-size: 0.95rem;
   }
 </style>
@@ -41,12 +61,18 @@ title: Research
 </ul>
 <br><br>
 
-<!-- Intégration vidéo accessible et sémantique -->
+<!-- Intégration vidéo avec bandes latérales -->
 <figure>
-  <video controls style="height: 80vh; width: auto; max-width: 100%;" title="Graphical construction of the SEC converter">
-    <source src="/assets/video/Symmetry_SEC.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <div class="video-container">
+    <div class="side-band"></div>
+    <div class="video-wrapper">
+      <video controls title="Graphical construction of the SEC converter">
+        <source src="/assets/video/Symmetry_SEC.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="side-band"></div>
+  </div>
   <figcaption>
     Graphical construction of the SEC converter using the class EF inverter design chart
   </figcaption>
