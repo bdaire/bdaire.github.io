@@ -42,7 +42,7 @@ title: Research
         </p>
         <p style="text-align: center;">
 $$
-D = \frac{1}{\pi}\cdot\atan\left(\sqrt{\frac{V_{out}}{V_{DC}}}\right)
+D = \frac{1}{\pi}\cdot\arctan\left(\sqrt{\frac{V_{out}}{V_{DC}}}\right)
 $$
         </p>
 
@@ -52,12 +52,7 @@ $$
         </p>
         <p style="text-align: center;">
 $$
-P_{out} = V_{out} \cdot I_{out}
-$$
-        </p>
-        <p style="text-align: center;">
-$$
-I_{out} = \frac{P_{out}}{V_{out}}
+P = \frac{2}{\pi}\cdot\omega\cdot C_s\cdot V_{out} \cdot V_{DC}
 $$
         </p>
       </div>
