@@ -51,7 +51,7 @@ title: Research
   <!-- SVG -->
 <figure style="margin: 0; padding: 0; text-align: center;">
   <img src="/assets/img/SEC/schema_SEC.svg" alt="Example_3_circuit" style="width: 40vw; max-width: 100%; height: auto;">
-  <figcaption style="margin-top: 8px;">Studied EF inverter</figcaption>
+  <figcaption style="margin-top: 8px;">Electrical diagram of the SEC converter</figcaption>
 </figure>
 
   <!-- Texte en dessous du SVG -->
