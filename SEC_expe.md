@@ -36,6 +36,16 @@ title: Research
     </thead>
     <tbody>
     <tr>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">Switch</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;"></td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">GS61008P</td>
+    </tr>
+    <tr>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">Diode</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;"></td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">IDD06SG60CXTMA2</td>
+    </tr>
+    <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">\(L_1+1/\omega^2C_s\)</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">400 nH</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">homemade, AWG16 wire</td>
@@ -57,17 +67,6 @@ title: Research
         <td style="border: 1px solid #aaa; padding: 8px 12px;">variable</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">325 Ω – 2 A sliding rheostat</td>
       </tr>  
-      <tr>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">Switch</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;"></td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">GS61008P</td>
-        </td>
-      </tr>
-      <tr>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">Diode</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;"></td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">IDD06SG60CXTMA2</td>
-      </tr>
       <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">\(C_s\)</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">385 pF</td>
