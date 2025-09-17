@@ -51,9 +51,7 @@ title: Research
   <div class="container">
     <div id="left-panel">
       <div class="intro-text" style="margin-bottom: 1rem; line-height: 1.5;">
-        <br><br>
-        <p>
-          The Symmetric 𝔼ven Capacitive converter is shown in the circuit diagram below
+        <p>The Symmetric 𝔼ven Capacitive converter is shown in the circuit diagram below
         </p>
         <br><br>
         <p>
