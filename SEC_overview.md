@@ -66,12 +66,14 @@ const chartParams = {
   is: {label:'is/I', color:'purple'},
   id: {label:'id/I', color:'pink'},
   ic1: {label:'ic1/I', color:'brown'},
-  ic2: {label:'ic2/I', color:'cyan'}1
+  ic2: {label:'ic2/I', color:'cyan'}
 };
 
+// Nombre de points réduit pour fluidité
 const N_POINTS = 500;
-const VDC = 1;
+const VDC = 1; // Valeur fixe de VDC
 
+// Génération des données
 function generateData(theta) {
   const data = { vs: [], vd: [], ie1: [], ie2: [], is: [], id: [], ic1: [], ic2: [] };
   const i1 = 2 / (1 - Math.cos(theta));
@@ -82,18 +84,21 @@ function generateData(theta) {
     const wtMod = wt % (2 * PI);
     const sinTerm = Math.sin(wt);
 
+    // vs
     let vsVal = 0;
     if (wtMod > PI - theta && wtMod <= PI) vsVal = -i1 * (Math.cos(theta) + Math.cos(wtMod));
     else if (wtMod > PI && wtMod <= 2 * PI - theta) vsVal = 2;
     else if (wtMod > 2 * PI - theta) vsVal = 2 + i1 * (Math.cos(theta) - Math.cos(wtMod));
     data.vs.push({x: wt, y: 0.99 * vsVal});
 
+    // vd
     let vdVal = 0;
     if (wtMod >= 0 && wtMod <= PI - theta) vdVal = -i2 * (Math.cos(PI - theta) - Math.cos(wtMod));
     else if (wtMod > PI && wtMod < 2 * PI - theta) vdVal = 2 + i2 * (Math.cos(wtMod) + Math.cos(PI - theta));
     else if (wtMod >= 2 * PI - theta) vdVal = 2;
     data.vd.push({x: wt, y: 0.99 * vdVal});
 
+    // Courants
     const ie1Val = (wtMod <= PI - theta || (wtMod > PI && wtMod <= 2*PI - theta)) ? sinTerm * (wtMod <= PI - theta ? 1 : -1) : 0;
     const ic1Val = (wtMod > PI - theta && wtMod <= PI || wtMod > 2*PI - theta) ? sinTerm : 0;
     const isVal = (wtMod <= PI - theta) ? 0.99 * 2 * sinTerm : 0;
@@ -111,6 +116,7 @@ function generateData(theta) {
   return data;
 }
 
+// Initialisation des graphiques
 function initCharts(theta) {
   const formatPi = val => {
     const n = val / PI;
@@ -172,6 +178,7 @@ function initCharts(theta) {
   });
 }
 
+// Mise à jour des données sans recréer les datasets
 function updateCharts(theta) {
   const data = generateData(theta);
 
@@ -188,6 +195,7 @@ function updateCharts(theta) {
   charts.currents.update('none');
 }
 
+// Slider Vout/VDC
 const voutSlider = document.getElementById('vout-slider');
 const voutValueLabel = document.getElementById('vout-value');
 let VoutInitial = parseFloat(localStorage.getItem('Vout') || '1.0');
@@ -205,4 +213,3 @@ voutSlider.addEventListener('input', ()=>{
   const theta = 2 * Math.atan(Math.sqrt(VDC / Vout));
   updateCharts(theta);
 });
-</script>
