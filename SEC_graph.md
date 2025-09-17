@@ -13,7 +13,7 @@ title: Research
 
 <style>
   body {
-    font-size: 1rem;
+    font-size: 20px;
     /* pas de text-align global */
   }
 
