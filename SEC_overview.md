@@ -14,24 +14,78 @@ title: Research
 
 <div class="interactive-body">
   <style>
-    .interactive-body { font-size: 1rem; margin-top: 2rem; }
-    .interactive-body .container { display: flex; gap: 2rem; align-items: flex-start; }
+  /* Texte principal de l'interactive-body */
+  .interactive-body {
+    font-size: 20px;       /* taille fixe à 20px */
+    line-height: 1.5;      /* pour une lecture confortable */
+    margin-top: 2rem;
+  }
 
-    #vout-slider { width: 100%; height: 16px; accent-color: #833d62; border-radius: 8px; }
+  /* Conteneur principal */
+  .interactive-body .container {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
 
-    #left-panel, #right-panel { display: flex; flex-direction: column; gap: 1rem; }
-    #left-panel { width: 50%; }
-    #right-panel { width: 50%; }
+  /* Sliders */
+  #vout-slider {
+    width: 100%;
+    height: 16px;
+    accent-color: #833d62;
+    border-radius: 8px;
+  }
 
-    #left-panel object { width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; }
+  /* Panneaux gauche/droite */
+  #left-panel, #right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  #left-panel { width: 50%; }
+  #right-panel { width: 50%; }
 
-    #charts-container { display: flex; flex-direction: column; height: 350px; gap: 1rem; }
-    #charts-container .chart-block { flex: 1; }
-    #charts-container canvas { width: 100% !important; height: 100% !important; }
+  /* Objet SVG */
+  #left-panel object {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
 
-    #vout-container { margin-bottom: 1rem; text-align: center; }
-    #vout-value { font-weight: bold; margin-left: 0.5rem; }
-  </style>
+  /* Graphiques */
+  #charts-container {
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    gap: 1rem;
+  }
+  #charts-container .chart-block { flex: 1; }
+  #charts-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Curseur Vout */
+  #vout-container {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  #vout-value {
+    font-weight: bold;
+    margin-left: 0.5rem;
+  }
+
+  /* Harmonisation des textes enfants */
+  .interactive-body p,
+  .interactive-body span,
+  .interactive-body label,
+  .interactive-body figcaption,
+  .interactive-body b,
+  .interactive-body strong {
+    font-size: inherit;   /* hérite de 20px */
+  }
+</style>
 
   <div class="container">
     <div id="left-panel">
@@ -111,7 +165,7 @@ const chartParams = {
   is: {label:'is/I', color:'purple'},
   id: {label:'id/I', color:'pink'},
   ic1: {label:'ic1/I', color:'brown'},
-  ic2: {label:'ic2/I', color:'cyan'}
+  ic2: {label:'ic2/I', color:'cyan'}1
 };
 
 const N_POINTS = 500;
