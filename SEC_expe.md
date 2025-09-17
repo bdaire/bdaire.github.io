@@ -46,10 +46,12 @@ title: Research
         <td style="border: 1px solid #aaa; padding: 8px 12px;">M100B471JT200XT</td>
       </tr>  
       <tr>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">\(C\)</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">2 µF + 0.2 µF</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">2 x CKG57NX7R2E105M500JH (ceramic)<br>2 x CB047G0104JBC (film)
-      </tr>  
+          <td style="border: 1px solid #aaa; padding: 8px 12px;">C</td>
+          <td colspan="2" style="border: 1px solid #aaa; padding: 8px 12px;">
+            2 x 1 µF CKG57NX7R2E105M500JH (ceramic)<br>
+            2 x 0.2 µF CB047G0104JBC (film)
+          </td>
+        </tr>
       <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">\(R\)</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">variable</td>
