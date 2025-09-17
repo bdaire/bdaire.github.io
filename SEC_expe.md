@@ -24,7 +24,7 @@ title: Research
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 32px; margin: 20px 0;">
 <figure style="margin: 0; padding: 0; text-align: center;">
     <img src="/assets/img/SEC/schema_sec_epure.svg" alt="circuit_SEC" style="width: 35vw; max-width: 100%; height: auto;">
-    <figcaption style="margin-top: 8px;">Basic circuit of the S𝔼C converter</figcaption>
+    <figcaption style="margin-top: 8px;">A S𝔼C converter with a resistive load</figcaption>
   </figure>
   <table style="border-collapse: collapse; border: 1px solid #aaa; text-align: center; transform: translateY(-32px);">
     <thead>
@@ -46,9 +46,20 @@ title: Research
         <td style="border: 1px solid #aaa; padding: 8px 12px;">M100B471JT200XT</td>
       </tr>  
       <tr>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">\(C\)</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">1000 pF</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">M100B471JT200XT</td>
+      </tr>  
+      <tr>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">\(R\)</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">variable</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">325 Ω – 2 A sliding rheostat</td>
+      </tr>  
+      <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">Switch</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;"></td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">GS61008B</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">2 µF + 0.2 µF</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">2 x CKG57NX7R2E105M500JH (ceramic)<br>2 x CB047G0104JBC (film)
+        </td>
       </tr>
       <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">Diode</td>
@@ -71,7 +82,7 @@ title: Research
   </table>
 </div>
 <br><br>
-<p>Note that the DC input voltage source was decoupled using two CKG57NX7R2E105M500JH ceramic capacitors and two CB037E0104KBA film capacitors. Similarly, the load was decoupled using two CKG57NX7R2E105M500JH ceramic capacitors and two CB047G0104JBC film capacitors. (In a moment of desperation, we added 2 × 180 pF of 100B181JTN1000XC100 silicon RF capacitors at the output, as shown in the video, hoping to attenuate high-frequency disturbances—without any significant effect.) </p> 
+<p>Note that the DC input voltage source was decoupled using two CKG57NX7R2E105M500JH ceramic capacitors and two CB037E0104KBA film capacitors. Similarly, the load was decoupled using two CKG57NX7R2E105M500JH ceramic capacitors and two CB047G0104JBC film capacitors (In a moment of desperation, we added 2 × 180 pF of 100B181JTN1000XC100 silicon RF capacitors at the output, as shown in the video, hoping to attenuate high-frequency disturbances—without any significant effect.) </p> 
 <br><br>
 <p>In our case, and given the setup parameters, we can calculate the theoretical value of the DC output current as:</p>
 <p style="text-align: center;">
