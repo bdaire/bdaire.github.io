@@ -3,7 +3,7 @@ layout: default
 title: Research
 ---
 
-<h2 style="text-align: center; font-size: 20px;">Symmetric 𝔼ven Capacitive converter - The S𝔼C converter</h2>
+<h2>Symmetric 𝔼ven Capacitive converter - The S𝔼C converter</h2>
 
 <br><br><br><br>
 
