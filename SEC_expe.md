@@ -35,7 +35,7 @@ title: Research
       </tr>
     </thead>
     <tbody>
-      <tr>
+    <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">\(L_1+1/\omega^2C_s\)</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">400 nH</td>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">homemade, AWG16 wire</td>
@@ -47,8 +47,8 @@ title: Research
       </tr>  
       <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">\(C\)</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">1000 pF</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">M100B471JT200XT</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">2 µF + 0.2 µF</td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">2 x CKG57NX7R2E105M500JH (ceramic)<br>2 x CB047G0104JBC (film)
       </tr>  
       <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">\(R\)</td>
@@ -57,8 +57,8 @@ title: Research
       </tr>  
       <tr>
         <td style="border: 1px solid #aaa; padding: 8px 12px;">Switch</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">2 µF + 0.2 µF</td>
-        <td style="border: 1px solid #aaa; padding: 8px 12px;">2 x CKG57NX7R2E105M500JH (ceramic)<br>2 x CB047G0104JBC (film)
+        <td style="border: 1px solid #aaa; padding: 8px 12px;"></td>
+        <td style="border: 1px solid #aaa; padding: 8px 12px;">GS61008P</td>
         </td>
       </tr>
       <tr>
