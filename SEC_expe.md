@@ -121,3 +121,4 @@ title: Research
 <script type="text/javascript" id="MathJax-script" async
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
+<p>The two figures below show the variation of the output current \(I_{out}\) as a function of the output voltage \(V_{out}\), as well as the variation of the duty cycle \(D\) of the control signal applied to the transistor, obtained by measuring its conduction time, also as a function of the output voltage \(V_{out}\). The theoretical variations of these two quantities, obtained through analytical modeling (see the “Overview” section), are included on the same graphs for comparison.</p>
