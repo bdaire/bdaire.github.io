@@ -19,7 +19,7 @@ title: Research
 
 <br><br><br><br>
 
-<p>Here, we aim to provide an experimental demonstration of a Symmetric 𝔼ven Capacitive converter operating at 15 MHz with a DC input voltage of \(V_{DC}=25\) V using the components listed in the table below. </p>
+<p>Here, we aim to provide an experimental demonstration of a Symmetric 𝔼ven Capacitive converter operating at 15 MHz with a DC input voltage of \(V_{DC}=25\) V using the components listed in the table below. The load consists of a variable resistor \(R_L\), assumed to be perfectly decoupled by a capacitor \(C\), such that the output voltage \(V_{out}\) across this load remains constant. </p>
 <br><br>
 <div style="display: flex; justify-content: center; align-items: flex-end; flex-wrap: nowrap; gap: 32px; margin: 20px 0;">
 <figure style="margin: 0; padding: 0; text-align: center;">
