@@ -14,6 +14,11 @@ title: Research
 
 <div class="interactive-body">
   <style>
+      body {
+    font-size: 20px;
+    /* pas de text-align global */
+  }
+
     /* Tout le texte en 20px */
     .interactive-body, 
     .interactive-body p, 
