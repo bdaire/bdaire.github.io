@@ -3,7 +3,7 @@ layout: default
 title: Research
 ---
 
-<h2 style="text-align: center;">Symmetric 𝔼ven Capacitive converter - The S𝔼C converter</h2>
+<h2 style="text-align: center; font-size: 20px;">Symmetric 𝔼ven Capacitive converter - The S𝔼C converter</h2>
 
 <br><br><br><br>
 
@@ -14,7 +14,17 @@ title: Research
 
 <div class="interactive-body">
   <style>
-    .interactive-body { font-size: 1rem; margin-top: 2rem; }
+    /* Tout le texte en 20px */
+    .interactive-body, 
+    .interactive-body p, 
+    .interactive-body label, 
+    .interactive-body figcaption, 
+    .interactive-body span, 
+    .interactive-body div {
+        font-size: 20px;
+    }
+
+    .interactive-body { margin-top: 2rem; }
     .interactive-body .container { display: flex; gap: 2rem; align-items: flex-start; }
 
     #vout-slider { width: 100%; height: 16px; accent-color: #833d62; border-radius: 8px; }
@@ -35,7 +45,7 @@ title: Research
 
   <div class="container">
     <div id="left-panel">
-      <div class="intro-text" style="margin-bottom: 1rem; font-size: 1rem; line-height: 1.5;">
+      <div class="intro-text" style="margin-bottom: 1rem; line-height: 1.5;">
         <br><br>
         <p>
           The Symmetric 𝔼ven Capacitive converter is shown in the circuit diagram below
@@ -182,9 +192,9 @@ function initCharts(theta) {
       responsive: true,
       maintainAspectRatio: false,
       animation: { duration: 100 },
-      plugins: { legend: { display: true } },
+      plugins: { legend: { display: true, labels: { font: { size: 20 } } } },
       scales: {
-        x: { type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'} },
+        x: { type:'linear', min:0, max:4*PI, ticks:{ stepSize:PI, callback:formatPi, font:{size:20} }, title:{ display:true, text:'ωt (rad)', font:{size:20} } },
         y: { min:-2, max:2, title:{display:false} }
       }
     }
@@ -208,9 +218,9 @@ function initCharts(theta) {
       responsive: true,
       maintainAspectRatio: false,
       animation: { duration: 100 },
-      plugins: { legend: { display: true } },
+      plugins: { legend: { display: true, labels: { font: { size: 20 } } } },
       scales: {
-        x: { type:'linear', min:0, max:4*PI, ticks:{stepSize:PI, callback:formatPi}, title:{display:true,text:'ωt (rad)'} },
+        x: { type:'linear', min:0, max:4*PI, ticks:{ stepSize:PI, callback:formatPi, font:{size:20} }, title:{ display:true, text:'ωt (rad)', font:{size:20} } },
         y: { min:-2, max:2, title:{display:false} }
       }
     }
