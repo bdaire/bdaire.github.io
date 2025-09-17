@@ -14,27 +14,27 @@ title: Research
 
 <div class="interactive-body">
   <style> 
-    .interactive-body { font-size: 1rem; margin-top: 2rem; } 
+    .interactive-body { font-size: 20px; margin-top: 2rem; } 
     .interactive-body .container { display: flex; gap: 2rem; align-items: flex-start; } 
     
     #vout-slider { width: 100%; height: 16px; accent-color: #833d62; border-radius: 8px; } 
     
-    #left-panel, #right-panel { display: flex; flex-direction: column; gap: 1rem; } 
+    #left-panel, #right-panel { display: flex; flex-direction: column; gap: 20px; } 
     #left-panel { width: 50%; } 
     #right-panel { width: 50%; } 
     
     #left-panel object { width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; } 
     
-    #charts-container { display: flex; flex-direction: column; height: 350px; gap: 1rem; } 
+    #charts-container { display: flex; flex-direction: column; height: 350px; gap: 20px; } 
     #charts-container .chart-block { flex: 1; } 
     #charts-container canvas { width: 100% !important; height: 100% !important; } 
     
-    #vout-container { margin-bottom: 1rem; text-align: center; } 
+    #vout-container { margin-bottom: 20px; text-align: center; } 
     #vout-value { font-weight: bold; margin-left: 0.5rem; } </style>
 
     <div class="container">
     <div id="left-panel">
-      <div class="intro-text" style="margin-bottom: 1rem; font-size: 1rem; line-height: 1.5;">
+      <div class="intro-text" style="margin-bottom: 1rem; font-size: 20px; line-height: 1.5;">
         <br><br>
         <p>
           The Symmetric 𝔼ven Capacitive converter is shown in the circuit diagram below
