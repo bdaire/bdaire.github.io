@@ -3,90 +3,46 @@ layout: default
 title: Research
 ---
 
-<h2 style="text-align: center;">Symmetric 𝔼ven Capacitive converter - The S𝔼C converter</h2>
-
-<br><br><br><br>
-
-<!-- Charger MathJax -->
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<h2 style="text-align: center;">Class EF inverter – Interactive Tool</h2>
 
 <div class="interactive-body">
-  <style> 
-    .interactive-body { font-size: 1rem; margin-top: 2rem; } 
-    .interactive-body .container { display: flex; gap: 2rem; align-items: flex-start; } 
-    
-    #vout-slider { width: 100%; height: 16px; accent-color: #833d62; border-radius: 8px; } 
-    
-    #left-panel, #right-panel { display: flex; flex-direction: column; gap: 1rem; } 
-    #left-panel { width: 50%; } 
-    #right-panel { width: 50%; } 
-    
-    #left-panel object { width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; } 
-    
-    #charts-container { display: flex; flex-direction: column; height: 350px; gap: 1rem; } 
-    #charts-container .chart-block { flex: 1; } 
-    #charts-container canvas { width: 100% !important; height: 100% !important; } 
-    
-    #vout-container { margin-bottom: 1rem; text-align: center; } 
-    #vout-value { font-weight: bold; margin-left: 0.5rem; } </style>
+  <style>
+    .interactive-body { font-size: 1rem; margin-top: 2rem; }
+    .interactive-body .container { display: flex; gap: 2rem; align-items: flex-start; }
 
-    <div class="container">
+    /* Curseur Vout plus large */
+    #vout-slider {
+    width: 100%;        /* occupe toute la largeur du panneau gauche */
+    height: 16px;       /* rend le slider plus visible */
+    accent-color: #007bff; /* couleur du curseur */
+    border-radius: 8px; /* arrondi des bords */
+    }
+
+
+    #left-panel, #right-panel { display: flex; flex-direction: column; gap: 1rem; }
+    #left-panel { width: 50%; }
+    #right-panel { width: 50%; }
+
+    #left-panel object { width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; }
+
+    #charts-container { display: flex; flex-direction: column; height: 400px; gap: 1rem; }
+    #charts-container .chart-block { flex: 1; }
+    #charts-container canvas { width: 100% !important; height: 100% !important; }
+
+    /* Curseur Vout */
+    #vout-container { margin-bottom: 1rem; text-align: center; }
+    #vout-value { font-weight: bold; margin-left: 0.5rem; }
+  </style>
+
+  <div class="container">
     <div id="left-panel">
-      <div class="intro-text" style="margin-bottom: 1rem; font-size: 1rem; line-height: 1.5;">
-        <br><br>
-        <p>
-          The Symmetric 𝔼ven Capacitive converter is shown in the circuit diagram below
-        </p>
-        <br><br>
-        <p>
-          Feel free to move the slider to set the Vout/VDC ratio and observe the corresponding waveforms in the timing diagrams on the right 👉👉👉
-        </p>
-        <br><br>
-        <p>
-          You can also uncheck certain quantities by clicking on the legends to make the plots easier to read 🤓
-        </p>
-      </div>
-      <br><br>
-
-      <!-- curseur theta -->
       <div id="vout-container">
         <label for="vout-slider">Vout / VDC = <span id="vout-value">1.0</span></label><br>
         <input type="range" id="vout-slider" min="0.01" max="10" step="0.01" value="1">
       </div>
-
-      <!-- SVG -->
-      <figure style="margin: 0; padding: 0; text-align: center;">
-        <img src="/assets/img/SEC/schema_SEC.svg" alt="Example_3_circuit" style="width: 45vw; max-width: 100%; height: auto;">
-        <figcaption style="margin-top: 8px;">Electrical diagram of the S𝔼C converter</figcaption>
-      </figure>
-
-      <div class="svg-text-bottom">
-        <br><br><br><br>
-        <p>
-        The Symmetric 𝔼ven Capacitive converter is a DC/DC converter with two main features:
-        </p>
-        <br><br>
-        <p>
-          <b>1/ Both the switch and the diode operate in ZVS and ZdVS/ZCS, regardless of the Vout/VDC ratio</b>, 
-          provided the duty cycle <strong>D</strong> of the control signal applied to the switch is adjusted according to the following equation:
-        </p>
-        <p style="text-align: center;">
-          $$
-          D = \frac{1}{\pi}\cdot\arctan\left(\sqrt{\frac{V_{out}}{V_{DC}}}\right)
-          $$
-        </p>
-
-        <p>
-          <b>2/ It inherently operates as a voltage-controlled current source</b>, with the output power of the converter given by:
-        </p>
-        <p style="text-align: center;">
-          $$
-          P = \frac{2}{\pi}\cdot\omega\cdot C_s\cdot V_{out} \cdot V_{DC}
-          $$
-        </p>
-      </div>
+      <object type="image/svg+xml" data="/assets/img/sec_circuit.svg">
+        Votre navigateur ne supporte pas l’affichage du SVG.
+      </object>
     </div>
 
     <div id="right-panel">
