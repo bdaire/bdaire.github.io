@@ -51,12 +51,7 @@ title: Research
   <div class="container">
     <div id="left-panel">
       <div class="intro-text" style="margin-bottom: 1rem; line-height: 1.5;">
-        <p>The Symmetric 𝔼ven Capacitive converter is shown in the circuit diagram below
-        </p>
-        <br><br>
-        <p>
-          Feel free to move the slider to set the Vout/VDC ratio and observe the corresponding waveforms in the timing diagrams on the right 👉👉👉
-        </p>
+        <p>The Symmetric 𝔼ven Capacitive converter is shown in the circuit diagram below. Feel free to move the slider to set the Vout/VDC ratio and observe the corresponding waveforms in the timing diagrams on the right 👉👉👉
         <br><br>
         <p>
           You can also uncheck certain quantities by clicking on the legends to make the plots easier to read 🤓
