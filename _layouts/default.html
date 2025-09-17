@@ -13,10 +13,17 @@
     html {
       overflow-y: scroll; /* Correction pour éviter le décalage */
     }
-    
-    body {
+
+    /* Taille globale dès le rendu */
+    html, body {
       font-family: Arial, sans-serif;
+      font-size: 20px;
       background: #f9f9f9;
+    }
+
+    /* Sidebar spécifique */
+    aside, aside * {
+      font-size: 20px !important;
     }
 
     header {
@@ -67,9 +74,19 @@
       padding: 20px;
       background: white;
     }
+
+    /* Interactive body spécifique aux pages avec contenu dynamique */
+    .interactive-body, 
+    .interactive-body p, 
+    .interactive-body label, 
+    .interactive-body figcaption, 
+    .interactive-body span, 
+    .interactive-body div {
+      font-size: 20px;
+    }
   </style>
 </head>
-<body>
+<body style="font-size:20px;">
   {% include header.html %}
 
   <nav class="topnav">
@@ -91,7 +108,5 @@
       {{ content }}
     </main>
   </div>
-
-
 </body>
 </html>
