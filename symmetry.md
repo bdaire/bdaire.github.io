@@ -35,7 +35,7 @@ title: Research
 <p>The figure below provides a graphical overview of the symmetry property.</p>
 <br><br>
 <figure style="margin: 0; padding: 0; text-align: center;">
-  <img src="/assets/img/SEC/symmetry_chart.svg" alt="SEC_symmetry_chart" style="width: 60vw; max-width: 100%; height: auto;">
+  <img src="/assets/img/SEC/symmetry_chart.svg" alt="SEC_symmetry_chart" style="width: 50vw; max-width: 100%; height: auto;">
   <figcaption style="margin-top: 8px;">A graphical overview of the property of symmetry</figcaption>
 </figure>
 <br><br>
