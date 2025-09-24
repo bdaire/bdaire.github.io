@@ -17,6 +17,18 @@ title: Research
   }
 </style>
 
+<style>
+  .no-shrink {
+    font-size: 20px;
+    -webkit-text-size-adjust: none; /* empêche Safari iOS de réduire */
+    text-size-adjust: none;         /* empêche Chrome Android de réduire */
+  }
+  .no-shrink mjx-container[jax="CHTML"] {
+    font-size: 1em !important; /* suit la taille du parent */
+  }
+</style>
+
+
 
 
 <br><br><br><br>
@@ -34,7 +46,7 @@ The class EF inverter design chart brings together all the key design equations 
   </figure>
 </div>
 
-<p>Using the chart is very simple as it relies on analyzing an operating point in a normalized impedance space (\(r,x\)) where:</p>
+<p class="no-shrink">Using the chart is very simple as it relies on analyzing an operating point in a normalized impedance space (\(r,x\)) where:</p>
 <p style="text-align: center;">
   \[
 \left\{
@@ -49,7 +61,7 @@ x &= X \cdot \omega C_s
 <p>Where \(\omega=2\pi F\) is the angular frequency associated with the inverter's switching frequency, \(C_s\) is the value of the capacitor placed in parallel with the circuit switch, and \(X=L\cdot\omega\) is the load reactance. In other words, it is possible to locate the inverter’s operating point knowing its load impedance normalized by the reactance associated with \(C_s\).
 </p>
 <br><br>
-<p>The chart is divided into two main regions:</p>
+<p class="no-shrink">The chart is divided into two main regions:</p>
 
 <ul style="margin-left: 30px;">
   <li>The ZVS region on the left, where the switch can operate only in ZVS (Zero Voltage Switching)</li>
