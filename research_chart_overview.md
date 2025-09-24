@@ -6,14 +6,7 @@ title: Research
 <!-- Main title (Markdown or HTML possible) -->
 <h2 style="text-align: center;">Class EF inverter design chart - Overview</h2>
 
-<!-- Empêche le zoom auto du texte sur mobile -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script>
-  window.MathJax = {
-    chtml: { scale: 1.0 } // garde la taille native des équations
-  };
-</script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
@@ -22,14 +15,8 @@ title: Research
 <style>
   body {
     font-size: 20px; /* taille globale du texte */
-    -webkit-text-size-adjust: 100%; /* empêche Safari iOS de réduire la police */
-    text-size-adjust: 100%; /* standard */
   }
 
-  /* Forcer la taille des équations */
-  mjx-container[jax="CHTML"] {
-    font-size: 20px !important; 
-  }
 </style>
 
 
