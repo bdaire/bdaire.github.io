@@ -112,13 +112,6 @@ title: Research
   </video>
   <p style="margin-top: 8px;">Video of the experiment</p>
 </div>
-
-<iframe width="560" height="315"
-        src="https://www.youtube.com/embed/oswQfYC_UPs&list=PLl2sWc6b-FQFUo5uGXvCbf926ro07mK-Q&index=1"
-        title="SEC"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></iframe>
 <br><br>
 
 <!-- ================================= -->
